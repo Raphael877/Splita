@@ -66,7 +66,7 @@ const SignUp = () => {
                     <div className='input_div'>
                         <input type={show ? 'text' : 'password'} placeholder='Password' />
                         <div className='icon' onClick={() => setShow(!show)}>
-                            {show ? <GoEyeClosed style={{cursor: 'pointer'}}/> : <GoEye style={{cursor: 'pointer'}}/>}
+                            {show ? <GoEye style={{cursor: 'pointer'}}/> : <GoEyeClosed style={{cursor: 'pointer'}}/>}
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ const SignUp = () => {
                     <div className='input_div'>
                         <input type={show2 ? 'text' : 'password'} placeholder='Password' />
                         <div className='icon' onClick={() => setShow2(!show2)}>
-                            {show2 ? <GoEyeClosed style={{cursor: 'pointer'}}/> : <GoEye style={{cursor: 'pointer'}}/>}
+                            {show2 ? <GoEye style={{cursor: 'pointer'}}/> : <GoEyeClosed style={{cursor: 'pointer'}}/>}
                         </div>
                     </div>
                 </div>
