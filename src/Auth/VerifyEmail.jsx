@@ -18,14 +18,12 @@ const VerifyEmail = () => {
             <form>
 
                 <div className='input_div'>
-            <input type="tel" inputMode="numeric" maxLength={1} />
-            <input type="tel" inputMode="numeric" maxLength={1} />
-            <input type="tel" inputMode="numeric" maxLength={1} />
-            <input type="tel" inputMode="numeric" maxLength={1} />
-            <input type="tel" inputMode="numeric" maxLength={1} />
-            <input type="tel" inputMode="numeric" maxLength={1} />
-
-                    
+                    <input type="tel" inputMode="numeric" maxLength={1} />
+                    <input type="tel" inputMode="numeric" maxLength={1} />
+                    <input type="tel" inputMode="numeric" maxLength={1} />
+                    <input type="tel" inputMode="numeric" maxLength={1} />
+                    <input type="tel" inputMode="numeric" maxLength={1} />
+                    <input type="tel" inputMode="numeric" maxLength={1} />
                 </div>
 
                 <button>Verify</button>

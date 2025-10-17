@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from "styled-components"
 import { MdOutlineEmail } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
+    const navigate = useNavigate()
   return (
     <ForgotPassword_content>
         <div className='circle_top_left'></div>
@@ -27,9 +29,9 @@ const ForgotPassword = () => {
                     </div>
                 </div>
 
-                <button>Send Instructions</button>
+                <button onClick={() => navigate('/forgotcheckemail')}>Send Instructions</button>
 
-                <p  style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}}>Go back</p>
+                <p style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}} onClick={() => navigate('/signin')}>Go back</p>
 
             </form>
         </ForgotPassword_wrapper>
@@ -153,6 +155,7 @@ const ForgotPassword_wrapper = styled.div`
             border-radius: 0.8rem;
             border: none;
             cursor: pointer;
+            margin-block: 1rem;
             &:hover{
                 background-color: #e79751;
                 transition: all 350ms ease-in-out;

@@ -7,8 +7,13 @@ import { MdLockOutline } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { GoEyeClosed } from "react-icons/go";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const navigate = useNavigate()
   return (
     <SignUp_content>
         <div className='circle_top_left'></div>
@@ -59,8 +64,10 @@ const SignUp = () => {
                         <p style={{color: '#3d3c3c'}}>Create a Password</p>
                     </div>
                     <div className='input_div'>
-                        <input type='password' placeholder='Password' />
-                        <GoEyeClosed style={{cursor: 'pointer'}}/>
+                        <input type={show ? 'text' : 'password'} placeholder='Password' />
+                        <div className='icon' onClick={() => setShow(!show)}>
+                            {show ? <GoEyeClosed style={{cursor: 'pointer'}}/> : <GoEye style={{cursor: 'pointer'}}/>}
+                        </div>
                     </div>
                 </div>
 
@@ -70,8 +77,10 @@ const SignUp = () => {
                         <p style={{color: '#3d3c3c'}}>Confirm Password</p>
                     </div>
                     <div className='input_div'>
-                        <input type='password' placeholder='Password' />
-                        <GoEyeClosed style={{cursor: 'pointer'}}/>
+                        <input type={show2 ? 'text' : 'password'} placeholder='Password' />
+                        <div className='icon' onClick={() => setShow2(!show2)}>
+                            {show2 ? <GoEyeClosed style={{cursor: 'pointer'}}/> : <GoEye style={{cursor: 'pointer'}}/>}
+                        </div>
                     </div>
                 </div>
                 
@@ -80,9 +89,9 @@ const SignUp = () => {
                     <p>I have read the <i style={{color: '#ff7900', cursor:'pointer'}}>Terms & Conditions</i> and i agree</p>
                 </div>
 
-                <button>Sign Up</button>
+                <button onClick={() => navigate('/verifyemail')}>Sign Up</button>
 
-                <p className='already'> Already have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}}>Sign in</span></p>
+                <p className='already'> Already have an account? <span style={{color: '#7b2cbf', cursor: 'pointer' }} onClick={() => navigate('/signin')}>Sign in</span></p>
             </form>
         </SignUp_wrapper>
     </SignUp_content>

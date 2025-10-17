@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from "styled-components"
+import { useNavigate } from 'react-router-dom';
 
 const ForgotCheckEmail = () => {
+    const navigate = useNavigate()
   return (
     <ForgotCheckEmail_content>
         <div className='circle_top_left'></div>
@@ -45,7 +47,7 @@ const ForgotCheckEmail = () => {
 
                 <button>Create New Password</button>
 
-                <p style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}}>Go Back</p>
+                <p style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}} onClick={() => navigate('/forgotpassword')}>Go Back</p>
 
             </form>
             

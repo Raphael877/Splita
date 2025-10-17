@@ -4,8 +4,12 @@ import { GoEye } from "react-icons/go";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdLockOutline } from "react-icons/md";
 import { GoEyeClosed } from "react-icons/go"; 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+    const [show, setShow] = useState(false);
+    const navigate = useNavigate()
   return (
     <SignIn_content>
         <div className='circle_top_left'></div>
@@ -37,16 +41,18 @@ const SignIn = () => {
                         <p style={{color: '#3d3c3c'}}>Password</p>
                     </div>
                     <div className='input_div'>
-                        <input type='password' placeholder='Enter your password' />
-                        <GoEyeClosed style={{cursor: 'pointer'}}/>
+                        <input type={show ? 'text' : "password"} placeholder='Enter your password' />
+                        <div className='icon' onClick={() => setShow(!show)}>
+                            {show ? <GoEyeClosed style={{cursor: 'pointer'}}/> : <GoEye style={{cursor: 'pointer'}}/>}
+                        </div>
                     </div>
                 </div>
 
-                <p style={{color: '#7b2cbf', cursor: 'pointer', marginBlock: '0.5rem'}}>Forgot Password?</p>
+                <p style={{color: '#7b2cbf', cursor: 'pointer', marginBlock: '0.5rem'}} onClick={() => navigate('/forgotpassword')}>Forgot Password?</p>
 
                 <button style={{cursor: 'pointer'}}>Sign In</button>
 
-                <p style={{textAlign: 'center'}}>Don't have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}}>Sign Up</span></p>
+                <p style={{textAlign: 'center'}}>Don't have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}} onClick={() => navigate('/')}>Sign Up</span></p>
 
             </form>
             
