@@ -4,6 +4,7 @@ import { GoEye } from "react-icons/go";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdLockOutline } from "react-icons/md";
 // import { LiaTimesSolid } from "react-icons/lia";
+import { GiHearts } from "react-icons/gi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { GoEyeClosed } from "react-icons/go";
@@ -24,7 +25,7 @@ const SignUp = () => {
             <h1 style={{letterSpacing: '1px'}}>Splita</h1>
         </div>
         <SignUp_wrapper>
-            <h1>Join the circle 💙 </h1>
+            <h1>Join the circle <GiHearts style={{color: '#9c6ad4'}}/> </h1>
             <p style={{color:'#888888'}}>Start your digital ajo journey and grow your money with Splita!</p>
             
             <form>
