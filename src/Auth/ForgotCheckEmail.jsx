@@ -70,7 +70,7 @@ const ForgotCheckEmail_content = styled.div`
     overflow: hidden;
 
     @media (max-width: 768px) {
-        height: 100vh;
+        height: auto;
     }
 
     .circle_top_left{
