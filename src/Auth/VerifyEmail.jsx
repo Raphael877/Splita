@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
 
 const VerifyEmail = () => {
+    const navigate = useNavigate()
   return (
     <VerifyEmail_content>
         <div className='circle_top_left'></div>
@@ -26,7 +28,7 @@ const VerifyEmail = () => {
                     <input type="tel" inputMode="numeric" maxLength={1} />
                 </div>
 
-                <button>Verify</button>
+                <button onClick={() => navigate('/signin')}>Verify</button>
 
                 <p style={{textAlign: 'center'}}>Didn't receive the code? <span style={{color: '#7b2cbf', cursor: 'pointer'}}>Resend (55s)</span></p>
                 
@@ -94,6 +96,7 @@ const VerifyEmail_content = styled.div`
         color: #240046;
         top: 3%;
         left: 10%;
+        z-index: 1;
     }
 `
 
@@ -105,6 +108,11 @@ const VerifyEmail_wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 1;
+
+  @media (max-width: 1024px) and (min-width: 768px) {
+    width: 85%;
+  }
 
     form{
         width: 100%;

@@ -139,6 +139,10 @@ const SignUp_content = styled.div`
   position: relative;
   overflow: hidden;
 
+  @media (max-width: 1024px) and (min-width: 768px) {
+    height: 150vh;
+  }
+
   .circle_top_left {
     position: absolute;
     border-radius: 50%;
@@ -184,6 +188,7 @@ const SignUp_content = styled.div`
     color: #240046;
     top: 3%;
     left: 10%;
+    z-index: 1;
   }
 `;
 
@@ -191,6 +196,12 @@ const SignUp_wrapper = styled.div`
   width: 45%;
   height: 100%;
   padding-top: 4rem;
+  z-index: 1;
+
+  @media (max-width: 1024px) and (min-width: 768px) {
+    width: 85%;
+    padding-top: 8rem;
+  }
 
   form {
     width: 100%;

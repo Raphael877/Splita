@@ -97,6 +97,7 @@ const ForgotPassword_content = styled.div`
         color: #240046;
         top: 3%;
         left: 10%;
+        z-index: 1;
     }
 `
 
@@ -108,6 +109,11 @@ const ForgotPassword_wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 1;
+
+  @media (max-width: 1024px) and (min-width: 768px) {
+    width: 85%;
+  }
 
     form{
         width: 100%;
