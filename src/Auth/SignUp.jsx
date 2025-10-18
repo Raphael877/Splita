@@ -143,6 +143,10 @@ const SignUp_content = styled.div`
     height: 150vh;
   }
 
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
   .circle_top_left {
     position: absolute;
     border-radius: 50%;
@@ -151,6 +155,10 @@ const SignUp_content = styled.div`
     height: 20rem;
     top: -28%;
     left: -17%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_top_right {
@@ -161,6 +169,10 @@ const SignUp_content = styled.div`
     height: 3rem;
     top: 10%;
     right: 0.5%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_mid_left {
@@ -171,6 +183,10 @@ const SignUp_content = styled.div`
     height: 3rem;
     top: 45%;
     left: 0.5%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_down_right {
@@ -181,6 +197,10 @@ const SignUp_content = styled.div`
     height: 20rem;
     bottom: -28%;
     right: -17%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .brand_name {
@@ -189,6 +209,11 @@ const SignUp_content = styled.div`
     top: 3%;
     left: 10%;
     z-index: 1;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      left: 7%;
+    }
   }
 `;
 
@@ -201,6 +226,18 @@ const SignUp_wrapper = styled.div`
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
     padding-top: 8rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 85%;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+
+  h1{
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 
   form {

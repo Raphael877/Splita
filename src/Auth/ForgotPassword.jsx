@@ -52,6 +52,10 @@ const ForgotPassword_content = styled.div`
     position: relative;
     overflow: hidden;
 
+    @media (max-width: 768px) {
+        height: 100vh;
+    }
+
     .circle_top_left{
         position: absolute;
         border-radius: 50%;
@@ -60,6 +64,10 @@ const ForgotPassword_content = styled.div`
         height: 20rem;
         top: -28%;
         left: -17%;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     .circle_top_right{
@@ -70,6 +78,10 @@ const ForgotPassword_content = styled.div`
         height: 3rem;
         top: 10%;
         right: 0.5%;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     .circle_mid_left{
@@ -80,6 +92,10 @@ const ForgotPassword_content = styled.div`
         height: 3rem;
         top: 60%;
         left: 0.5%;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     .circle_down_right{
@@ -90,6 +106,10 @@ const ForgotPassword_content = styled.div`
         height: 20rem;
         bottom: -28%;
         right: -17%;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     .brand_name{
@@ -98,6 +118,11 @@ const ForgotPassword_content = styled.div`
         top: 3%;
         left: 10%;
         z-index: 1;
+
+        @media (max-width: 768px) {
+            font-size: 1rem;
+            left: 7%;
+        }
     }
 `
 
@@ -113,6 +138,16 @@ const ForgotPassword_wrapper = styled.div`
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
+  }
+
+  @media (max-width: 768px) {
+    width: 85%;
+  }
+
+  h1{
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 
     form{
