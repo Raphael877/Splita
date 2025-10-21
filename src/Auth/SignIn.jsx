@@ -50,7 +50,7 @@ const SignIn = () => {
 
                 <p style={{color: '#7b2cbf', cursor: 'pointer', marginBlock: '0.5rem'}} onClick={() => navigate('/forgotpassword')}>Forgot Password?</p>
 
-                <button style={{cursor: 'pointer'}}>Sign In</button>
+                <button style={{cursor: 'pointer'}} onClick={() => navigate('/useremptystate')}>Sign In</button>
 
                 <p style={{textAlign: 'center'}}>Don't have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}} onClick={() => navigate('/')}>Sign Up</span></p>
 

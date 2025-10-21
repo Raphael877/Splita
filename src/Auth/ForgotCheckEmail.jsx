@@ -45,7 +45,7 @@ const ForgotCheckEmail = () => {
                     </div>
                 </div>
 
-                <button>Create New Password</button>
+                <button onClick={() => navigate('/signin')}>Create New Password</button>
 
                 <p style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}} onClick={() => navigate('/forgotpassword')}>Go Back</p>
 

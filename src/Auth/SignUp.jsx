@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { GoEye } from "react-icons/go";
-import { MdOutlineEmail } from "react-icons/md";
-import { MdLockOutline } from "react-icons/md";
-// import { LiaTimesSolid } from "react-icons/lia";
-
+import { GoEye, GoEyeClosed } from "react-icons/go";
+import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
-import { GoEyeClosed } from "react-icons/go";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Terms from "./Terms"; 
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+
   const navigate = useNavigate();
   return (
     <SignUp_content>
@@ -24,8 +22,9 @@ const SignUp = () => {
       <div className="brand_name">
         <h1 style={{ letterSpacing: "1px" }}>Splita</h1>
       </div>
+
       <SignUp_wrapper>
-        <h1>Join the circle </h1>
+        <h1>Join the circle</h1>
         <p style={{ color: "#888888" }}>
           Start your digital ajo journey and grow your money with Splita!
         </p>
@@ -84,10 +83,7 @@ const SignUp = () => {
               <p style={{ color: "#3d3c3c" }}>Confirm Password</p>
             </div>
             <div className="input_div">
-              <input
-                type={show2 ? "text" : "password"}
-                placeholder="Password"
-              />
+              <input type={show2 ? "text" : "password"} placeholder="Password" />
               <div className="icon" onClick={() => setShow2(!show2)}>
                 {show2 ? (
                   <GoEye style={{ cursor: "pointer" }} />
@@ -102,17 +98,19 @@ const SignUp = () => {
             <input type="checkbox" style={{ cursor: "pointer" }} />
             <p>
               I have read the{" "}
-              <i style={{ color: "#ff7900", cursor: "pointer" }}>
+              <i
+                style={{ color: "#ff7900", cursor: "pointer" }}
+                onClick={() => setShowTerms(true)}
+              >
                 Terms & Conditions
               </i>{" "}
-              and i agree
+              and I agree
             </p>
           </div>
 
           <button onClick={() => navigate("/verifyemail")}>Sign Up</button>
 
           <p className="already">
-            {" "}
             Already have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
@@ -123,11 +121,14 @@ const SignUp = () => {
           </p>
         </form>
       </SignUp_wrapper>
+
+      {showTerms && <Terms closeModal={() => setShowTerms(false)} />}
     </SignUp_content>
   );
 };
 
 export default SignUp;
+
 
 const SignUp_content = styled.div`
   width: 100%;
