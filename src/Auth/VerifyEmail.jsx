@@ -63,8 +63,9 @@ const VerifyEmail = () => {
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const ResendOtp = async () => {
