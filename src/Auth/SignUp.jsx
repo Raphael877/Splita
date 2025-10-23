@@ -1,19 +1,11 @@
-import React from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { GoEye } from "react-icons/go";
-import { MdOutlineEmail } from "react-icons/md";
-import { MdLockOutline } from "react-icons/md";
-// import { LiaTimesSolid } from "react-icons/lia";
-
+import { GoEye, GoEyeClosed } from "react-icons/go";
+import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
-import { GoEyeClosed } from "react-icons/go";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Password from "antd/es/input/Password";
-import { ClipLoader } from "react-spinners";
+import Terms from "./Terms"; 
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
@@ -33,6 +25,8 @@ const SignUp = () => {
       [name]: value,
     }));
   };
+  const [showTerms, setShowTerms] = useState(false);
+
   const navigate = useNavigate();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
@@ -74,8 +68,9 @@ const SignUp = () => {
         <h1 style={{ letterSpacing: "1px" }}>Splita</h1>
       </div>
       <ToastContainer />
+
       <SignUp_wrapper>
-        <h1>Join the circle </h1>
+        <h1>Join the circle</h1>
         <p style={{ color: "#888888" }}>
           Start your digital ajo journey and grow your money with Splita!
         </p>
@@ -169,6 +164,7 @@ const SignUp = () => {
                 name="confirmPassword"
                 onChange={handleChange}
               />
+              <input type={show2 ? "text" : "password"} placeholder="Password" />
               <div className="icon" onClick={() => setShow2(!show2)}>
                 {show2 ? (
                   <GoEye style={{ cursor: "pointer" }} />
@@ -183,10 +179,13 @@ const SignUp = () => {
             <input type="checkbox" style={{ cursor: "pointer" }} />
             <p>
               I have read the{" "}
-              <i style={{ color: "#ff7900", cursor: "pointer" }}>
+              <i
+                style={{ color: "#ff7900", cursor: "pointer" }}
+                onClick={() => setShowTerms(true)}
+              >
                 Terms & Conditions
               </i>{" "}
-              and i agree
+              and I agree
             </p>
           </div>
           {loading ? (
@@ -208,11 +207,14 @@ const SignUp = () => {
           </p>
         </form>
       </SignUp_wrapper>
+
+      {showTerms && <Terms closeModal={() => setShowTerms(false)} />}
     </SignUp_content>
   );
 };
 
 export default SignUp;
+
 
 const SignUp_content = styled.div`
   width: 100%;
@@ -224,6 +226,14 @@ const SignUp_content = styled.div`
   position: relative;
   overflow: hidden;
 
+  @media (max-width: 1024px) and (min-width: 768px) {
+    height: 150vh;
+  }
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
   .circle_top_left {
     position: absolute;
     border-radius: 50%;
@@ -232,6 +242,10 @@ const SignUp_content = styled.div`
     height: 20rem;
     top: -28%;
     left: -17%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_top_right {
@@ -242,6 +256,10 @@ const SignUp_content = styled.div`
     height: 3rem;
     top: 10%;
     right: 0.5%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_mid_left {
@@ -252,6 +270,10 @@ const SignUp_content = styled.div`
     height: 3rem;
     top: 45%;
     left: 0.5%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_down_right {
@@ -262,6 +284,10 @@ const SignUp_content = styled.div`
     height: 20rem;
     bottom: -28%;
     right: -17%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .brand_name {
@@ -269,6 +295,12 @@ const SignUp_content = styled.div`
     color: #240046;
     top: 3%;
     left: 10%;
+    z-index: 1;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      left: 7%;
+    }
   }
 `;
 
@@ -276,6 +308,24 @@ const SignUp_wrapper = styled.div`
   width: 45%;
   height: 100%;
   padding-top: 4rem;
+  z-index: 1;
+
+  @media (max-width: 1024px) and (min-width: 768px) {
+    width: 85%;
+    padding-top: 8rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 85%;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+
+  h1{
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
 
   form {
     width: 100%;
