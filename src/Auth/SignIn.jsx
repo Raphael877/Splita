@@ -45,6 +45,7 @@ const SignIn = () => {
     } finally {
       SetLoading(false);
     }
+    navigate('/useremptystate')
   };
 
   return (
@@ -138,7 +139,7 @@ const SignIn = () => {
             Don't have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/signup")}
             >
               Sign Up
             </span>

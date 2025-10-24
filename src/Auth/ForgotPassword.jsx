@@ -27,6 +27,7 @@ const ForgotPassword = () => {
     } finally {
       setLoading(false);
     }
+    navigate('/forgotcheckemail')
   };
 
   return (

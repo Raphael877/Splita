@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +57,7 @@ const SignUp = () => {
     } finally {
       setloading(false);
     }
+    navigate('/verifyemail')
   };
 
   return (
@@ -164,7 +166,6 @@ const SignUp = () => {
                 name="confirmPassword"
                 onChange={handleChange}
               />
-              <input type={show2 ? "text" : "password"} placeholder="Password" />
               <div className="icon" onClick={() => setShow2(!show2)}>
                 {show2 ? (
                   <GoEye style={{ cursor: "pointer" }} />
