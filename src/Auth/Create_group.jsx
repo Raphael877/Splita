@@ -18,7 +18,7 @@ const Create_group = () => {
         <div className="brand_name">
             <h1 style={{ letterSpacing: "1px", paddingBottom: '1rem' }}>Splita</h1>
         </div>
-        <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/useremptystate')}>
+        <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}>
             <IoIosArrowRoundBack/>
             <p>back home</p>
         </div>
@@ -88,7 +88,7 @@ const Create_group = () => {
                     </div>
                 </div>
 
-                <button>Submit</button>
+                <button onClick={() => navigate('/userdashboard')}>Submit</button>
 
             </form>
         </Create_group_wrapper>

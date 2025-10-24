@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +11,55 @@ import Terms from "./Terms";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   const [showTerms, setShowTerms] = useState(false);
 
   const navigate = useNavigate();
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const Register = async () => {
+    setloading(true);
+    try {
+      const res = await axios.post(`${BaseUrl}/users/register`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/verifyemail");
+      toast.success(res?.data?.message);
+      localStorage.setItem("userEmail", formData.email);
+
+      console.log(res);
+
+      console.log(res.data);
+    } catch (err) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.error ||
+          err?.message
+      );
+      console.log(err);
+    } finally {
+      setloading(false);
+    }
+    navigate('/verifyemail')
+  };
+
   return (
     <SignUp_content>
       <div className="circle_top_left"></div>
@@ -22,6 +69,7 @@ const SignUp = () => {
       <div className="brand_name">
         <h1 style={{ letterSpacing: "1px" }}>Splita</h1>
       </div>
+      <ToastContainer />
 
       <SignUp_wrapper>
         <h1>Join the circle</h1>
@@ -29,14 +77,25 @@ const SignUp = () => {
           Start your digital ajo journey and grow your money with Splita!
         </p>
 
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            Register();
+          }}
+        >
           <div className="inp">
             <div className="label">
               <FaRegUser />
               <p style={{ color: "#3d3c3c" }}>First & Last name</p>
             </div>
             <div className="input_div">
-              <input type="text" placeholder="e.g John Doe" />
+              <input
+                type="text"
+                name="name"
+                placeholder="e.g John Doe"
+                value={formData.name}
+                onChange={handleChange}
+              />
             </div>
           </div>
 
@@ -46,7 +105,13 @@ const SignUp = () => {
               <p style={{ color: "#3d3c3c" }}>Email</p>
             </div>
             <div className="input_div">
-              <input type="text" placeholder="e.g John@gmail.com" />
+              <input
+                type="text"
+                placeholder="e.g John@gmail.com"
+                value={formData.email}
+                name="email"
+                onChange={handleChange}
+              />
             </div>
           </div>
 
@@ -56,7 +121,13 @@ const SignUp = () => {
               <p style={{ color: "#3d3c3c" }}>Phone number</p>
             </div>
             <div className="input_div">
-              <input type="text" placeholder="e.g 07038204858" />
+              <input
+                type="text"
+                placeholder="e.g 07038204858"
+                value={formData.phone}
+                name="phone"
+                onChange={handleChange}
+              />
             </div>
           </div>
 
@@ -66,7 +137,13 @@ const SignUp = () => {
               <p style={{ color: "#3d3c3c" }}>Create a Password</p>
             </div>
             <div className="input_div">
-              <input type={show ? "text" : "password"} placeholder="Password" />
+              <input
+                type={show ? "text" : "password"}
+                placeholder="Password"
+                value={formData.password}
+                name="password"
+                onChange={handleChange}
+              />
               <div className="icon" onClick={() => setShow(!show)}>
                 {show ? (
                   <GoEye style={{ cursor: "pointer" }} />
@@ -83,7 +160,12 @@ const SignUp = () => {
               <p style={{ color: "#3d3c3c" }}>Confirm Password</p>
             </div>
             <div className="input_div">
-              <input type={show2 ? "text" : "password"} placeholder="Password" />
+              <input
+                type={show2 ? "text" : "password"}
+                placeholder="Password"
+                name="confirmPassword"
+                onChange={handleChange}
+              />
               <div className="icon" onClick={() => setShow2(!show2)}>
                 {show2 ? (
                   <GoEye style={{ cursor: "pointer" }} />
@@ -107,8 +189,13 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
-
-          <button onClick={() => navigate("/verifyemail")}>Sign Up</button>
+          {loading ? (
+            <button type="submit">
+              <ClipLoader />
+            </button>
+          ) : (
+            <button type="submit">Sign Up</button>
+          )}
 
           <p className="already">
             Already have an account?{" "}
