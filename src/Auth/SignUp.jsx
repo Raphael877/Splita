@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Splita_logo from '../assets/Splita_logo.png'
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
@@ -20,7 +21,7 @@ const SignUp = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <h1 style={{ letterSpacing: "1px" }}>Splita</h1>
+        <img src={Splita_logo} />
       </div>
 
       <SignUp_wrapper>
@@ -132,7 +133,7 @@ export default SignUp;
 
 const SignUp_content = styled.div`
   width: 100%;
-  height: 130vh;
+  height: 150vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,7 +142,7 @@ const SignUp_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) and (min-width: 768px) {
-    height: 150vh;
+    height: 160vh;
   }
 
   @media (max-width: 768px) {
@@ -211,18 +212,27 @@ const SignUp_content = styled.div`
     left: 10%;
     z-index: 1;
 
+    img{
+      width: 40%;
+      height: 100%;
+    }
+
     @media (max-width: 768px) {
-      font-size: 1rem;
       left: 7%;
     }
   }
 `;
 
 const SignUp_wrapper = styled.div`
-  width: 45%;
+  width: 50%;
   height: 100%;
-  padding-top: 4rem;
+  padding-top: 6rem;
   z-index: 1;
+
+  h1{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -261,9 +271,9 @@ const SignUp_wrapper = styled.div`
 
       .input_div {
         width: 100%;
-        height: 2.3rem;
+        height: 3.2rem;
         border: 1px solid #a6a6a6;
-        border-radius: 0.2rem;
+        border-radius: 0.4rem;
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
@@ -274,7 +284,7 @@ const SignUp_wrapper = styled.div`
           outline: none;
           border: none;
           background-color: transparent;
-          padding-left: 0.5rem;
+          padding-left: 0.8rem;
         }
       }
     }
@@ -287,14 +297,14 @@ const SignUp_wrapper = styled.div`
 
     button {
       width: 100%;
-      height: 2.7rem;
+      height: 3.5rem;
+      background-color: #7b2cbf;
       color: white;
-      background-color: #ff7900;
       border-radius: 0.7rem;
       border: none;
       cursor: pointer;
       &:hover {
-        background-color: #e79751;
+        background-color: #9472b2;
         transition: all 350ms ease-in-out;
       }
     }

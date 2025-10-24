@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import Splita_logo from '../assets/Splita_logo.png'
 import { GoEye } from "react-icons/go";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdLockOutline } from "react-icons/md";
@@ -17,7 +18,7 @@ const SignIn = () => {
         <div className='circle_mid_left'></div>
         <div className='circle_down_right'></div>
         <div className='brand_name'>
-            <h1 style={{letterSpacing: '1px'}}>Splita</h1>
+            <img src={Splita_logo} />
         </div>
         <SignIn_wrapper>
             <h1 style={{textAlign: 'center'}}>Welcome Back!</h1>
@@ -52,7 +53,7 @@ const SignIn = () => {
 
                 <button style={{cursor: 'pointer'}} onClick={() => navigate('/useremptystate')}>Sign In</button>
 
-                <p style={{textAlign: 'center'}}>Don't have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}} onClick={() => navigate('/')}>Sign Up</span></p>
+                <p style={{textAlign: 'center'}}>Don't have an account? <span style={{color: '#7b2cbf', cursor: 'pointer'}} onClick={() => navigate('/signup')}>Sign Up</span></p>
 
             </form>
             
@@ -141,18 +142,26 @@ const SignIn_content = styled.div`
         left: 10%;
         z-index: 1;
 
+        img{
+            width: 40%;
+            height: 100%;
+        }
+
         @media (max-width: 768px) {
-            font-size: 1rem;
             left: 7%;
         }
     }
 `
 
 const SignIn_wrapper = styled.div`
-    width: 45%;
+    width: 50%;
     height: 100%;
-    padding-top: 4rem;
+    padding-top: 6rem;
     z-index: 1;
+
+    h1{
+        font-size: 2.5rem;
+    }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -165,7 +174,7 @@ const SignIn_wrapper = styled.div`
 
   h1{
     @media (max-width: 768px) {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
   }
 
@@ -189,9 +198,9 @@ const SignIn_wrapper = styled.div`
 
             .input_div{
                 width: 100%;
-                height: 2.3rem;
+                height: 3.2rem;
                 border: 1px solid #A6A6A6;
-                border-radius: 0.2rem;
+                border-radius: 0.4rem;
                 display: flex;
                 align-items: center;
                 padding-right: 0.5rem;
@@ -202,14 +211,14 @@ const SignIn_wrapper = styled.div`
                     outline: none;
                     border: none;
                     background-color: transparent;
-                    padding-left: 0.5rem;
+                    padding-left: 0.8rem;
                 }
             }
         }
         
         button{
             width: 100%;
-            height: 2.7rem;
+            height: 3.5rem;
             background-color: #7b2cbf;
             color: white;
             border-radius: 0.8rem;

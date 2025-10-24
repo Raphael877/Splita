@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import Splita_logo from '../assets/Splita_logo.png'
 import { MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const ForgotPassword = () => {
         <div className='circle_mid_left'></div>
         <div className='circle_down_right'></div>
         <div className='brand_name'>
-            <h1 style={{letterSpacing: '1px'}}>Splita</h1>
+            <img src={Splita_logo} />
         </div>
         <ForgotPassword_wrapper>
             <h1 style={{textAlign: 'center'}}>Forgot Password</h1>
@@ -119,22 +120,30 @@ const ForgotPassword_content = styled.div`
         left: 10%;
         z-index: 1;
 
+        img{
+            width: 40%;
+            height: 100%;
+        }
+
         @media (max-width: 768px) {
-            font-size: 1rem;
             left: 7%;
         }
     }
 `
 
 const ForgotPassword_wrapper = styled.div`
-    width: 45%;
+    width: 50%;
     height: 100%;
-    padding-top: 4rem;
+    padding-top: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     z-index: 1;
+
+    h1{
+        font-size: 2.5rem;
+    }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -170,9 +179,9 @@ const ForgotPassword_wrapper = styled.div`
 
             .input_div{
                 width: 100%;
-                height: 2.3rem;
+                height: 3.2rem;
                 border: 1px solid #A6A6A6;
-                border-radius: 0.2rem;
+                border-radius: 0.4rem;
                 display: flex;
                 align-items: center;
                 padding-right: 0.5rem;
@@ -183,22 +192,22 @@ const ForgotPassword_wrapper = styled.div`
                     outline: none;
                     border: none;
                     background-color: transparent;
-                    padding-left: 0.5rem;
+                    padding-left: 0.8rem;
                 }
             }
         }
         
         button{
             width: 100%;
-            height: 2.7rem;
-            background-color: #ff7900;
+            height: 3.5rem;
+            background-color: #7b2cbf;
             color: white;
             border-radius: 0.8rem;
             border: none;
             cursor: pointer;
             margin-block: 1rem;
             &:hover{
-                background-color: #e79751;
+                background-color: #9472b2;
                 transition: all 350ms ease-in-out;
             }
         }

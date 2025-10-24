@@ -9,6 +9,8 @@ import VerifyEmail from './Auth/VerifyEmail'
 import LandingPage from './Pages/LandingPage.jsx'
 import UserEmptyState from './Pages/UserEmptyState.jsx'
 import Create_group from './Auth/Create_group.jsx'
+import UserDashboard from './Pages/UserDashboard.jsx'
+import MyGroup from './Pages/MyGroup.jsx'
 
 
 const App = () => {
@@ -24,7 +26,9 @@ const App = () => {
         <Route path="/forgotcheckemail" element={<ForgotCheckEmail />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
         <Route path="/useremptystate" element={<UserEmptyState />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/creategroup" element={<Create_group />} />
+        <Route path="/mygroup" element={<MyGroup />} />
 
       </Routes>
     </HashRouter>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import Splita_logo from '../assets/Splita_logo.png'
 import { useNavigate } from 'react-router-dom';
 
 const ForgotCheckEmail = () => {
@@ -11,7 +12,7 @@ const ForgotCheckEmail = () => {
         <div className='circle_mid_left'></div>
         <div className='circle_down_right'></div>
         <div className='brand_name'>
-            <h1 style={{letterSpacing: '1px'}}>Splita</h1>
+            <img src={Splita_logo} />
         </div>
         <ForgotCheckEmail_wrapper>
             <h1 style={{textAlign: 'center'}}>Check your email</h1>
@@ -61,7 +62,7 @@ export default ForgotCheckEmail
 
 const ForgotCheckEmail_content = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 120vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,18 +137,26 @@ const ForgotCheckEmail_content = styled.div`
         left: 10%;
         z-index: 1;
 
+        img{
+            width: 40%;
+            height: 100%;
+        }
+
         @media (max-width: 768px) {
-            font-size: 1rem;
             left: 7%;
         }
     }
 `
 
 const ForgotCheckEmail_wrapper = styled.div`
-    width: 45%;
+    width: 50%;
     height: 100%;
-    padding-top: 4rem;
+    padding-top: 6rem;
     z-index: 1;
+
+    h1{
+        font-size: 2.5rem;
+    }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -184,9 +193,9 @@ const ForgotCheckEmail_wrapper = styled.div`
 
             .input_div{
                 width: 100%;
-                height: 2.3rem;
+                height: 3.2rem;
                 border: 1px solid #A6A6A6;
-                border-radius: 0.2rem;
+                border-radius: 0.5rem;
                 display: flex;
                 align-items: center;
                 padding-right: 0.5rem;
@@ -204,14 +213,14 @@ const ForgotCheckEmail_wrapper = styled.div`
 
         button{
             width: 100%;
-            height: 2.7rem;
+            height: 3.5rem;
             color: white;
-            background-color: #ff7900;
-            border-radius: 0.7rem;
+            background-color: #7b2cbf;
+            border-radius: 0.8rem;
             border: none;
             cursor: pointer;
             &:hover{
-                background-color: #e79751;
+                background-color: #9472b2;
                 transition: all 350ms ease-in-out;
             }
         }

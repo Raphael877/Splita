@@ -15,7 +15,7 @@ export default UserDashboardFooter
 
 const UserDashboardFooter_content = styled.div`
     width: 100%;
-    height: 12vh;
+    height: 17vh;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,4 +1,5 @@
 import React from 'react'
+import Splita_logo from '../assets/Splita_logo.png'
 import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
 
@@ -11,7 +12,7 @@ const VerifyEmail = () => {
         <div className='circle_mid_left'></div>
         <div className='circle_down_right'></div>
         <div className='brand_name'>
-            <h1 style={{letterSpacing: '1px'}}>Splita</h1>
+            <img src={Splita_logo} />
         </div>
         <VerifyEmail_wrapper>
             <h1 style={{textAlign: 'center'}}>Verify Email</h1>
@@ -113,13 +114,16 @@ const VerifyEmail_content = styled.div`
 
     .brand_name{
         position: absolute;
-        color: #240046;
         top: 3%;
         left: 10%;
         z-index: 1;
 
+        img{
+            width: 40%;
+            height: 100%;
+        }    
+
         @media (max-width: 768px) {
-            font-size: 1rem;
             left: 7%;
         }
     }
@@ -128,12 +132,16 @@ const VerifyEmail_content = styled.div`
 const VerifyEmail_wrapper = styled.div`
     width: 50%;
     height: 100%;
-    padding-top: 4rem;
+    padding-top: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     z-index: 1;
+
+    h1{
+        font-size: 2.5rem;
+    }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -182,15 +190,15 @@ const VerifyEmail_wrapper = styled.div`
 
     button{
         width: 90%;
-        height: 3rem;
+        height: 3.5rem;
         color: white;
-        background-color: #ff7900;
-        border-radius: 0.7rem;
+        background-color: #7b2cbf;
+        border-radius: 0.8rem;
         border: none;
         cursor: pointer;
         margin-block: 1rem;
         &:hover{
-            background-color: #e79751;
+            background-color: #9472b2;
             transition: all 350ms ease-in-out;
             }
         }

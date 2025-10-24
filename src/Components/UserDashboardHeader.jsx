@@ -2,26 +2,25 @@ import React from 'react'
 import styled from 'styled-components'
 import Splita_logo from '../assets/Splita_logo.png'
 import Profile_img from '../assets/Profile_img.png'
-import { IoSearch } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const UserDashboardHeader = () => {
+    const navigate = useNavigate();
   return (
     <UserDashboardHeader_content>
         <UserDashboardHeader_wrapper>
             <img src={Splita_logo} className='brand_logo'/>
             <ul>
-                <li>Home</li>
-                <li>My groups</li>
+                <li onClick={() => navigate('/userdashboard')}>Home</li>
+                <li onClick={() => navigate('/mygroup')}>My groups</li>
                 <li>Contributions</li>
             </ul>
             <div className='right'>
-                <div className='search_input'>
-                    <IoSearch style={{color: '#777777', cursor: 'pointer'}}/>
-                    <input type='text' placeholder='Search'/>
-                </div>
                 <div className='profile'>
                     <img src={Profile_img} />
                     <p>Chidera Benjamin</p>
+                    <IoIosArrowDown/>
                 </div>
             </div>
         </UserDashboardHeader_wrapper>
@@ -73,32 +72,14 @@ const UserDashboardHeader_wrapper = styled.div`
         }
     }
     .right{
-        width: 40%;
+        width: 25%;
         height: 100%;
         display: flex;
         align-items: center;
         gap: 1rem;
 
-        .search_input{
-            width: 50%;
-            height: 50%;
-            display: flex;
-            align-items: center;
-            border-radius: 4rem;
-            background-color: #EEEEEE;
-            padding-left: 0.5rem;
-            gap: 0.3rem;
-
-            input{
-                border: none;
-                outline: none;
-                width: 100%;
-                height: 100%;
-                background-color: transparent;
-            }
-        }
         .profile{
-            width: 50%;
+            width: 100%;
             height: 100%;
             display: flex;
             align-items: center;

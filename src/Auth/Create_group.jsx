@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
+import Splita_logo from '../assets/Splita_logo.png'
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { TiGroupOutline } from "react-icons/ti";
 import { FaRegClock } from "react-icons/fa";
@@ -16,10 +17,10 @@ const Create_group = () => {
         <div className="circle_mid_left"></div>
         <div className="circle_down_right"></div>
         <div className="brand_name">
-            <h1 style={{ letterSpacing: "1px", paddingBottom: '1rem' }}>Splita</h1>
+          <img src={Splita_logo} />
         </div>
-        <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/useremptystate')}>
-            <IoIosArrowRoundBack/>
+        <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}>
+            <IoIosArrowRoundBack style={{fontSize: '2rem', cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}/>
             <p>back home</p>
         </div>
         <Create_group_wrapper>
@@ -88,7 +89,17 @@ const Create_group = () => {
                     </div>
                 </div>
 
-                <button>Submit</button>
+                <div className="inp">
+                    <div className="label">
+                        <TiGroupOutline />
+                        <p style={{ color: "#3d3c3c" }}>Total members</p>
+                    </div>
+                    <div className="input_div">
+                        <input type="text" placeholder="e.g Min 2, Max 12" />
+                    </div>
+                </div>
+
+                <button onClick={() => navigate('/userdashboard')}>Submit</button>
 
             </form>
         </Create_group_wrapper>
@@ -100,7 +111,7 @@ export default Create_group
 
 const Create_group_content= styled.div`
     width: 100%;
-  height: 130vh;
+  height: 170vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,7 +120,7 @@ const Create_group_content= styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) and (min-width: 768px) {
-    height: 150vh;
+    height: 170vh;
   }
 
   @media (max-width: 768px) {
@@ -174,13 +185,16 @@ const Create_group_content= styled.div`
 
   .brand_name {
     position: absolute;
-    color: #240046;
     top: 3%;
     left: 10%;
     z-index: 1;
 
+    img{
+      width: 40%;
+      height: 100%;
+    }
+
     @media (max-width: 768px) {
-      font-size: 1rem;
       left: 7%;
     }
   }
@@ -193,9 +207,11 @@ const Create_group_content= styled.div`
     gap: 0.5rem;
     top: 4%;
     right: 7%;
+    cursor: pointer;
 
     @media (max-width: 768px) {
       right: 7%;
+      cursor: pointer;
 
       p{
         display: none;
@@ -205,10 +221,14 @@ const Create_group_content= styled.div`
 `
 
 const Create_group_wrapper= styled.div`
-    width: 45%;
+    width: 50%;
   height: 100%;
-  padding-top: 4rem;
+  padding-top: 6rem;
   z-index: 1;
+
+  h1{
+    font-size: 2.5rem;
+  }
 
   @media (max-width: 1024px) and (min-width: 768px) {
     width: 85%;
@@ -247,9 +267,9 @@ const Create_group_wrapper= styled.div`
 
       .input_div {
         width: 100%;
-        height: 2.3rem;
+        height: 3.2rem;
         border: 1px solid #a6a6a6;
-        border-radius: 0.2rem;
+        border-radius: 0.4rem;
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
@@ -260,7 +280,7 @@ const Create_group_wrapper= styled.div`
           outline: none;
           border: none;
           background-color: transparent;
-          padding-left: 0.5rem;
+          padding-left: 0.8rem;
         }
        }
     } 
@@ -268,14 +288,14 @@ const Create_group_wrapper= styled.div`
     button {
         margin-top: 1rem;
         width: 100%;
-        height: 2.7rem;
+        height: 3.5rem;
         color: white;
-        background-color: #ff7900;
+        background-color: #7b2cbf;
         border-radius: 0.7rem;
         border: none;
         cursor: pointer;
         &:hover {
-            background-color: #e79751;
+            background-color: #9472b2;
             transition: all 350ms ease-in-out;
         }
     }

@@ -19,7 +19,8 @@ const UserEmptyHello = () => {
                     <p style={{color: 'black'}}>Lets kickstart your savings journey today</p>
                 </div>
                 <div className='hello_btn'>
-                    <button className='hello_btn1' onClick={() => navigate('/creategroup')}>+ Create New Group</button>
+                    <button className='hello_btn1' 
+                    onClick={() => navigate('/creategroup')}>+ Create New Group</button>
                     <button className='hello_btn2'>Join Group</button>
                 </div>
             </Hello>
