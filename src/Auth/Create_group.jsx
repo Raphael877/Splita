@@ -9,105 +9,106 @@ import { BsCash } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 
 const Create_group = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   return (
     <Create_group_content>
-        <div className="circle_top_left"></div>
-        <div className="circle_top_right"></div>
-        <div className="circle_mid_left"></div>
-        <div className="circle_down_right"></div>
-        <div className="brand_name">
-          <img src={Splita_logo} />
-        </div>
-        <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}>
-            <IoIosArrowRoundBack style={{fontSize: '2rem', cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}/>
-            <p>back home</p>
-        </div>
-        <Create_group_wrapper>
-            <h1 style={{ paddingBottom: '1rem' }}>Create group</h1>
-            <p>Track ajo with ease on Splita</p>
+      <div className="circle_top_left"></div>
+      <div className="circle_top_right"></div>
+      <div className="circle_mid_left"></div>
+      <div className="circle_down_right"></div>
+      <div className="brand_name">
+        <img src={Splita_logo} />
+      </div>
 
-            <form>
+      <div className='back' style={{cursor: 'pointer'}} onClick={() => navigate('/userdashboard')}>
+        <IoIosArrowRoundBack style={{fontSize: '2rem'}} />
+        <p>back home</p>
+      </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <TiGroupOutline />
-                        <p style={{ color: "#3d3c3c" }}>Group Name</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g Obele" />
-                    </div>
-                </div>
+      <Create_group_wrapper>
+        <h1 style={{ paddingBottom: '1rem' }}>Create group</h1>
+        <p>Track ajo with ease on Splita</p>
 
-                <div className="inp">
-                    <div className="label">
-                        <BsCash />
-                        <p style={{ color: "#3d3c3c" }}>Contribution Amount</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g 50,000" />
-                    </div>
-                </div>
+        <form>
+          <div className="inp">
+            <div className="label">
+              <TiGroupOutline />
+              <p style={{ color: "#3d3c3c" }}>Group Name</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g Obele" />
+            </div>
+          </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <FaRegClock />
-                        <p style={{ color: "#3d3c3c" }}>Contribution Frequency</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g Weekly" />
-                    </div>
-                </div>
+          <div className="inp">
+            <div className="label">
+              <BsCash />
+              <p style={{ color: "#3d3c3c" }}>Contribution Amount</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g 50,000" />
+            </div>
+          </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <BsCash />
-                        <p style={{ color: "#3d3c3c" }}>Payout Frequency</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g Weekly" />
-                    </div>
-                </div>
+          <div className="inp">
+            <div className="label">
+              <FaRegClock />
+              <p style={{ color: "#3d3c3c" }}>Contribution Frequency</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g Weekly" />
+            </div>
+          </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <IoWarningOutline />
-                        <p style={{ color: "#3d3c3c" }}>Penalty fee</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g 10%" />
-                    </div>
-                </div>
+          <div className="inp">
+            <div className="label">
+              <BsCash />
+              <p style={{ color: "#3d3c3c" }}>Payout Frequency</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g Weekly" />
+            </div>
+          </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <IoWarningOutline />
-                        <p style={{ color: "#3d3c3c" }}>Describe Group</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g Tell us about the group" />
-                    </div>
-                </div>
+          <div className="inp">
+            <div className="label">
+              <IoWarningOutline />
+              <p style={{ color: "#3d3c3c" }}>Penalty fee</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g 10%" />
+            </div>
+          </div>
 
-                <div className="inp">
-                    <div className="label">
-                        <TiGroupOutline />
-                        <p style={{ color: "#3d3c3c" }}>Total members</p>
-                    </div>
-                    <div className="input_div">
-                        <input type="text" placeholder="e.g Min 2, Max 12" />
-                    </div>
-                </div>
+          <div className="inp">
+            <div className="label">
+              <IoWarningOutline />
+              <p style={{ color: "#3d3c3c" }}>Describe Group</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g Tell us about the group" />
+            </div>
+          </div>
 
-                <button onClick={() => navigate('/userdashboard')}>Submit</button>
+          <div className="inp">
+            <div className="label">
+              <TiGroupOutline />
+              <p style={{ color: "#3d3c3c" }}>Total members</p>
+            </div>
+            <div className="input_div">
+              <input type="text" placeholder="e.g Min 2, Max 12" />
+            </div>
+          </div>
 
-            </form>
-        </Create_group_wrapper>
+          <button onClick={() => navigate('/userdashboard')}>Submit</button>
+        </form>
+      </Create_group_wrapper>
     </Create_group_content>
   )
 }
 
 export default Create_group
+
 
 const Create_group_content= styled.div`
     width: 100%;

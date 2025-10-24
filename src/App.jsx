@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {HashRouter, Routes, Route} from 'react-router-dom'
 import RouterError from './Components/RouterError.jsx'
@@ -13,13 +14,13 @@ import UserDashboard from './Pages/UserDashboard.jsx'
 import MyGroup from './Pages/MyGroup.jsx'
 
 
+
 const App = () => {
   return (
     <HashRouter>
       <Routes>
-        
-        <Route path="*" element={<RouterError/>}/>
-        <Route path="" element={<LandingPage/>}/>
+        <Route path="*" element={<RouterError />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -30,10 +31,10 @@ const App = () => {
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/mygroup" element={<MyGroup />} />
 
+
       </Routes>
     </HashRouter>
-    
-  )
-}
+  );
+};
 
-export default App
+export default App;
