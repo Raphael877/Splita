@@ -26,10 +26,35 @@ const SignIn = () => {
     }));
   };
 
+  const validateForm = () => {
+    const { email, password } = formData;
+
+    if (!email || !password) {
+      toast.error("Please fill in both fields");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return false;
+    }
+
+    return true;
+  };
+
   const Login = async () => {
+    if (!validateForm()) return;
+
     SetLoading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
+
       localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(res?.data?.token)
@@ -38,11 +63,12 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.data?._id)
       );
-      toast.success(res?.data?.message);
-      navigate("/dashboard");
+
+      toast.success(res?.data?.message || "Login successful!");
+      navigate("/userDashboard");
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message || err?.response?.data?.Failed);
+      toast.error(err?.response?.data?.message || "Invalid email or password");
     } finally {
       SetLoading(false);
     }
@@ -91,7 +117,6 @@ const SignIn = () => {
                 placeholder="Enter your email address"
                 value={formData.email}
                 onChange={handleChange}
-                required
               />
             </div>
           </div>
@@ -108,7 +133,6 @@ const SignIn = () => {
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
-                required
               />
               <div className="icon" onClick={() => setShow(!show)}>
                 {show ? <GoEye /> : <GoEyeClosed />}
@@ -127,16 +151,12 @@ const SignIn = () => {
             Forgot Password?
           </p>
 
-          {loading ? (
-            <button disabled>
-              <ClipLoader size={20} color="#fff" />
-            </button>
-          ) : (
-            <button type="submit">Sign In</button>
-          )}
+          <button type="submit" disabled={loading}>
+            {loading ? <ClipLoader size={20} color="#fff" /> : "Sign In"}
+          </button>
 
           <p style={{ textAlign: "center" }}>
-            Don't have an account?{" "}
+            Don’t have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
               onClick={() => navigate("/signup")}
@@ -152,7 +172,6 @@ const SignIn = () => {
 
 export default SignIn;
 
-// ---------- STYLES ----------
 const SignIn_content = styled.div`
   width: 100%;
   height: 100vh;
@@ -293,6 +312,11 @@ const SignIn_wrapper = styled.div`
       &:hover {
         background-color: #9472b2;
         transition: all 350ms ease-in-out;
+      }
+
+      &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
       }
     }
   }

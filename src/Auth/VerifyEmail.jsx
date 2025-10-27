@@ -55,9 +55,10 @@ const VerifyEmail = () => {
         email,
         otp: otpCode,
       });
-      toast.success(res?.data?.message);
+
       setOtp(["", "", "", "", "", ""]);
-      navigate("/signin");
+      navigate("/userEmptyState");
+      toast.success(res?.data?.message);
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message);

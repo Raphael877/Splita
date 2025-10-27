@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Splita_logo from '../assets/Splita_logo.png'
+import Splita_logo from "../assets/Splita_logo.png";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import Terms from "./Terms"; 
+import Terms from "./Terms";
+import { ClipLoader } from "react-spinners";
+import axios from "axios";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [loading, setloading] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +25,10 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -27,13 +36,52 @@ const SignUp = () => {
       [name]: value,
     }));
   };
-  const [showTerms, setShowTerms] = useState(false);
 
-  const navigate = useNavigate();
+  const validateForm = () => {
+    const { name, email, phone, password, confirmPassword } = formData;
 
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
+    if (!name || !email || !phone || !password || !confirmPassword) {
+      toast.error("Please fill in all required fields");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Enter a valid email address");
+      return false;
+    }
+
+    const phoneRegex = /^(?:\+234|0)[789][01]\d{8}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Enter a valid phone number");
+      return false;
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character"
+      );
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return false;
+    }
+
+    if (!agreed) {
+      toast.error("You must agree to the Terms & Conditions");
+      return false;
+    }
+
+    return true;
+  };
 
   const Register = async () => {
+    if (!validateForm()) return;
+
     setloading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/register`, formData, {
@@ -41,24 +89,16 @@ const SignUp = () => {
           "Content-Type": "application/json",
         },
       });
-      navigate("/verifyemail");
-      toast.success(res?.data?.message);
+
+      toast.success(res?.data?.message || "Registration successful!");
       localStorage.setItem("userEmail", formData.email);
-
-      console.log(res);
-
-      console.log(res.data);
+      navigate("/verifyemail");
     } catch (err) {
-      toast.error(
-        err?.response?.data?.message ||
-          err?.response?.data?.error ||
-          err?.message
-      );
-      console.log(err);
+      toast.error(err?.response?.data?.message || "Registration failed");
+      console.log(err.response || err.message);
     } finally {
       setloading(false);
     }
-    navigate('/verifyemail')
   };
 
   return (
@@ -163,7 +203,8 @@ const SignUp = () => {
             <div className="input_div">
               <input
                 type={show2 ? "text" : "password"}
-                placeholder="Password"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
                 name="confirmPassword"
                 onChange={handleChange}
               />
@@ -178,7 +219,12 @@ const SignUp = () => {
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+              style={{ cursor: "pointer" }}
+            />
             <p>
               I have read the{" "}
               <i
@@ -190,13 +236,10 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
-          {loading ? (
-            <button type="submit">
-              <ClipLoader />
-            </button>
-          ) : (
-            <button type="submit">Sign Up</button>
-          )}
+
+          <button type="submit" disabled={loading}>
+            {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
+          </button>
 
           <p className="already">
             Already have an account?{" "}
@@ -216,7 +259,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
 
 const SignUp_content = styled.div`
   width: 100%;
@@ -299,7 +341,7 @@ const SignUp_content = styled.div`
     left: 10%;
     z-index: 1;
 
-    img{
+    img {
       width: 40%;
       height: 100%;
     }
@@ -316,7 +358,7 @@ const SignUp_wrapper = styled.div`
   padding-top: 6rem;
   z-index: 1;
 
-  h1{
+  h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
@@ -332,7 +374,7 @@ const SignUp_wrapper = styled.div`
     padding-bottom: 2rem;
   }
 
-  h1{
+  h1 {
     @media (max-width: 768px) {
       font-size: 1.5rem;
     }
