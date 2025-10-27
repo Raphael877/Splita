@@ -43,7 +43,7 @@ const ForgotCheckEmail = () => {
     }
 
     if (formData.newPassword.length < 8) {
-      toast.error("Password must be at least  characters");
+      toast.error("Password must be at least 8 characters");
       return;
     }
 
