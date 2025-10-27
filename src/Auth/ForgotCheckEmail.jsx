@@ -37,13 +37,13 @@ const ForgotCheckEmail = () => {
       return;
     }
 
-    if (formData.resetCode.length !== 6) {
-      toast.error("Reset code must be 6 digits");
+    if (formData.resetCode.length !== 8) {
+      toast.error("Reset code must be 8 digits");
       return;
     }
 
-    if (formData.newPassword.length < 6) {
-      toast.error("Password must be at least 6 characters");
+    if (formData.newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters");
       return;
     }
 
@@ -297,8 +297,40 @@ const ForgotCheckEmail_wrapper = styled.div`
 
       .label {
         display: flex;
-        gap: 0.5rem;
-      }
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .inp{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .label{
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .input_div{
+                width: 100%;
+                height: 3.2rem;
+                border: 1px solid #A6A6A6;
+                border-radius: 0.5rem;
+                display: flex;
+                align-items: center;
+                padding-right: 0.5rem;
+                overflow: hidden;
+
+                input{
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    border: none;
+                    background-color: transparent;
+                    padding-left: 0.5rem;
+                }
+            }
+        }
 
       .input_div {
         width: 100%;

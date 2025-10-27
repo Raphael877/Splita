@@ -15,6 +15,7 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const navigate = useNavigate();
 
@@ -24,32 +25,36 @@ const SignIn = () => {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
-  const validateForm = () => {
-    const { email, password } = formData;
-
-    if (!email || !password) {
-      toast.error("Please fill in both fields");
-      return false;
-    }
-
+  const validateInputs = () => {
+    const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address");
-      return false;
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
     }
 
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long");
-      return false;
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
     }
 
-    return true;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+ 
 
   const Login = async () => {
-    if (!validateForm()) return;
+    if (!validateInputs()) return;
 
     SetLoading(true);
     try {
@@ -63,9 +68,8 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.data?._id)
       );
-
       toast.success(res?.data?.message || "Login successful!");
-      navigate("/userDashboard");
+      navigate('/useremptystate')
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");
@@ -105,6 +109,7 @@ const SignIn = () => {
             Login();
           }}
         >
+      
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -119,8 +124,12 @@ const SignIn = () => {
                 onChange={handleChange}
               />
             </div>
+            {errors.email && (
+              <p style={{ color: "red", fontSize: "0.85rem" }}>{errors.email}</p>
+            )}
           </div>
 
+        
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -138,6 +147,11 @@ const SignIn = () => {
                 {show ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
+            {errors.password && (
+              <p style={{ color: "red", fontSize: "0.85rem" }}>
+                {errors.password}
+              </p>
+            )}
           </div>
 
           <p
@@ -174,7 +188,7 @@ export default SignIn;
 
 const SignIn_content = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 110vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,13 +202,17 @@ const SignIn_content = styled.div`
   .circle_down_right {
     position: absolute;
     border-radius: 50%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_top_left {
     background-color: #c6bdc8;
     width: 20rem;
     height: 20rem;
-    top: -28%;
+    top: -20%;
     left: -17%;
   }
 
@@ -218,7 +236,7 @@ const SignIn_content = styled.div`
     background-color: #f4e2d1;
     width: 20rem;
     height: 20rem;
-    bottom: -28%;
+    bottom: -20%;
     right: -17%;
   }
 
@@ -282,6 +300,7 @@ const SignIn_wrapper = styled.div`
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
+        overflow: hidden;
 
         input {
           width: 100%;

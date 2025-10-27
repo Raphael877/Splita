@@ -9,11 +9,28 @@ import { toast, ToastContainer } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const navigate = useNavigate();
 
+  const validateEmail = () => {
+    if (!email.trim()) {
+      setError("Email address is required");
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const Forgetpassword = async () => {
+    if (!validateEmail()) return;
+
     setLoading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/forgot-password`, {
@@ -23,7 +40,7 @@ const ForgotPassword = () => {
       toast.success(res?.data?.message);
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -42,7 +59,9 @@ const ForgotPassword = () => {
 
       <ForgotPassword_wrapper>
         <h1 style={{ textAlign: "center" }}>Forgot Password</h1>
-        <p style={{ color: "#888888", textAlign: "center", marginBlock: "1rem" }}>
+        <p
+          style={{ color: "#888888", textAlign: "center", marginBlock: "1rem" }}
+        >
           Enter your email to reset your password
         </p>
 
@@ -62,21 +81,31 @@ const ForgotPassword = () => {
                 type="text"
                 placeholder="e.g John@gmail.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                }}
               />
             </div>
+            {error && (
+              <p style={{ color: "red", fontSize: "0.85rem" }}>{error}</p>
+            )}
           </div>
 
           {loading ? (
-            <button>
-              <ClipLoader color="#fff" />
+            <button disabled>
+              <ClipLoader color="#fff" size={20} />
             </button>
           ) : (
-            <button>Send Instructions</button>
+            <button type="submit">Send Instructions</button>
           )}
 
           <p
-            style={{ color: "#7b2cbf", cursor: "pointer", textAlign: "center" }}
+            style={{
+              color: "#7b2cbf",
+              cursor: "pointer",
+              textAlign: "center",
+            }}
             onClick={() => navigate("/signin")}
           >
             Go back
@@ -88,6 +117,7 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+
 
 const ForgotPassword_content = styled.div`
   width: 100%;
@@ -178,7 +208,7 @@ const ForgotPassword_content = styled.div`
 `;
 
 const ForgotPassword_wrapper = styled.div`
-  width: 45%;
+  width: 50%;
   height: 100%;
   padding-top: 4rem;
   display: flex;
@@ -186,6 +216,10 @@ const ForgotPassword_wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   z-index: 1;
+
+  @media (max-width: 768px) {
+      width: 95%;
+    }
 
   form {
     width: 100%;
@@ -222,6 +256,7 @@ const ForgotPassword_wrapper = styled.div`
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
+        overflow: hidden;
 
         input {
           width: 100%;

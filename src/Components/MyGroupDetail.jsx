@@ -236,6 +236,10 @@ const MyGroupDetail_content = styled.div`
     justify-content: center;
     align-items: center;
     margin-block: 15vh;
+
+    @media (max-width: 768px) {
+        height: auto;
+    }
 `
 
 const MyGroupDetail_wrapper = styled.div`
@@ -262,6 +266,7 @@ const MyGroupDetail_wrapper = styled.div`
         flex-wrap: wrap;
         gap: 1.5rem;
 
+
         .group{
             width: 30%;
             height: 45%;
@@ -271,6 +276,11 @@ const MyGroupDetail_wrapper = styled.div`
             background-color: white;
             border-radius: 0.5rem;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: 18rem;
+            }
 
             .wrapper{
                 width: 90%;
