@@ -289,17 +289,6 @@ const ForgotCheckEmail_wrapper = styled.div`
     flex-direction: column;
     gap: 1.5rem;
 
-    .inp {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
-      .label {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-
         .inp{
             width: 100%;
             display: flex;
@@ -331,26 +320,6 @@ const ForgotCheckEmail_wrapper = styled.div`
                 }
             }
         }
-
-      .input_div {
-        width: 100%;
-        height: 3.2rem;
-        border: 1px solid #a6a6a6;
-        border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        padding-right: 0.5rem;
-
-        input {
-          width: 100%;
-          height: 100%;
-          outline: none;
-          border: none;
-          background-color: transparent;
-          padding-left: 0.5rem;
-        }
-      }
-    }
 
     button {
       width: 100%;
