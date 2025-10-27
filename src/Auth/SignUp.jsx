@@ -227,7 +227,10 @@ const SignUp = () => {
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              style={{ cursor: "pointer" }}
+            />
             <p>
               I have read the{" "}
               <i
