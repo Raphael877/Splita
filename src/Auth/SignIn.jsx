@@ -51,12 +51,15 @@ const SignIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+ 
+
   const Login = async () => {
     if (!validateInputs()) return;
 
     SetLoading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
+
       localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(res?.data?.token)
@@ -65,11 +68,11 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.data?._id)
       );
-      toast.success(res?.data?.message);
+      toast.success(res?.data?.message || "Login successful!");
       navigate('/useremptystate')
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message || err?.response?.data?.Failed);
+      toast.error(err?.response?.data?.message || "Invalid email or password");
     } finally {
       SetLoading(false);
     }
@@ -106,7 +109,7 @@ const SignIn = () => {
             Login();
           }}
         >
-          {/* Email */}
+      
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -126,7 +129,7 @@ const SignIn = () => {
             )}
           </div>
 
-          {/* Password */}
+        
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -162,16 +165,12 @@ const SignIn = () => {
             Forgot Password?
           </p>
 
-          {loading ? (
-            <button disabled>
-              <ClipLoader size={20} color="#fff" />
-            </button>
-          ) : (
-            <button type="submit">Sign In</button>
-          )}
+          <button type="submit" disabled={loading}>
+            {loading ? <ClipLoader size={20} color="#fff" /> : "Sign In"}
+          </button>
 
           <p style={{ textAlign: "center" }}>
-            Don't have an account?{" "}
+            Don’t have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
               onClick={() => navigate("/signup")}
@@ -186,7 +185,6 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
 
 const SignIn_content = styled.div`
   width: 100%;
@@ -333,6 +331,11 @@ const SignIn_wrapper = styled.div`
       &:hover {
         background-color: #9472b2;
         transition: all 350ms ease-in-out;
+      }
+
+      &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
       }
     }
   }

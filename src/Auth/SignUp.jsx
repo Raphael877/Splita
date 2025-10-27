@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Splita_logo from '../assets/Splita_logo.png'
+import Splita_logo from "../assets/Splita_logo.png";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
@@ -228,7 +228,12 @@ const SignUp = () => {
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+              style={{ cursor: "pointer" }}
+            />
             <p>
               I have read the{" "}
               <i
@@ -345,7 +350,7 @@ const SignUp_content = styled.div`
     left: 10%;
     z-index: 1;
 
-    img{
+    img {
       width: 40%;
       height: 100%;
     }
@@ -362,7 +367,7 @@ const SignUp_wrapper = styled.div`
   padding-top: 6rem;
   z-index: 1;
 
-  h1{
+  h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
@@ -378,7 +383,7 @@ const SignUp_wrapper = styled.div`
     padding-bottom: 2rem;
   }
 
-  h1{
+  h1 {
     @media (max-width: 768px) {
       font-size: 1.5rem;
     }
