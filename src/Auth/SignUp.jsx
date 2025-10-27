@@ -230,8 +230,6 @@ const SignUp = () => {
           <div className="check_cont">
             <input
               type="checkbox"
-              checked={agreed}
-              onChange={() => setAgreed(!agreed)}
               style={{ cursor: "pointer" }}
             />
             <p>
