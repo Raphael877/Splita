@@ -15,6 +15,7 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const navigate = useNavigate();
 
@@ -24,9 +25,35 @@ const SignIn = () => {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const validateInputs = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const Login = async () => {
+    if (!validateInputs()) return;
+
     SetLoading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
@@ -39,7 +66,7 @@ const SignIn = () => {
         JSON.stringify(res?.data?.data?._id)
       );
       toast.success(res?.data?.message);
-      navigate("/dashboard");
+      navigate('/useremptystate')
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || err?.response?.data?.Failed);
@@ -79,6 +106,7 @@ const SignIn = () => {
             Login();
           }}
         >
+          {/* Email */}
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -91,11 +119,14 @@ const SignIn = () => {
                 placeholder="Enter your email address"
                 value={formData.email}
                 onChange={handleChange}
-                required
               />
             </div>
+            {errors.email && (
+              <p style={{ color: "red", fontSize: "0.85rem" }}>{errors.email}</p>
+            )}
           </div>
 
+          {/* Password */}
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -108,12 +139,16 @@ const SignIn = () => {
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
-                required
               />
               <div className="icon" onClick={() => setShow(!show)}>
                 {show ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
+            {errors.password && (
+              <p style={{ color: "red", fontSize: "0.85rem" }}>
+                {errors.password}
+              </p>
+            )}
           </div>
 
           <p
@@ -152,10 +187,10 @@ const SignIn = () => {
 
 export default SignIn;
 
-// ---------- STYLES ----------
+
 const SignIn_content = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 110vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,13 +204,17 @@ const SignIn_content = styled.div`
   .circle_down_right {
     position: absolute;
     border-radius: 50%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_top_left {
     background-color: #c6bdc8;
     width: 20rem;
     height: 20rem;
-    top: -28%;
+    top: -20%;
     left: -17%;
   }
 
@@ -199,7 +238,7 @@ const SignIn_content = styled.div`
     background-color: #f4e2d1;
     width: 20rem;
     height: 20rem;
-    bottom: -28%;
+    bottom: -20%;
     right: -17%;
   }
 
@@ -263,6 +302,7 @@ const SignIn_wrapper = styled.div`
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
+        overflow: hidden;
 
         input {
           width: 100%;

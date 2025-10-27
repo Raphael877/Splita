@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { FaPlus } from "react-icons/fa6";
 import { TiGroupOutline } from "react-icons/ti";
-import { TbCurrencyNaira } from "react-icons/tb";
 import { TiTick } from "react-icons/ti";
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +15,7 @@ const UserEmptyHello = () => {
                 <div className='left'>
                     <h1>Hello Chidera</h1>
                     <h2>Greetings 👋🏽</h2>
-                    <p style={{color: 'black'}}>Lets kickstart your savings journey today</p>
+                    <p style={{ color: '#240046'}}>Lets kickstart your savings journey today</p>
                 </div>
                 <div className='hello_btn'>
                     <button className='hello_btn1' 
@@ -48,81 +47,6 @@ const UserEmptyHello = () => {
                     </div>
                 </div>
             </Create_join>
-            <TopGroup>
-                <h1>Top Groups</h1>
-                <div className='top_groups_content'>
-
-                    <div className='group'>
-                        <div className='wrapper'>
-                            <p><strong>Women in Tech Ajo</strong></p>
-                            <div className='p_cont'>
-                                <p><small>Progress</small></p>
-                                <p><small>4/10 contributions</small></p>
-                            </div>
-                            <div className='progress_parent1' style={{marginBottom: '1rem'}}>
-                                <div className='progress_child1'></div>
-                            </div>
-                            <div className='total_naira'>
-                                <p><small>Total Pot</small></p>
-                                <p><TbCurrencyNaira/><small>300,000</small></p>
-                            </div>
-                            <p><small>Women learning and growing together.</small></p>
-                            <div className='mem_num'>
-                                <p><small>Members</small></p>
-                                <p><small>10</small></p>
-                            </div>
-                            <button>Join Group</button>
-                        </div>
-                    </div>
-
-                    <div className='group'>
-                        <div className='wrapper'>
-                            <p><strong>Vacation Ajo</strong></p>
-                            <div className='p_cont'>
-                                <p><small>Progress</small></p>
-                                <p><small>8/10 contributions</small></p>
-                            </div>
-                            <div className='progress_parent2' style={{marginBottom: '1rem'}}>
-                                <div className='progress_child2'></div>
-                            </div>
-                            <div className='total_naira'>
-                                <p><small>Total Pot</small></p>
-                                <p><TbCurrencyNaira/><small>500,000</small></p>
-                            </div>
-                            <p><small>Save together, Unwind together.</small></p>
-                            <div className='mem_num'>
-                                <p><small>Members</small></p>
-                                <p><small>10</small></p>
-                            </div>
-                            <button>Join Group</button>
-                        </div>
-                    </div>
-
-                    <div className='group'>
-                        <div className='wrapper'>
-                            <p><strong>Obele Ajo</strong></p>
-                            <div className='p_cont'>
-                                <p><small>Progress</small></p>
-                                <p><small>5/5 contributions</small></p>
-                            </div>
-                            <div className='progress_parent3' style={{marginBottom: '1rem'}}>
-                                <div className='progress_child3'></div>
-                            </div>
-                            <div className='total_naira'>
-                                <p><small>Total Pot</small></p>
-                                <p><TbCurrencyNaira/><small>1,000,000</small></p>
-                            </div>
-                            <p><small>Small savings, big wins.</small></p>
-                            <div className='mem_num'>
-                                <p><small>Members</small></p>
-                                <p><small>5</small></p>
-                            </div>
-                            <button>Join Group</button>
-                        </div>
-                    </div>
-
-                </div>
-            </TopGroup>
             <Recent_Activities>
                 <h1>Recent Activities</h1>
                 <div className='bottom'>
@@ -149,6 +73,10 @@ const UserEmptyHello_content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+      margin-top: 16vh;
+    }
 `
 
 const UserEmptyHello_wrapper = styled.div`
@@ -158,6 +86,10 @@ const UserEmptyHello_wrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
 `
 
 const Hello = styled.div`
@@ -168,23 +100,41 @@ const Hello = styled.div`
     padding: 1.8rem;
     align-items: center;
     border-radius: 1rem;
-    border: 2px solid #7b2cbf;
+    border: 1.5px solid #7b2cbf;
+    background-color: #f2eaf9;
+
+    @media (max-width: 768px) {
+      height: 40vh;
+      flex-direction: column;
+      padding: 1rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
 
     .left{
         color: #240046;
 
         p{
             padding-block: 1rem;
+            
         }
     }
 
     .hello_btn{
-        width: 30%;
+        width: 40%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 0.8rem;
+
+        @media (max-width: 768px) {
+            height: 50%;
+            width: 100%;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: flex-start;
+        }
 
         .hello_btn1{
             width: 50%;
@@ -194,26 +144,38 @@ const Hello = styled.div`
             border-radius: 0.5rem;
             cursor: pointer;
             color: white;
-            background-color: #FF7900;
+            background-color: #7b2cbf;
             &:hover{
-                background-color: #FF9433;
+                background-color: #c29ee2;
                 transition: all 500ms ease-in-out;
+            }
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: 3rem;
+                font-size: 1rem;
             }
         }
 
         .hello_btn2{
             width: 50%;
             height: 2.5rem;
-            border: 1px solid #7b2cbf;
+            border: none;
             outline: none;
             border-radius: 0.5rem;
             cursor: pointer;
             background-color: white;
             color: #7b2cbf;
             &:hover{
-                border: none;
-                background-color: #c29ee2;
+                background-color: #ff7900;
+                color: white;
                 transition: all 500ms ease-in-out;
+            }
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: 3rem;
+                font-size: 1rem;
             }
         }    
     }
@@ -227,6 +189,11 @@ const Oops = styled.div`
     justify-content: center;
     align-items: center;
     margin-block: 2rem;
+
+    @media (max-width: 768px) {
+        height: 25vh;
+        border-radius: 0.5rem;
+    }
 
     .oops_wrapper{
         width: 100%;
@@ -244,16 +211,27 @@ const Oops = styled.div`
 
 const Create_join = styled.div`
     width: 100%;
-    height: 50vh;
+    height: 45vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        height: 40vh;
+    }
 
     .two_cards{
         display: flex;
         width: 75%;
         gap: 2rem;
         height: 80%;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            gap: 1rem;
+            flex-direction: column;
+            height: 100%;
+        }
 
         .card1{
             width: 50%;
@@ -268,12 +246,21 @@ const Create_join = styled.div`
             gap: 2rem;
             cursor: pointer;
 
+            @media (max-width: 768px) {
+                width: 100%;
+                gap: 1rem;
+            }
+
             .main{
                 display: flex;
                 gap: 0.5rem;
                 font-weight: 600;
                 justify-content: center;
                 align-items: center;
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
             }
 
             .content{
@@ -282,121 +269,6 @@ const Create_join = styled.div`
             }
         }
         
-    }
-`
-
-const TopGroup = styled.div`
-    width: 100%;
-    height: auto;
-    margin-block: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .top_groups_content{
-        width: 100%;
-        height: 40vh;
-        display: flex;
-        gap: 1rem;
-
-        .group{
-            width: 33%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-            .wrapper{
-                width: 90%;
-                height: 80%;
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-
-                .p_cont{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-
-                .progress_parent1{
-                    width: 100%;
-                    height: 3%;
-                    border-radius: 1rem;
-                    background-color: #dddcdc;
-
-                    .progress_child1{
-                        height: 100%;
-                        border-radius: 1rem;
-                        width: 40%;
-                        background-color: #3b82f6;
-                    }
-                }
-
-                .progress_parent2{
-                    width: 100%;
-                    height: 3%;
-                    border-radius: 1rem;
-                    background-color: #dddcdc;
-
-                    .progress_child2{
-                        height: 100%;
-                        border-radius: 1rem;
-                        width: 80%;
-                        background-color: #ff7900;
-                    }
-                }
-
-                .progress_parent3{
-                    width: 100%;
-                    height: 3%;
-                    border-radius: 1rem;
-                    background-color: #dddcdc;
-
-                    .progress_child3{
-                        height: 100%;
-                        border-radius: 1rem;
-                        width: 100%;
-                        background-color: #34a218;
-                    }
-                }
-
-                .total_naira{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    p{
-                        display: flex;
-                        align-items: center;
-                    }
-                }
-
-                .mem_num{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-
-                button{
-                    width: 100%;
-                    height: 2rem;
-                    border: none;
-                    outline: none;
-                    border-radius: 0.5rem;
-                    color: white;
-                    background-color: #a772d4;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #c29ee2;
-                        transition: all 500ms ease-in-out;
-                    }
-                }
-            }
-        }
     }
 `
 
@@ -412,11 +284,31 @@ const Recent_Activities = styled.div`
     justify-content: space-between;
     flex-direction: column;
 
+    @media (max-width: 768px) {
+        height: 15vh;
+        width: 100%;
+        background-color: transparent;
+        padding: 0;
+        gap: 1rem;
+
+        h1{
+            font-size: 1rem;
+        }
+    }
+
     .bottom{
         padding-left: 0.5rem;
         display: flex;
         align-items: center;
         gap: 0.7rem;
+
+        @media (max-width: 768px) {
+            height: 10vh;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding-left: 1rem;
+        }
 
         .icon_cont{
             width: 2rem;

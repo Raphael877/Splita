@@ -12,15 +12,16 @@ const UserDashboardHeader = () => {
         <UserDashboardHeader_wrapper>
             <img src={Splita_logo} className='brand_logo'/>
             <ul>
-                <li onClick={() => navigate('/userdashboard')}>Home</li>
-                <li onClick={() => navigate('/mygroup')}>My groups</li>
+                <li>Home</li>
+                <li>My groups</li>
                 <li>Contributions</li>
             </ul>
             <div className='right'>
-                <div className='profile' onClick={() => navigate('/profile')}>
+                <div className='profile'  onClick={() => navigate('/profile')}>
                     <img src={Profile_img} />
                     <p>Chidera Benjamin</p>
                     <IoIosArrowDown/>
+                    <div className='admin'><p>Admin</p></div>
                 </div>
             </div>
         </UserDashboardHeader_wrapper>
@@ -90,7 +91,7 @@ const UserDashboardHeader_wrapper = styled.div`
         }
     }
     .right{
-        width: 25%;
+        width: 30%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -113,6 +114,17 @@ const UserDashboardHeader_wrapper = styled.div`
                 @media (max-width: 768px) {
                     display: none;
                 }
+            }
+
+            .admin{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #fef5d0;
+                color: #facc15;
+                padding-block: 0.2rem;
+                padding-inline: 0.8rem;
+                border-radius: 1rem;
             }
         }
     }

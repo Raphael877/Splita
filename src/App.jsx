@@ -12,8 +12,22 @@ import UserEmptyState from './Pages/UserEmptyState.jsx'
 import Create_group from './Auth/Create_group.jsx'
 import UserDashboard from './Pages/UserDashboard.jsx'
 import MyGroup from './Pages/MyGroup.jsx'
-
-
+import Profile from './Components/Profile/Profile.jsx'
+import AdminCircleStartVacationDashboard from './Pages/AdminCircleStartVacationDashboard.jsx'
+import AdminDashboard from './Pages/AdminDashboard.jsx'
+import AdminRequestDashboard from './Components/AdminFolder/AdminRequestDashboard.jsx'
+import AdminContributionDashboard from './Components/AdminFolder/AdminContributionDashboard.jsx'
+import AdminMemberDashboard from './Components/AdminFolder/AdminMemberDashboard.jsx'
+import GroupCreated from './Pages/GroupCreated.jsx'
+import RequestJoinGroup from './Pages/RequestJoinGroup.jsx'
+import RequestApproved from './Pages/RequestApproved.jsx'
+import MyContribution from './Components/MyContribution.jsx'
+import WomenDashboard from './Pages/WomenDashboard.jsx'
+import WomenMembers from './Components/WomenMembers.jsx'
+import WomenContribution from './Components/WomenContribution.jsx'
+import Obele from './Pages/Obele.jsx'
+import ObeleMembers from './Components/ObeleMembers.jsx'
+import ObeleContribution from './Components/ObeleContribution.jsx'
 
 const App = () => {
   return (
@@ -31,7 +45,25 @@ const App = () => {
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/mygroup" element={<MyGroup />} />
 
-
+        <Route path="/profile" element={<Profile />} />
+        <Route path='/admincirclestartvacationdashboard' element={<AdminCircleStartVacationDashboard />} />
+        <Route path='/' element={<AdminDashboard />} >
+          <Route path='' element={<AdminMemberDashboard />} />
+          <Route path='admin_contribution' element={<AdminContributionDashboard />} />
+          <Route path='admin_request' element={<AdminRequestDashboard />} />
+          </Route>
+        <Route path='/group_created' element={<GroupCreated />} />
+        <Route path='/requestjoingroup' element={<RequestJoinGroup />} />
+        <Route path='/requestapproved' element={<RequestApproved />} />
+        <Route path='/mycontribution' element={<MyContribution />} /> 
+        <Route path='/womendashboard' element={<WomenDashboard/>} >
+          <Route path='' element={<WomenMembers />} />
+          <Route path='women_contribution' element={<WomenContribution />} />
+        </Route>
+        <Route path='/obele' element={<Obele/>} >
+          <Route path='' element={<ObeleMembers />} />
+          <Route path='obele_contribution' element={<ObeleContribution />} />
+        </Route>
       </Routes>
     </HashRouter>
   );

@@ -17,6 +17,14 @@ const VerifyEmail = () => {
   const email = localStorage.getItem("userEmail");
 
   useEffect(() => {
+    if (!email) {
+      toast.error("No email found. Please sign up again.");
+      navigate("/signup");
+    }
+  }, [email, navigate]);
+
+
+  useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => setTimer((t) => t - 1), 1000);
       return () => clearInterval(interval);
@@ -25,7 +33,7 @@ const VerifyEmail = () => {
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
-    if (!/^\d*$/.test(value)) return;
+    if (!/^\d*$/.test(value)) return; 
 
     const newOtp = [...otp];
     newOtp[index] = value;
@@ -42,10 +50,17 @@ const VerifyEmail = () => {
     }
   };
 
+
   const VerifyOtp = async () => {
     const otpCode = otp.join("");
-    if (otpCode.length !== 6) {
-      toast.error("Please enter a valid 6-digit code");
+
+    if (!email) {
+      toast.error("Missing email address.");
+      return;
+    }
+
+    if (!/^\d{6}$/.test(otpCode)) {
+      toast.error("Please enter a valid 6-digit code.");
       return;
     }
 
@@ -55,12 +70,12 @@ const VerifyEmail = () => {
         email,
         otp: otpCode,
       });
-      toast.success(res?.data?.message);
+      toast.success(res?.data?.message || "Email verified successfully!");
       setOtp(["", "", "", "", "", ""]);
-      navigate("/signin");
+      navigate("/useremptystate");
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "Verification failed");
     } finally {
       setLoading(false);
     }
@@ -69,6 +84,11 @@ const VerifyEmail = () => {
   const ResendOtp = async () => {
     if (timer > 0 || resending) return;
 
+    if (!email) {
+      toast.error("No email found. Please sign up again.");
+      return;
+    }
+
     setResending(true);
     try {
       const res = await axios.post(
@@ -76,11 +96,11 @@ const VerifyEmail = () => {
         { email },
         { headers: { "Content-Type": "application/json" } }
       );
-      toast.success(res?.data?.message);
+      toast.success(res?.data?.message || "OTP resent successfully!");
       setTimer(15);
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "Failed to resend OTP");
     } finally {
       setResending(false);
     }
@@ -99,7 +119,7 @@ const VerifyEmail = () => {
 
       <VerifyEmail_wrapper>
         <h1>Verify Email</h1>
-        <p>Please input code sent to your email</p>
+        <p>Please input the code sent to your email</p>
         <ToastContainer />
 
         <form
@@ -156,7 +176,6 @@ const VerifyEmail = () => {
 
 export default VerifyEmail;
 
-// ------------------ Styled Components ------------------
 
 const VerifyEmail_content = styled.div`
   width: 100%;
@@ -182,6 +201,10 @@ const VerifyEmail_content = styled.div`
     height: 20rem;
     top: -28%;
     left: -17%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_top_right {
@@ -190,6 +213,10 @@ const VerifyEmail_content = styled.div`
     height: 3rem;
     top: 10%;
     right: 0.5%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .circle_mid_left {
@@ -272,6 +299,7 @@ const VerifyEmail_wrapper = styled.div`
       width: 100%;
       height: 5rem;
       align-items: center;
+      overflow: hidden;
 
       input {
         width: 15%;

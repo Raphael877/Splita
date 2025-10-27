@@ -199,6 +199,7 @@ const ForgotCheckEmail_wrapper = styled.div`
                 display: flex;
                 align-items: center;
                 padding-right: 0.5rem;
+                overflow: hidden;
 
                 input{
                     width: 100%;

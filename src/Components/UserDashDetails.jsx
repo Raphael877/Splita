@@ -19,7 +19,7 @@ const UserDashDetails = () => {
                 <div className='left'>
                     <h1>Welcome Back,</h1>
                     <h2>Chidera! 👋🏽</h2>
-                    <p style={{color: 'black'}}>You have 2 active groups and 1 payout coming up this<br></br> week.</p>
+                    <p style={{color: '#240046'}}>You have 2 active groups and 1 payout coming up this week.</p>
                 </div>
                 <div className='hello_btn'>
                     <button className='hello_btn1' 
@@ -89,7 +89,7 @@ const UserDashDetails = () => {
                     <My_groups>
                         <div className='top'>
                             <h1>My groups</h1>
-                            <p style={{color: '#7b2cbf', fontWeight: 'bolder', cursor: 'pointer'}}><small>View all</small></p>
+                            <p onClick={() => navigate('/mygroup')} style={{color: '#7b2cbf', fontWeight: 'bolder', cursor: 'pointer'}}><small>View all</small></p>
                         </div>
                         <div className='main_top_group'>
                             <div className='group'>
@@ -319,6 +319,7 @@ const UserDashDetails_content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
 `
 
 const UserDashDetails_wrapper = styled.div`
@@ -341,11 +342,26 @@ const Hello = styled.div`
     border: 2px solid #7b2cbf;
     background-color: #f2eaf9;
 
+    @media (max-width: 768px){
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem
+    }
+
     .left{
         color: #240046;
+        width: 40%;
+
+        @media (max-width: 768px){
+            width: 100%;
+        }
 
         h1{
             font-size: 2.5rem;
+
+        @media (max-width: 768px){
+            font-size: 1.5rem;
+        }
         }
 
         p{
@@ -360,6 +376,11 @@ const Hello = styled.div`
         align-items: center;
         justify-content: space-between;
         gap: 0.8rem;
+
+        @media (max-width: 768px){
+            width: 100%;
+
+        }
 
         .hello_btn1{
             width: 100%;
@@ -378,22 +399,36 @@ const Hello = styled.div`
                 color: white;
                 transition: all 500ms ease-in-out;
             }
+
+            @media (max-width: 768px){
+                height: 3rem;
+            }
         } 
     }
 `
 
 const Details = styled.div`
     width: 100%;
-    height: 40vh;
+    height: 45vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px){
+        margin-block: 2rem;
+    }
 
     .inner_details{
         width: 100%;
         height: 60%;
         display: flex;
         gap: 1.5rem;
+
+        @media (max-width: 768px){
+            height: 100%;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
         .card1{
             width: 25%;
@@ -404,6 +439,11 @@ const Details = styled.div`
             background-color: white;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             border-radius: 0.5rem;
+
+            @media (max-width: 768px){
+                width: 47%;
+                height: 47%;
+            }
 
             .card_wrapper{
                 width: 85%;
@@ -437,6 +477,11 @@ const Details = styled.div`
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             border-radius: 0.5rem;
 
+            @media (max-width: 768px){
+                width: 47%;
+                height: 47%;
+            }
+
             .card_wrapper{
                 width: 85%;
                 height: 80%;
@@ -468,6 +513,11 @@ const Details = styled.div`
             background-color: white;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             border-radius: 0.5rem;
+
+            @media (max-width: 768px){
+                width: 47%;
+                height: 47%;
+            }
 
             .card_wrapper{
                 width: 85%;
@@ -518,6 +568,11 @@ const Details = styled.div`
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             border-radius: 0.5rem;
 
+            @media (max-width: 768px){
+                width: 47%;
+                height: 47%;
+            }
+
             .card_wrapper{
                 width: 85%;
                 height: 80%;
@@ -566,6 +621,11 @@ const Main_bottom = styled.div`
     display: flex;
     gap: 2rem;
     margin-bottom: 15vh;
+
+    @media (max-width: 768px){
+        flex-direction: column;
+        height: auto;
+    }
 `
 
 const Left = styled.div`
@@ -574,6 +634,10 @@ const Left = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    @media (max-width: 768px){
+        width: 100%;
+    }
 `
 
 const My_groups = styled.div`
@@ -595,6 +659,11 @@ const My_groups = styled.div`
         display: flex;
         gap: 1rem;
 
+        @media (max-width: 768px){
+            flex-direction: column;
+            height: 100%;
+        }
+
         .group{
             width: 50%;
             height: 100%;
@@ -605,12 +674,21 @@ const My_groups = styled.div`
             border-radius: 0.5rem;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+            @media (max-width: 768px){
+                width: 100%;
+                height: 18rem;
+            }
+
             .wrapper{
                 width: 90%;
                 height: 85%;
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
+
+                @media (max-width: 768px){
+                    gap: 0.6rem;
+                }
 
                 .women{
                     width: 100%;
@@ -720,6 +798,13 @@ const Recent = styled.div`
     flex-direction: column;
     gap: 2rem;
 
+    @media (max-width: 768px){
+        h1{
+            font-size: 1.3rem;
+            margin-top: 2rem;
+        }
+    }
+
     .recent_updates{
         width: 100%;
         height: 100%;
@@ -730,6 +815,11 @@ const Recent = styled.div`
         border-radius: 0.5rem;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         
+        @media (max-width: 768px){
+            height: 25rem;
+            padding-inline: 1rem;
+        }
+
 
         .recent_update_wrapper{
             width: 95%;
@@ -738,6 +828,9 @@ const Recent = styled.div`
             flex-direction: column;
             align-content: space-between;
             
+            @media (max-width: 768px){
+                gap: 1rem;
+        }
 
             .one{
                 display: flex;
@@ -822,109 +915,117 @@ const Recent = styled.div`
         }
     }
 `
-
 const Right = styled.div`
-    width: 30%;
-    height: 100%;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (max-width: 768px){
+    width: 100%;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .card_container {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 1rem;
+    width: 100%;
+    height: 100%;
+    max-height: 110vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-block: 1rem;
 
-    .card_container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 1rem;
-        width: 100%;
-        height: 100%;
-        overflow-x: scroll;
-        scrollbar-width: none;
-        padding-block: 1rem;
-  
-        &::-webkit-scrollbar {        
-            display: none;
-        }
-
-        .contribution-card {
-            width: 100%;
-            background-color: white;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1rem;
-        }
-
-        .amount {
-            font-weight: 600;
-        }
-
-        .progress-circle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 1.5rem;
-        }
-
-        .circle1 {
-            width: 6.5rem;
-            height: 6.5rem;
-            border-radius: 50%;
-            background: conic-gradient(#3b82f6 0% 40%, #d8e6fd 40% 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .circle2 {
-            width: 6.5rem;
-            height: 6.5rem;
-            border-radius: 50%;
-            background: conic-gradient(#ff7900 0% 70%, #ffe4cc 70% 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .circle3 {
-            width: 6.5rem;
-            height: 6.5rem;
-            border-radius: 50%;
-            background: conic-gradient(#34a218 0% 100%,#ff7900  100% 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .inner-circle {
-            width: 5rem;
-            height: 5rem;
-            border-radius: 50%;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .inner-circle span {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .info p {
-            font-size: 0.85rem;
-            color: #555;
-        }
-
-        .info .row p:last-child {
-            
-        }
-
+    &::-webkit-scrollbar {
+      display: none;
     }
 
+    @media (max-width: 768px){
+    gap: 2rem;
+  }
+
+    .contribution-card {
+      width: 100%;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      border-radius: 0.5rem;
+      padding-bottom: 1rem;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem;
+    }
+
+    .amount {
+      font-weight: 600;
+    }
+
+    .progress-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.5rem;
+    }
+
+    .circle1 {
+      width: 6.5rem;
+      height: 6.5rem;
+      border-radius: 50%;
+      background: conic-gradient(#3b82f6 0% 40%, #d8e6fd 40% 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle2 {
+      width: 6.5rem;
+      height: 6.5rem;
+      border-radius: 50%;
+      background: conic-gradient(#ff7900 0% 70%, #ffe4cc 70% 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle3 {
+      width: 6.5rem;
+      height: 6.5rem;
+      border-radius: 50%;
+      background: conic-gradient(#34a218 0% 100%, #e0f2dd 100% 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inner-circle {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inner-circle span {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .info p {
+      font-size: 0.85rem;
+      color: #555;
+    }
+  }
 `

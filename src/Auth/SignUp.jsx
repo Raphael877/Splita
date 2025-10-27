@@ -8,11 +8,15 @@ import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Terms from "./Terms"; 
+import axios from "axios"; 
+import { ClipLoader } from "react-spinners"; 
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [loading, setloading] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +24,10 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -27,39 +35,87 @@ const SignUp = () => {
       [name]: value,
     }));
   };
-  const [showTerms, setShowTerms] = useState(false);
 
-  const navigate = useNavigate();
+  const validateForm = () => {
+  const { name, email, phone, password, confirmPassword } = formData;
 
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  if (!name.trim()) {
+    toast.error("Please enter your full name.");
+    return false;
+  }
+
+  if (!email.trim()) {
+    toast.error("Email is required.");
+    return false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    toast.error("Please enter a valid email address.");
+    return false;
+  }
+
+  if (!phone.trim()) {
+    toast.error("Phone number is required.");
+    return false;
+  }
+
+  const phoneRegex = /^(?:\+234|0)[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    toast.error("Please enter a valid phone number.");
+    return false;
+  }
+
+  if (!password.trim()) {
+    toast.error("Password cannot be empty.");
+    return false;
+  }
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_*#?&-])[A-Za-z\d@$!%_*#?&-]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    toast.error(
+      "Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character"
+    );
+    return false;
+  }
+
+  if (password !== confirmPassword) {
+    toast.error("Passwords do not match.");
+    return false;
+  }
+
+  return true;
+};
+
 
   const Register = async () => {
-    setloading(true);
-    try {
-      const res = await axios.post(`${BaseUrl}/users/register`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  if (!validateForm()) return; 
+
+  setloading(true);
+  try {
+    const res = await axios.post(`${BaseUrl}/users/register`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    toast.success(res?.data?.message || "Registration successful!");
+
+    localStorage.setItem("userEmail", formData.email);
+
+    setTimeout(() => {
       navigate("/verifyemail");
-      toast.success(res?.data?.message);
-      localStorage.setItem("userEmail", formData.email);
+    }, 1500);
+  } catch (err) {
+    toast.error(
+      err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        "Registration failed. Please try again."
+    );
+    console.error(err);
+  } finally {
+    setloading(false);
+  }
+};
 
-      console.log(res);
-
-      console.log(res.data);
-    } catch (err) {
-      toast.error(
-        err?.response?.data?.message ||
-          err?.response?.data?.error ||
-          err?.message
-      );
-      console.log(err);
-    } finally {
-      setloading(false);
-    }
-    navigate('/verifyemail')
-  };
 
   return (
     <SignUp_content>
@@ -68,8 +124,9 @@ const SignUp = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <img src={Splita_logo} />
+        <img src={Splita_logo} alt="Splita Logo" />
       </div>
+
       <ToastContainer />
 
       <SignUp_wrapper>
@@ -108,9 +165,9 @@ const SignUp = () => {
             <div className="input_div">
               <input
                 type="text"
+                name="email"
                 placeholder="e.g John@gmail.com"
                 value={formData.email}
-                name="email"
                 onChange={handleChange}
               />
             </div>
@@ -124,9 +181,9 @@ const SignUp = () => {
             <div className="input_div">
               <input
                 type="text"
+                name="phone"
                 placeholder="e.g 07038204858"
                 value={formData.phone}
-                name="phone"
                 onChange={handleChange}
               />
             </div>
@@ -140,17 +197,13 @@ const SignUp = () => {
             <div className="input_div">
               <input
                 type={show ? "text" : "password"}
+                name="password"
                 placeholder="Password"
                 value={formData.password}
-                name="password"
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow(!show)}>
-                {show ? (
-                  <GoEye style={{ cursor: "pointer" }} />
-                ) : (
-                  <GoEyeClosed style={{ cursor: "pointer" }} />
-                )}
+                {show ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
           </div>
@@ -163,16 +216,13 @@ const SignUp = () => {
             <div className="input_div">
               <input
                 type={show2 ? "text" : "password"}
-                placeholder="Password"
                 name="confirmPassword"
+                placeholder="Password"
+                value={formData.confirmPassword}
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow2(!show2)}>
-                {show2 ? (
-                  <GoEye style={{ cursor: "pointer" }} />
-                ) : (
-                  <GoEyeClosed style={{ cursor: "pointer" }} />
-                )}
+                {show2 ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
           </div>
@@ -190,13 +240,10 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
-          {loading ? (
-            <button type="submit">
-              <ClipLoader />
-            </button>
-          ) : (
-            <button type="submit">Sign Up</button>
-          )}
+
+          <button type="submit">
+            {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
+          </button>
 
           <p className="already">
             Already have an account?{" "}
@@ -216,7 +263,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
 
 const SignUp_content = styled.div`
   width: 100%;
@@ -242,7 +288,7 @@ const SignUp_content = styled.div`
     background-color: #c6bdc8;
     width: 20rem;
     height: 20rem;
-    top: -28%;
+    top: -18%;
     left: -17%;
 
     @media (max-width: 768px) {
@@ -284,7 +330,7 @@ const SignUp_content = styled.div`
     background-color: #f4e2d1;
     width: 20rem;
     height: 20rem;
-    bottom: -28%;
+    bottom: -18%;
     right: -17%;
 
     @media (max-width: 768px) {
@@ -364,6 +410,7 @@ const SignUp_wrapper = styled.div`
         display: flex;
         align-items: center;
         padding-right: 0.5rem;
+        overflow: hidden;
 
         input {
           width: 100%;
@@ -402,3 +449,6 @@ const SignUp_wrapper = styled.div`
     }
   }
 `;
+
+
+
