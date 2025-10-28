@@ -68,6 +68,29 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.data?._id)
       );
+
+      const userFromRes = res?.data?.data || res?.data?.user || {};
+    const name =
+      userFromRes?.name ||
+      userFromRes?.fullName ||
+      `${userFromRes?.firstName || ""} ${userFromRes?.lastName || ""}`.trim() ||
+      (formData.email ? formData.email.split("@")[0] : "");
+    const email = userFromRes?.email || formData.email || "";
+    const phone = userFromRes?.phone || userFromRes?.phoneNumber || "";
+
+    const userData = {
+      fullName: name,
+      email,
+      phone,
+      firstName: (name && name.split(" ")[0]) || "",
+    };
+
+    try {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } catch (e) {
+      console.warn("Could not save userData to localStorage", e);
+    }
+
       toast.success(res?.data?.message || "Login successful!");
       navigate('/useremptystate')
     } catch (err) {
