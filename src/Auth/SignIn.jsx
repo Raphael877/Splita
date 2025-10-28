@@ -51,6 +51,8 @@ const SignIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+ 
+
   const Login = async () => {
     if (!validateInputs()) return;
 
@@ -125,7 +127,6 @@ const SignIn = () => {
               <p style={{ color: "red", fontSize: "0.85rem" }}>{errors.email}</p>
             )}
           </div>
-
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -166,7 +167,7 @@ const SignIn = () => {
           </button>
 
           <p style={{ textAlign: "center" }}>
-            Don't have an account?{" "}
+            Don’t have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
               onClick={() => navigate("/signup")}
@@ -181,7 +182,6 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
 
 const SignIn_content = styled.div`
   width: 100%;
@@ -328,6 +328,11 @@ const SignIn_wrapper = styled.div`
       &:hover {
         background-color: #9472b2;
         transition: all 350ms ease-in-out;
+      }
+
+      &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
       }
     }
   }

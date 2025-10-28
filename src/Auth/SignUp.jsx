@@ -358,7 +358,7 @@ const SignUp_content = styled.div`
     left: 10%;
     z-index: 1;
 
-    img{
+    img {
       width: 40%;
       height: 100%;
     }
@@ -375,7 +375,7 @@ const SignUp_wrapper = styled.div`
   padding-top: 6rem;
   z-index: 1;
 
-  h1{
+  h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
@@ -391,7 +391,7 @@ const SignUp_wrapper = styled.div`
     padding-bottom: 2rem;
   }
 
-  h1{
+  h1 {
     @media (max-width: 768px) {
       font-size: 1.5rem;
     }
@@ -462,6 +462,3 @@ const SignUp_wrapper = styled.div`
     }
   }
 `;
-
-
-
