@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Splita_logo from '../assets/Splita_logo.png'
+import Splita_logo from "../assets/Splita_logo.png";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import { FaRegUser } from "react-icons/fa6";
 import { FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import Terms from "./Terms"; 
-import axios from "axios"; 
-import { ClipLoader } from "react-spinners"; 
+import Terms from "./Terms";
+import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
@@ -37,85 +37,93 @@ const SignUp = () => {
   };
 
   const validateForm = () => {
-  const { name, email, phone, password, confirmPassword } = formData;
+    const { name, email, phone, password, confirmPassword } = formData;
 
-  if (!name.trim()) {
-    toast.error("Please enter your full name.");
-    return false;
-  }
+    if (!name.trim()) {
+      toast.error("Please enter your full name.");
+      return false;
+    }
 
-  if (!email.trim()) {
-    toast.error("Email is required.");
-    return false;
-  }
+    if (!email.trim()) {
+      toast.error("Email is required.");
+      return false;
+    }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    toast.error("Please enter a valid email address.");
-    return false;
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return false;
+    }
 
-  if (!phone.trim()) {
-    toast.error("Phone number is required.");
-    return false;
-  }
+    if (!phone.trim()) {
+      toast.error("Phone number is required.");
+      return false;
+    }
 
-  const phoneRegex = /^(?:\+234|0)[0-9]{10}$/;
-  if (!phoneRegex.test(phone)) {
-    toast.error("Please enter a valid phone number.");
-    return false;
-  }
+    const phoneRegex = /^(?:\+234|0)[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Please enter a valid phone number.");
+      return false;
+    }
 
-  if (!password.trim()) {
-    toast.error("Password cannot be empty.");
-    return false;
-  }
+    if (!password.trim()) {
+      toast.error("Password cannot be empty.");
+      return false;
+    }
 
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_*#?&-])[A-Za-z\d@$!%_*#?&-]{8,}$/;
-  if (!passwordRegex.test(password)) {
-    toast.error(
-      "Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character"
-    );
-    return false;
-  }
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_*#?&-])[A-Za-z\d@$!%_*#?&-]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character"
+      );
+      return false;
+    }
 
-  if (password !== confirmPassword) {
-    toast.error("Passwords do not match.");
-    return false;
-  }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return false;
+    }
 
-  return true;
-};
-
+    return true;
+  };
 
   const Register = async () => {
-  if (!validateForm()) return; 
+    if (!validateForm()) return;
 
-  setloading(true);
-  try {
-    const res = await axios.post(`${BaseUrl}/users/register`, formData, {
-      headers: { "Content-Type": "application/json" },
-    });
+    setloading(true);
+    try {
+      const res = await axios.post(`${BaseUrl}/users/register`, formData, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-    toast.success(res?.data?.message || "Registration successful!");
+      const userData = {
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        firstName: formData.name.split(' ')[0]
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem("userEmail", formData.email);
 
-    localStorage.setItem("userEmail", formData.email);
+      toast.success(res?.data?.message || "Registration successful!");
 
-    setTimeout(() => {
-      navigate("/verifyemail");
-    }, 1500);
-  } catch (err) {
-    toast.error(
-      err?.response?.data?.message ||
-        err?.response?.data?.error ||
-        "Registration failed. Please try again."
-    );
-    console.error(err);
-  } finally {
-    setloading(false);
-  }
-};
+      localStorage.setItem("userEmail", formData.email);
 
+      setTimeout(() => {
+        navigate("/verifyemail");
+      }, 1500);
+    } catch (err) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.error ||
+          "Registration failed. Please try again."
+      );
+      console.error(err);
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <SignUp_content>
@@ -189,6 +197,8 @@ const SignUp = () => {
             </div>
           </div>
 
+          <p style={{ color: "#888888" }}><small>Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character</small></p>
+
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -228,7 +238,10 @@ const SignUp = () => {
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              style={{ cursor: "pointer" }}
+            />
             <p>
               I have read the{" "}
               <i

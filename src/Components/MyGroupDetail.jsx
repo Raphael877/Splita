@@ -9,7 +9,7 @@ const MyGroupDetail = () => {
   return (
     <MyGroupDetail_content>
         <MyGroupDetail_wrapper>
-            <p onClick={() => navigate('/userdashboard')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
+            <p onClick={() => navigate('/useremptystate')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
             <div className='main_top_group'>
                 <div className='group'>
                     <div className='wrapper'>
@@ -42,7 +42,7 @@ const MyGroupDetail = () => {
                             <p><small>Role</small></p>
                             <p><small>Member</small></p>
                         </div>
-                        <button>View group details</button>
+                        <button onClick={() => navigate('/womendashboard')}>View group details</button>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@ const MyGroupDetail = () => {
                             <p><small>Role</small></p>
                             <p><small>Admin</small></p>
                         </div>
-                        <button>View group details</button>
+                        <button onClick={() => navigate('/userdashboard')}>View group details</button>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@ const MyGroupDetail = () => {
                             <p><small>Role</small></p>
                             <p><small>Member</small></p>
                         </div>
-                        <button>View group details</button>
+                        <button onClick={() => navigate('/obele')}>View group details</button>
                     </div>
                 </div>
 

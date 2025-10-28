@@ -152,7 +152,7 @@ const VerifyEmail = () => {
           )}
 
           <p>
-            Didn’t receive the code?{" "}
+            Didn't receive the code?{" "}
             <span
               onClick={ResendOtp}
               style={{

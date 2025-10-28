@@ -5,12 +5,19 @@ import Profile_img from '../assets/Profile_img.png'
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 
-const UserDashboardHeader = () => {
+const AdminDashboardHeader = () => {
     const navigate = useNavigate();
+    const userData = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userData')) || {};
+      } catch {
+        return {};
+      }
+    })();
   return (
     <UserDashboardHeader_content>
         <UserDashboardHeader_wrapper>
-            <img src={Splita_logo} className='brand_logo'/>
+            <img src={Splita_logo} className='brand_logo' onClick={() => navigate("/")}/>
             <ul>
                 <li>Home</li>
                 <li>My groups</li>
@@ -19,9 +26,9 @@ const UserDashboardHeader = () => {
             <div className='right'>
                 <div className='profile'  onClick={() => navigate('/profile')}>
                     <img src={Profile_img} />
-                    <p>Chidera Benjamin</p>
+                    <p>{userData.fullName || 'Guest User'}</p>
                     <IoIosArrowDown/>
-                    <div className='admin'><p>Admin</p></div>
+                    <div className='admin'><small>Admin</small></div>
                 </div>
             </div>
         </UserDashboardHeader_wrapper>
@@ -29,7 +36,7 @@ const UserDashboardHeader = () => {
   )
 }
 
-export default UserDashboardHeader
+export default AdminDashboardHeader
 
 const UserDashboardHeader_content = styled.div`
     width: 100%;
@@ -97,6 +104,10 @@ const UserDashboardHeader_wrapper = styled.div`
         align-items: center;
         gap: 1rem;
 
+        @media (max-width: 768px) {
+            width: 32%;
+        }
+
         .profile{
             width: 100%;
             height: 100%;
@@ -125,6 +136,12 @@ const UserDashboardHeader_wrapper = styled.div`
                 padding-block: 0.2rem;
                 padding-inline: 0.8rem;
                 border-radius: 1rem;
+
+                @media (max-width: 768px) {
+                    padding-block: 0.2rem;
+                    padding-inline: 0.7rem;
+                }
+
             }
         }
     }

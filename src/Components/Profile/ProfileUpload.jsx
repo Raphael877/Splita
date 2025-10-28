@@ -70,6 +70,10 @@ const ProfileUpload_wrapper = styled.div`
     align-items: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     position: relative;
+
+    @media (max-width: 768px) {
+        width: 85%;
+    }
 `
 
 const Inner_wrap = styled.div`

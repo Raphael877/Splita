@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import UserDashboardHeader from '../Components/AdminDashboardHeader.jsx'
+import UserDashboardHeader from '../Components/UserDashboardHeader.jsx'
 import UserDashboardFooter from '../Components/UserDashboardFooter.jsx';
 import { Outlet, useNavigate } from "react-router-dom";
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -57,17 +57,16 @@ const WomenDashboard = () => {
             <div className='groupname'><h1>Women in Tech Ajo</h1></div>
             <div className='round'>
                 <div className='left'>
-                    <p>Round <span>5/5</span></p>
+                    <p>Round <span>3/10</span></p>
                     <div className='ongoing'>
                         <p style={{color: '#3b82f6', fontSize: '0.8rem'}}>Ongoing</p>
                     </div>
                 </div>
                 <div className='right'>
-                    <button className='btn1'><FiSend style={{fontSize: '1rem'}} /><p>Trigger Payout</p></button>
                     <button className='btn2'><TbCurrencyNaira style={{fontSize: '1rem'}}/><p>Make Contribution</p></button>
                 </div>
             </div>
-            <div className="back" style={{ cursor: "pointer" }}>
+            <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate('/userdashboard')}>
                 <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
                 <p>back home</p>
             </div>
@@ -130,6 +129,12 @@ const AdminDashboard_wrapper = styled.div`
     .groupname{
         width: 80%;
         margin-top: 18vh;
+
+        @media (max-width: 768px) {
+            width: 90%;
+            word-spacing: 10px;
+            letter-spacing: 5px;
+        }
     }
 
     .round{
@@ -139,12 +144,26 @@ const AdminDashboard_wrapper = styled.div`
         justify-content: space-between;
         align-items: center;
 
+        @media (max-width: 768px) {
+            align-items: start;
+            flex-direction: column;
+            width: 90%;
+            gap: 0.5rem;
+            height: 17vh;
+        }    
+
         .left{
             width: 18%;
             height: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
 
             p{
                 color: #666666;
@@ -166,22 +185,24 @@ const AdminDashboard_wrapper = styled.div`
         }
 
         .right{
-            width: 35%;
+            width: 30%;
             height: 70%;
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
 
-            .btn1{
-                width: 50%;
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+            
+            .btn2{
+                width: 65%;
                 height: 100%;
-                gap: 0.5rem;
                 display: flex;
+                gap: 0.5rem;
                 justify-content: center;
                 align-items: center;
                 border: none;
-                outline: none;
                 border-radius: 0.5rem;
                 cursor: pointer;
                 background-color: #7b2cbf;
@@ -190,24 +211,9 @@ const AdminDashboard_wrapper = styled.div`
                     background-color: #9472b2;
                     transition: all 350ms ease-in-out;
                 }
-            }
 
-            .btn2{
-                width: 50%;
-                height: 100%;
-                display: flex;
-                gap: 0.5rem;
-                justify-content: center;
-                align-items: center;
-                border: 1.5px solid #ff7900;
-                color: #ff7900;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                background-color: transparent;
-                &:hover{
-                    background-color: #ff7900;
-                    color: white;
-                    transition: all 350ms ease-in-out;
+                @media (max-width: 768px) {
+                    width: 100%;
                 }
             }
         }
@@ -217,6 +223,10 @@ const AdminDashboard_wrapper = styled.div`
         width: 85%;
         display: flex;
         align-items: center;
+
+        @media (max-width: 768px) {
+            margin-top: 0.5rem;
+        }
     }
 
     .option{
@@ -231,6 +241,10 @@ const AdminDashboard_wrapper = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
+
+            @media (max-width: 768px) {
+                width: 100%;
+            }
 
             .inner_wrap{
                 width: 90%;
@@ -283,11 +297,19 @@ const Ad = styled.div`
     justify-content: center;
     align-items: center;
 
+    @media (max-width: 768px) {
+        height: 60vh;
+    }
+
     .Ad_wrap{
         width: 85%;
         height: 80%;
         display: flex;
         gap: 1rem;
+
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+        }
 
         .card{
             width: 24%;
@@ -298,6 +320,11 @@ const Ad = styled.div`
             background-color: white;
             border-radius: 0.5rem;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+            @media (max-width: 768px) {
+                width: 48%;
+                height: 50%;
+            }
 
             .card_wrapper{
                 width: 85%;

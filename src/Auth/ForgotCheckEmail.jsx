@@ -1,63 +1,173 @@
-import React from 'react'
-import styled from "styled-components"
-import Splita_logo from '../assets/Splita_logo.png'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Splita_logo from "../assets/Splita_logo.png";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 const ForgotCheckEmail = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    resetCode: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.resetCode ||
+      !formData.newPassword ||
+      !formData.confirmPassword
+    ) {
+      toast.error("All fields are required!");
+      return;
+    }
+
+    if (formData.resetCode.length !== 6) {
+      toast.error("Reset code must be 6 digits");
+      return;
+    }
+
+    if (formData.newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return;
+    }
+
+    if (formData.newPassword !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post(`${BaseUrl}/users/reset-password`, {
+        code: formData.resetCode,
+        password: formData.newPassword,
+      });
+
+      toast.success(res?.data?.message || "Password reset successful!");
+      setTimeout(() => navigate("/signin"), 2000);
+    } catch (err) {
+      console.error(err);
+      toast.error(
+        err?.response?.data?.message || "Invalid or expired reset code"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ForgotCheckEmail_content>
-        <div className='circle_top_left'></div>
-        <div className='circle_top_right'></div>
-        <div className='circle_mid_left'></div>
-        <div className='circle_down_right'></div>
-        <div className='brand_name'>
-            <img src={Splita_logo} />
-        </div>
-        <ForgotCheckEmail_wrapper>
-            <h1 style={{textAlign: 'center'}}>Check your email</h1>
-            <p style={{color:'#4e4a4a', textAlign: 'center', marginBlock: '1.5rem'}}>Enter the 6 digits reset code Splita sent to your email address and create a new password.</p>
+      <ToastContainer />
 
-            <form>
-                <div className='inp'>
-                    <div className='label'>
-                        <p style={{color: '#3d3c3c'}}>Enter reset code</p>
-                    </div>
-                    <div className='input_div'>
-                        <input type='password' placeholder='e.g 123456'/>
-                    </div>
-                </div>
+      <div className="circle_top_left"></div>
+      <div className="circle_top_right"></div>
+      <div className="circle_mid_left"></div>
+      <div className="circle_down_right"></div>
 
-                <div className='inp'>
-                    <div className='label'>
-                        <p style={{color: '#3d3c3c'}}>Enter your New Password</p>
-                    </div>
-                    <div className='input_div'>
-                        <input type='password' placeholder='New password'/>
-                    </div>
-                </div>
+      <div className="brand_name">
+        <img src={Splita_logo} alt="Splita Logo" />
+      </div>
 
-                <div className='inp'>
-                    <div className='label'>
-                        <p style={{color: '#3d3c3c'}}>Re-type New Password</p>
-                    </div>
-                    <div className='input_div'>
-                        <input type='password'/>
-                    </div>
-                </div>
+      <ForgotCheckEmail_wrapper>
+        <h1 style={{ textAlign: "center" }}>Check your email</h1>
+        <p
+          style={{
+            color: "#4e4a4a",
+            textAlign: "center",
+            marginBlock: "1.5rem",
+          }}
+        >
+          Enter the 6-digit reset code Splita sent to your email address and
+          create a new password.
+        </p>
 
-                <button onClick={() => navigate('/signin')}>Create New Password</button>
+        <form onSubmit={handleSubmit}>
+          <div className="inp">
+            <div className="label">
+              <p style={{ color: "#3d3c3c" }}>Enter reset code</p>
+            </div>
+            <div className="input_div">
+              <input
+                type="text"
+                name="resetCode"
+                placeholder="e.g 123456"
+                value={formData.resetCode}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-                <p style={{color: '#7b2cbf', cursor: 'pointer', textAlign: 'center'}} onClick={() => navigate('/forgotpassword')}>Go Back</p>
+          <div className="inp">
+            <div className="label">
+              <p style={{ color: "#3d3c3c" }}>Enter your New Password</p>
+            </div>
+            <div className="input_div">
+              <input
+                type="password"
+                name="newPassword"
+                placeholder="New password"
+                value={formData.newPassword}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-            </form>
-            
-        </ForgotCheckEmail_wrapper>
-    </ForgotCheckEmail_content>    
-  )
-}
+          <div className="inp">
+            <div className="label">
+              <p style={{ color: "#3d3c3c" }}>Re-type New Password</p>
+            </div>
+            <div className="input_div">
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm new password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-export default ForgotCheckEmail
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <ClipLoader size={20} color="#fff" />
+            ) : (
+              "Create New Password"
+            )}
+          </button>
+
+          <p
+            style={{
+              color: "#7b2cbf",
+              cursor: "pointer",
+              textAlign: "center",
+            }}
+            onClick={() => navigate("/forgotpassword")}
+          >
+            Go Back
+          </p>
+        </form>
+      </ForgotCheckEmail_wrapper>
+    </ForgotCheckEmail_content>
+  );
+};
+
+export default ForgotCheckEmail;
 
 
 const ForgotCheckEmail_content = styled.div`

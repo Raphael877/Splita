@@ -3,23 +3,32 @@ import styled from 'styled-components'
 import Splita_logo from '../assets/Splita_logo.png'
 import Profile_img from '../assets/Profile_img.png'
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const UserDashboardHeader = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const userData = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userData')) || {};
+      } catch {
+        return {};
+      }
+    })();
+
   return (
     <UserDashboardHeader_content>
         <UserDashboardHeader_wrapper>
-            <img src={Splita_logo} className='brand_logo'/>
+            <img src={Splita_logo} className='brand_logo' onClick={() => navigate("/")}/>
             <ul>
-                <li onClick={() => navigate('/userdashboard')}>Home</li>
-                <li onClick={() => navigate('/mygroup')}>My groups</li>
-                <li>Contributions</li>
+                <li className={location.pathname === '/useremptystate' ? 'active' : ''} onClick={() => navigate('/useremptystate')}>Home</li>
+                <li className={location.pathname === '/mygroup' ? 'active' : ''} onClick={() => navigate('/mygroup')}>My groups</li>
+                <li className={location.pathname === '/mycontribution' ? 'active' : ''} onClick={() => navigate('/mycontribution')}>Contributions</li>
             </ul>
             <div className='right'>
                 <div className='profile' onClick={() => navigate('/profile')}>
                     <img src={Profile_img} />
-                    <p>Chidera Benjamin</p>
+                    <p>{userData.fullName || 'Guest User'}</p>
                     <IoIosArrowDown/>
                 </div>
             </div>
@@ -86,6 +95,10 @@ const UserDashboardHeader_wrapper = styled.div`
             &:hover{
                 color: #9556CC;
                 transition: all 350ms ease-in-out;
+            }
+
+            &.active{
+                font-weight: 700;
             }
         }
     }

@@ -232,11 +232,19 @@ const Table = styled.div`
             flex-direction: column;
             gap: 1.5rem;
 
+            @media (max-width: 768px) {
+                background-color: transparent;
+            }
+
             .all_header{
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                @media (max-width: 768px) {
+                    display: none;
+                }
             }
 
             .all_data{
@@ -246,14 +254,36 @@ const Table = styled.div`
                 align-items: center;
                 gap: 1.5rem;
 
+                @media (max-width: 768px) {
+                    background-color: white;
+                    border-radius: 0.5rem;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                    flex-wrap: wrap;
+                    padding: 1rem;
+                    gap: 0.5rem;
+                }
+
                 .member{
                     width: 16%;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                        font-weight: bold;
+                    }
                 }
 
                 .delete{
                     width: 16%;
                     display: flex;
                     justify-content: flex-end;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
                 }
 
                 .contribution{
@@ -261,6 +291,12 @@ const Table = styled.div`
                     justify-content: center;
                     align-items: center;
                     width: 16%;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
                 }
 
                 .payout_order{
@@ -268,6 +304,12 @@ const Table = styled.div`
                     justify-content: flex-end;
                     align-items: center;
                     width: 16%;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
                 }
 
                 .late_payment{
@@ -275,6 +317,12 @@ const Table = styled.div`
                     justify-content: center;
                     align-items: center;
                     width: 16%;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
                 }
 
                 .status{
@@ -282,6 +330,12 @@ const Table = styled.div`
                     justify-content: center;
                     align-items: center;
                     width: 16%;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
 
                     .status_wrap{
                         display: flex;
@@ -296,6 +350,12 @@ const Table = styled.div`
                 .delete{
                     font-weight: 900;
                     font-size: 1.2rem;
+
+                    @media (max-width: 768px) {
+                        min-width: 40%;
+                        display: flex;
+                        justify-content: flex-end;
+                    }
                 }
             }
         }

@@ -277,11 +277,18 @@ const Create_group_content = styled.div`
     right: -17%;
   }
 
+  @media (max-width: 768px) {
+    .circle_down_right, .circle_mid_left, .circle_top_left, .circle_top_right{
+      display: none;
+    }
+  }
+
   .brand_name {
     position: absolute;
     top: 3%;
     left: 10%;
     z-index: 1;
+
     img {
       width: 40%;
       height: 100%;
@@ -306,8 +313,22 @@ const Create_group_wrapper = styled.div`
   padding-top: 6rem;
   z-index: 1;
 
+  @media (max-width: 768px) {
+    width: 85%;
+  }
+
   h1 {
     font-size: 2.5rem;
+
+    @media (max-width: 768px) {
+      text-align: center;
+  }
+  }
+
+  p{
+    @media (max-width: 768px) {
+      text-align: center;
+  }
   }
 
   form {

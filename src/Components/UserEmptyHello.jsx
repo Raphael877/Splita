@@ -8,12 +8,19 @@ import { useNavigate } from 'react-router-dom';
 
 const UserEmptyHello = () => {
     const navigate = useNavigate();
+    const userData = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userData')) || {};
+      } catch {
+        return {};
+      }
+    })();
   return (
     <UserEmptyHello_content>
         <UserEmptyHello_wrapper>
             <Hello>
                 <div className='left'>
-                    <h1>Hello Chidera</h1>
+                    <h1>Hello {userData.firstName || 'User'}</h1>
                     <h2>Greetings 👋🏽</h2>
                     <p style={{ color: '#240046'}}>Lets kickstart your savings journey today</p>
                 </div>
