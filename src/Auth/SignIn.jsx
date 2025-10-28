@@ -85,8 +85,14 @@ const SignIn = () => {
       firstName: (name && name.split(" ")[0]) || "",
     };
 
+    const existingData = JSON.parse(localStorage.getItem("userData")) || {};
+      const mergedUserData = {
+        ...existingData,
+        ...userData,
+      };
+
     try {
-      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(mergedUserData));
     } catch (e) {
       console.warn("Could not save userData to localStorage", e);
     }
