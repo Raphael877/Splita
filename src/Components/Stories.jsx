@@ -1,0 +1,297 @@
+import React from "react";
+import styled from "styled-components";
+
+const Stories = () => {
+  return (
+    <StoriesStyled>
+      <div className="contain">
+        <article className="first">
+          <div className="top">
+            <div
+              style={{
+                display: "flex",
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+                fontSize: "15px",
+                gap: "5px",
+              }}
+            >
+              <h1>Stories from our </h1>
+              <h1 style={{ color: "#7B2CBF" }}>community</h1>
+            </div>
+            <span>Real people. Real groups. Real savings with Splita.</span>
+          </div>
+        </article>
+
+        <article className="secound">
+          <div
+            className="small"
+            style={{
+              boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.16)",
+            }}
+          >
+            <div className="smallText">
+              <p
+                style={{
+                  fontFamily: "Montserrat",
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                “Splita made our family Ajo so easy to manage. We don’t chase
+                anyone for payments anymore, everything’s transparent and
+                automatic.”
+              </p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    "linear-gradient(to right, #7028ae, #441869), url('/hero2.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  display: "inline-block",
+                }}
+              >
+                <img
+                  src="/pics1.jpg"
+                  alt=""
+                  srcset=""
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                />
+              </div>
+              <div>
+                <h4
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    margin: 0,
+                  }}
+                >
+                  Emmanuel I.
+                </h4>
+                <p
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    margin: 0,
+                  }}
+                >
+                  Contributor
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="small"
+            style={{
+              boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.16)",
+            }}
+          >
+            <div className="smallText">
+              <p
+                style={{
+                  fontFamily: "Montserrat",
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                “The automatic payout rotation saved our group! No more
+                arguments or confusion. Splita really keeps us accountable.”
+              </p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                className="img"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    "linear-gradient(to right, #7028ae, #441869), url('/hero2.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  display: "inline-block",
+                }}
+              >
+                {" "}
+                <img
+                  src="/pics2.jpg"
+                  alt=""
+                  srcset=""
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                />
+              </div>
+              <div>
+                <h4
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    margin: 0,
+                  }}
+                >
+                  Darasimi I.
+                </h4>
+                <p
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    margin: 0,
+                  }}
+                >
+                  Group Admin
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="small"
+            style={{
+              boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.16)",
+            }}
+          >
+            <div className="smallText">
+              <p
+                style={{
+                  fontFamily: "Montserrat",
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                “I love how simple the dashboard is. I can see everyone’s
+                contributions at a glance and know exactly when it’s my turn to
+                get paid.”
+              </p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  background:
+                    "linear-gradient(to right, #7028ae, #441869), url('/hero2.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  display: "inline-block",
+                }}
+              >
+                {" "}
+                <img
+                  src="/pics3.jpg"
+                  alt=""
+                  srcset=""
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                />
+              </div>
+              <div>
+                <h4
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    margin: 0,
+                  }}
+                >
+                  Micheal C.
+                </h4>
+                <p
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    margin: 0,
+                  }}
+                >
+                  Contributor
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </StoriesStyled>
+  );
+};
+
+export default Stories;
+
+const StoriesStyled = styled.div`
+  height: 80vh;
+  width: 100%;
+  /* background-color: pink; */
+  .contain {
+    height: 100%;
+    width: 100%;
+    /* background-color: purple; */
+    .first {
+      height: 45%;
+      width: 100%;
+      /* background-color: yellow; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .top {
+        height: 40%;
+        width: 40%;
+        /* background-color: blue; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .secound {
+      height: 60%;
+      width: 100%;
+      /* background-color: green; */
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      /* align-items: center; */
+      .small {
+        height: 60%;
+        width: 22%;
+        padding-top: 15px;
+        /* background-color: blanchedalmond; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* text-align: center; */
+        gap: 10px;
+        .smallText {
+          width: 90%;
+          height: 55%;
+          /* background-color: blue; */
+        }
+      }
+    }
+  }
+`;

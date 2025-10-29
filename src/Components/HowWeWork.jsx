@@ -1,0 +1,174 @@
+import React from "react";
+import styled from "styled-components";
+import { FaUsers } from "react-icons/fa";
+import { MdOutlineShield } from "react-icons/md";
+import { LuCalendarDays } from "react-icons/lu";
+const HowWeWork = () => {
+  return (
+    <HowWeWorkStyle>
+      <div className="sect">
+        <div className="body">
+          <article className="small">
+            <div
+              style={{
+                display: "flex",
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+                fontSize: "15px",
+                gap: "5px",
+              }}
+            >
+              {" "}
+              <h2>How Spilta</h2>
+              <h2 style={{ color: "#7B2CBF" }}>Works</h2>
+            </div>
+            <h4
+              style={{
+                width: 500,
+                textAlign: "center",
+                fontWeight: "500",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Simple steps to start, manage, and grow your Ajo digitally.
+            </h4>
+          </article>
+        </div>
+        <div className="maincon">
+          <article className="con2">
+            <div className="circle">
+              <FaUsers color="pink" />
+            </div>
+            <h4 style={{ fontFamily: "Montserrat", fontWeight: "500" }}>
+              Sign Up
+            </h4>
+            <p
+              style={{
+                fontFamily: "Montserrat",
+                fontWeight: "500",
+                fontSize: "14px",
+                textAlign: "center",
+              }}
+            >
+              Create your Splita account in minutes.
+            </p>
+          </article>
+          <article className="con2">
+            <div className="circle">
+              <MdOutlineShield style={{ color: "pink" }} />
+            </div>
+            <h4 style={{ fontFamily: "Montserrat", fontWeight: "500" }}>
+              Create or Join Ajo
+            </h4>
+            <p
+              style={{
+                fontFamily: "Montserrat",
+                fontWeight: "500",
+                fontSize: "14px",
+                textAlign: "center",
+              }}
+            >
+              Start your own group or join set your rules.
+            </p>
+          </article>
+          <article className="con2">
+            <div className="circle">
+              <FaUsers color="pink" />
+            </div>
+            <h4 style={{ fontFamily: "Montserrat", fontWeight: "500" }}>
+              Contribute Seamlessly
+            </h4>
+            <p
+              style={{
+                fontFamily: "Montserrat",
+                fontWeight: "500",
+                fontSize: "14px",
+                textAlign: "center",
+              }}
+            >
+              Make secure contributions faster.
+            </p>
+          </article>
+          <article className="con2">
+            <div className="circle">
+              <LuCalendarDays color="pink" />
+            </div>
+            <h4 style={{ fontFamily: "Montserrat", fontWeight: "500" }}>
+              Track & Stay Updated
+            </h4>
+            <p
+              style={{
+                fontFamily: "Montserrat",
+                fontWeight: "500",
+                fontSize: "14px",
+                textAlign: "center",
+              }}
+            >
+              Follow every payment, payout, and group activity.
+            </p>
+          </article>
+        </div>
+      </div>
+    </HowWeWorkStyle>
+  );
+};
+
+export default HowWeWork;
+const HowWeWorkStyle = styled.div`
+  /* min-height: auto; */
+  height: 80vh;
+  width: 100%;
+  /* background-color: #d6beeb33; */
+  .sect {
+    height: 100%;
+    width: 100%;
+    /* background-color: pink; */
+
+    .body {
+      height: 45%;
+      width: 100%;
+      /* background-color: gray; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .small {
+        height: 40%;
+        width: 35%;
+        /* background-color: pink; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+      }
+    }
+    .maincon {
+      height: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      /* background-color: pink; */
+
+      .con2 {
+        height: 70%;
+        width: 20%;
+        background-color: #ffffff;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16);
+        .circle {
+          height: 35px;
+          width: 35px;
+          border-radius: 50%;
+          background-color: #f967ad1a;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+`;
