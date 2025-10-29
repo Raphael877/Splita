@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineShield } from "react-icons/md";
 import { LuCalendarDays } from "react-icons/lu";
+
 const HowWeWork = () => {
   return (
     <HowWeWorkStyle>
@@ -86,7 +87,7 @@ const HowWeWork = () => {
                 textAlign: "center",
               }}
             >
-              Make secure contributions faster.
+              Make secure contributions<br></br> faster.
             </p>
           </article>
           <article className="con2">
@@ -118,7 +119,7 @@ const HowWeWorkStyle = styled.div`
   /* min-height: auto; */
   height: 80vh;
   width: 100%;
-  /* background-color: #d6beeb33; */
+  background-color: #f7f2fb;
   .sect {
     height: 100%;
     width: 100%;

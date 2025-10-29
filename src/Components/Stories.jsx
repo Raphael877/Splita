@@ -35,7 +35,7 @@ const Stories = () => {
                 style={{
                   fontFamily: "Montserrat",
                   fontWeight: "500",
-                  fontSize: "12px",
+                  fontSize: "14px",
                 }}
               >
                 “Splita made our family Ajo so easy to manage. We don’t chase
@@ -86,6 +86,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
+                    color: '#7b2cbf'
                   }}
                 >
                   Contributor
@@ -105,7 +106,7 @@ const Stories = () => {
                 style={{
                   fontFamily: "Montserrat",
                   fontWeight: "500",
-                  fontSize: "12px",
+                  fontSize: "14px",
                 }}
               >
                 “The automatic payout rotation saved our group! No more
@@ -157,6 +158,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
+                    color: '#7b2cbf'
                   }}
                 >
                   Group Admin
@@ -176,7 +178,7 @@ const Stories = () => {
                 style={{
                   fontFamily: "Montserrat",
                   fontWeight: "500",
-                  fontSize: "12px",
+                  fontSize: "14px",
                 }}
               >
                 “I love how simple the dashboard is. I can see everyone’s
@@ -228,6 +230,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
+                    color: '#7b2cbf'
                   }}
                 >
                   Contributor
@@ -271,25 +274,22 @@ const StoriesStyled = styled.div`
     .secound {
       height: 60%;
       width: 100%;
-      /* background-color: green; */
       display: flex;
       justify-content: center;
       gap: 15px;
-      /* align-items: center; */
+
       .small {
         height: 60%;
-        width: 22%;
-        padding-top: 15px;
-        /* background-color: blanchedalmond; */
+        width: 27%;
+        padding: 15px;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        /* text-align: center; */
         gap: 10px;
+
         .smallText {
           width: 90%;
           height: 55%;
-          /* background-color: blue; */
+          color: #777777;
         }
       }
     }

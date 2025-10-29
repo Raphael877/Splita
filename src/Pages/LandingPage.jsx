@@ -2,14 +2,26 @@ import React from "react";
 import Header from "../Components/Header";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import Benefit from "../Components/Benefit";
 import HowWeWork from "../Components/HowWeWork";
 import AboutSplita from "../Components/AboutSplita";
 import Stories from "../Components/Stories";
 import Hero2 from "../Components/Hero2";
 import Footer from "../Components/Footer";
+
 const LandingPage = () => {
+
+  const [words, setWords] = useState(['seamless', 'effortless', 'smarter', 'transparent']);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const navigate = useNavigate();
+  useEffect(() => {
+     const intervalId = setInterval(() => {
+       setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+     }, 25000);
+
+     return () => clearInterval(intervalId);
+   }, [words]);
   return (
     <>
       <Header />
@@ -17,10 +29,10 @@ const LandingPage = () => {
         <div className="hero">
           <section className="info">
             <article className="text">
-              <h1>Turn your ajo into a</h1>
+              <h1 style={{fontSize: '3.5rem'}}>Turn your ajo into a</h1>
               <div style={{ display: "flex" }}>
-                <h1 style={{ color: "#FFA554" }}>smarter</h1>
-                <h1>experience</h1>
+                <h1 style={{ color: "#FFA554", fontSize: '3.5rem' }} className="change" key={currentWordIndex}>{words[currentWordIndex]}</h1>
+                <h1 style={{fontSize: '3.5rem'}}>experience</h1>
               </div>
             </article>
             <p
@@ -29,14 +41,17 @@ const LandingPage = () => {
                 fontFamily: "Montserrat",
                 color: "#FFFFFF",
                 width: 570,
-                marginBottom: 25,
+                marginBottom: 35,
+                marginTop: 25,
+                width: '80%',
+                fontSize: '1.2rem',
               }}
             >
               Simplify the way you save, contribute, and grow together. With
               Splita, enjoy a seamless, transparent, and effortless ajo
               experience designed for your lifestyle.
             </p>
-            <button className="btn" onClick={() => navigate("./signin")}>
+            <button className="btn" onClick={() => navigate("./signup")}>
               Join Splita Today
             </button>
           </section>
@@ -56,32 +71,31 @@ export default LandingPage;
 
 const LandingPageStyle = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 120vh;
+
   .hero {
     height: 100%;
     width: 100%;
     background: url("/landing.jpg");
-    /* object-fit: contain; */
-    background-color: pink;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .info {
       height: 60%;
-      width: 50%;
-      /* background-color: orange; */
+      width: 65%;
       display: flex;
       flex-direction: column;
-      /* justify-content: center; */
       align-items: center;
       text-align: center;
       margin-top: 90px;
+
       .text {
         height: 40%;
-        width: 60%;
-        /* background-color: crimson; */
+        width: 100%;
         color: #ffffff;
         font-family: Montserrat;
         font-style: 700;
@@ -90,18 +104,42 @@ const LandingPageStyle = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        .change{
+          animation: fade-in 10s infinite;
+        }
+
+          @keyframes fade-in {
+      0% {
+                transform: translateX(-70px);
+        opacity: 0;
       }
-      .btn {
+      100% {
+                transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  
+    }
+  }
+}
+  
+
+  .btn {
         height: 40px;
         width: 170px;
         border-radius: 12px;
+        font-size: 1rem;
         border: none;
         background-color: #ff7900;
         color: white;
         font-family: Montserrat;
         font-weight: 500;
         cursor: pointer;
+
+        &:hover {
+          background-color: #ffa554;
+          transition: all 350ms ease-in-out;
+        }
       }
-    }
-  }
 `;

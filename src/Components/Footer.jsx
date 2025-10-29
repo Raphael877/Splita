@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TiSocialFacebook } from "react-icons/ti";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import Splita_logo from "../assets/Splita_logo.png";
+
 const Footer = () => {
   return (
     <FooterStyled>
@@ -30,24 +30,24 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <p>Product</p>
-            <p>How it works</p>
-            <p>Benefit</p>
+            <p style={{fontWeight: 'bolder'}}>Product</p>
+            <p style={{cursor: 'pointer'}}>How it works</p>
+            <p style={{cursor: 'pointer'}}>Benefit</p>
           </div>
           <div>
-            <p>Company</p>
-            <p>About Us</p>
-            <p>Careers</p>
-            <p>Blog</p>
-            <p>Contact</p>
+            <p style={{fontWeight: 'bolder'}}>Company</p>
+            <p style={{cursor: 'pointer'}}>About Us</p>
+            <p style={{cursor: 'pointer'}}>Careers</p>
+            <p style={{cursor: 'pointer'}}>Blog</p>
+            <p style={{cursor: 'pointer'}}>Contact</p>
           </div>
           <div>
             {" "}
-            <p>Support</p>
-            <p>Help Center</p>
-            <p>Privacy Policy</p>
-            <p>Terms of Service</p>
-            <p>Status</p>
+            <p style={{fontWeight: 'bolder'}}>Support</p>
+            <p style={{cursor: 'pointer'}}>Help Center</p>
+            <p style={{cursor: 'pointer'}}>Privacy Policy</p>
+            <p style={{cursor: 'pointer'}}>Terms of Service</p>
+            <p style={{cursor: 'pointer'}}>Status</p>
           </div>
         </article>
       </section>
@@ -69,10 +69,12 @@ const Footer = () => {
 };
 
 export default Footer;
+
 const FooterStyled = styled.div`
   height: 50vh;
   width: 100%;
   background-color: #1a0032;
+
   .small {
     height: 10%;
     width: 100%;
@@ -81,16 +83,15 @@ const FooterStyled = styled.div`
   .mainFooter {
     height: 70%;
     width: 100%;
-    /* background-color: pink; */
     display: flex;
     justify-content: center;
     align-items: center;
+
     .footerCon {
       height: 80%;
-      width: 80%;
-      /* background-color: blue; */
+      width: 85%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       font-family: Inter;
       font-weight: 600;
@@ -98,25 +99,28 @@ const FooterStyled = styled.div`
       line-height: 24px;
       color: #ffffff;
       border-bottom: 1px solid #374151;
+
       .firstFooter {
-        /* line-height: 30px; */
         .imgcon {
           width: 190px;
           height: 48.86px;
-          /* background-color: yellow; */
           margin-right: 80px;
           margin-bottom: 15px;
         }
+
         .logo {
           height: 100%;
           width: 100%;
           background-size: cover;
           object-fit: contain;
         }
+
         .socialIcon {
           display: flex;
           gap: 10px;
           margin-top: 10px;
+          cursor: pointer;
+
           .circle {
             height: 18px;
             width: 18px;

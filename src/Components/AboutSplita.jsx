@@ -15,7 +15,7 @@ const AboutSplita = () => {
           style={{
             fontFamily: "Montserrat",
             fontWeight: "500",
-            fontSize: "16px",
+            fontSize: "15px",
             width: 600,
           }}
         >
@@ -48,18 +48,17 @@ export default AboutSplita;
 const AboutSplitaStyled = styled.div`
   height: 80vh;
   width: 100%;
-  /* background-color: crimson; */
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 3rem;
+
   .left {
     height: 100%;
     width: 44%;
-    /* background-color: blue; */
+
     .head {
       height: 30%;
       width: 100%;
-      /* background-color: greenyellow; */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -67,6 +66,7 @@ const AboutSplitaStyled = styled.div`
       font-weight: 600;
     }
   }
+
   .right {
     height: 100%;
     width: 40%;
@@ -74,15 +74,14 @@ const AboutSplitaStyled = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
     .head2 {
       height: 15%;
       width: 100%;
-      /* background-color: greenyellow; */
     }
     .picsCont {
-      height: 60%;
+      height: 70%;
       width: 100%;
-      /* background: blue; */
       background: url(/about.jpg);
       background-repeat: no-repeat;
       object-fit: contain;
