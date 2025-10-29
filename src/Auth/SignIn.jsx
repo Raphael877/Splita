@@ -60,74 +60,14 @@ const SignIn = () => {
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
 
-      // Save token & id
-      try {
-        if (res?.data?.token) {
-          localStorage.setItem(
-            import.meta.env.VITE_USERTOKEN,
-            JSON.stringify(res.data.token)
-          );
-        }
-        if (res?.data?.data?._id) {
-          localStorage.setItem(
-            import.meta.env.VITE_USERID,
-            JSON.stringify(res.data.data._id)
-          );
-        }
-      } catch (err) {
-        console.warn("Could not save token/userId to localStorage", err);
-      }
-
-      const savedSignup = (() => {
-        try {
-          return JSON.parse(localStorage.getItem("userData")) || {};
-        } catch {
-          return {};
-        }
-      })();
-
-      
-      const userFromRes = res?.data?.data || res?.data?.user || {};
-
-      const namePriority =
-        userFromRes?.name ||
-        userFromRes?.fullName ||
-        savedSignup.fullName ||
-        `${userFromRes?.firstName || savedSignup.firstName || ""} ${userFromRes?.lastName || savedSignup.lastName || ""}`.trim();
-
-      
-      const fallbackName =
-        formData.email && !namePriority
-          ? formData.email.split("@")[0]
-          : namePriority;
-
-      const emailPriority = userFromRes?.email || savedSignup.email || formData.email || "";
-      const phonePriority =
-        userFromRes?.phone ||
-        userFromRes?.phoneNumber ||
-        savedSignup.phone ||
-        savedSignup.phoneNumber ||
-        "";
-
-      const mergedUserData = {
-        
-        ...savedSignup,
-        
-        fullName: fallbackName || savedSignup.fullName || "",
-        email: emailPriority,
-        phone: phonePriority,
-        
-        firstName:
-          savedSignup.firstName ||
-          (fallbackName ? fallbackName.split(" ")[0] : ""),
-      };
-
-      try {
-        localStorage.setItem("userData", JSON.stringify(mergedUserData));
-      } catch (e) {
-        console.warn("Could not save userData to localStorage", e);
-      }
-
+      localStorage.setItem(
+        import.meta.env.VITE_USERTOKEN,
+        JSON.stringify(res?.data?.token)
+      );
+      localStorage.setItem(
+        import.meta.env.VITE_USERID,
+        JSON.stringify(res?.data?.data?._id)
+      );
       toast.success(res?.data?.message || "Login successful!");
       navigate('/useremptystate')
     } catch (err) {
@@ -169,6 +109,7 @@ const SignIn = () => {
             Login();
           }}
         >
+
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -187,6 +128,9 @@ const SignIn = () => {
               <p style={{ color: "red", fontSize: "0.85rem" }}>{errors.email}</p>
             )}
           </div>
+
+
+
           <div className="inp">
             <div className="label">
               <MdLockOutline />
