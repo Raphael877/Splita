@@ -28,7 +28,6 @@ import WomenContribution from './Components/WomenContribution.jsx'
 import Obele from './Pages/Obele.jsx'
 import ObeleMembers from './Components/ObeleMembers.jsx'
 import ObeleContribution from './Components/ObeleContribution.jsx'
-
 const App = () => {
   return (
     <HashRouter>

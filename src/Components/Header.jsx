@@ -5,15 +5,21 @@ import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
     const navigate = useNavigate();
+    const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <Header_content>
         <Header_wrapper>
-            <img src={Splita_logo} className='brand_logo' onClick={() => navigate("/")}/>
+            <img src={Splita_logo} className='brand_logo'  onClick={() => scrollToSection('home')}/>
             <ul>
-                <li>Home</li>
-                <li>Benefits</li>
-                <li>About Us</li>
-                <li>How it works</li>
+                <li onClick={() => scrollToSection('home')}>Home</li>
+            <li onClick={() => scrollToSection('benefit')}>Benefits</li>
+            <li onClick={() => scrollToSection('about')}>About Us</li>
+            <li onClick={() => scrollToSection('how-it-works')}>How it works</li>
             </ul>
             <div className='header_btn'>
                 <button className='header_btn1' onClick={()=> navigate('/signin')}>Sign In</button>
@@ -36,7 +42,7 @@ const Header_content = styled.div`
     position: fixed;
     top: 0;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
+    z-index: 1;
     
 `
 
@@ -50,6 +56,11 @@ const Header_wrapper = styled.div`
     .brand_logo{
         width: 12%;
         height: 65%;
+
+        @media (max-width: 768px) {
+            width: 30%;
+            height: 50%;
+        }
     }
 
     ul{
@@ -59,6 +70,10 @@ const Header_wrapper = styled.div`
         justify-content: space-between;
         align-items: center;
         list-style-type: none;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
 
         li{
             cursor: pointer;
@@ -75,6 +90,10 @@ const Header_wrapper = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: 768px){
+            display: none;
+        }
 
         .header_btn1{
             background-color: transparent;

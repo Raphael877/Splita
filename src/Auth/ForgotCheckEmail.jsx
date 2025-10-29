@@ -171,7 +171,7 @@ export default ForgotCheckEmail;
 
 const ForgotCheckEmail_content = styled.div`
   width: 100%;
-  height: 120vh;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;

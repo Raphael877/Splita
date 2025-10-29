@@ -75,6 +75,10 @@ const FooterStyled = styled.div`
   width: 100%;
   background-color: #1a0032;
 
+  @media (max-width: 768px) {
+    overflow: hidden;
+  }
+
   .small {
     height: 10%;
     width: 100%;

@@ -29,10 +29,10 @@ const LandingPage = () => {
         <div className="hero">
           <section className="info">
             <article className="text">
-              <h1 style={{fontSize: '3.5rem'}}>Turn your ajo into a</h1>
+              <h1 className="turn" style={{fontSize: '3.5rem'}}>Turn your ajo into a</h1>
               <div style={{ display: "flex" }}>
                 <h1 style={{ color: "#FFA554", fontSize: '3.5rem' }} className="change" key={currentWordIndex}>{words[currentWordIndex]}</h1>
-                <h1 style={{fontSize: '3.5rem'}}>experience</h1>
+                <h1 style={{fontSize: '3.5rem', zIndex: 1}}>{" "} experience</h1>
               </div>
             </article>
             <p
@@ -40,7 +40,6 @@ const LandingPage = () => {
                 fontWeight: "500",
                 fontFamily: "Montserrat",
                 color: "#FFFFFF",
-                width: 570,
                 marginBottom: 35,
                 marginTop: 25,
                 width: '80%',
@@ -57,10 +56,16 @@ const LandingPage = () => {
           </section>
         </div>
       </LandingPageStyle>
-      <Benefit />
-      <HowWeWork />
+      <section id="benefit">
+        <Benefit />
+      </section>
+      <section id="how-it-works">
+        <HowWeWork />
+      </section>
       <Stories />
-      <AboutSplita />
+      <section id="about">
+        <AboutSplita />
+      </section>
       <Hero2 />
       <Footer />
     </>
@@ -71,7 +76,11 @@ export default LandingPage;
 
 const LandingPageStyle = styled.div`
   width: 100%;
-  height: 120vh;
+  height: 100vh;
+
+  @media (max-width: 768px) {
+    overflow: hidden;
+  }
 
   .hero {
     height: 100%;
@@ -105,18 +114,25 @@ const LandingPageStyle = styled.div`
         justify-content: center;
         align-items: center;
 
+        @media (max-width: 768px) {
+          font-size: 1rem;
+        }
+
         .change{
           animation: fade-in 10s infinite;
         }
 
           @keyframes fade-in {
       0% {
-                transform: translateX(-70px);
+                transform: translatex(50px);
         opacity: 0;
       }
-      100% {
-                transform: translateX(0);
+      50% {
         opacity: 1;
+      }
+      100% {
+                transform: translatex(-20px);
+        opacity: 0;
       }
     }
   

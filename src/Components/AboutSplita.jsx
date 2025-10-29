@@ -17,6 +17,7 @@ const AboutSplita = () => {
             fontWeight: "500",
             fontSize: "15px",
             width: 600,
+            lineHeight: "23px",
           }}
         >
           Splita is redefining the traditional Ajo experience, making group
@@ -45,12 +46,17 @@ const AboutSplita = () => {
 };
 
 export default AboutSplita;
+
 const AboutSplitaStyled = styled.div`
   height: 80vh;
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 3rem;
+
+  @media (max-width: 768px) {
+    overflow: hidden;
+  }
 
   .left {
     height: 100%;

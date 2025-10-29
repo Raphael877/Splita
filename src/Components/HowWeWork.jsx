@@ -115,6 +115,7 @@ const HowWeWork = () => {
 };
 
 export default HowWeWork;
+
 const HowWeWorkStyle = styled.div`
   /* min-height: auto; */
   height: 80vh;
@@ -151,7 +152,7 @@ const HowWeWorkStyle = styled.div`
       /* background-color: pink; */
 
       .con2 {
-        height: 70%;
+        height: 80%;
         width: 20%;
         background-color: #ffffff;
         border-radius: 6px;
@@ -160,14 +161,18 @@ const HowWeWorkStyle = styled.div`
         flex-direction: column;
         justify-content: space-around;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16);
+        padding: 1.5rem;
+
         .circle {
-          height: 35px;
-          width: 35px;
+          height: 40px;
+          width: 40px;
           border-radius: 50%;
-          background-color: #f967ad1a;
+          background-color: #feeff6;
+          color: #f967ad;
           display: flex;
           justify-content: center;
           align-items: center;
+          font-size: 1.5rem;
         }
       }
     }

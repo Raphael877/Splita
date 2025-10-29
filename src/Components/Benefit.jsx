@@ -237,21 +237,22 @@ const Benefit = () => {
 };
 
 export default Benefit;
+
 const BenefitStyle = styled.div`
   height: 100vh;
   width: 100%;
   background-color: #f5f5f5cc;
+
   .BenefitText {
     height: 25%;
     width: 100%;
-    /* background-color: purple; */
     display: flex;
     justify-content: center;
     align-items: center;
+
     .bene {
       height: 65%;
       width: 50%;
-      /* background-color: olive; */
       font-family: Montserrat;
       font-size: 22px;
       line-height: 1.5;
@@ -262,38 +263,40 @@ const BenefitStyle = styled.div`
       justify-content: center;
     }
   }
+
   .sect {
     height: 80%;
     width: 100%;
     display: flex;
     gap: 20px;
-    /* background-color: blue; */
     justify-content: center;
 
     .cont {
-      height: 80%;
-      width: 35%;
-      /* background-color: cornsilk; */
+      height: 90%;
+      width: 40%;
       margin-top: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
+
       .mini {
         height: 100%;
-        width: 85%;
-        background-color: #f5f5f5cc;
+        width: 100%;
+        background-color: white;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         padding: 10px;
+        border-radius: 0.5rem;
+        padding: 2rem;
+
         .text1 {
           height: 25%;
-          /* background-color: orange; */
+
           .first {
             height: 50%;
             width: 100%;
-            /* background-color: yellow; */
             display: flex;
             align-items: center;
             gap: 10px;
