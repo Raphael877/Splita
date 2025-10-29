@@ -60,55 +60,17 @@ const SignIn = () => {
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
 
+      localStorage.setItem(
+        import.meta.env.VITE_USERTOKEN,
+        JSON.stringify(res?.data?.token)
+      );
+      localStorage.setItem(
+        import.meta.env.VITE_USERID,
+        JSON.stringify(res?.data?.data?._id)
+      );
+
 
       
-    const token = res?.data?.token || res?.data?.data?.token || res?.data?.accessToken;
-    const id = res?.data?.data?._id || res?.data?._id || res?.data?.userId;
-
-    if (token) {
-      localStorage.setItem(import.meta.env.VITE_USERTOKEN, JSON.stringify(token));
-    }
-    if (id) {
-      localStorage.setItem(import.meta.env.VITE_USERID, JSON.stringify(id));
-    }
-
-    let userFromRes = res?.data?.data || res?.data?.user || res?.data || {};
-
-    if (token && (!userFromRes?.email && !userFromRes?.name && !userFromRes?.fullName && !userFromRes?.phone)) {
-      try {
-        const profileRes = await axios.get(`${BaseUrl}/users/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        userFromRes = profileRes?.data?.data || profileRes?.data || userFromRes;
-      } catch (e) {
-        console.warn("Could not fetch user profile after login", e);
-      }
-    }
-
-
-    const name =
-      userFromRes?.name ||
-      userFromRes?.fullName ||
-      `${userFromRes?.firstName || ""} ${userFromRes?.lastName || ""}`.trim() ||
-      (formData.email ? formData.email.split("@")[0] : "");
-
-    const email = userFromRes?.email || formData.email || "";
-    const phone = userFromRes?.phone || userFromRes?.phoneNumber || "";
-
-    const userData = {
-      fullName: name,
-      email,
-      phone,
-      firstName: (name && name.split(" ")[0]) || "",
-    };
-
-    try {
-      localStorage.setItem("userData", JSON.stringify(userData));
-    } catch (e) {
-      console.warn("Could not save userData to localStorage", e);
-    }
-
-
       toast.success(res?.data?.message || "Login successful!");
       navigate('/useremptystate')
     } catch (err) {
