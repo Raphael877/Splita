@@ -45,7 +45,7 @@ const UserEmptyHello = () => {
                         </div>
                         <p className='content'>Start fresh and invite your family,<br></br> team, or friends.</p>
                     </div>
-                    <div className='card1'>
+                    <div className='card2'>
                         <div className='main'>
                             <TiGroupOutline style={{fontSize: '1.3rem'}}/>
                             <p>Join a group</p>
@@ -101,7 +101,7 @@ const UserEmptyHello_wrapper = styled.div`
 
 const Hello = styled.div`
     width: 100%;
-    height: 25vh;
+    height: 30vh;
     display: flex;
     justify-content: space-between;
     padding: 1.8rem;
@@ -154,7 +154,7 @@ const Hello = styled.div`
             color: white;
             background-color: #7b2cbf;
             &:hover{
-                background-color: #c29ee2;
+                background-color: #5c248d;
                 transition: all 500ms ease-in-out;
             }
 
@@ -254,6 +254,48 @@ const Create_join = styled.div`
             flex-direction: column;
             gap: 2rem;
             cursor: pointer;
+            &:hover{
+                border: 1.5px solid #ff7900;
+            }
+
+            @media (max-width: 768px) {
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .main{
+                display: flex;
+                gap: 0.5rem;
+                font-weight: 600;
+                justify-content: center;
+                align-items: center;
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
+            }
+
+            .content{
+                text-align: center;
+                color: #b7b7b7;
+            }
+        }
+
+        .card2{
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            cursor: pointer;
+            &:hover{
+                border: 1.5px solid #7b2cbf;
+            }
 
             @media (max-width: 768px) {
                 width: 100%;

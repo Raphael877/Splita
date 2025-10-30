@@ -28,6 +28,9 @@ import WomenContribution from './Components/WomenContribution.jsx'
 import Obele from './Pages/Obele.jsx'
 import ObeleMembers from './Components/ObeleMembers.jsx'
 import ObeleContribution from './Components/ObeleContribution.jsx'
+import Groups from './Pages/Groups.jsx'
+import Contributions from './Pages/Contributions.jsx'
+
 const App = () => {
   return (
     <HashRouter>
@@ -40,9 +43,11 @@ const App = () => {
         <Route path="/forgotcheckemail" element={<ForgotCheckEmail />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
         <Route path="/useremptystate" element={<UserEmptyState />} />
+        <Route path="/groups" element={<Groups />} />
+        <Route path="/contributions" element={<Contributions />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/creategroup" element={<Create_group />} />
-        <Route path="/mygroup" element={<MyGroup />} />
+        <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path='/admincirclestartvacationdashboard' element={<AdminCircleStartVacationDashboard />} />
         <Route path='/admindashboard' element={<AdminDashboard />} >

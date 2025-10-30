@@ -41,16 +41,16 @@ const UserDashboardHeader = () => {
             Home
           </li>
           <li
-            className={location.pathname === "/mygroup" ? "active" : ""}
-            onClick={() => navigate("/mygroup")}
+            className={location.pathname === "/groups" ? "active" : ""}
+            onClick={() => navigate("/groups")}
           >
             My groups
           </li>
           <li
             className={
-              location.pathname === "/mycontribution" ? "active" : ""
+              location.pathname === "/contributions" ? "active" : ""
             }
-            onClick={() => navigate("/mycontribution")}
+            onClick={() => navigate("/contributions")}
           >
             Contributions
           </li>
@@ -80,6 +80,9 @@ const UserDashboardHeader = () => {
                   }}
                   onClick={closeDropdown}
                 />
+                <p className="nav" onClick={() => navigate('/useremptystate')}>Home</p>
+                <p className="nav"  onClick={() => navigate('/groups')}>Groups</p>
+                <p className="nav" onClick={() => navigate('/contributions')}>Contributions</p>
                 <p
                   className="prof"
                   onClick={() => {
@@ -188,6 +191,7 @@ const UserDashboardHeader_wrapper = styled.div`
 
       &.active {
         font-weight: 700;
+        color: #9556cc
       }
     }
   }
@@ -205,7 +209,7 @@ const UserDashboardHeader_wrapper = styled.div`
       right: 0;
       background-color: white;
       width: 25rem;
-      height: 10rem;
+      height: 18rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -221,6 +225,13 @@ const UserDashboardHeader_wrapper = styled.div`
         position: relative;
 
         .prof{
+          cursor: pointer;
+          &:hover{
+            color: #e74c3c;
+          }
+        }
+
+        .nav{
           cursor: pointer;
           &:hover{
             color: #e74c3c;
