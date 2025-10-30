@@ -60,7 +60,7 @@ const Create_group = () => {
         <img src={Splita_logo} alt="Splita Logo" />
       </div>
 
-      <div className="back" style={{ cursor: "pointer" }}>
+      <div className="back" onClick={() => navigate('/useremptystate')} style={{ cursor: "pointer" }}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
       </div>

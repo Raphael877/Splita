@@ -145,10 +145,11 @@ const Hello = styled.div`
 
         .hello_btn1{
             width: 50%;
-            height: 2.5rem;
+            height: 3rem;
             border: none;
             outline: none;
             border-radius: 0.5rem;
+            font-size: 1rem;
             cursor: pointer;
             color: white;
             background-color: #7b2cbf;
@@ -166,13 +167,14 @@ const Hello = styled.div`
 
         .hello_btn2{
             width: 50%;
-            height: 2.5rem;
-            border: none;
+            height: 3rem;
+            border: 1.5px solid #ff7900;
             outline: none;
             border-radius: 0.5rem;
+            font-size: 1rem;
             cursor: pointer;
             background-color: white;
-            color: #7b2cbf;
+            color: #ff7900;
             &:hover{
                 background-color: #ff7900;
                 color: white;

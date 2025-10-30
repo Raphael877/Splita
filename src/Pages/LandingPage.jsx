@@ -158,7 +158,7 @@ const LandingPageStyle = styled.div`
 }
 
   .btn {
-        height: 40px;
+        height: 45px;
         width: 170px;
         border-radius: 12px;
         font-size: 1rem;
