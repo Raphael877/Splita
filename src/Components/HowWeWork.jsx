@@ -10,27 +10,11 @@ const HowWeWork = () => {
       <div className="sect">
         <div className="body">
           <article className="small">
-            <div className="head"
-              style={{
-                display: "flex",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "15px",
-                gap: "5px",
-              }}
-            >
-              {" "}
+            <div className="head">
               <h2>How Spilta</h2>
               <h2 style={{ color: "#7B2CBF" }}>Works</h2>
             </div>
-            <h4
-              style={{
-                width: 400,
-                textAlign: "center",
-                fontWeight: "500",
-                fontFamily: "Montserrat",
-              }}
-            >
+            <h4>
               Simple steps to start, manage, and grow your Ajo digitally.
             </h4>
           </article>
@@ -159,8 +143,21 @@ const HowWeWorkStyle = styled.div`
         justify-content: space-around;
 
         @media (max-width: 768px) {
-          width: 60%;
+          width: 90%;
           gap: 1rem;
+        }
+
+        .head{
+          display: flex;
+          font-weight: 600;
+          font-size: 15px;
+          gap: 5px;
+        }
+
+        h4{
+          width: 100%;
+          text-align: center;
+          font-weight: 500;
         }
       }
     }
