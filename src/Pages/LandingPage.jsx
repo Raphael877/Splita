@@ -18,7 +18,7 @@ const LandingPage = () => {
   useEffect(() => {
      const intervalId = setInterval(() => {
        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-     }, 25000);
+     }, 7000);
 
      return () => clearInterval(intervalId);
    }, [words]);
@@ -139,14 +139,14 @@ const LandingPageStyle = styled.div`
 
           @keyframes fade-in {
       0% {
-                transform: translatex(50px);
+        transform: translatex(50px);
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-                transform: translatex(-20px);
+        transform: translatex(-20px);
         opacity: 0;
       }
     }
@@ -154,7 +154,6 @@ const LandingPageStyle = styled.div`
     }
   }
 }
-  
 
   .btn {
         height: 40px;
