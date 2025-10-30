@@ -35,17 +35,7 @@ const LandingPage = () => {
                 <h1 style={{ zIndex: 1}}>{" "} experience</h1>
               </div>
             </article>
-            <p
-              style={{
-                fontWeight: "500",
-                fontFamily: "Montserrat",
-                color: "#FFFFFF",
-                marginBottom: 35,
-                marginTop: 25,
-                width: '80%',
-                fontSize: '1.2rem',
-              }}
-            >
+            <p>
               Simplify the way you save, contribute, and grow together. With
               Splita, enjoy a seamless, transparent, and effortless ajo
               experience designed for your lifestyle.
@@ -104,6 +94,18 @@ const LandingPageStyle = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
+      }
+
+      p{
+        color: #FFFFFF;
+        margin-bottom: 35px;
+        margin-top: 25px;
+        width: 80%;
+        font-size: 1.2rem;
+
+        @media (max-width: 768px) {
+          font-size: 1rem;
+        }
       }
 
       .text {

@@ -10,7 +10,7 @@ const HowWeWork = () => {
       <div className="sect">
         <div className="body">
           <article className="small">
-            <div
+            <div className="head"
               style={{
                 display: "flex",
                 fontFamily: "Montserrat",
