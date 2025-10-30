@@ -58,7 +58,7 @@ const Footer = () => {
             fontFamily: "Montserrat",
             color: "#FFFFFF",
             width: 570,
-            marginTop: "20px",
+            marginBlock: "1rem",
           }}
         >
           © 2025 Splita. All rights reserved.{" "}
@@ -76,7 +76,7 @@ const FooterStyled = styled.div`
   background-color: #1a0032;
 
   @media (max-width: 768px) {
-    overflow: hidden;
+    height: auto;
   }
 
   .small {
@@ -84,6 +84,7 @@ const FooterStyled = styled.div`
     width: 100%;
     background-color: white;
   }
+
   .mainFooter {
     height: 70%;
     width: 100%;
@@ -104,12 +105,23 @@ const FooterStyled = styled.div`
       color: #ffffff;
       border-bottom: 1px solid #374151;
 
+      @media (max-width: 768px) {
+        padding-block: 1rem;
+        gap: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .firstFooter {
         .imgcon {
           width: 190px;
           height: 48.86px;
           margin-right: 80px;
           margin-bottom: 15px;
+
+          @media (max-width: 768px) {
+            width: 8rem;
+          }
         }
 
         .logo {
@@ -153,5 +165,9 @@ const FooterStyled = styled.div`
     justify-content: center;
     text-align: center;
     background-color: #1a0032;
+
+    @media (max-width: 768px) {
+      
+    }
   }
 `;

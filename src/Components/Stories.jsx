@@ -14,7 +14,7 @@ const Stories = () => {
                 fontWeight: "600",
                 fontSize: "15px",
                 gap: "5px",
-              }}
+              }} className="sto"
             >
               <h1>Stories from our </h1>
               <h1 style={{ color: "#7B2CBF" }}>community</h1>
@@ -249,34 +249,65 @@ export default Stories;
 const StoriesStyled = styled.div`
   height: 80vh;
   width: 100%;
-  /* background-color: pink; */
+  padding-block: 1.2rem;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
   .contain {
     height: 100%;
     width: 100%;
-    /* background-color: purple; */
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
     .first {
       height: 45%;
       width: 100%;
-      /* background-color: yellow; */
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 768px) {
+      }
+
       .top {
         height: 40%;
         width: 40%;
-        /* background-color: blue; */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: 768px) {
+          width: 85%;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .sto{
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+        }
       }
     }
+
     .secound {
       height: 60%;
       width: 100%;
       display: flex;
       justify-content: center;
       gap: 15px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+      }
 
       .small {
         height: 60%;
@@ -285,6 +316,13 @@ const StoriesStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 10px;
+        border-radius: 0.5rem;
+
+        @media (max-width: 768px) {
+          width: 85%;
+          gap: 2rem;
+          border-radius: 0.5rem;
+        }
 
         .smallText {
           width: 90%;

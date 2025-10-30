@@ -38,7 +38,7 @@ const UserEmptyHello = () => {
             </Oops>
             <Create_join>
                 <div className='two_cards'>
-                    <div className='card1'>
+                    <div className='card1' onClick={() => navigate('/creategroup')}>
                         <div className='main'>
                             <FaPlus/>
                             <p>Create a group</p>
@@ -111,7 +111,7 @@ const Hello = styled.div`
     background-color: #f2eaf9;
 
     @media (max-width: 768px) {
-      height: 40vh;
+      height: 46vh;
       flex-direction: column;
       padding: 1rem;
       justify-content: flex-start;

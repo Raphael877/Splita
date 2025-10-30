@@ -29,10 +29,10 @@ const LandingPage = () => {
         <div className="hero">
           <section className="info">
             <article className="text">
-              <h1 className="turn" style={{fontSize: '3.5rem'}}>Turn your ajo into a</h1>
-              <div style={{ display: "flex" }}>
-                <h1 style={{ color: "#FFA554", fontSize: '3.5rem' }} className="change" key={currentWordIndex}>{words[currentWordIndex]}</h1>
-                <h1 style={{fontSize: '3.5rem', zIndex: 1}}>{" "} experience</h1>
+              <h1 className="turn">Turn your ajo into a</h1>
+              <div className="fd" style={{ display: "flex" }}>
+                <h1 style={{ color: "#FFA554"}} className="change" key={currentWordIndex}>{words[currentWordIndex]}</h1>
+                <h1 style={{ zIndex: 1}}>{" "} experience</h1>
               </div>
             </article>
             <p
@@ -102,6 +102,10 @@ const LandingPageStyle = styled.div`
       text-align: center;
       margin-top: 90px;
 
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
       .text {
         height: 40%;
         width: 100%;
@@ -114,9 +118,20 @@ const LandingPageStyle = styled.div`
         justify-content: center;
         align-items: center;
 
-        @media (max-width: 768px) {
-          font-size: 1rem;
-        }
+          h1{
+            font-size: 3.5rem;
+            @media (max-width: 768px) {
+              font-size: 2rem;
+              line-height: 1.3;
+            }
+          }
+
+          .fd{
+            @media (max-width: 768px) {
+              flex-direction: column;
+            }
+          }
+        
 
         .change{
           animation: fade-in 10s infinite;

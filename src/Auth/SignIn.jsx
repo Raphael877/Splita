@@ -173,10 +173,10 @@ const SignIn = () => {
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign In"}
           </button>
 
-          <p style={{ textAlign: "center" }}>
+          <p style={{ textAlign: "center" , marginBottom: '1rem' }}>
             Don’t have an account?{" "}
             <span
-              style={{ color: "#7b2cbf", cursor: "pointer" }}
+              style={{ color: "#7b2cbf", cursor: "pointer"}}
               onClick={() => navigate("/signup")}
             >
               Sign Up

@@ -10,7 +10,7 @@ const Benefit = () => {
     <BenefitStyle>
       <article className="BenefitText">
         <div className="bene">
-          <div style={{ display: "flex", gap: "5px" }}>
+          <div style={{ display: "flex", gap: "5px" }} className="bene_group">
             <h3 style={{ color: "#7B2CBF" }}>Benefits </h3>
             <h3>for Group admins & Contributors </h3>
           </div>
@@ -243,6 +243,10 @@ const BenefitStyle = styled.div`
   width: 100%;
   background-color: #f5f5f5cc;
 
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
   .BenefitText {
     height: 25%;
     width: 100%;
@@ -261,6 +265,21 @@ const BenefitStyle = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      @media (max-width: 768px) {
+        width: 85%;
+        padding-top: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .bene_group{
+        @media (max-width: 768px) {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
   }
 
@@ -271,6 +290,12 @@ const BenefitStyle = styled.div`
     gap: 20px;
     justify-content: center;
 
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+      }
+
     .cont {
       height: 90%;
       width: 40%;
@@ -278,6 +303,11 @@ const BenefitStyle = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 768px) {
+        width: 85%;
+        height: 100%;
+      }
 
       .mini {
         height: 100%;
@@ -290,6 +320,10 @@ const BenefitStyle = styled.div`
         padding: 10px;
         border-radius: 0.5rem;
         padding: 2rem;
+
+        @media (max-width: 768px) {
+          gap: 2rem;
+        }
 
         .text1 {
           height: 25%;

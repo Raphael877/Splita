@@ -16,7 +16,6 @@ const AboutSplita = () => {
             fontFamily: "Montserrat",
             fontWeight: "500",
             fontSize: "15px",
-            width: 600,
             lineHeight: "23px",
           }}
         >
@@ -55,12 +54,31 @@ const AboutSplitaStyled = styled.div`
   gap: 3rem;
 
   @media (max-width: 768px) {
-    overflow: hidden;
+    height: auto;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .left {
     height: 100%;
     width: 44%;
+
+    @media (max-width: 768px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    p{
+      width: 100%;
+      @media (max-width: 768px) {
+        width: 85%;
+      }
+    }
 
     .head {
       height: 30%;

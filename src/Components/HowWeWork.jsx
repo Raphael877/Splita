@@ -25,7 +25,7 @@ const HowWeWork = () => {
             </div>
             <h4
               style={{
-                width: 500,
+                width: 400,
                 textAlign: "center",
                 fontWeight: "500",
                 fontFamily: "Montserrat",
@@ -117,39 +117,66 @@ const HowWeWork = () => {
 export default HowWeWork;
 
 const HowWeWorkStyle = styled.div`
-  /* min-height: auto; */
   height: 80vh;
   width: 100%;
   background-color: #f7f2fb;
+
+  @media (max-width: 768px) {
+        height: auto;
+        overflow: hidden;
+        padding-block: 2rem;
+      }
+
   .sect {
     height: 100%;
     width: 100%;
-    /* background-color: pink; */
+
+    @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+      }
 
     .body {
       height: 45%;
       width: 100%;
-      /* background-color: gray; */
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 768px) {
+        width: 85%;
+      }
+
       .small {
         height: 40%;
         width: 35%;
-        /* background-color: pink; */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
+
+        @media (max-width: 768px) {
+          width: 60%;
+          gap: 1rem;
+        }
       }
     }
+
     .maincon {
       height: 50%;
       width: 100%;
       display: flex;
       justify-content: center;
       gap: 15px;
-      /* background-color: pink; */
+
+      @media (max-width: 768px) {
+        align-items: center;
+        flex-direction: column;
+        
+      }
 
       .con2 {
         height: 80%;
@@ -162,6 +189,11 @@ const HowWeWorkStyle = styled.div`
         justify-content: space-around;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16);
         padding: 1.5rem;
+
+        @media (max-width: 768px) {
+          width: 85%;
+          gap: 1rem;
+        }
 
         .circle {
           height: 40px;

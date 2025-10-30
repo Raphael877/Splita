@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Splita_logo from "../assets/Splita_logo.png";
 import Profile_img from "../assets/Profile_img.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
+import { MdLogout, MdOutlineCancel } from "react-icons/md";
+import ConfirmLogout from '../Components/ConfirmLogout'
 
 const UserDashboardHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
   const userData = (() => {
     try {
       return JSON.parse(localStorage.getItem("userData")) || {};
@@ -15,6 +21,9 @@ const UserDashboardHeader = () => {
       return {};
     }
   })();
+
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
+  const closeDropdown = () => setShowDropdown(false);
 
   return (
     <UserDashboardHeader_content>
@@ -38,20 +47,81 @@ const UserDashboardHeader = () => {
             My groups
           </li>
           <li
-            className={location.pathname === "/mycontribution" ? "active" : ""}
+            className={
+              location.pathname === "/mycontribution" ? "active" : ""
+            }
             onClick={() => navigate("/mycontribution")}
           >
             Contributions
           </li>
         </ul>
         <div className="right">
-          <div className="profile" onClick={() => navigate("/profile")}>
+          <div className="profile" onClick={toggleDropdown}>
             <img src={Profile_img} />
-            <p>{userData.fullName || 'User'}</p>
+            <p>{userData.fullName || "User"}</p>
             <IoIosArrowDown />
           </div>
+
+          {showDropdown && (
+            <div className="dropdown">
+              <div className="dropdown_wrap">
+                <div className="top">
+                  <img src={Profile_img} />
+                  <p>{userData.fullName || "User"}</p>
+                </div>
+                <MdOutlineCancel
+                  style={{
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "4%",
+                    right: "0",
+                    fontSize: "1.5rem",
+                  }}
+                  onClick={closeDropdown}
+                />
+                <p
+                  className="prof"
+                  onClick={() => {
+                    navigate("/profile");
+                    closeDropdown();
+                  }}
+                >
+                  Profile
+                </p>
+                <hr
+                  style={{
+                    border: "none",
+                    width: "100%",
+                    height: "1px",
+                    backgroundColor: "#e74c3c",
+                  }}
+                />
+                <div
+                  className="log"
+                  style={{ color: "#e74c3c", cursor: "pointer" }}
+                  onClick={() => setShowLogoutModal(true)}
+                >
+                  <p>Logout</p>
+                  <MdLogout
+                    style={{
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      fontSize: "1.5rem",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </UserDashboardHeader_wrapper>
+
+      {showLogoutModal && (
+        <ConfirmLogout
+          onClose={() => setShowLogoutModal(false)} 
+        />
+      )}
     </UserDashboardHeader_content>
   );
 };
@@ -127,6 +197,49 @@ const UserDashboardHeader_wrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
+
+    .dropdown{
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      width: 25rem;
+      height: 10rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.5rem;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      .dropdown_wrap{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 90%;
+        height: 85%;
+        position: relative;
+
+        .prof{
+          cursor: pointer;
+          &:hover{
+            color: #e74c3c;
+          }
+        }
+
+        .top{
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+        }
+
+        .log{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
 
     .profile {
       width: 100%;

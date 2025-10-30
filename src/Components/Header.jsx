@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Splita_logo from '../assets/Splita_logo.png'
 import { useNavigate } from 'react-router-dom'
+import { IoMdMenu } from "react-icons/io";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Header = () => {
                 <button className='header_btn1' onClick={()=> navigate('/signin')}>Sign In</button>
                 <button className='header_btn2' onClick={()=> navigate('/signup')}>Sign Up</button>
             </div>
+            <IoMdMenu style={{cursor : 'pointer', fontSize: '1.5rem'}} className='menu'/>
         </Header_wrapper>
     </Header_content>
   )
@@ -52,6 +54,13 @@ const Header_wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .menu{
+        display: none;
+        @media (max-width: 768px) {
+            display: flex;
+        }
+    }
 
     .brand_logo{
         width: 12%;

@@ -258,7 +258,7 @@ const SignUp = () => {
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
           </button>
 
-          <p className="already">
+          <p className="already" style={{marginBottom: '1rem' }}>
             Already have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}

@@ -8,15 +8,7 @@ const Hero2 = () => {
     <Hero2Styled>
       <section className="card">
         <div className="mainCard">
-          <h1
-            style={{
-              fontWeight: "600",
-              fontFamily: "Montserrat",
-              color: "#FFFFFF",
-              fontSize: "3.6rem",
-              lineHeight: '5rem'
-            }}
-          >
+          <h1>
             Save faster.
             <br /> Grow smarter.
             <br /> Together.
@@ -37,6 +29,10 @@ const Hero2Styled = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
+  @media (max-width: 768px) {
+    height: 50vh;
+  }
+
   .card {
     height: 100%;
     width: 50%;
@@ -44,6 +40,10 @@ const Hero2Styled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
 
     .mainCard {
       height: 80%;
@@ -53,6 +53,25 @@ const Hero2Styled = styled.div`
       justify-content: center;
       gap: 2.5rem;
       line-height: 50px;
+
+      @media (max-width: 768px) {
+        width: 85%;
+        gap: 1rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      h1{
+        font-weight: 600;
+        color: white;
+        font-size: 3.6rem;
+        line-height: 5rem;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+          line-height: 3rem;
+        }
+      }
 
       .btn {
         height: 3rem;
