@@ -75,7 +75,7 @@ const Hero2Styled = styled.div`
 
       .btn {
         height: 3rem;
-        width: 40%;
+        width: 50%;
         border-radius: 12px;
         border: none;
         background-color: #ff7900;
