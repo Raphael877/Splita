@@ -332,7 +332,7 @@ const SignIn_wrapper = styled.div`
       border-radius: 0.8rem;
       border: none;
       cursor: pointer;
-      margin-block: 1rem;
+      margin-block: 0.5rem;
 
       &:hover {
         background-color: #9472b2;
