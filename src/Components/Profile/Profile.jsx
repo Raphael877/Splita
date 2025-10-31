@@ -5,8 +5,6 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import ProfileUpload from './ProfileUpload';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -28,26 +26,14 @@ const Profile = () => {
     }
   })();
 
-  const [phone, setPhone] = useState(userData.phone || '');
-  const [bankName, setBankName] = useState(bankData.bankName || '');
-  const [accountNumber, setAccountNumber] = useState(bankData.accountNumber || '');
-
   const fullName = userData.fullName || 'User';
   const email = userData.email || 'Not Available';
-
-  const handleSave = () => {
-    const updatedUserData = { ...userData, phone };
-    const updatedBankData = { ...bankData, bankName, accountNumber };
-
-    localStorage.setItem('userData', JSON.stringify(updatedUserData));
-    localStorage.setItem('bankData', JSON.stringify(updatedBankData));
-
-    toast.success('Profile updated successfully!');
-  };
+  const phone = userData.phone || 'Not Available';
+  const bankName = bankData.bankName || 'Not Available';
+  const accountNumber = bankData.accountNumber || 'Not Available';
 
   return (
     <Profile_content>
-      <ToastContainer />
       <div className='circle_top_left'></div>
       <div className='circle_top_right'></div>
       <div className='circle_mid_left'></div>
@@ -87,12 +73,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Phone Number</p>
-            <input
-              type="text"
-              value={phone}
-              placeholder={userData.phone || "Enter phone number"}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <p>{phone}</p>
           </div>
           <hr />
         </div>
@@ -100,12 +81,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Bank Name</p>
-            <input
-              type="text"
-              value={bankName}
-              onChange={(e) => setBankName(e.target.value)}
-              placeholder="Enter bank name"
-            />
+            <p>{bankName}</p>
           </div>
           <hr />
         </div>
@@ -113,17 +89,10 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Account Number</p>
-            <input
-              type="text"
-              value={accountNumber}
-              onChange={(e) => setAccountNumber(e.target.value)}
-              placeholder="Enter account number"
-            />
+            <p>{accountNumber}</p>
           </div>
           <hr />
         </div>
-
-        <button onClick={handleSave}>Save Changes</button>
       </Profile_wrapper>
 
       {showUploadModal && <ProfileUpload onClose={() => setShowUploadModal(false)} />}
@@ -225,37 +194,14 @@ const Profile_wrapper = styled.div`
       align-items: center;
       padding-inline: 1rem;
 
-      input {
-        border: none;
-        background: transparent;
-        text-align: right;
+      p {
         font-size: 1rem;
         color: #333;
-        width: 60%;
-        &:focus {
-          outline: none;
-        }
       }
 
       .dim-text {
         color: #999;
       }
-    }
-  }
-
-  button {
-    margin-block: 1rem;
-    width: 100%;
-    height: 3.2rem;
-    color: white;
-    background-color: #7b2cbf;
-    border-radius: 0.7rem;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    &:hover {
-      background-color: #9472b2;
-      transition: all 350ms ease-in-out;
     }
   }
 `;

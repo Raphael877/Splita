@@ -209,7 +209,7 @@ const HeaderWrapper = styled.div`
   }
 
   .right {
-    width: 25%;
+    width: 35%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -293,10 +293,13 @@ const HeaderWrapper = styled.div`
           }
         }
 
-        .prof {
+        .prof{
+          
           cursor: pointer;
-          &:hover {
-            color: #e74c3c;
+          color: #100f0f;
+          padding-block: 0.2rem;
+          &:hover{
+            background-color:  #f2eaf9;
           }
         }
 

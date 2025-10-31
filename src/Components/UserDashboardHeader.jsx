@@ -196,7 +196,7 @@ const UserDashboardHeader_wrapper = styled.div`
     }
   }
   .right {
-    width: 25%;
+    width: 35%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -230,8 +230,10 @@ const UserDashboardHeader_wrapper = styled.div`
 
         .prof{
           cursor: pointer;
+          color: #100f0f;
+          padding-block: 0.2rem;
           &:hover{
-            color: #e74c3c;
+            background-color:  #f2eaf9;
           }
         }
 
