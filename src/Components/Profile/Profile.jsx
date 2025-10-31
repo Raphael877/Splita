@@ -17,6 +17,15 @@ const Profile = () => {
     }
   })();
 
+  const bankData = (() => {
+  try {
+    return JSON.parse(localStorage.getItem("bankData")) || {};
+  } catch {
+    return {};
+  }
+})();
+
+
   return (
     <Profile_content>
       
@@ -69,7 +78,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Bank Name</p>
-            <p>Splita Bank</p>
+            <p>{bankData.bankName || "Not Added"}</p>
           </div>
           <hr></hr>
         </div>
@@ -77,7 +86,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Account Number</p>
-            <p>7038204858</p>
+            <p>{bankData.accountNumber || "Not Added"}</p>
           </div>
           <hr></hr>
         </div>

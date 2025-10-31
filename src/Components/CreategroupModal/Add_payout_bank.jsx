@@ -42,6 +42,14 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   };
 
   const handleSave = () => {
+    
+  const bankData = {
+    bankName: selectedBank,
+    accountNumber: accountNumber,
+  };
+
+  localStorage.setItem("bankData", JSON.stringify(bankData));
+  
     if (onSave) onSave();
     navigate("/group_created");
   };
