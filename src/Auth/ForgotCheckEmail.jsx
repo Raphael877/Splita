@@ -37,8 +37,8 @@ const ForgotCheckEmail = () => {
       return;
     }
 
-    if (formData.resetCode.length !== 8) {
-      toast.error("Reset code must be 8 digits");
+    if (formData.resetCode.length !== 6) {
+      toast.error("Reset code must be 6 digits");
       return;
     }
 
