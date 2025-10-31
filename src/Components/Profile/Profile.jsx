@@ -5,6 +5,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import ProfileUpload from './ProfileUpload';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -40,11 +42,12 @@ const Profile = () => {
     localStorage.setItem('userData', JSON.stringify(updatedUserData));
     localStorage.setItem('bankData', JSON.stringify(updatedBankData));
 
-    alert('Profile updated successfully!');
+    toast.success('Profile updated successfully!');
   };
 
   return (
     <Profile_content>
+      <ToastContainer />
       <div className='circle_top_left'></div>
       <div className='circle_top_right'></div>
       <div className='circle_mid_left'></div>
