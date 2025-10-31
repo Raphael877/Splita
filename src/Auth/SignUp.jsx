@@ -279,7 +279,7 @@ export default SignUp;
 
 const SignUp_content = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -288,7 +288,7 @@ const SignUp_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) and (min-width: 768px) {
-    height: 160vh;
+    height: auto;
   }
 
   @media (max-width: 768px) {
