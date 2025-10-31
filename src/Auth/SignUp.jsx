@@ -374,6 +374,9 @@ const SignUp_wrapper = styled.div`
   height: 100%;
   padding-top: 6rem;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   h1 {
     font-size: 2.5rem;

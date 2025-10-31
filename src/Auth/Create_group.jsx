@@ -312,6 +312,9 @@ const Create_group_wrapper = styled.div`
   height: 100%;
   padding-top: 6rem;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 768px) {
     width: 85%;
