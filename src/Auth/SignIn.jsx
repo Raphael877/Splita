@@ -146,7 +146,7 @@ const SignIn = () => {
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow(!show)}>
-                {show ? <GoEye /> : <GoEyeClosed />}
+                {show ? <GoEye style={{color: 'black'}}/> : <GoEyeClosed style={{color: 'black'}}/>}
               </div>
             </div>
             {errors.password && (
