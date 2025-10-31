@@ -314,6 +314,7 @@ const Create_group_wrapper = styled.div`
   z-index: 1;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 
   @media (max-width: 768px) {

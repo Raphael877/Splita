@@ -266,6 +266,7 @@ const SignIn_wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 1;
 
   @media (max-width: 1024px) {
