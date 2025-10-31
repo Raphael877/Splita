@@ -243,6 +243,7 @@ const VerifyEmail_content = styled.div`
     }
   }
 
+
   .brand_name {
     position: absolute;
     top: 3%;
