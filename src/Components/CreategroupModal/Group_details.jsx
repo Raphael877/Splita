@@ -17,7 +17,6 @@ const Group_details = ({ onContinue, onClose }) => {
           <hr
             style={{ height: "2px", backgroundColor: "black", border: "none" }}
           ></hr>
-
           <div className="one">
             <p>Name</p>
             <p>Women in Tech</p>

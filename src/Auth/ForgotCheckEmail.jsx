@@ -171,7 +171,7 @@ export default ForgotCheckEmail;
 
 const ForgotCheckEmail_content = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,7 +180,7 @@ const ForgotCheckEmail_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    height: auto;
+    height: 100vh;
   }
 
   .circle_top_left {
