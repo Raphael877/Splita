@@ -4,12 +4,18 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { PiBank } from "react-icons/pi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Add_payout_bank = ({ onSave, onClose }) => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
+
+  const [formData, setFormData] = useState({
+    bankName: "",
+    accountNumber: "",
+    isDefault: true,
+  });
 
   const banks = [
     "Access Bank",
@@ -38,20 +44,49 @@ const Add_payout_bank = ({ onSave, onClose }) => {
 
   const handleBankSelect = (bank) => {
     setSelectedBank(bank);
+    setFormData({
+      ...formData,
+      bankName: bank,
+    });
     setOpenDropdown(false);
   };
 
   const handleSave = () => {
-    
-  const bankData = {
-    bankName: selectedBank,
-    accountNumber: accountNumber,
-  };
+    const bankData = {
+      bankName: selectedBank,
+      accountNumber: formData.accountNumber,
+      isDefault: true,
+    };
 
-  localStorage.setItem("bankData", JSON.stringify(bankData));
-  
+    localStorage.setItem("bankData", JSON.stringify(bankData));
+
     if (onSave) onSave();
     navigate("/group_created");
+  };
+
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const handlePayout = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/payout-account`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Response:", res.data);
+    } catch (error) {
+      console.log("Error:", error.response?.data || error.message);
+    } finally {
+      handleSave();
+    }
   };
 
   return (
@@ -67,7 +102,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
           </Header>
           <hr
             style={{ height: "2px", backgroundColor: "black", border: "none" }}
-          ></hr>
+          />
 
           <form>
             <div className="main_label">
@@ -95,6 +130,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
               )}
             </div>
 
+            {/* Account Number */}
             <div className="main_label">
               <div className="label">
                 <PiBank style={{ fontSize: "1.3rem" }} />
@@ -104,13 +140,18 @@ const Add_payout_bank = ({ onSave, onClose }) => {
                 <input
                   type="text"
                   placeholder="e.g 7038204858"
-                  value={accountNumber}
-                  onChange={(e) => setAccountNumber(e.target.value)}
+                  value={formData.accountNumber}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      accountNumber: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
 
-            <button type="button" onClick={handleSave}>
+            <button type="button" onClick={handlePayout}>
               Save Bank
             </button>
           </form>
@@ -205,7 +246,7 @@ const Inner_wrap = styled.div`
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 0.5rem;
-        width: 70%; 
+        width: 70%;
         max-height: 8rem;
         overflow-y: auto;
         margin-top: 0.3rem;

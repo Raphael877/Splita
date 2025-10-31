@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
 
-const Group_details = ({ onContinue, onClose }) => {
+const Group_details = ({ onContinue, onClose, formData }) => {
   return (
     <Group_details_content>
       <Group_details_wrapper>
@@ -19,19 +19,27 @@ const Group_details = ({ onContinue, onClose }) => {
           ></hr>
           <div className="one">
             <p>Name</p>
-            <p>Women in Tech</p>
+            <p>{formData.groupName || "—"}</p>
           </div>
           <div className="one">
             <p>Contribution Amount</p>
-            <p>N200,000</p>
+            <p>
+              {formData.contributionAmount
+                ? `₦${formData.contributionAmount}`
+                : "—"}
+            </p>
           </div>
           <div className="one">
             <p>Payment frequency</p>
-            <p>Weekly</p>
+            <p>{formData.contributionFrequency || "—"}</p>
           </div>
           <div className="one">
             <p>Payout frequency</p>
-            <p>Weekly</p>
+            <p>{formData.payoutFrequency || "—"}</p>
+          </div>
+          <div className="one">
+            <p>Total members</p>
+            <p>{formData.totalMembers || "—"}</p>
           </div>
 
           <button onClick={onContinue}>Continue</button>
@@ -43,9 +51,8 @@ const Group_details = ({ onContinue, onClose }) => {
 
 export default Group_details;
 
-
 const Group_details_content = styled.div`
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -54,54 +61,54 @@ const Group_details_content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; 
-`
+  z-index: 9999;
+`;
 
 const Group_details_wrapper = styled.div`
-    width: 40%;
-    height: 55%;
-    background-color: white;
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 40%;
+  height: 65%;
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    @media (max-width: 768px) {
-        width: 85%;
-    }
-`
+  @media (max-width: 768px) {
+    width: 85%;
+  }
+`;
 
 const Inner_wrap = styled.div`
-    width: 90%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    .one{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-block: 0.2rem;
-    }
-
-    button {
-        width: 100%;
-        height: 3rem;
-        background-color: #7b2cbf;
-        color: white;
-        border-radius: 0.5rem;
-        border: none;
-        cursor: pointer;
-        &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-            }
-    }
-`    
-
-const Header = styled.div`
+  .one {
     display: flex;
     justify-content: space-between;
     align-items: center;
-`
+    padding-block: 0.2rem;
+  }
+
+  button {
+    width: 100%;
+    height: 3rem;
+    background-color: #7b2cbf;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #9472b2;
+      transition: all 350ms ease-in-out;
+    }
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
