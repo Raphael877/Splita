@@ -208,13 +208,17 @@ const UserDashboardHeader_wrapper = styled.div`
       top: 100%;
       right: 0;
       background-color: white;
-      width: 25rem;
-      height: 18rem;
+      width: 20rem;
+      height: 10rem;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 0.5rem;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      @media (max-width: 768px) {
+        height: 18rem;
+      }
 
       .dropdown_wrap{
         display: flex;
@@ -233,8 +237,13 @@ const UserDashboardHeader_wrapper = styled.div`
 
         .nav{
           cursor: pointer;
+          display: none;
           &:hover{
             color: #e74c3c;
+          }
+
+          @media (max-width: 768px) {
+            display: flex;
           }
         }
 
