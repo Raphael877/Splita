@@ -196,7 +196,7 @@ const UserDashboardHeader_wrapper = styled.div`
     }
   }
   .right {
-    width: 35%;
+    width: max-content;
     height: 100%;
     display: flex;
     align-items: center;
