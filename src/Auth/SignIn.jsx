@@ -143,7 +143,7 @@ const SignIn = () => {
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow(!show)}>
-                {show ? <GoEye /> : <GoEyeClosed />}
+                {show ? <GoEye style={{color: 'black'}}/> : <GoEyeClosed style={{color: 'black'}}/>}
               </div>
             </div>
             {errors.password && (
@@ -260,6 +260,10 @@ const SignIn_wrapper = styled.div`
   width: 50%;
   height: 100%;
   padding-top: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   z-index: 1;
 
   @media (max-width: 1024px) {
@@ -325,7 +329,7 @@ const SignIn_wrapper = styled.div`
       border-radius: 0.8rem;
       border: none;
       cursor: pointer;
-      margin-block: 1rem;
+      margin-block: 0.5rem;
 
       &:hover {
         background-color: #9472b2;

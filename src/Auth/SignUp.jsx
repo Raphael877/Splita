@@ -288,7 +288,7 @@ const SignUp_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) and (min-width: 768px) {
-    height: 160vh;
+    height: auto;
   }
 
   @media (max-width: 768px) {
@@ -374,6 +374,10 @@ const SignUp_wrapper = styled.div`
   height: 100%;
   padding-top: 6rem;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   h1 {
     font-size: 2.5rem;

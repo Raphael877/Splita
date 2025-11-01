@@ -30,6 +30,7 @@ import ObeleMembers from './Components/ObeleMembers.jsx'
 import ObeleContribution from './Components/ObeleContribution.jsx'
 import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
+import Join_Group from './Pages/Join_Group.jsx'
 
 const App = () => {
   return (
@@ -67,6 +68,7 @@ const App = () => {
           <Route path='' element={<ObeleMembers />} />
           <Route path='obele_contribution' element={<ObeleContribution />} />
         </Route>
+        <Route path='/join_group' element={<Join_Group />} />
       </Routes>
     </HashRouter>
   );

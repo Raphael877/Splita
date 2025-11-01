@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { TiSocialFacebook } from "react-icons/ti";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate()
   return (
     <FooterStyled>
       <article className="small"></article>
