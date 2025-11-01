@@ -51,8 +51,6 @@ const SignIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
- 
-
   const Login = async () => {
     if (!validateInputs()) return;
 
@@ -66,13 +64,11 @@ const SignIn = () => {
       );
       localStorage.setItem(
         import.meta.env.VITE_USERID,
-        JSON.stringify(res?.data?.data?._id)
+        JSON.stringify(res?.data?.user)
       );
-
-
-      
       toast.success(res?.data?.message || "Login successful!");
-      navigate('/useremptystate')
+      console.log("res", res);
+      navigate("/useremptystate");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");
@@ -112,7 +108,6 @@ const SignIn = () => {
             Login();
           }}
         >
-
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -128,7 +123,9 @@ const SignIn = () => {
               />
             </div>
             {errors.email && (
-              <p style={{ color: "red", fontSize: "0.85rem" }}>{errors.email}</p>
+              <p style={{ color: "red", fontSize: "0.85rem" }}>
+                {errors.email}
+              </p>
             )}
           </div>
 
@@ -171,10 +168,10 @@ const SignIn = () => {
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign In"}
           </button>
 
-          <p style={{ textAlign: "center" , marginBottom: '1rem' }}>
+          <p style={{ textAlign: "center", marginBottom: "1rem" }}>
             Don’t have an account?{" "}
             <span
-              style={{ color: "#7b2cbf", cursor: "pointer"}}
+              style={{ color: "#7b2cbf", cursor: "pointer" }}
               onClick={() => navigate("/signup")}
             >
               Sign Up

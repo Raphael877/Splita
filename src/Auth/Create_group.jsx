@@ -8,21 +8,23 @@ import { FaRegClock } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
 import { BsCash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import Group_details from '../Components/CreategroupModal/Group_details'
-import Add_payout_bank from '../Components/CreategroupModal/Add_payout_bank';
+import Group_details from "../Components/CreategroupModal/Group_details";
+import Add_payout_bank from "../Components/CreategroupModal/Add_payout_bank";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const Create_group = () => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showBankModal, setShowBankModal] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     groupName: "",
     contributionAmount: "",
     contributionFrequency: "",
     payoutFrequency: "",
-    groupDescription: "",
+    description: "",
     totalMembers: "",
   });
 
@@ -48,9 +50,32 @@ const Create_group = () => {
     setShowBankModal(false);
     navigate("/groupcreated");
   };
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const handleCreate = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(`${BaseUrl}/groups/create`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      toast.success(res?.data?.message);
+    } catch (error) {
+      toast.error(res?.data?.message);
+    } finally {
+      setLoading(false);
+      handleSubmit();
+    }
+  };
 
   return (
     <Create_group_content>
+      <ToastContainer />
       <div className="circle_top_left"></div>
       <div className="circle_top_right"></div>
       <div className="circle_mid_left"></div>
@@ -60,7 +85,11 @@ const Create_group = () => {
         <img src={Splita_logo} alt="Splita Logo" />
       </div>
 
-      <div className="back" onClick={() => navigate('/useremptystate')} style={{ cursor: "pointer" }}>
+      <div
+        className="back"
+        onClick={() => navigate("/useremptystate")}
+        style={{ cursor: "pointer" }}
+      >
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
       </div>
@@ -170,11 +199,11 @@ const Create_group = () => {
               <input
                 type="text"
                 placeholder="e.g Tell us about the group"
-                value={formData.groupDescription}
+                value={formData.description}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    groupDescription: e.target.value,
+                    description: e.target.value,
                   })
                 }
               />
@@ -199,9 +228,7 @@ const Create_group = () => {
                 {[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
                   <p
                     key={num}
-                    onClick={() =>
-                      handleSelect("totalMembers", num.toString())
-                    }
+                    onClick={() => handleSelect("totalMembers", num.toString())}
                   >
                     {num}
                   </p>
@@ -210,24 +237,33 @@ const Create_group = () => {
             )}
           </div>
 
-          <button type="button" onClick={handleSubmit}>
-            Submit
-          </button>
+          {loading ? (
+            <button style={{ cursor: "progress" }}>loading...</button>
+          ) : (
+            <button onClick={handleCreate}>Submit</button>
+          )}
         </form>
       </Create_group_wrapper>
 
       {showDetailsModal && (
-        <Group_details onContinue={handleContinue} onClose={() => setShowDetailsModal(false)} />
+        <Group_details
+          onContinue={handleContinue}
+          onClose={() => setShowDetailsModal(false)}
+          formData={formData}
+        />
       )}
+
       {showBankModal && (
-        <Add_payout_bank onSave={handleSaveBank} onClose={() => setShowBankModal(false)} />
+        <Add_payout_bank
+          onSave={handleSaveBank}
+          onClose={() => setShowBankModal(false)}
+        />
       )}
     </Create_group_content>
   );
 };
 
 export default Create_group;
-
 
 const Create_group_content = styled.div`
   width: 100%;
@@ -278,7 +314,10 @@ const Create_group_content = styled.div`
   }
 
   @media (max-width: 768px) {
-    .circle_down_right, .circle_mid_left, .circle_top_left, .circle_top_right{
+    .circle_down_right,
+    .circle_mid_left,
+    .circle_top_left,
+    .circle_top_right {
       display: none;
     }
   }
@@ -326,13 +365,13 @@ const Create_group_wrapper = styled.div`
 
     @media (max-width: 768px) {
       text-align: center;
-  }
+    }
   }
 
-  p{
+  p {
     @media (max-width: 768px) {
       text-align: center;
-  }
+    }
   }
 
   form {
