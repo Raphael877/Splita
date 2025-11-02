@@ -10,16 +10,16 @@ const AdminMemberDashboard = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const AllData = [
-    { id: 1, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Chisom', contribution: 'N 10,000', payout_order: '2nd', delete: <CiTrash /> },
-    { id: 2, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Dera', contribution: 'N 10,000', payout_order: '1st', delete: <CiTrash /> },
-    { id: 3, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Dinma', contribution: 'N 10,000', payout_order: '3rd', delete: <CiTrash /> },
-    { id: 4, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 5', member: 'Zeal', contribution: 'N 10,000', payout_order: '4th', delete: <CiTrash /> },
-    { id: 5, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Habeeb', contribution: 'N 10,000', payout_order: '5th', delete: <CiTrash /> },
-    { id: 6, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Felix', contribution: 'N 10,000', payout_order: '6th', delete: <CiTrash /> },
-    { id: 7, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 3', member: 'Raphael', contribution: 'N 10,000', payout_order: '7th', delete: <CiTrash /> },
-    { id: 8, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 10', member: 'Arinze', contribution: 'N 10,000', payout_order: '8th', delete: <CiTrash /> },
-    { id: 9, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Darasimi', contribution: 'N 10,000', payout_order: '9th', delete: <CiTrash /> },
-    { id: 10, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 10', member: 'Michael', contribution: 'N 10,000', payout_order: '10th', delete: <CiTrash /> },
+    { id: 1, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Chisom', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '2nd', delete: <CiTrash /> },
+    { id: 2, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Dera', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '1st', delete: <CiTrash /> },
+    { id: 3, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Dinma', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '3rd', delete: <CiTrash /> },
+    { id: 4, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 5', member: 'Zeal', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '4th', delete: <CiTrash /> },
+    { id: 5, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Habeeb', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '5th', delete: <CiTrash /> },
+    { id: 6, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Felix', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '6th', delete: <CiTrash /> },
+    { id: 7, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 3', member: 'Raphael', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '7th', delete: <CiTrash /> },
+    { id: 8, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 10', member: 'Arinze', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '8th', delete: <CiTrash /> },
+    { id: 9, bgcolor: '#d6ecd1', color: '#34a218', status: 'Paid', late_payment: '-', member: 'Darasimi', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '9th', delete: <CiTrash /> },
+    { id: 10, bgcolor: '#ffe4cc', color: '#ff7900', status: 'Unpaid', late_payment: 'Oct 10', member: 'Michael', contribution: (<><TbCurrencyNaira/>10,000</>), payout_order: '10th', delete: <CiTrash /> },
   ];
 
   return (
@@ -44,7 +44,7 @@ const AdminMemberDashboard = () => {
               {AllData.map((items) => (
                 <div className='all_data' id={items.id} key={items.id}>
                   <div className='member'><p>{items.member}</p></div>
-                  <div className='contribution'><p>{items.contribution}</p></div>
+                  <div className='contribution' style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}><p>{items.contribution}</p></div>
                   <div className='status'>
                     <div className='status_wrap' style={{ backgroundColor: items.bgcolor, color: items.color }}>
                       <p>{items.status}</p>

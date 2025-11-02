@@ -220,9 +220,9 @@ const Block = styled.div`
                                     border-radius: 0.5rem;
                                     cursor: pointer;
                                     color: white;
-                                    background-color: #e60303;
+                                    background-color: #34a218;
                                     &:hover{     
-                                        background-color: #f15b5b;
+                                        background-color: #43b127;
                                     }
                                 }
 

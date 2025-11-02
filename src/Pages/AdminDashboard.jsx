@@ -39,7 +39,7 @@ const AdminDashboard = () => {
     const Array = [
         {   id: 1,
             top: 'Contribution Amount',
-            mid: 'N10000 ',
+            mid: (<><TbCurrencyNaira/>10,000</>),
             bottom: 'Per member',
             icon : <BsCash/>,
             bgcolor: "#efd5f2",
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
         },
         {   id: 4,
             top: 'Current Pot',
-            mid: 'N100,000' ,
+            mid: (<><TbCurrencyNaira/>100,000</>) ,
             bottom: 'Group Wallet',
             icon : <PiCoinsLight/>,
             bgcolor: "#d6ecd1",
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
                         <div className='card_wrapper'>
                             <div className='left'>
                                 <p>{items.top}</p>
-                                <h3>{items.mid}</h3>
+                                <h3 style={{display: 'flex', alignItems: 'center'}}>{items.mid}</h3>
                                 <p><small style={{color: '#828181'}}>{items.bottom}</small></p>
                             </div>
                             <div className='right' style={{backgroundColor: items.bgcolor, color: items.color}}>
