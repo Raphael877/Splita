@@ -93,6 +93,11 @@ const Profile = () => {
           </div>
           <hr />
         </div>
+
+        <div className='btn'>
+          <button className='btn1'>Cancel</button>
+          <button className='btn2'>Save changes</button>
+        </div>
       </Profile_wrapper>
 
       {showUploadModal && <ProfileUpload onClose={() => setShowUploadModal(false)} />}
@@ -144,6 +149,7 @@ const Profile_wrapper = styled.div`
   padding-top: 6rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
 
   @media (max-width: 768px) {
@@ -203,5 +209,41 @@ const Profile_wrapper = styled.div`
         color: #999;
       }
     }
+  }
+
+  .btn{
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    .btn1{
+      width: 50%;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      background-color: #b8b8b8;
+      color: white;
+      cursor: pointer;
+      &:hover{
+        background-color: #dfcece;
+        transition: all 350ms ease-in-out;
+      }
+    }  
+
+    .btn2{
+      width: 50%;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      background-color: #7b2cbf;
+      color: white;
+      cursor: pointer;
+      &:hover{
+        background-color: #9551d0;
+        transition: all 350ms ease-in-out;
+      }
+    }  
   }
 `;

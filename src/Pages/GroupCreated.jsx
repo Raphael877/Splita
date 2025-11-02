@@ -5,10 +5,16 @@ import UserDashboardFooter from '../Components/UserDashboardFooter'
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { GiPartyPopper } from "react-icons/gi";
 import { useNavigate, useLocation } from 'react-router-dom';
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GroupCreated = () => {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const CopyLink = () => {
+        toast.success("Link copied! Share with friends.");
+    }
 
     const groupName =
       (location?.state && location.state.groupName) ||
@@ -33,7 +39,7 @@ const GroupCreated = () => {
                             <p>Invite trusted members to join  and start  your saving cycle</p>
                             <p style={{color: '#777777', marginBlock: '1.5rem'}}>Be sure to invite only trusted people to your group, such as friends or family. Splita does not take responsibility for payment delays or defaults by any member. As an admin, you're in charge of who joins your group.</p>
                             <div className='btn'>
-                                <button className='btn1'>Copy Invite Link</button>
+                                <button className='btn1' onClick={CopyLink}>Copy Invite Link</button>
                                 <button className='btn2' onClick={() => navigate('/requestjoingroup')}>View Members</button>
                             </div>
                         </div>
@@ -41,6 +47,7 @@ const GroupCreated = () => {
                 </Inner_main>
             </Main>
         <UserDashboardFooter />
+        <ToastContainer position="top-right" autoClose={2000} />
     </Content>
   )
 }
