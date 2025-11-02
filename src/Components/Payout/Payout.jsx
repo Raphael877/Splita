@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FaRegTimesCircle } from "react-icons/fa";
 
-const Payout = () => {
+const Payout = ({ onClose, onContinue }) => {
   return (
     <Payout_content>
         <Payout_wrapper>
@@ -10,11 +10,11 @@ const Payout = () => {
                 <h3>Generate Next Payout Member</h3>
                 <p>Splita will automatically select the next eligible member for payout based  on your group's rotation setup (automatic or manual)</p>
                 <div className='btn'>
-                    <button className='btn1'>Cancel</button>
-                    <button className='btn2'>Continue</button>
+                    <button className='btn1' onClick={onClose}>Cancel</button>
+                    <button className='btn2' onClick={onContinue}>Continue</button>
                 </div>
             </Inner_wrap>
-            <FaRegTimesCircle style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}}/>
+            <FaRegTimesCircle style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}} onClick={onClose}/>
         </Payout_wrapper>
     </Payout_content>
   )
@@ -29,6 +29,10 @@ const Payout_content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
 `
 
 const Payout_wrapper = styled.div`

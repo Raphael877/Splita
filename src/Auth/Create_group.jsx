@@ -48,8 +48,14 @@ const Create_group = () => {
 
   const handleSaveBank = () => {
     setShowBankModal(false);
-    navigate("/groupcreated");
+    try {
+      localStorage.setItem("createdGroupName", formData.groupName || "");
+    } catch (e) {
+      console.warn("Could not save groupName", e);
+    }
+    navigate("/groupcreated", { state: { groupName: formData.groupName } });
   };
+
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );

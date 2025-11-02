@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { TbCurrencyNaira } from "react-icons/tb";
 
-const ConfirmPayout = () => {
+const ConfirmPayout = ({ onClose }) => {
   return (
     <Payout_content>
         <Payout_wrapper>
             <Inner_wrap>
                 <h3>Payout Successful</h3>
                 <p> <TbCurrencyNaira/>100,000 has been sent to Dera.</p>
-                <button className='btn'>Done</button>
+                <button className='btn' onClick={onClose}>Done</button>
             </Inner_wrap>
         </Payout_wrapper>
     </Payout_content>
@@ -25,6 +25,10 @@ const Payout_content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
 `
 
 const Payout_wrapper = styled.div`

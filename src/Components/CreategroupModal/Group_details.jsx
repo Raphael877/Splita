@@ -80,10 +80,11 @@ const Group_details_wrapper = styled.div`
 
 const Inner_wrap = styled.div`
   width: 90%;
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  justify-content: center;
 
   .one {
     display: flex;

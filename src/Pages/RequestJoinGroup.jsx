@@ -1,86 +1,90 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import AdminDashboardHeader from '../Components/AdminDashboardHeader.jsx'
 import UserDashboardFooter from '../Components/UserDashboardFooter.jsx';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import ApproveMember from '../Components/Deletefolder/ApproveMember.jsx'
+import DeclineMember from '../Components/Deletefolder/DeclineMember.jsx';
 
 const RequestJoinGroup = () => {
+  const navigate = useNavigate();
+    const location = useLocation();
 
-    // const navigate = useNavigate();
+    const groupName =
+      (location?.state && location.state.groupName) ||
+      (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
+      "Not Available";
 
-    const Array = [
-        {
-            name: 'Chidera',
-            num: '07038204858',
-            date: 'sept 10'
-        },
-        {
-            name: 'Chisom',
-            num: '07038204858',
-            date: 'sept 18'
-        },
-        {
-            name: 'Ademola',
-            num: '07038204858',
-            date: 'sept 25'
-        },
-        {
-            name: 'Habeeb',
-            num: '07038204858',
-            date: 'sept 25'
-        },
-    ]
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showDeclineModal, setShowDeclineModal] = useState(false);
+
+  const Array = [
+    { name: 'Chidera', num: '07038204858', date: 'Sept 10' },
+    { name: 'Chisom', num: '07038204858', date: 'Sept 18' },
+    { name: 'Ademola', num: '07038204858', date: 'Sept 25' },
+    { name: 'Habeeb', num: '07038204858', date: 'Sept 25' },
+  ];
 
   return (
     <AdminDashboard_content>
-        <AdminDashboard_wrapper>
-            <AdminDashboardHeader />
-            <div className='groupname'><h1>Vacation Ajo</h1></div>
-            <div className='create'>
-                <p style={{color: '#666666'}}>Created on Aug 21, 2025</p>
-            </div>
-            <div className="back" style={{ cursor: "pointer" }}>
-                <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
-                <p>back home</p>
-            </div>
-            <Block>
-                <div className='inner_block'>
-                    <div className='block_wrap'>
-                        <h2>Requests</h2>
-                        <div className='table_wall'>
-                            <div className='table_wrap'>
-                                <div className='header'>
-                                        <h3>Name</h3>
-                                        <h3>Phone Number</h3>
-                                        <h3>Date</h3>
-                                        <h3>Action</h3>
-                                </div>
-                                <div className='body'>
-                                    {Array.map((array) =>
-                                    <div className='data'>
-                                        <div className='name'>{array.name}</div>
-                                        <div className='num'>{array.num}</div>
-                                        <div className='date'>{array.date}</div>
-                                        <div className='btn'>
-                                            <button className='btn1'>Approve</button>
-                                            <button className='btn2'>Decline</button>
-                                        </div>
-                                    </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Block>
-            <UserDashboardFooter />
-        </AdminDashboard_wrapper>
-    </AdminDashboard_content>
-  )
-}
+      <AdminDashboard_wrapper>
+        <AdminDashboardHeader />
+        <div className='groupname'><h1>{groupName}</h1></div>
+        <div className='create'>
+          <p style={{ color: '#666666' }}>Created on Aug 21, 2025</p>
+        </div>
+        <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate(-1)}>
+          <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
+          <p>back home</p>
+        </div>
 
-export default RequestJoinGroup
+        <Block>
+          <div className='inner_block'>
+            <div className='block_wrap'>
+              <h2>Requests</h2>
+              <div className='table_wall'>
+                <div className='table_wrap'>
+                  <div className='header'>
+                    <h3>Name</h3>
+                    <h3>Phone Number</h3>
+                    <h3>Date</h3>
+                    <h3>Action</h3>
+                  </div>
+                  <div className='body'>
+                    {Array.map((array, index) => (
+                      <div className='data' key={index}>
+                        <div className='name'>{array.name}</div>
+                        <div className='num'>{array.num}</div>
+                        <div className='date'>{array.date}</div>
+                        <div className='btn'>
+                          <button className='btn1' onClick={() => setShowApproveModal(true)}>Approve</button>
+                          <button className='btn2' onClick={() => setShowDeclineModal(true)}>Decline</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Block>
+
+        <UserDashboardFooter />
+      </AdminDashboard_wrapper>
+
+      {showApproveModal && (
+        <ApproveMember onClose={() => setShowApproveModal(false)} />
+      )}
+      {showDeclineModal && (
+        <DeclineMember onClose={() => setShowDeclineModal(false)} />
+      )}
+    </AdminDashboard_content>
+  );
+};
+
+export default RequestJoinGroup;
+
 
 const AdminDashboard_content = styled.div`
     width: 100%;
@@ -216,7 +220,10 @@ const Block = styled.div`
                                     border-radius: 0.5rem;
                                     cursor: pointer;
                                     color: white;
-                                    background-color: #005028;
+                                    background-color: #e60303;
+                                    &:hover{     
+                                        background-color: #f15b5b;
+                                    }
                                 }
 
                                 .btn2{
@@ -228,6 +235,9 @@ const Block = styled.div`
                                     cursor: pointer;
                                     color: white;
                                     background-color: #e60303;
+                                    &:hover{     
+                                        background-color: #f15b5b;
+                                    }
                                 }
                             }
                         }

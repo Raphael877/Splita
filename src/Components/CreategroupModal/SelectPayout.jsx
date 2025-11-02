@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import axios from "axios";
 
-const SelectPayout = () => {
+const SelectPayout = ({ onClose, onAutomaticRotation, onManualSelection }) => {
   return (
     <Payout_content>
       <Payout_wrapper>
         <Inner_wrap>
-          <h3>Select payout type.</h3>
+          <h3>Select payout type</h3>
           <div className="btn">
-            <button className="btn1">Automatic Rotation</button>
-            <button className="btn2">Manual Selection</button>
+            <button
+              className="btn1"
+              onClick={() => {
+                onClose();
+                setTimeout(() => onAutomaticRotation(), 150);
+              }}
+            >
+              Automatic Rotation
+            </button>
+            <button
+              className="btn2"
+              onClick={() => {
+                onClose();
+                setTimeout(() => onManualSelection(), 150);
+              }}
+            >
+              Manual Selection
+            </button>
           </div>
         </Inner_wrap>
+
         <FaRegTimesCircle
+          onClick={onClose}
           style={{
             cursor: "pointer",
             position: "absolute",
@@ -33,9 +50,12 @@ const Payout_content = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 50;
 `;
 
 const Payout_wrapper = styled.div`
@@ -47,10 +67,6 @@ const Payout_wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-
-  @media (max-width: 768px) {
-    width: 85%;
-  }
 `;
 
 const Inner_wrap = styled.div`

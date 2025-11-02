@@ -1,6 +1,8 @@
 
 import React from 'react'
 import {HashRouter, Routes, Route} from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import RouterError from './Components/RouterError.jsx'
 import SignUp from './Auth/SignUp.jsx'
 import SignIn from './Auth/SignIn.jsx'
@@ -31,6 +33,8 @@ import ObeleContribution from './Components/ObeleContribution.jsx'
 import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
 import Join_Group from './Pages/Join_Group.jsx'
+
+
 
 const App = () => {
   return (
@@ -70,6 +74,7 @@ const App = () => {
         </Route>
         <Route path='/join_group' element={<Join_Group />} />
       </Routes>
+      <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>
   );
 };

@@ -111,6 +111,9 @@ const Term_container = styled.div`
     height: auto;
     overflow-x: scroll;
     scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   
   &::-webkit-scrollbar {        
     display: none;

@@ -10,8 +10,27 @@ import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
+// import LoadingSpinner from "./LoadingSpinner";
+import { useState } from 'react';
+import Payout from '../Components/Payout/Payout.jsx';
+import PayoutSuccessful from '../Components/Payout/PayoutSuccessful.jsx';
+import PayoutDetails from '../Components/Payout/PayoutDetails.jsx';
+import ConfirmPayout from '../Components/Payout/ConfirmPayout.jsx';
+import { useLocation } from 'react-router-dom';
 
 const AdminCircleStartVacationDashboard = () => {
+    const location = useLocation();
+
+    const groupName =
+    (location?.state && location.state.groupName) ||
+    (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
+      "Not Available";
+
+    const [currentModal, setCurrentModal] = useState(null);
+    
+    const handleModalFlow = (modalName) => {
+        setCurrentModal(modalName);
+    };
 
     const Array = [
         {   id: 1,
@@ -114,7 +133,7 @@ const AdminCircleStartVacationDashboard = () => {
     <AdminCircleStartVacationDashboard_content>
         <AdminCircleStartVacationDashboard_wrapper>
             <AdminDashboardHeader />
-            <div className='groupname'><h1>Vacation Ajo</h1></div>
+            <div className='groupname'><h1>{groupName}</h1></div>
             <div className='round'>
                 <div className='left'>
                     <p>Round <span>0/3</span></p>
@@ -123,9 +142,19 @@ const AdminCircleStartVacationDashboard = () => {
                     </div>
                 </div>
                 <div className='right'>
-                    <button className='btn1'><FiSend style={{fontSize: '1rem'}} /><p>Trigger Payout</p></button>
-                    <button className='btn2'><TbCurrencyNaira style={{fontSize: '1rem'}}/><p>Make Contribution</p></button>
+                    <button 
+                        className='btn1'
+                        onClick={() => handleModalFlow('payout')}
+                    >
+                        <FiSend style={{fontSize: '1rem'}} />
+                        <p>Trigger Payout</p>
+                    </button>
+                    <button className='btn2'>
+                        <TbCurrencyNaira style={{fontSize: '1rem'}} />
+                        <p>Make Contribution</p>
+                    </button>
                 </div>
+
             </div>
             <div className="back" style={{ cursor: "pointer" }}>
                 <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
@@ -208,6 +237,32 @@ const AdminCircleStartVacationDashboard = () => {
             </Table>
             <UserDashboardFooter />
         </AdminCircleStartVacationDashboard_wrapper>
+        {currentModal === 'payout' && (
+                <Payout 
+                    onClose={() => setCurrentModal(null)}
+                    onContinue={() => handleModalFlow('payoutDetails')}
+                />
+            )}
+
+            {currentModal === 'payoutDetails' && (
+                <PayoutDetails 
+                    onClose={() => setCurrentModal(null)}
+                    onProceed={() => handleModalFlow('confirmPayout')}
+                />
+            )}
+
+            {currentModal === 'confirmPayout' && (
+                <ConfirmPayout 
+                    onClose={() => setCurrentModal(null)}
+                    onConfirm={() => handleModalFlow('payoutSuccessful')}
+                />
+            )}
+
+            {currentModal === 'payoutSuccessful' && (
+                <PayoutSuccessful 
+                    onClose={() => setCurrentModal(null)}
+                />
+            )}
     </AdminCircleStartVacationDashboard_content>
   )
 }

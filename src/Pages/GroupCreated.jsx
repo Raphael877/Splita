@@ -4,14 +4,22 @@ import AdminDashboardHeader from '../Components/AdminDashboardHeader'
 import UserDashboardFooter from '../Components/UserDashboardFooter'
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { GiPartyPopper } from "react-icons/gi";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const GroupCreated = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const groupName =
+      (location?.state && location.state.groupName) ||
+      (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
+      "Not Available";
   return (
     <Content>
         <AdminDashboardHeader />
             <Main>
                 <Inner_main>
-                    <h1>Vacation Ajo</h1>
+                    <h1>{groupName}</h1>
                     <p style={{ color: '#666666'}}>Created on Aug 21, 2025</p>
                     <div className="back" style={{ cursor: "pointer" }}>
                         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
@@ -26,7 +34,7 @@ const GroupCreated = () => {
                             <p style={{color: '#777777', marginBlock: '1.5rem'}}>Be sure to invite only trusted people to your group, such as friends or family. Splita does not take responsibility for payment delays or defaults by any member. As an admin, you're in charge of who joins your group.</p>
                             <div className='btn'>
                                 <button className='btn1'>Copy Invite Link</button>
-                                <button className='btn2'>View Members</button>
+                                <button className='btn2' onClick={() => navigate('/requestjoingroup')}>View Members</button>
                             </div>
                         </div>
                     </Created>

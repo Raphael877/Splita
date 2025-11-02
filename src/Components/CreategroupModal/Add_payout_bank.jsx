@@ -130,7 +130,6 @@ const Add_payout_bank = ({ onSave, onClose }) => {
               )}
             </div>
 
-            {/* Account Number */}
             <div className="main_label">
               <div className="label">
                 <PiBank style={{ fontSize: "1.3rem" }} />
@@ -192,9 +191,10 @@ const Add_payout_bank_wrapper = styled.div`
 
 const Inner_wrap = styled.div`
   width: 90%;
-  height: 80%;
+  height: 95%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.5rem;
 
   form {
@@ -246,7 +246,7 @@ const Inner_wrap = styled.div`
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 0.5rem;
-        width: 70%;
+        width: 100%;
         max-height: 8rem;
         overflow-y: auto;
         margin-top: 0.3rem;

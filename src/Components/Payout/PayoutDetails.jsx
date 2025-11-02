@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FaRegTimesCircle } from "react-icons/fa";
 import { TbCurrencyNaira } from "react-icons/tb";
 
-const PayoutDetails = () => {
+const PayoutDetails = ({ onClose, onProceed }) => {
   return (
     <Payout_content>
         <Payout_wrapper>
@@ -28,11 +28,11 @@ const PayoutDetails = () => {
                     </div>
                 </div>
                 <div className='btn'>
-                    <button className='btn1'>Cancel</button>
-                    <button className='btn2'>Proceed to payment</button>
+                    <button className='btn1' onClick={onClose}>Cancel</button>
+                    <button className='btn2' onClick={onProceed}>Confirm & Send</button>
                 </div>
             </Inner_wrap>
-            <FaRegTimesCircle style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}}/>
+            <FaRegTimesCircle style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}} onClick={onClose}/>
         </Payout_wrapper>
     </Payout_content>
   )
@@ -47,6 +47,10 @@ const Payout_content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
 `
 
 const Payout_wrapper = styled.div`
