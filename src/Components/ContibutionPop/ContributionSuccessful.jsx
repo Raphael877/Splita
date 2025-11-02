@@ -1,47 +1,50 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-const AutomaticRotation = ({ onClose }) => {
-    const navigate = useNavigate();
+const ContributionSuccessful = ({ onClose }) => {
+  const Navigate = useNavigate();
+
   return (
     <Payout_content>
       <Payout_wrapper>
         <Inner_wrap>
-          <h3>Start Cycle with Automatic Rotation</h3>
-          <p>Splita will automatically assign payout turns to all members randomly.</p>
+          <h3>Contribution Successful</h3>
+          <p>Your contribution has been confirmed. You’ll receive an update once the payment reflects in your group.</p>
           <div className='btn'>
-            <button className='btn1' onClick={onClose}>Cancel</button>
-            <button className='btn2' onClick={() => navigate('/admindashboard')}>Confirm & Start</button>
+            <button className='btn1' onClick={onClose}>View group</button>
+            <button className='btn2' onClick={() => Navigate('/userdashboard')}>Back To Home</button>
           </div>
         </Inner_wrap>
-        <FaRegTimesCircle 
+
+        <FaRegTimesCircle
+          style={{ cursor: 'pointer', position: 'absolute', top: '10%', right: '6%' }}
           onClick={onClose}
-          style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}}
         />
       </Payout_wrapper>
     </Payout_content>
-  )
-}
+  );
+};
 
-export default AutomaticRotation
+export default ContributionSuccessful;
 
 const Payout_content = styled.div`
-  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  inset: 0;
-  z-index: 100; 
+  z-index: 9999;
 `;
 
 const Payout_wrapper = styled.div`
   width: 35%;
-  height: 45%;
+  height: 40%;
   background-color: white;
   border-radius: 0.5rem;
   display: flex;
@@ -56,7 +59,7 @@ const Payout_wrapper = styled.div`
 
 const Inner_wrap = styled.div`
   width: 75%;
-  height: 80%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -64,34 +67,36 @@ const Inner_wrap = styled.div`
   align-items: center;
   text-align: center;
 
-  p{
-    color: #777777;
-  }
-
-  .btn{
+  .btn {
     display: flex;
     gap: 1.3rem;
 
-    .btn1{
+    .btn1 {
       border: none;
       outline: none;
       color: white;
       height: 2.5rem;
-      width: 10rem;
+      width: 9rem;
       border-radius: 0.5rem;
       cursor: pointer;
-      background-color: #9d9d9d;
+      background-color: #ff7900;
+      &:hover {
+        background-color: #d68d4e;
+      }
     }
 
-    .btn2{
+    .btn2 {
       border: none;
       outline: none;
       color: white;
       height: 2.5rem;
-      width: 10rem;
+      width: 9rem;
       border-radius: 0.5rem;
       cursor: pointer;
-      background-color: #d62c2c;
+      background-color: #7b2cbf;
+      &:hover {
+        background-color: #ac67e8;
+      }
     }
   }
 `;

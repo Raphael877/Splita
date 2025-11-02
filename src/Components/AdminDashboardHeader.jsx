@@ -38,19 +38,19 @@ const AdminDashboardHeader = () => {
         <ul>
           <li
             className={location.pathname === "/admin-dashboard" ? "active" : ""}
-            onClick={() => navigate("/admin-dashboard")}
+            onClick={() => navigate("/userdashboard")}
           >
             Home
           </li>
           <li
             className={location.pathname === "/admin-groups" ? "active" : ""}
-            onClick={() => navigate("/admin-groups")}
+            onClick={() => navigate("/mygroupdetail")}
           >
             My groups
           </li>
           <li
             className={location.pathname === "/admin-contributions" ? "active" : ""}
-            onClick={() => navigate("/admin-contributions")}
+            onClick={() => navigate("/mycontribution")}
           >
             Contributions
           </li>

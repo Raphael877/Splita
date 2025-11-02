@@ -3,12 +3,14 @@ import styled from 'styled-components'
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { useNavigate } from 'react-router-dom';
+import UserDashboardHeader from './UserDashboardHeader';
 
 const MyGroupDetail = () => {
     const navigate = useNavigate()
   return (
     <MyGroupDetail_content>
         <MyGroupDetail_wrapper>
+            <UserDashboardHeader />
             <p onClick={() => navigate('/useremptystate')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
             <div className='main_top_group'>
                 <div className='group'>
@@ -247,6 +249,7 @@ const MyGroupDetail_wrapper = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 3rem;
 
      p{

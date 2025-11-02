@@ -36,7 +36,7 @@ const UserDashboardHeader = () => {
         <ul>
           <li
             className={location.pathname === "/useremptystate" ? "active" : ""}
-            onClick={() => navigate("/useremptystate")}
+            onClick={() => navigate("/userdashboard")}
           >
             Home
           </li>

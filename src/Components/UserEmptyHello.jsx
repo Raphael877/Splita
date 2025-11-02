@@ -11,7 +11,6 @@ const UserEmptyHello = () => {
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("userid"));
 
-  //   const token = localStorage.getItem("token");
   console.log(userId);
 
   return (

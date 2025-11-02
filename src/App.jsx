@@ -33,8 +33,7 @@ import ObeleContribution from './Components/ObeleContribution.jsx'
 import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
 import Join_Group from './Pages/Join_Group.jsx'
-
-
+import MyGroupDetail from './Components/MyGroupDetail.jsx';
 
 const App = () => {
   return (
@@ -62,6 +61,7 @@ const App = () => {
           </Route>
         <Route path='/group_created' element={<GroupCreated />} />
         <Route path='/requestjoingroup' element={<RequestJoinGroup />} />
+        <Route path='/mygroupdetail' element={<MyGroupDetail />} />
         <Route path='/requestapproved' element={<RequestApproved />} />
         <Route path='/mycontribution' element={<MyContribution />} /> 
         <Route path='/womendashboard' element={<WomenDashboard/>} >

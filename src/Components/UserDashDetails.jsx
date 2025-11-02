@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { TiGroupOutline } from "react-icons/ti";
-import { MdEventNote } from "react-icons/md";
-import { CiBellOn } from "react-icons/ci";
+import { MdEventNote, MdOutlinePersonAddAlt } from "react-icons/md";
+import { CiBellOn, CiTrophy } from "react-icons/ci";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
-import { CiTrophy } from "react-icons/ci";
 import { TiTick } from "react-icons/ti";
 import { BsCash } from "react-icons/bs";
-import { MdOutlinePersonAddAlt } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const UserDashDetails = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -25,7 +26,7 @@ const UserDashDetails = () => {
           },
         });
 
-        setUser(res.data);
+        setUserData(res.data); 
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -491,7 +492,7 @@ const Hello = styled.div`
 
     .hello_btn1 {
       width: 100%;
-      height: 3.5rem;
+      height: 3rem;
       border: none;
       outline: none;
       border-radius: 0.5rem;
