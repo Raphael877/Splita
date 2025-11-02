@@ -123,13 +123,13 @@ const AdminDashboard = () => {
             <div className='option'>
                 <div className='option_wrap'>
                     <div className='inner_wrap'>
-                        <div className='mem' onClick={() => navigate('')}>
+                        <div style={{backgroundColor: 'transparent'}} className={`mem ${location.pathname.endsWith('') ? 'active' : ''}`} onClick={() => navigate('')}>
                             <p>Members</p>
                         </div>
-                        <div className='cont' onClick={() => navigate('admin_contribution')}>
+                        <div className={`cont ${location.pathname.includes('admin_contribution') ? 'active' : ''}`} onClick={() => navigate('admin_contribution')}>
                             <p>Contributions</p>
                         </div>
-                        <div className='req' onClick={() => navigate('admin_request')}>
+                        <div className={`req ${location.pathname.includes('admin_request') ? 'active' : ''}`} onClick={() => navigate('admin_request')}>
                             <p>Request</p>
                         </div>
                     </div>
@@ -167,14 +167,14 @@ const AdminDashboard = () => {
             {currentModal === 'contributionSummary' && (
             <ContributionSummary
                 onClose={() => setCurrentModal(null)}
-                onContinue={() => handleModalFlow('contributionSuccessful')} // opens success modal
+                onContinue={() => handleModalFlow('contributionSuccessful')} 
                 formData={{ groupName, contributionAmount: 10000 }}
             />
             )}
 
             {currentModal === 'contributionSuccessful' && (
             <ContributionSuccessful
-                onClose={() => setCurrentModal(null)} // closes modal
+                onClose={() => setCurrentModal(null)} 
             />
             )}
 
@@ -345,7 +345,7 @@ const AdminDashboard_wrapper = styled.div`
                 width: 100%;
             }
 
-            .inner_wrap{
+            .inner_wrap {
                 width: 90%;
                 height: 75%;
                 display: flex;
@@ -354,58 +354,39 @@ const AdminDashboard_wrapper = styled.div`
                 background-color: #d6beeb;
                 border-radius: 0.5rem;
 
-                .mem{
+                .mem,
+                .cont,
+                .req {
                     width: 25%;
                     height: 60%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    color: white;
                     border-radius: 0.5rem;
-                    background-color: #9556cc;
                     cursor: pointer;
-                    &:hover{
-                        background-color: #9472b2;
-                        transition: all 350ms ease-in-out;
+                    background-color: transparent; 
+                    color: inherit;
+                    transition: all 350ms ease-in-out;
+
+                    &:hover {
+                    background-color: rgba(123, 44, 191, 0.15); 
+                    color: #7b2cbf;
                     }
                 }
 
-                .cont{
-                    width: 25%;
-                    height: 60%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 0.5rem;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #9472b2;
-                        transition: all 350ms ease-in-out;
-                        color: white;
-                    }
-
-                    
-
+                .cont {
+                    width: 30%;
                     @media (max-width: 768px) {
-                        width: 40%;
+                    width: 40%;
                     }
                 }
 
-                .req{
-                    width: 25%;
-                    height: 60%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 0.5rem;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #9472b2;
-                        transition: all 350ms ease-in-out;
-                        color: white;
-                    }
+                .active {
+                    background-color: #7b2cbf !important;
+                    color: white !important;
                 }
             }
+
         }
     }
 `
