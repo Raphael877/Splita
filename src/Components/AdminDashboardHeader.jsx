@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Splita_logo from "../assets/Splita_logo.png";
-import Profile_img from "../assets/Profile_img.png";
+import Avatar from "../assets/Avatar.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
@@ -58,7 +58,9 @@ const AdminDashboardHeader = () => {
 
         <div className="right">
           <div className="profile" onClick={toggleDropdown}>
-            <img src={Profile_img} alt="Admin profile" />
+            <div className="dp">
+              <img src={Avatar} alt="Admin profile" />
+            </div>  
             <p>{userData.fullName || "Admin User"}</p>
             <IoIosArrowDown />
             <div className="admin">
@@ -225,6 +227,21 @@ const HeaderWrapper = styled.div`
       gap: 0.5rem;
       cursor: pointer;
       position: relative;
+
+      .dp{
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
 
       .admin {
         display: flex;

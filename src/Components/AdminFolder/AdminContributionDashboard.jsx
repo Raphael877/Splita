@@ -7,7 +7,7 @@ const AdminMemberDashboard = () => {
     const AllData = [
         {
             date: 'Sept 10',
-            amount: 'N 10,000',
+            amount: (<><TbCurrencyNaira/>10,000</>),
             cycle: 'Cycle1',
             id: 1,
             bgcolor: '#d6ecd1',
@@ -16,7 +16,7 @@ const AdminMemberDashboard = () => {
         },
         {
             date: 'Sept 18',
-            amount: 'N 10,000',
+            amount: (<><TbCurrencyNaira/>10,000</>),
             cycle: 'Cycle2',
             id: 2,
             bgcolor: '#d6ecd1',
@@ -25,7 +25,7 @@ const AdminMemberDashboard = () => {
         },
         {
             date: 'Sept 25',
-            amount: 'N 10,000',
+            amount: (<><TbCurrencyNaira/>10,000</>),
             cycle: 'Cycle3',
             id: 3,
             bgcolor: '#d6ecd1',
@@ -34,7 +34,7 @@ const AdminMemberDashboard = () => {
         },
         {
             date: 'Oct 3',
-            amount: 'N 10,000',
+            amount: (<><TbCurrencyNaira/>10,000</>),
             cycle: 'Cycle4',
             id: 4,
             bgcolor: '#ffe4cc',
@@ -43,7 +43,7 @@ const AdminMemberDashboard = () => {
         },  
         {
             date: 'Oct 10',
-            amount: 'N 10,000',
+            amount: (<><TbCurrencyNaira/>10,000</>),
             cycle: 'Cycle5',
             id: 5,
             bgcolor: '#d6ecd1',
@@ -81,7 +81,7 @@ const AdminMemberDashboard = () => {
                             <div className='cycle'>
                                 <p>{items.cycle}</p>
                             </div>
-                            <div className='amount'>
+                            <div className='amount' style={{display: 'flex', alignItems: 'center'}}>
                                 <p>{items.amount}</p>
                             </div>
                             <div className='date'>

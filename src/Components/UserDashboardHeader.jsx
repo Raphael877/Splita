@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Splita_logo from "../assets/Splita_logo.png";
-import Profile_img from "../assets/Profile_img.png";
+import Avatar from "../assets/Avatar.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
@@ -57,7 +57,9 @@ const UserDashboardHeader = () => {
         </ul>
         <div className="right">
           <div className="profile" onClick={toggleDropdown}>
-            <img src={Profile_img} />
+            <div className="dp">
+              <img src={Avatar} />
+            </div>
             <p>{userData.fullName || "User"}</p>
             <IoIosArrowDown />
           </div>
@@ -202,6 +204,21 @@ const UserDashboardHeader_wrapper = styled.div`
     align-items: center;
     gap: 1rem;
     position: relative;
+
+    .dp{
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
 
     .dropdown{
       position: absolute;
