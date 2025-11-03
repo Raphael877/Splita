@@ -35,20 +35,22 @@ const UserDashboardHeader = () => {
         />
         <ul>
           <li
-            className={location.pathname === "/useremptystate" ? "active" : ""}
+            className={location.pathname === "/dashboard" ? "active" : ""}
             onClick={() => navigate("/userdashboard")}
           >
             Home
           </li>
           <li
-            className={location.pathname === "/groups" ? "active" : ""}
-            onClick={() => navigate("/groups")}
+            className={location.pathname === "/mygroupdetail" ? "active" : ""}
+            onClick={() => navigate("/mygroupdetail")}
           >
             My groups
           </li>
           <li
-            className={location.pathname === "/contributions" ? "active" : ""}
-            onClick={() => navigate("/contributions")}
+            className={
+              location.pathname === "/mycontribution" ? "active" : ""
+            }
+            onClick={() => navigate("/mycontribution")}
           >
             Contributions
           </li>
@@ -66,7 +68,7 @@ const UserDashboardHeader = () => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  {/* <img src={Profile_img} /> */}
+                  <img src={Avatar} />
                   <p>{userData.fullName || "User"}</p>
                 </div>
                 <MdOutlineCancel
@@ -272,6 +274,12 @@ const UserDashboardHeader_wrapper = styled.div`
           display: flex;
           gap: 1rem;
           align-items: center;
+
+          img{
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+          }
         }
 
         .log {
