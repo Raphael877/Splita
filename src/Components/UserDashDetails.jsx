@@ -429,6 +429,10 @@ const UserDashDetails_content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    
+  }
 `;
 
 const UserDashDetails_wrapper = styled.div`
@@ -455,6 +459,7 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    height: 40vh;
   }
 
   .left {
@@ -560,6 +565,12 @@ const Details = styled.div`
         flex-direction: column;
         gap: 0.5rem;
 
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+
         .icon_cont {
           width: 2.2rem;
           height: 2.2rem;
@@ -597,6 +608,12 @@ const Details = styled.div`
         flex-direction: column;
         gap: 0.5rem;
 
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+
         .icon_cont {
           width: 2.2rem;
           height: 2.2rem;
@@ -633,6 +650,12 @@ const Details = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
 
         .first {
           display: flex;
@@ -687,6 +710,12 @@ const Details = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        p{
+          @media (max-width: 768px) {
+            font-size: 13px;
+          }
+        }
 
         .first {
           display: flex;

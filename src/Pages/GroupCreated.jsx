@@ -151,6 +151,19 @@ const Created = styled.div`
     .party_icon {
       font-size: 10rem;
       color: #7b2bbd;
+      animation: move 3s infinite;
+
+      @keyframes move {
+        0%{
+          scale: 0.5;
+        }
+        50%{
+          scale: 0.7;
+        }
+        100%{
+          scale: 1;
+        }
+      }
 
       @media (max-width: 768px) {
         font-size: 7rem;

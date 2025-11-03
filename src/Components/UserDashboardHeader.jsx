@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
 
-const UserDashboardHeader = ({ onMyGroupClick }) => {
+const UserDashboardHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,17 +42,14 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
           </li>
           <li
             className={location.pathname === "/mygroupdetail" ? "active" : ""}
-            onClick={() => {
-              navigate("/mygroupdetail");
-              setTimeout(() => {
-                if (onMyGroupClick) onMyGroupClick();
-              }, 300);
-            }}
+            onClick={() => navigate("/mygroupdetail")}
           >
             My groups
           </li>
           <li
-            className={location.pathname === "/mycontribution" ? "active" : ""}
+            className={
+              location.pathname === "/mycontribution" ? "active" : ""
+            }
             onClick={() => navigate("/mycontribution")}
           >
             Contributions
@@ -278,7 +275,7 @@ const UserDashboardHeader_wrapper = styled.div`
           gap: 1rem;
           align-items: center;
 
-          img {
+          img{
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;

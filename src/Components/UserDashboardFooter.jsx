@@ -20,6 +20,7 @@ const UserDashboardFooter_content = styled.div`
     justify-content: center;
     align-items: center;
     border-top: 1px solid black;
+    background-color: #f8f5f0;
 `
 
 const UserDashboardFooter_wrapper = styled.div`
