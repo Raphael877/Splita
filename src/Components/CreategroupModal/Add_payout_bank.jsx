@@ -61,6 +61,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
     localStorage.setItem("bankData", JSON.stringify(bankData));
 
     if (onSave) onSave();
+
     navigate("/group_created");
   };
 

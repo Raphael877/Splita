@@ -74,15 +74,14 @@ const App = () => {
           <Route path='' element={<WomenMembers />} />
           <Route path='women_contribution' element={<WomenContribution />} />
         </Route>
-        <Route path='/obele' element={<Obele/>} >
-          <Route path='' element={<ObeleMembers />} />
-          <Route path='obele_contribution' element={<ObeleContribution />} />
+        <Route path="/obele" element={<Obele />}>
+          <Route path="" element={<ObeleMembers />} />
+          <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
-        <Route path='/join_group' element={<Join_Group />} />
+        <Route path="/join_group" element={<Join_Group />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>
-    
   );
 };
 
