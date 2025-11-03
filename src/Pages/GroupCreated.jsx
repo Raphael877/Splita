@@ -34,6 +34,11 @@ const GroupCreated = () => {
           "Content-Type": "application/json",
         },
       });
+      const inviteCode = res.data.inviteCode;
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteCode })
+      );
       console.log("res", res);
     } catch (error) {
       console.log("error", error);
