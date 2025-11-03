@@ -7,10 +7,10 @@ const ApproveMember = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleApprove = () => {
-    onClose(); // close modal first
+    onClose();
     setTimeout(() => {
-      navigate('/requestapproved'); // navigate after modal is gone
-    }, 200); // short delay for smoother transition
+      navigate('/requestapproved');
+    }, 200);
   };
 
   return (

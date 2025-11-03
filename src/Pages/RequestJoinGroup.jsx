@@ -86,6 +86,7 @@ const RequestJoinGroup = () => {
 export default RequestJoinGroup;
 
 
+
 const AdminDashboard_content = styled.div`
     width: 100%;
     height: auto;
@@ -93,6 +94,10 @@ const AdminDashboard_content = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #f8f5f0;
+
+    @media (max-width: 768px) {
+        height: auto;
+    }
 `
 
 const AdminDashboard_wrapper = styled.div`
@@ -179,6 +184,10 @@ const Block = styled.div`
                         align-items: center;
                         background-color: #f8f5f0;
                         border-radius: 0.5rem;
+
+                        @media (max-width: 768px) {
+                          display: none;
+                        }
                         
                         h3{
                             width: 25%;
@@ -202,15 +211,27 @@ const Block = styled.div`
                             border-top: 1.5px solid #f8f5f0;
                             padding-left: 1rem;
 
-                            .name, .num, .date, .btn{
-                                width: 25%;
+                            @media (max-width: 768px) {
+                              flex-wrap: wrap;
+                              height: 15vh;
                             }
 
+                            .name, .num, .date{
+                                width: 25%;
+                            }    
+
                             .btn{
+                                width: 25%;
                                 display: flex;
                                 align-items: center;
                                 gap: 1rem;
                                 height: 100%;
+
+                                @media (max-width: 768px) {
+                                  width: 100%;
+                                  height: 70%;
+                                  justify-content: center;
+                                }
 
                                 .btn1{
                                     height: 60%;

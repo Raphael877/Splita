@@ -21,7 +21,7 @@ const MyGroupDetail = () => {
         role: "Member",
         navigateTo: "/womendashboard",
     },
-];
+]
   return (
     <MyGroupDetail_content>
         <MyGroupDetail_wrapper>
