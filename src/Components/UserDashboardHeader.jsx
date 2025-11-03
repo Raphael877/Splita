@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
 
-const UserDashboardHeader = () => {
+const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,21 +35,24 @@ const UserDashboardHeader = () => {
         />
         <ul>
           <li
-            className={location.pathname === "/userdashboard" ? "active" : ""}
+            className={location.pathname === "/dashboard" ? "active" : ""}
             onClick={() => navigate("/userdashboard")}
           >
             Home
           </li>
           <li
             className={location.pathname === "/mygroupdetail" ? "active" : ""}
-            onClick={() => navigate("/mygroupdetail")}
+            onClick={() => {
+              navigate("/mygroupdetail");
+              setTimeout(() => {
+                if (onMyGroupClick) onMyGroupClick();
+              }, 300);
+            }}
           >
             My groups
           </li>
           <li
-            className={
-              location.pathname === "/mycontribution" ? "active" : ""
-            }
+            className={location.pathname === "/mycontribution" ? "active" : ""}
             onClick={() => navigate("/mycontribution")}
           >
             Contributions
@@ -60,7 +63,7 @@ const UserDashboardHeader = () => {
             <div className="dp">
               <img src={Avatar} />
             </div>
-            <p>{userData?.fullName || userData?.name || "User"}</p>
+            <p>{userData.fullName || "User"}</p>
             <IoIosArrowDown />
           </div>
 
@@ -275,7 +278,7 @@ const UserDashboardHeader_wrapper = styled.div`
           gap: 1rem;
           align-items: center;
 
-          img{
+          img {
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;

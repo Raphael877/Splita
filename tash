@@ -1,0 +1,95 @@
+[33mde2c2d4[m[33m ([m[1;36mHEAD[m[33m)[m Merge pull request #10 from Raphael877/rose
+[33m8bc9e5a[m Merge branch 'rose' of https://github.com/Raphael877/Splita into rose # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.
+[33m092e0ba[m consumed join groups api
+[33m4ef9e00[m Merge pull request #9 from Raphael877/rose
+[33m9e68900[m updated
+[33m7278f28[m[33m ([m[1;31morigin/rose[m[33m)[m Merge branch 'master' into rose
+[33m9c25a74[m worked on all groups api
+[33m39c160c[m updated
+[33mc84b496[m updated
+[33mff22b0c[m Merge pull request #8 from Raphael877/rosebranch
+[33m6845083[m[33m ([m[1;31morigin/rosebranch[m[33m, [m[1;32mrosebranch[m[33m)[m fixed Vercel build issue on rosebranch
+[33m4c6cafd[m Merge branch 'master' into rosebranch
+[33m11bedeb[m updated
+[33m906ba41[m consumed new api
+[33m7f500d7[m updated
+[33m08f2513[m edited the avatar image on the header dropdown
+[33mbc7ad94[m Merge pull request #7 from Raphael877/demola-branch
+[33m4ecf119[m updated
+[33m1959263[m[33m ([m[1;31morigin/demola-branch[m[33m)[m idk
+[33m1e4e925[m updated
+[33mfbee544[m updated
+[33m5c014be[m updated
+[33mb5cdbd6[m updated
+[33me0d50c2[m updated
+[33m2c50825[m updated
+[33m7e1f7ac[m updated file
+[33m7cb924a[m Merge pull request #6 from Raphael877/rosebranch
+[33m197f64f[m Merge branch 'master' into rosebranch
+[33m4e9e5bb[m consumed API
+[33m29aeb11[m updated
+[33m8d1c61e[m updated
+[33mfe0965d[m updated the profile UI
+[33me6a895f[m updated
+[33m66d4dae[m updated
+[33mc58552a[m updated
+[33m7d516eb[m updated
+[33m25db3af[m updated
+[33m812d36f[m updated
+[33md16ffde[m Save my local changes
+[33m2c15509[m updated
+[33m7b12866[m updated
+[33m56c38f5[m updated
+[33mcf697e3[m updated
+[33m4613849[m updated
+[33m8576dc2[m updated
+[33md79fded[m updated
+[33md3b335b[m added new changes on the userdash
+[33m3334648[m updated mobile
+[33m58dfffa[m updated mobile
+[33m2b1321c[m added mobile responsiveness to the landing page
+[33m90e8ba9[m added mobile responsiveness to the landing page
+[33mee70f12[m added responsiveness to the landing page
+[33mccab79f[m added responsiveness to the landing page
+[33m2d7f79b[m updated
+[33m20d8d84[m improved landing page
+[33m3657184[m updated
+[33mf82f79f[m Merge pull request #5 from Raphael877/rosebranch
+[33md5b0298[m worked on landing page
+[33m2f65973[m updated
+[33me677810[m updated
+[33mfdfa99f[m updated
+[33me7f8c82[m updated
+[33macbf773[m updated
+[33m403d1d6[m more updates
+[33m021af90[m added mobile responsiveness to the app
+[33meccb646[m added mobile responsiveness to the app
+[33mf9d93df[m Update ForgotCheckEmail.jsx
+[33mb1c8d05[m Update ForgotCheckEmail.jsx
+[33md4dd355[m Update ForgotCheckEmail.jsx
+[33ma3e7977[m Merge pull request #4 from Raphael877/demola-branch
+[33m352c51e[m Merge branch 'master' into demola-branch
+[33m15df512[m Update SignUp.jsx
+[33ma934af4[m added few changes
+[33mf8b4aa4[m Merge pull request #3 from Raphael877/demola-branch
+[33m610f09c[m Merge branch 'master' into demola-branch
+[33m9a8cbec[m all UI done
+[33ma029034[m all UI done
+[33m1a29af3[m all UI done
+[33m74bfe32[m validated the form
+[33mb143882[m updated
+[33mf6b54ac[m Merge pull request #2 from Raphael877/demola-branch
+[33m5809a61[m[33m ([m[1;32mdemola-branch[m[33m)[m changes
+[33maed6479[m updated
+[33m6c7edea[m Merge branch 'master' into demola-branch
+[33m30f00bd[m i did auth for signup,signin,verifyemail,forgotpassword,forgotcheckemail
+[33mc3078df[m auth done and dusted
+[33maf9cc21[m updated
+[33mdf5c559[m added responsiveness to the mobile
+[33m4e9e827[m added responsiveness for the mobile
+[33med9c0e6[m added responsiveness for tablet
+[33m0425d35[m made few changes on the auth
+[33m2dc77d5[m[33m ([m[1;31morigin/premaster[m[33m)[m updated
+[33m2656b7f[m updated
+[33m10b85e4[m i did the auth ui
+[33me272ec8[m i did the auth ui
