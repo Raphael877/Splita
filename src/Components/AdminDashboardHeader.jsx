@@ -72,7 +72,7 @@ const AdminDashboardHeader = () => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  <img src={Profile_img} alt="Profile" />
+                  <img src={Avatar} alt="Profile" />
                   <p>{userData.fullName || "Admin User"}</p>
                 </div>
 
@@ -296,6 +296,12 @@ const HeaderWrapper = styled.div`
           display: flex;
           gap: 1rem;
           align-items: center;
+
+          img{
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+          }
         }
 
         .nav {

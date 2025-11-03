@@ -270,6 +270,12 @@ const UserDashboardHeader_wrapper = styled.div`
           display: flex;
           gap: 1rem;
           align-items: center;
+
+          img{
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+          }
         }
 
         .log{
