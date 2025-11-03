@@ -4,7 +4,7 @@ import UserDashboardHeader from '../Components/UserDashboardHeader'
 import UserDashboardFooter from '../Components/UserDashboardFooter'
 import UserEmptyHello from '../Components/UserEmptyHello'
 
-const UserEmptyState = () => {
+const Dashboard = () => {
   return (
     <Empty>
         <UserDashboardHeader />
@@ -14,7 +14,7 @@ const UserEmptyState = () => {
   )
 }
 
-export default UserEmptyState
+export default Dashboard
 
 const Empty = styled.div`
     width: 100%;

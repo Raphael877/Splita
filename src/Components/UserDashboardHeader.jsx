@@ -68,7 +68,7 @@ const UserDashboardHeader = () => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  <img src={Profile_img} />
+                  <img src={Avatar} />
                   <p>{userData.fullName || "User"}</p>
                 </div>
                 <MdOutlineCancel

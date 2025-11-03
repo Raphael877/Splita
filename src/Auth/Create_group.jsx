@@ -157,7 +157,7 @@ const Create_group = () => {
             </div>
             {openDropdown === "contribution" && (
               <div className="cont_freq_dropdown">
-                {["Daily", "Weekly", "Monthly", "Annually"].map((freq) => (
+                {["Daily", "Weekly", "Monthly"].map((freq) => (
                   <p
                     key={freq}
                     onClick={() => handleSelect("contributionFrequency", freq)}
@@ -184,7 +184,7 @@ const Create_group = () => {
             </div>
             {openDropdown === "payout" && (
               <div className="pay_freq_dropdown">
-                {["Daily", "Weekly", "Monthly", "Annually"].map((freq) => (
+                {["Daily", "Weekly", "Monthly"].map((freq) => (
                   <p
                     key={freq}
                     onClick={() => handleSelect("payoutFrequency", freq)}

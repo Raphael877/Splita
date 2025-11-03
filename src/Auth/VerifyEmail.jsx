@@ -72,7 +72,7 @@ const VerifyEmail = () => {
       });
       toast.success(res?.data?.message || "Email verified successfully!");
       setOtp(["", "", "", "", "", ""]);
-      navigate("/useremptystate");
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message || "Verification failed");

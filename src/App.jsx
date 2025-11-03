@@ -10,9 +10,8 @@ import ForgotPassword from './Auth/ForgotPassword'
 import ForgotCheckEmail from './Auth/ForgotCheckEmail'
 import VerifyEmail from './Auth/VerifyEmail'
 import LandingPage from './Pages/LandingPage.jsx'
-import UserEmptyState from './Pages/UserEmptyState.jsx'
-import Create_group from './Auth/Create_group.jsx'
 import UserDashboard from './Pages/UserDashboard.jsx'
+import Create_group from './Auth/Create_group.jsx'
 import MyGroup from './Pages/MyGroup.jsx'
 import Profile from './Components/Profile/Profile.jsx'
 import AdminCircleStartVacationDashboard from './Pages/AdminCircleStartVacationDashboard.jsx'
@@ -27,6 +26,7 @@ import MyContribution from './Components/MyContribution.jsx'
 import WomenDashboard from './Pages/WomenDashboard.jsx'
 import WomenMembers from './Components/WomenMembers.jsx'
 import WomenContribution from './Components/WomenContribution.jsx'
+import Dashboard from './Pages/Dashboard.jsx'
 import Obele from './Pages/Obele.jsx'
 import ObeleMembers from './Components/ObeleMembers.jsx'
 import ObeleContribution from './Components/ObeleContribution.jsx'
@@ -34,6 +34,9 @@ import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
 import Join_Group from './Pages/Join_Group.jsx'
 import MyGroupDetail from './Components/MyGroupDetail.jsx';
+// import UserDashboardPage from './Pages/UserDashboardPage.jsx';
+// import UserGroupPage from './Pages/UserGroupPage.jsx';
+// import UserContributionPage from './Pages/UserContributionPage.jsx';
 
 const App = () => {
   return (
@@ -46,10 +49,10 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/forgotcheckemail" element={<ForgotCheckEmail />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
-        <Route path="/useremptystate" element={<UserEmptyState />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/contributions" element={<Contributions />} />
-        <Route path="/userdashboard" element={<UserDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
@@ -61,6 +64,9 @@ const App = () => {
           </Route>
         <Route path='/group_created' element={<GroupCreated />} />
         <Route path='/requestjoingroup' element={<RequestJoinGroup />} />
+        {/* <Route path="/userdashboardpage" element={<UserDashboardPage />} />
+        <Route path="/usergrouppage" element={<UserGroupPage />} />
+        <Route path="/usercontributionpage" element={<UserContributionPage />} /> */}
         <Route path='/mygroupdetail' element={<MyGroupDetail />} />
         <Route path='/requestapproved' element={<RequestApproved />} />
         <Route path='/mycontribution' element={<MyContribution />} /> 
