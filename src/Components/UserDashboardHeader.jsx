@@ -41,16 +41,16 @@ const UserDashboardHeader = () => {
             Home
           </li>
           <li
-            className={location.pathname === "/groups" ? "active" : ""}
-            onClick={() => navigate("/groups")}
+            className={location.pathname === "/mygroupdetail" ? "active" : ""}
+            onClick={() => navigate("/mygroupdetail")}
           >
             My groups
           </li>
           <li
             className={
-              location.pathname === "/contributions" ? "active" : ""
+              location.pathname === "/mycontribution" ? "active" : ""
             }
-            onClick={() => navigate("/contributions")}
+            onClick={() => navigate("/mycontribution")}
           >
             Contributions
           </li>

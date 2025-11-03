@@ -12,21 +12,28 @@ const GroupCreated = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const CopyLink = () => {
-        toast.success("Link copied! Share with friends.");
-    }
-
     const groupName =
-      (location?.state && location.state.groupName) ||
-      (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
-      "Not Available";
+        (location?.state && location.state.groupName) ||
+        (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
+        "Not Available";
+
+    const createdAt = location?.state?.createdAt ||
+        (typeof window !== "undefined" ? localStorage.getItem("createdAt") : null);
+
+    const formattedDate = createdAt? new Date(createdAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "Unknown date";
+
   return (
     <Content>
         <AdminDashboardHeader />
             <Main>
                 <Inner_main>
                     <h1>{groupName}</h1>
-                    <p style={{ color: '#666666'}}>Created on Aug 21, 2025</p>
+                    <p style={{ color: '#666666'}}>Created on {formattedDate}</p>
                     <div className="back" style={{ cursor: "pointer" }}>
                         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
                         <p>back home</p>

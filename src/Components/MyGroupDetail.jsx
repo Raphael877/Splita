@@ -11,7 +11,7 @@ const MyGroupDetail = () => {
     <MyGroupDetail_content>
         <MyGroupDetail_wrapper>
             <UserDashboardHeader />
-            <p onClick={() => navigate('/useremptystate')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
+            <p onClick={() => navigate('/dashboard')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
             <div className='main_top_group'>
                 <div className='group'>
                     <div className='wrapper'>
