@@ -13,9 +13,6 @@ const GroupCreated = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const CopyLink = () => {
-  //   toast.success("Link copied! Share with friends.");
-  // };
 
   const groupName =
     (location?.state && location.state.groupName) ||
@@ -45,11 +42,8 @@ const GroupCreated = () => {
       console.log("res", res);
     } catch (error) {
       console.log("error", error);
-      // console.log("BaseUrl:", BaseUrl);
       console.log("id:", id);
-      // console.log("token:", token);
     } finally {
-      // CopyLink();
     }
   };
   return (
