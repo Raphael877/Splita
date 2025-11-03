@@ -1,397 +1,153 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import UserDashboardHeader from "./UserDashboardHeader";
+import axios from "axios";
 
 const MyGroupDetail = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
+  const navigate = useNavigate();
+
+  const [groups, setGroups] = useState([]);
+
   const handleDetails = async () => {
     try {
-      const res = await axios.get(`${BaseUrl}/groups/all`);
-      console.log("res", res);
+      const res = await axios.get(`${BaseUrl}/groups/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Fetched groups:", res.data);
+
+      setGroups(res.data?.data);
     } catch (error) {
-      console.log("err", error);
+      console.log("Error fetching groups:", error);
     }
   };
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    handleDetails();
+  }, []);
+
   return (
     <MyGroupDetail_content>
-        <MyGroupDetail_wrapper>
-            <UserDashboardHeader />
-            <p onClick={() => navigate('/dashboard')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
-            <div className='main_top_group'>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>4/10 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent1"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child1"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>300,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 12, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 3/10</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Member</small>
-                </p>
-              </div>
-              <button onClick={() => navigate("/womendashboard")}>
-                View group details
-              </button>
-            </div>
+      <MyGroupDetail_wrapper>
+        <UserDashboardHeader onMyGroupClick={handleDetails} />
 
-          <div className="group">
-            <div className="wrapper">
-              <div className="women">
-                <p>
-                  <strong>Vacation Ajo</strong>
-                </p>
-                <div className="in_prog2">
-                  <p>
-                    <small>Due soon</small>
-                  </p>
+        <p onClick={() => navigate("/useremptystate")}>
+          <IoIosArrowRoundBack
+            style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+          />
+          Back home
+        </p>
+
+        <div className="main_top_group">
+          {groups.length === 0 ? (
+            <p style={{ textAlign: "center", marginTop: "50px" }}>
+              No groups found
+            </p>
+          ) : (
+            groups.map((group) => (
+              <div className="group" key={group._id}>
+                <div className="wrapper">
+                  <div className="women">
+                    <p>
+                      <strong>{group.groupName}</strong>
+                    </p>
+                    <div className="in_prog1">
+                      <p>
+                        <small>{group.status || "In progress"}</small>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p_cont">
+                    <p>
+                      <small>Progress</small>
+                    </p>
+                    <p>
+                      <small>
+                        {group.progress ||
+                          `${group.payoutsCompleted || 0}/${
+                            group.totalPayouts || 0
+                          } Payouts`}
+                      </small>
+                    </p>
+                  </div>
+
+                  <div
+                    className="progress_parent1"
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <div
+                      className="progress_child1"
+                      style={{
+                        width: `${
+                          (group.payoutsCompleted / group.totalPayouts) * 100 ||
+                          0
+                        }%`,
+                      }}
+                    ></div>
+                  </div>
+
+                  <div className="total_naira">
+                    <p>
+                      <small>Total Pot</small>
+                    </p>
+                    <p>
+                      <TbCurrencyNaira />
+                      <small>{group.totalPot || "0"}</small>
+                    </p>
+                  </div>
+
+                  <div className="last_date">
+                    <p>
+                      <small>Last contribution</small>
+                    </p>
+                    <p>
+                      <small>{group.lastContributionDate || "N/A"}</small>
+                    </p>
+                  </div>
+
+                  <div className="cycle_round">
+                    <p>
+                      <small>Cycle</small>
+                    </p>
+                    <p>
+                      <small>{group.cycle || "Round 1"}</small>
+                    </p>
+                  </div>
+
+                  <div className="role_mem">
+                    <p>
+                      <small>Role</small>
+                    </p>
+                    <p>
+                      <small>{group.role || "Member"}</small>
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() =>
+                      navigate(`/group/${group._id}`, {
+                        state: { groupName: group.groupName },
+                      })
+                    }
+                  >
+                    View group details
+                  </button>
                 </div>
               </div>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>8/10 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent2"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child2"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>500,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 1, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 6/10</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Admin</small>
-                </p>
-              </div>
-              <button onClick={() => navigate("/userdashboard")}>
-                View group details
-              </button>
-            </div>
-          </div>
-
-          <div className="group">
-            <div className="wrapper">
-              <div className="women">
-                <p>
-                  <strong>Obele Ajo</strong>
-                </p>
-                <div className="in_prog3">
-                  <p>
-                    <small>Completed</small>
-                  </p>
-                </div>
-              </div>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>5/5 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent3"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child3"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>1,000,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 12, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 6/6</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Member</small>
-                </p>
-              </div>
-              <button onClick={() => navigate("/obele")}>
-                View group details
-              </button>
-            </div>
-          </div>
-
-          <div className="group">
-            <div className="wrapper">
-              <div className="women">
-                <p>
-                  <strong>Women in Tech Ajo</strong>
-                </p>
-                <div className="in_prog1">
-                  <p>
-                    <small>in progress</small>
-                  </p>
-                </div>
-              </div>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>4/10 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent1"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child1"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>300,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 12, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 3/10</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Member</small>
-                </p>
-              </div>
-              <button>View group details</button>
-            </div>
-          </div>
-
-          <div className="group">
-            <div className="wrapper">
-              <div className="women">
-                <p>
-                  <strong>Vacation Ajo</strong>
-                </p>
-                <div className="in_prog2">
-                  <p>
-                    <small>Due soon</small>
-                  </p>
-                </div>
-              </div>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>8/10 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent2"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child2"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>500,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 1, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 6/10</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Admin</small>
-                </p>
-              </div>
-              <button>View group details</button>
-            </div>
-          </div>
-
-          <div className="group">
-            <div className="wrapper">
-              <div className="women">
-                <p>
-                  <strong>Obele Ajo</strong>
-                </p>
-                <div className="in_prog3">
-                  <p>
-                    <small>Completed</small>
-                  </p>
-                </div>
-              </div>
-              <div className="p_cont">
-                <p>
-                  <small>Progress</small>
-                </p>
-                <p>
-                  <small>5/5 Payouts</small>
-                </p>
-              </div>
-              <div
-                className="progress_parent3"
-                style={{ marginBottom: "1rem" }}
-              >
-                <div className="progress_child3"></div>
-              </div>
-              <div className="total_naira">
-                <p>
-                  <small>Total Pot</small>
-                </p>
-                <p>
-                  <TbCurrencyNaira />
-                  <small>1,000,000</small>
-                </p>
-              </div>
-              <div className="last_date">
-                <p>
-                  <small>Last contribution</small>
-                </p>
-                <p>
-                  <small>Oct 12, 2025</small>
-                </p>
-              </div>
-              <div className="cycle_round">
-                <p>
-                  <small>Cycle</small>
-                </p>
-                <p>
-                  <small>Round 6/6</small>
-                </p>
-              </div>
-              <div className="role_mem">
-                <p>
-                  <small>Role</small>
-                </p>
-                <p>
-                  <small>Member</small>
-                </p>
-              </div>
-              <button>View group details</button>
-            </div>
-          </div>
+            ))
+          )}
+        </div>
       </MyGroupDetail_wrapper>
     </MyGroupDetail_content>
   );
