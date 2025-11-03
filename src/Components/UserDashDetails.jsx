@@ -43,7 +43,7 @@ const UserDashDetails = () => {
         <Hello>
           <div className="left">
             <h1>Welcome Back,</h1>
-            <h2>{userData.name} ! 👋🏽</h2>
+            <h2>{userId?.name} ! 👋🏽</h2>
             <p style={{ color: "#240046" }}>
               You have 2 active groups and 1 payout coming up this week.
             </p>

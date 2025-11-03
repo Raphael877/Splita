@@ -108,6 +108,8 @@ const SignUp = () => {
 
       toast.success(res?.data?.message || "Registration successful!");
 
+      
+
       localStorage.setItem("userEmail", formData.email);
 
       setTimeout(() => {
