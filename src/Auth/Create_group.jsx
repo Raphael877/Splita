@@ -70,9 +70,13 @@ const Create_group = () => {
           "Content-Type": "application/json",
         },
       });
+      const groupId = res?.data?.group?.id;
+      localStorage.setItem("createdGroupId", JSON.stringify(groupId));
+      console.log(groupId);
+      console.log(res);
       toast.success(res?.data?.message);
     } catch (error) {
-      toast.error(res?.data?.message);
+      // toast.error(res?.data?.message);
     } finally {
       setLoading(false);
       handleSubmit();

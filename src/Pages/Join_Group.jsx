@@ -8,16 +8,19 @@ const Join_Group = () => {
   const navigate = useNavigate();
   const [inviteLink, setInviteLink] = useState("");
   const [error, setError] = useState("");
-
-  const handleSubmit = (e) => {
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!inviteLink.trim()) {
       setError("Please paste your invite link.");
       return;
     }
+    try {
+      const res = await axios.post(`${BaseUrl}/group/${id}/join`);
+    } catch (error) {}
     setError("");
-  }; 
+  };
 
   return (
     <Content>

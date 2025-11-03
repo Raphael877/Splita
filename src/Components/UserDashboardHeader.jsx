@@ -5,7 +5,7 @@ import Avatar from "../assets/Avatar.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
-import ConfirmLogout from '../Components/ConfirmLogout'
+import ConfirmLogout from "../Components/ConfirmLogout";
 
 const UserDashboardHeader = () => {
   const navigate = useNavigate();
@@ -47,9 +47,7 @@ const UserDashboardHeader = () => {
             My groups
           </li>
           <li
-            className={
-              location.pathname === "/contributions" ? "active" : ""
-            }
+            className={location.pathname === "/contributions" ? "active" : ""}
             onClick={() => navigate("/contributions")}
           >
             Contributions
@@ -68,7 +66,7 @@ const UserDashboardHeader = () => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  <img src={Profile_img} />
+                  {/* <img src={Profile_img} /> */}
                   <p>{userData.fullName || "User"}</p>
                 </div>
                 <MdOutlineCancel
@@ -82,9 +80,15 @@ const UserDashboardHeader = () => {
                   }}
                   onClick={closeDropdown}
                 />
-                <p className="nav" onClick={() => navigate('/useremptystate')}>Home</p>
-                <p className="nav"  onClick={() => navigate('/groups')}>Groups</p>
-                <p className="nav" onClick={() => navigate('/contributions')}>Contributions</p>
+                <p className="nav" onClick={() => navigate("/useremptystate")}>
+                  Home
+                </p>
+                <p className="nav" onClick={() => navigate("/groups")}>
+                  Groups
+                </p>
+                <p className="nav" onClick={() => navigate("/contributions")}>
+                  Contributions
+                </p>
                 <p
                   className="prof"
                   onClick={() => {
@@ -123,9 +127,7 @@ const UserDashboardHeader = () => {
       </UserDashboardHeader_wrapper>
 
       {showLogoutModal && (
-        <ConfirmLogout
-          onClose={() => setShowLogoutModal(false)} 
-        />
+        <ConfirmLogout onClose={() => setShowLogoutModal(false)} />
       )}
     </UserDashboardHeader_content>
   );
@@ -193,7 +195,7 @@ const UserDashboardHeader_wrapper = styled.div`
 
       &.active {
         font-weight: 700;
-        color: #9556cc
+        color: #9556cc;
       }
     }
   }
@@ -205,22 +207,22 @@ const UserDashboardHeader_wrapper = styled.div`
     gap: 1rem;
     position: relative;
 
-    .dp{
-        border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
+    .dp {
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
 
-        img{
-          width: 100%;
-          height: 100%;
-        }
+      img {
+        width: 100%;
+        height: 100%;
       }
+    }
 
-    .dropdown{
+    .dropdown {
       position: absolute;
       top: 100%;
       right: 0;
@@ -237,7 +239,7 @@ const UserDashboardHeader_wrapper = styled.div`
         height: 18rem;
       }
 
-      .dropdown_wrap{
+      .dropdown_wrap {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -245,19 +247,19 @@ const UserDashboardHeader_wrapper = styled.div`
         height: 85%;
         position: relative;
 
-        .prof{
+        .prof {
           cursor: pointer;
           color: #100f0f;
           padding-block: 0.2rem;
-          &:hover{
-            background-color:  #f2eaf9;
+          &:hover {
+            background-color: #f2eaf9;
           }
         }
 
-        .nav{
+        .nav {
           cursor: pointer;
           display: none;
-          &:hover{
+          &:hover {
             color: #e74c3c;
           }
 
@@ -266,13 +268,13 @@ const UserDashboardHeader_wrapper = styled.div`
           }
         }
 
-        .top{
+        .top {
           display: flex;
           gap: 1rem;
           align-items: center;
         }
 
-        .log{
+        .log {
           display: flex;
           justify-content: space-between;
           align-items: center;
