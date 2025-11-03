@@ -1,39 +1,44 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { FaRegTimesCircle } from "react-icons/fa";
 
-const AutomaticRotation = () => {
+const ConfirmLogout = ({ onClose }) => {
+
+    const navigate = useNavigate()
   return (
-    <Payout_content>
-        <Payout_wrapper>
+    <Content>
+        <Wrapper>
             <Inner_wrap>
-                <h3>Start Cycle with Automatic Rotation</h3>
-                <p>Splita will automatically assign payout turns to all members randomly.</p>
+                <h3>Confirm Logout</h3>
+                <p>Are you sure you want to log out? You will need to log in again to continue</p>
                 <div className='btn'>
-                    <button className='btn1'>Cancel</button>
-                    <button className='btn2'>Confirm & Start</button>
+                    <button className='btn1' onClick={onClose}>Cancel</button>
+                    <button className='btn2' onClick={() => navigate('/signin')}>Log out</button>
                 </div>
             </Inner_wrap>
-            <FaRegTimesCircle style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}}/>
-        </Payout_wrapper>
-    </Payout_content>
+        </Wrapper>
+    </Content>
   )
 }
 
-export default AutomaticRotation
+export default ConfirmLogout
 
-const Payout_content = styled.div`
+const Content = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
 `
 
-const Payout_wrapper = styled.div`
+const Wrapper = styled.div`
     width: 35%;
-    height: 45%;
+    height: 40%;
     background-color: white;
     border-radius: 0.5rem;
     display: flex;
@@ -47,8 +52,8 @@ const Payout_wrapper = styled.div`
 `
 
 const Inner_wrap = styled.div`
-    width: 75%;
-    height: 80%;
+    width: 90%;
+    height: 60%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -56,34 +61,41 @@ const Inner_wrap = styled.div`
     align-items: center;
     text-align: center;
 
-    p{
-        color: #777777;
-    }
-
     .btn{
         display: flex;
         gap: 1.3rem;
-
-        .btn1{
-            border: none;
-            outline: none;
-            color: white;
-            height: 2.5rem;
-            width: 10rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            background-color: #9d9d9d;
-        }
+        width: 100%;
 
         .btn2{
             border: none;
             outline: none;
             color: white;
             height: 2.5rem;
-            width: 10rem;
+            width: 50%;
             border-radius: 0.5rem;
             cursor: pointer;
-            background-color: #d62c2c;
+            background-color: #e74c3c;
+
+            &:hover{
+                background-color: #e2695b;
+                transition: all 350ms ease-in-out;
+            }
+        }
+
+        .btn1{
+            border: none;
+            outline: none;
+            color: white;
+            height: 2.5rem;
+            width: 50%;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            background-color: #777777;
+
+            &:hover{
+                background-color: #a19c9c;
+                transition: all 350ms ease-in-out;
+            }
         }
     }
 `    

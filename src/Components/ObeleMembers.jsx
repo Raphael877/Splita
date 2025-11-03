@@ -153,6 +153,10 @@ const Table = styled.div`
             flex-direction: column;
             gap: 1.5rem;
 
+            @media (max-width: 768px) {
+                background-color: transparent;
+            }
+
             .all_header{
                 width: 100%;
                 display: flex;
@@ -167,8 +171,21 @@ const Table = styled.div`
                 align-items: center;
                 gap: 1.5rem;
 
+                @media (max-width: 768px) {
+                    width: 100%;
+                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                    background-color: white;
+                    padding-block: 1rem;
+                    padding-inline: 0.5rem;
+                    border-radius: 0.5rem;
+                }
+
                 .cycle{
                     width: 25%;
+
+                    @media (max-width: 768px) {
+                        width: 20%;
+                    }
                 }
 
                 .status{
@@ -192,6 +209,10 @@ const Table = styled.div`
                     align-items: center;
                     width: 25%;
                     padding-left: 3rem;
+
+                    @media (max-width: 768px) {
+                        padding-left: 0;
+                    }
                 }
 
                 .amount{
@@ -199,6 +220,11 @@ const Table = styled.div`
                     padding-left: 4rem;
                     align-items: center;
                     width: 25%;
+
+                    @media (max-width: 768px) {
+                        padding-left: 0;
+                        width: 30%;
+                    }
                 }
             }
         }

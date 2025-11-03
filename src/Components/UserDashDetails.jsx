@@ -12,13 +12,20 @@ import { MdOutlinePersonAddAlt } from "react-icons/md";
 
 const UserDashDetails = () => {
     const navigate = useNavigate()
+    const userData = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userData')) || {};
+      } catch {
+        return {};
+      }
+    })();
   return (
     <UserDashDetails_content>
         <UserDashDetails_wrapper>
             <Hello>
                 <div className='left'>
                     <h1>Welcome Back,</h1>
-                    <h2>Chidera! 👋🏽</h2>
+                    <h2>{userData.firstName || 'User'} ! 👋🏽</h2>
                     <p style={{color: '#240046'}}>You have 2 active groups and 1 payout coming up this week.</p>
                 </div>
                 <div className='hello_btn'>
@@ -123,14 +130,14 @@ const UserDashDetails = () => {
                                         <p><small>Role</small></p>
                                         <p><small>Member</small></p>
                                     </div>
-                                    <button>View Details</button>
+                                    <button onClick={() => navigate('/womendashboard')}>View Details</button>
                                 </div>
                             </div>
 
                             <div className='group'>
                                 <div className='wrapper'>
                                     <div className='women'>
-                                        <p><strong>Vacation Ajo</strong></p>
+                                        <p><strong>Obele Ajo</strong></p>
                                         <div className='in_prog'>
                                             <p><small>Due soon</small></p>
                                         </div>
@@ -158,7 +165,7 @@ const UserDashDetails = () => {
                                         <p><small>Role</small></p>
                                         <p><small>Admin</small></p>
                                     </div>
-                                    <button>View Details</button>
+                                    <button onClick={() => navigate('/obele')}>View Details</button>
                                 </div>
                             </div>
                         </div>

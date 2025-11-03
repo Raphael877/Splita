@@ -17,7 +17,6 @@ const Group_details = ({ onContinue, onClose }) => {
           <hr
             style={{ height: "2px", backgroundColor: "black", border: "none" }}
           ></hr>
-
           <div className="one">
             <p>Name</p>
             <p>Women in Tech</p>
@@ -66,6 +65,10 @@ const Group_details_wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 85%;
+    }
 `
 
 const Inner_wrap = styled.div`

@@ -4,9 +4,26 @@ import { FiEdit } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import ProfileUpload from './ProfileUpload';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const userData = (() => {
+    try {
+      return JSON.parse(localStorage.getItem('userData')) || {};
+    } catch {
+      return {};
+    }
+  })();
+
+  const bankData = (() => {
+  try {
+    return JSON.parse(localStorage.getItem("bankData")) || {};
+  } catch {
+    return {};
+  }
+})();
 
 
   return (
@@ -17,7 +34,7 @@ const Profile = () => {
       <div className='circle_mid_left'></div>
       <div className='circle_down_right'></div>
 
-      <div className="back" style={{ cursor: "pointer" }}>
+      <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate('/useremptystate')}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
       </div>
@@ -37,7 +54,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Name</p>
-            <p>Chidera Benjamin</p>
+            <p>{userData.fullName || 'User'}</p>
           </div>
           <hr></hr>
         </div>
@@ -45,7 +62,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Email</p>
-            <p>Chiderab617@gmail.com</p>
+            <p>{userData.email || 'User'}</p>
           </div>
           <hr></hr>
         </div>
@@ -53,7 +70,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Phone Number</p>
-            <p>07038204858</p>
+            <p>{userData.phone || 'User'}</p>
           </div>
           <hr></hr>
         </div>
@@ -61,7 +78,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Bank Name</p>
-            <p>Splita Bank</p>
+            <p>{bankData.bankName || "Not Added"}</p>
           </div>
           <hr></hr>
         </div>
@@ -69,7 +86,7 @@ const Profile = () => {
         <div className='first'>
           <div className='top'>
             <p>Account Number</p>
-            <p>7038204858</p>
+            <p>{bankData.accountNumber || "Not Added"}</p>
           </div>
           <hr></hr>
         </div>
@@ -135,6 +152,12 @@ const Profile_content = styled.div`
         right: -17%;
     }
 
+        @media (max-width: 768px) {
+            .circle_down_right, .circle_mid_left, .circle_top_left, .circle_top_right{
+            display: none;
+        }
+    }
+
     .back {
         display: flex;
         justify-content: center;
@@ -144,6 +167,10 @@ const Profile_content = styled.div`
         top: 8%;
         left: 7%;
         cursor: pointer;
+
+        @media (max-width: 768px) {
+            top: 5%;
+        }
     }
 `
 
@@ -155,6 +182,11 @@ const Profile_wrapper = styled.div`
     flex-direction: column;
     gap: 1rem;
 
+    @media (max-width: 768px) {
+        width: 85%;
+        padding-top: 4rem;
+    }
+
     .image_div{
         width: 8rem;
         height: 8rem;
@@ -164,6 +196,12 @@ const Profile_wrapper = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 768px) {
+            align-self: center;
+            width: 9rem;
+            height: 9rem;
+        }
 
         .edit_cont{
             width: 2rem;

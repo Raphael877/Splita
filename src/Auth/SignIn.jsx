@@ -68,6 +68,9 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.data?._id)
       );
+
+
+      
       toast.success(res?.data?.message || "Login successful!");
       navigate('/useremptystate')
     } catch (err) {
@@ -109,7 +112,7 @@ const SignIn = () => {
             Login();
           }}
         >
-      
+
           <div className="inp">
             <div className="label">
               <MdOutlineEmail />
@@ -129,7 +132,6 @@ const SignIn = () => {
             )}
           </div>
 
-        
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -144,7 +146,7 @@ const SignIn = () => {
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow(!show)}>
-                {show ? <GoEye /> : <GoEyeClosed />}
+                {show ? <GoEye style={{color: 'black'}}/> : <GoEyeClosed style={{color: 'black'}}/>}
               </div>
             </div>
             {errors.password && (
@@ -169,10 +171,10 @@ const SignIn = () => {
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign In"}
           </button>
 
-          <p style={{ textAlign: "center" }}>
+          <p style={{ textAlign: "center" , marginBottom: '1rem' }}>
             Don’t have an account?{" "}
             <span
-              style={{ color: "#7b2cbf", cursor: "pointer" }}
+              style={{ color: "#7b2cbf", cursor: "pointer"}}
               onClick={() => navigate("/signup")}
             >
               Sign Up
@@ -188,7 +190,7 @@ export default SignIn;
 
 const SignIn_content = styled.div`
   width: 100%;
-  height: 110vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -8,12 +8,19 @@ import { useNavigate } from 'react-router-dom';
 
 const UserEmptyHello = () => {
     const navigate = useNavigate();
+    const userData = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('userData')) || {};
+      } catch {
+        return {};
+      }
+    })();
   return (
     <UserEmptyHello_content>
         <UserEmptyHello_wrapper>
             <Hello>
                 <div className='left'>
-                    <h1>Hello Chidera</h1>
+                    <h1>Hello {userData.firstName || 'User'}</h1>
                     <h2>Greetings 👋🏽</h2>
                     <p style={{ color: '#240046'}}>Lets kickstart your savings journey today</p>
                 </div>
@@ -31,14 +38,14 @@ const UserEmptyHello = () => {
             </Oops>
             <Create_join>
                 <div className='two_cards'>
-                    <div className='card1'>
+                    <div className='card1' onClick={() => navigate('/creategroup')}>
                         <div className='main'>
                             <FaPlus/>
                             <p>Create a group</p>
                         </div>
                         <p className='content'>Start fresh and invite your family,<br></br> team, or friends.</p>
                     </div>
-                    <div className='card1'>
+                    <div className='card2'>
                         <div className='main'>
                             <TiGroupOutline style={{fontSize: '1.3rem'}}/>
                             <p>Join a group</p>
@@ -94,7 +101,7 @@ const UserEmptyHello_wrapper = styled.div`
 
 const Hello = styled.div`
     width: 100%;
-    height: 25vh;
+    height: 30vh;
     display: flex;
     justify-content: space-between;
     padding: 1.8rem;
@@ -104,7 +111,7 @@ const Hello = styled.div`
     background-color: #f2eaf9;
 
     @media (max-width: 768px) {
-      height: 40vh;
+      height: 46vh;
       flex-direction: column;
       padding: 1rem;
       justify-content: flex-start;
@@ -138,15 +145,16 @@ const Hello = styled.div`
 
         .hello_btn1{
             width: 50%;
-            height: 2.5rem;
+            height: 3rem;
             border: none;
             outline: none;
             border-radius: 0.5rem;
+            font-size: 1rem;
             cursor: pointer;
             color: white;
             background-color: #7b2cbf;
             &:hover{
-                background-color: #c29ee2;
+                background-color: #5c248d;
                 transition: all 500ms ease-in-out;
             }
 
@@ -159,13 +167,14 @@ const Hello = styled.div`
 
         .hello_btn2{
             width: 50%;
-            height: 2.5rem;
-            border: none;
+            height: 3rem;
+            border: 1.5px solid #ff7900;
             outline: none;
             border-radius: 0.5rem;
+            font-size: 1rem;
             cursor: pointer;
             background-color: white;
-            color: #7b2cbf;
+            color: #ff7900;
             &:hover{
                 background-color: #ff7900;
                 color: white;
@@ -245,6 +254,48 @@ const Create_join = styled.div`
             flex-direction: column;
             gap: 2rem;
             cursor: pointer;
+            &:hover{
+                border: 1.5px solid #ff7900;
+            }
+
+            @media (max-width: 768px) {
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .main{
+                display: flex;
+                gap: 0.5rem;
+                font-weight: 600;
+                justify-content: center;
+                align-items: center;
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
+            }
+
+            .content{
+                text-align: center;
+                color: #b7b7b7;
+            }
+        }
+
+        .card2{
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            cursor: pointer;
+            &:hover{
+                border: 1.5px solid #7b2cbf;
+            }
 
             @media (max-width: 768px) {
                 width: 100%;

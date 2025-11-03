@@ -34,6 +34,10 @@ const Payout_wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 85%;
+    }
 `
 
 const Inner_wrap = styled.div`

@@ -97,6 +97,15 @@ const SignUp = () => {
         headers: { "Content-Type": "application/json" },
       });
 
+      const userData = {
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        firstName: formData.name.split(' ')[0]
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem("userEmail", formData.email);
+
       toast.success(res?.data?.message || "Registration successful!");
 
       localStorage.setItem("userEmail", formData.email);
@@ -188,6 +197,8 @@ const SignUp = () => {
             </div>
           </div>
 
+          <p style={{ color: "#888888" }}><small>Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character</small></p>
+
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -227,7 +238,10 @@ const SignUp = () => {
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              style={{ cursor: "pointer" }}
+            />
             <p>
               I have read the{" "}
               <i
@@ -244,7 +258,7 @@ const SignUp = () => {
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
           </button>
 
-          <p className="already">
+          <p className="already" style={{marginBottom: '1rem' }}>
             Already have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
@@ -265,7 +279,7 @@ export default SignUp;
 
 const SignUp_content = styled.div`
   width: 100%;
-  height: 150vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -274,7 +288,7 @@ const SignUp_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) and (min-width: 768px) {
-    height: 160vh;
+    height: auto;
   }
 
   @media (max-width: 768px) {

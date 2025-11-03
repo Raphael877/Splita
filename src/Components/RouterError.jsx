@@ -2,7 +2,7 @@ import React from 'react'
 
 const RouterError = () => {
   return (
-    <div>
+    <div >
       <h1>404 Page Not Found</h1>
     </div>
   )

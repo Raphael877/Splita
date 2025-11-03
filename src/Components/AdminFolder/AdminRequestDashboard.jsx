@@ -155,6 +155,10 @@ const Table = styled.div`
                     align-items: center;
                     width: 25%;
                     padding-right: 2rem;
+
+                    @media (max-width: 768px) {
+                        padding-right: 0;
+                    }
                 }
 
                 .date{
@@ -163,6 +167,11 @@ const Table = styled.div`
                     align-items: center;
                     width: 25%;
                     padding-left: 6rem;
+
+                    @media (max-width: 768px) {
+                        padding-left: 0;
+                        justify-content: flex-end;
+                    }
                 }
 
 

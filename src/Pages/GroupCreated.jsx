@@ -46,6 +46,10 @@ const Content = styled.div`
     flex-direction: column;
     background-color: #f8f5f0;
     align-items: center;
+
+    @media (max-width: 768px) {
+        background-color: transparent;
+    }
 `
 
 const Main = styled.div`
@@ -86,9 +90,18 @@ const Created = styled.div`
         text-align: center;
         gap: 1.5rem;
 
+        @media (max-width: 768px) {
+            width: 90%;
+            gap: 0.5rem;
+        }
+
         .party_icon{
             font-size: 10rem;
             color: #7b2bbd;
+
+            @media (max-width: 768px) {
+                font-size: 7rem;
+            }
         }
 
         .btn{
@@ -97,6 +110,11 @@ const Created = styled.div`
             justify-content: center;
             align-items: center;
             gap: 1rem;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+                width: 100%;
+            }
 
             .btn1{
                 width: 50%;
@@ -110,6 +128,10 @@ const Created = styled.div`
                 &:hover{
                     background-color: #b088d3;
                     transition: all 350ms ease-in-out;
+                }
+
+                @media (max-width: 768px) {
+                    width: 100%;
                 }
             }
 
@@ -125,6 +147,10 @@ const Created = styled.div`
                     background-color: #ff7900;
                     color: white;
                     transition: all 350ms ease-in-out;
+                }
+
+                @media (max-width: 768px) {
+                    width: 100%;
                 }
             }
         }
