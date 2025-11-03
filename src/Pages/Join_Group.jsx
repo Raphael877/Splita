@@ -3,22 +3,42 @@ import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Splita_logo from "../assets/Splita_logo.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Join_Group = () => {
   const navigate = useNavigate();
-  const [inviteLink, setInviteLink] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
   const [error, setError] = useState("");
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const handleSubmit = async (e) => {
+    const id = JSON.parse(localStorage.getItem("createdGroupId"));
+    const token = JSON.parse(
+      localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+    );
     e.preventDefault();
 
-    if (!inviteLink.trim()) {
+    if (!inviteCode.trim()) {
       setError("Please paste your invite link.");
       return;
     }
     try {
-      const res = await axios.post(`${BaseUrl}/group/${id}/join`);
-    } catch (error) {}
+      const res = await axios.post(
+        `${BaseUrl}/groups/${id}/join`,
+        { invite: inviteCode },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("res", res);
+    } catch (error) {
+      console.log("ERR", error);
+      console.log("invite", inviteCode);
+      console.log(id);
+      console.log("Backend response:", error.response?.data);
+    }
     setError("");
   };
 
@@ -45,19 +65,21 @@ const Join_Group = () => {
       <Wrapper>
         <h1 style={{ paddingBottom: "1rem" }}>Join an existing group</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="input_div">
             <input
               type="text"
               placeholder="Paste your invite link here"
-              value={inviteLink}
-              onChange={(e) => setInviteLink(e.target.value)}
+              value={inviteCode}
+              onChange={(e) => setInviteCode(e.target.value)}
             />
           </div>
 
           {error && <p className="error">{error}</p>}
 
-          <button type="submit">Join Group</button>
+          <button onClick={handleSubmit} type="submit">
+            Join Group
+          </button>
         </form>
       </Wrapper>
     </Content>
