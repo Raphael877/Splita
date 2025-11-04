@@ -46,7 +46,7 @@ const MyContribution = () => {
         <MyGroupDetail_wrapper>
             <UserDashboardHeader />
                 <Inner>
-                    <p className='back' onClick={() => navigate('/useremptystate')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
+                    <p className='back' onClick={() => navigate('/userdashboard')}><IoIosArrowRoundBack style={{fontSize:'1.5rem', fontWeight: 'bold'}}/>Back home</p>
 
                     <Table>
                 <div className='table_wrap'>
