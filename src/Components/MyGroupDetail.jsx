@@ -41,7 +41,7 @@ const MyGroupDetail = () => {
       <MyGroupDetail_wrapper>
         <UserDashboardHeader onMyGroupClick={handleDetails} />
 
-        <p onClick={() => navigate("/useremptystate")}>
+        <p onClick={() => navigate("/userdashboard")}>
           <IoIosArrowRoundBack
             style={{ fontSize: "1.5rem", fontWeight: "bold" }}
           />
@@ -157,11 +157,12 @@ export default MyGroupDetail;
 
 const MyGroupDetail_content = styled.div`
   width: 100%;
-  height: 120vh;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-block: 15vh;
+  padding-block: 15vh; 
+  background-color: #f8f5f0;
 
   @media (max-width: 768px) {
     height: auto;
@@ -195,7 +196,7 @@ const MyGroupDetail_wrapper = styled.div`
 
     .group {
       width: 30%;
-      height: 45%;
+      height: 18rem;
       display: flex;
       justify-content: center;
       align-items: center;

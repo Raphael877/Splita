@@ -34,7 +34,7 @@ import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
 import Join_Group from './Pages/Join_Group.jsx'
 import MyGroupDetail from './Components/MyGroupDetail.jsx';
-// import UserDashboardPage from './Pages/UserDashboardPage.jsx';
+import UserDashboardPage from './Pages/UserDashboardPage.jsx';
 // import UserGroupPage from './Pages/UserGroupPage.jsx';
 // import UserContributionPage from './Pages/UserContributionPage.jsx';
 
@@ -64,8 +64,8 @@ const App = () => {
           </Route>
         <Route path='/group_created' element={<GroupCreated />} />
         <Route path='/requestjoingroup' element={<RequestJoinGroup />} />
-        {/* <Route path="/userdashboardpage" element={<UserDashboardPage />} />
-        <Route path="/usergrouppage" element={<UserGroupPage />} />
+        {/* <Route path="/userdashboardpage" element={<UserDashboardPage />} /> */}
+        {/* <Route path="/usergrouppage" element={<UserGroupPage />} />
         <Route path="/usercontributionpage" element={<UserContributionPage />} /> */}
         <Route path='/mygroupdetail' element={<MyGroupDetail />} />
         <Route path='/requestapproved' element={<RequestApproved />} />

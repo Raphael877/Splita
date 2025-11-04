@@ -55,7 +55,7 @@ const Join_Group = () => {
 
       <div
         className="back"
-        onClick={() => navigate("/useremptystate")}
+        onClick={() => navigate("/userdashboard")}
         style={{ cursor: "pointer" }}
       >
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
