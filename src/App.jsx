@@ -51,11 +51,11 @@ const App = () => {
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/contributions" element={<Contributions />} />
-        <Route
+        {/* <Route
           path="/dashboard"
           element={<ProtectedRoute>
                     <Dashboard />
-                  </ProtectedRoute>}/>
+                  </ProtectedRoute>}/> */}
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
@@ -88,11 +88,11 @@ const App = () => {
           <Route path="" element={<ObeleMembers />} />
           <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
-        <Route
+        {/* <Route
           path="/userdashboard"
           element={<ProtectedRoute>
                     <UserDashboard />
-                  </ProtectedRoute>}/>
+                  </ProtectedRoute>}/> */}
         <Route path="/join_group" element={<Join_Group />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
