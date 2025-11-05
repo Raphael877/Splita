@@ -11,7 +11,7 @@ const Join_Group = () => {
   const [inviteLink, setInviteLink] = useState("");
   const [error, setError] = useState("");
   const { groupid, invite } = useParams();
-  console.log(groupid, invite);
+  console.log("di9in9", groupid, "new", invite);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handleSubmit = async (e) => {
@@ -26,8 +26,8 @@ const Join_Group = () => {
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${id}/join`,
-        { invite: inviteLink },
+        `${BaseUrl}/groups/join/${id}/${invite}`,
+        { invite: inviteLink || invite },
         {
           headers: {
             Authorization: `Bearer ${token}`,

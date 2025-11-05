@@ -103,8 +103,8 @@ const RequestJoinGroup = () => {
                         <div className="btn">
                           <button
                             className="btn1"
-                            // onClick={() => setShowApproveModal(true)}
-                            onClick={() => handleRequest("approve")}
+                            onClick={() => setShowApproveModal(true)}
+                            // onClick={() => handleRequest("approve")}
                           >
                             Approve
                           </button>
