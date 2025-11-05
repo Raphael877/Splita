@@ -2,13 +2,16 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const ProtectedRoute = ({ children }) => {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to="/" replace />;
-  }
+    if (!userId || !token) {
+      return <Navigate to="/signup" replace />;
+    }
 
-  return children;
+    return children;
+  };
 };
 
 export default ProtectedRoute;
