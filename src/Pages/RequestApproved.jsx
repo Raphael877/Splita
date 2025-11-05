@@ -77,7 +77,6 @@ const RequestApproved = () => {
 
         <UserDashboardFooter />
 
-        {/* ✅ Modals Layered */}
         {showSelectPayout && (
           <SelectPayout
             onClose={() => setShowSelectPayout(false)}

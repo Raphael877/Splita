@@ -66,7 +66,7 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 1,
       top: "Contribution Amount",
-      mid: "N10000 ",
+      mid: (<><TbCurrencyNaira/>10,000</>),
       bottom: "Per member",
       icon: <BsCash />,
       bgcolor: "#efd5f2",
@@ -93,7 +93,7 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid: "N0",
+      mid: (<><TbCurrencyNaira/> 0</>),
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",
@@ -104,61 +104,61 @@ const AdminCircleStartVacationDashboard = () => {
   const AllData = [
     {
       member: "Chisom",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "2nd",
       delete: <CiTrash />,
     },
     {
       member: "Dera",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "1st",
       delete: <CiTrash />,
     },
     {
       member: "Dinma",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "3rd",
       delete: <CiTrash />,
     },
     {
       member: "Zeal",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "4th",
       delete: <CiTrash />,
     },
     {
       member: "Habeeb",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "5th",
       delete: <CiTrash />,
     },
     {
       member: "Felix",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "6th",
       delete: <CiTrash />,
     },
     {
       member: "Raphael",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "7th",
       delete: <CiTrash />,
     },
     {
       member: "Arinze",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "8th",
       delete: <CiTrash />,
     },
     {
       member: "Darasimi",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "9th",
       delete: <CiTrash />,
     },
     {
       member: "Michael",
-      contribution: "N 0",
+      contribution: (<><TbCurrencyNaira/> 0</>),
       payout_order: "10th",
       delete: <CiTrash />,
     },
@@ -202,7 +202,7 @@ const AdminCircleStartVacationDashboard = () => {
                 <div className="card_wrapper">
                   <div className="left">
                     <p>{items.top}</p>
-                    <h3>{items.mid}</h3>
+                    <h3 style={{display: 'flex', alignItems: 'center'}}>{items.mid}</h3>
                     <p>
                       <small style={{ color: "#828181" }}>{items.bottom}</small>
                     </p>
@@ -262,7 +262,7 @@ const AdminCircleStartVacationDashboard = () => {
                     <p>{items.member}</p>
                   </div>
                   <div className="contribution">
-                    <p>{items.contribution}</p>
+                    <p style={{display: 'flex', alignItems: 'center'}}>{items.contribution}</p>
                   </div>
                   <div className="payout_order">
                     <p>{items.payout_order}</p>

@@ -79,7 +79,7 @@ const GroupCreated = () => {
                 </button>
                 <button
                   className="btn2"
-                  onClick={() => navigate("/requestjoingroup")}
+                  onClick={() => navigate("/start_group")}
                 >
                   View Members
                 </button>
