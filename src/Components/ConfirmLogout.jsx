@@ -7,12 +7,12 @@ const ConfirmLogout = ({ onClose }) => {
     localStorage.removeItem("user_token");
     localStorage.removeItem("userid");
 
-    navigate("/");
+    // navigate("/");
 
-  //   navigate("/", { replace: true });
-  //   window.location.reload();
-  // };
-  };
+    navigate("/", { replace: true });
+    window.location.reload();
+    };
+
   const navigate = useNavigate();
   return (
     <Content>

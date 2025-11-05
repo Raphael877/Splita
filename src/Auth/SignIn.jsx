@@ -68,7 +68,7 @@ const SignIn = () => {
       );
       toast.success(res?.data?.message || "Login successful!");
       console.log("res", res);
-      navigate("/dashboard");
+      navigate("/userdashboardpage");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");

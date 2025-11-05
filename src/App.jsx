@@ -34,6 +34,7 @@ import Groups from './Pages/Groups.jsx'
 import Contributions from './Pages/Contributions.jsx'
 import Join_Group from './Pages/Join_Group.jsx'
 import MyGroupDetail from './Components/MyGroupDetail.jsx';
+import ProtectedRoute from './config/ProtectedRoute.jsx';
 import UserDashboardPage from './Pages/UserDashboardPage.jsx';
 // import UserGroupPage from './Pages/UserGroupPage.jsx';
 // import UserContributionPage from './Pages/UserContributionPage.jsx';
@@ -52,7 +53,11 @@ const App = () => {
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/contributions" element={<Contributions />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={<ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>}/>
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
@@ -64,7 +69,7 @@ const App = () => {
           </Route>
         <Route path='/group_created' element={<GroupCreated />} />
         <Route path='/requestjoingroup' element={<RequestJoinGroup />} />
-        {/* <Route path="/userdashboardpage" element={<UserDashboardPage />} /> */}
+        <Route path="/userdashboardpage" element={<UserDashboardPage />} />
         {/* <Route path="/usergrouppage" element={<UserGroupPage />} />
         <Route path="/usercontributionpage" element={<UserContributionPage />} /> */}
         <Route path='/mygroupdetail' element={<MyGroupDetail />} />
@@ -78,6 +83,11 @@ const App = () => {
           <Route path="" element={<ObeleMembers />} />
           <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
+        <Route
+          path="/userdashboard"
+          element={<ProtectedRoute>
+                    <UserDashboard />
+                  </ProtectedRoute>}/>
         <Route path="/join_group" element={<Join_Group />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
