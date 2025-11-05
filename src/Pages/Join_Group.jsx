@@ -18,11 +18,11 @@ const Join_Group = () => {
     e.preventDefault();
 
     const id = JSON.parse(localStorage.getItem("createdGroupId"));
-    console.log("userid", id);
+    // console.log("userid", id);
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
-    console.log(id);
+    // console.log(id);
 
     try {
       const res = await axios.post(
