@@ -121,7 +121,7 @@ export default ForgotPassword;
 
 const ForgotPassword_content = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +130,7 @@ const ForgotPassword_content = styled.div`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
   }
 
   .circle_top_left {

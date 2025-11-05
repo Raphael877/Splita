@@ -192,12 +192,6 @@ const SignUp = () => {
             )}
           </div>
 
-          <p style={{ color: "#888888" }}>
-            <small>
-              Password must be at least 8 characters long and contain one
-              uppercase, one lowercase, one number, and one special character
-            </small>
-          </p>
 
           <div className="inp">
             <div className="label">
@@ -220,6 +214,13 @@ const SignUp = () => {
               <p className="error-text">{formErrors.password}</p>
             )}
           </div>
+
+          <p style={{ color: "#888888" }}>
+            <small>
+              Password must be at least 8 characters long and contain one
+              uppercase, one lowercase, one number, and one special character
+            </small>
+          </p>
 
           <div className="inp">
             <div className="label">
@@ -284,7 +285,7 @@ export default SignUp;
 
 const SignUp_content = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

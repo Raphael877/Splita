@@ -280,7 +280,7 @@ export default Create_group;
 const Create_group_content = styled.div`
   width: 100%;
   padding-bottom: 10vh;
-  height: auto;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

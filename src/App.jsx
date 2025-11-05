@@ -36,7 +36,8 @@ import MyGroupDetail from "./Components/MyGroupDetail.jsx";
 import Start_group from "./Pages/Start_group.jsx";
 import Members from './Components/Members.jsx'
 import Contribution from './Components/Contribution.jsx'
-// import UserDashboardPage from './Pages/UserDashboardPage.jsx';
+import UserDashboardPage from './Pages/UserDashboardPage.jsx';
+import ProtectedRoute from "./config/ProtectedRoute.jsx";
 // import UserGroupPage from './Pages/UserGroupPage.jsx';
 // import UserContributionPage from './Pages/UserContributionPage.jsx';
 
@@ -97,12 +98,12 @@ const App = () => {
           <Route path="" element={<ObeleMembers />} />
           <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
-        {/* <Route
-          path="/userdashboard"
+        <Route
+          path="/userdashboardpage"
           element={<ProtectedRoute>
-                    <UserDashboard />
-                  </ProtectedRoute>}/> */}
-        <Route path="/join_group/:groupid/:invite" element={<Join_Group />} />
+                    <UserDashboardPage />
+                  </ProtectedRoute>}/>
+        <Route path="/join_group/:groupid?/:invite?" element={<Join_Group />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>
