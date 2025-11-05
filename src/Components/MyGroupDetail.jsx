@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserDashboardHeader from "./UserDashboardHeader";
+import UserDashboardFooter from "./UserDashboardFooter";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const MyGroupDetail = () => {
+  const { groupId } = useParams();
+  console.log("Group ID:", groupId);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -103,7 +106,7 @@ const MyGroupDetail = () => {
                     </p>
                     <p>
                       <TbCurrencyNaira />
-                      <small>{group.totalPot || "0"}</small>
+                      <small>{group.contributionAmount || "0"}</small>
                     </p>
                   </div>
 
@@ -130,16 +133,21 @@ const MyGroupDetail = () => {
                       <small>Role</small>
                     </p>
                     <p>
-                      <small>{group.role || "Member"}</small>
+                      <small>{group.myRole || "Member"}</small>
                     </p>
                   </div>
-
                   <button
-                    onClick={() =>
-                      navigate(`/group/${group._id}`, {
-                        state: { groupName: group.groupName },
-                      })
-                    }
+                    onClick={() => {
+                      if (group.myRole === "admin") {
+                        navigate(
+                          `/admincirclestartvacationdashboard/${group.id}`
+                        );
+                      } else if (group.myRole === "user") {
+                        navigate(`/womendashboard/${group.id}`);
+                      } else {
+                        console.warn("Unknown role:", myRole);
+                      }
+                    }}
                   >
                     View group details
                   </button>
@@ -161,7 +169,7 @@ const MyGroupDetail_content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-block: 15vh; 
+  padding-block: 15vh;
   background-color: #f8f5f0;
 
   @media (max-width: 768px) {

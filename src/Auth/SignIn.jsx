@@ -68,7 +68,7 @@ const SignIn = () => {
       );
       toast.success(res?.data?.message || "Login successful!");
       console.log("res", res);
-      navigate("/userdashboardpage");
+      navigate("/userdashboard");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");
@@ -143,7 +143,11 @@ const SignIn = () => {
                 onChange={handleChange}
               />
               <div className="icon" onClick={() => setShow(!show)}>
-                {show ? <GoEye style={{color: 'black'}}/> : <GoEyeClosed style={{color: 'black'}}/>}
+                {show ? (
+                  <GoEye style={{ color: "black" }} />
+                ) : (
+                  <GoEyeClosed style={{ color: "black" }} />
+                )}
               </div>
             </div>
             {errors.password && (

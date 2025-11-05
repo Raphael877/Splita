@@ -4,27 +4,27 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import Splita_logo from "../assets/Splita_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const Join_Group = () => {
   const navigate = useNavigate();
-  const [inviteCode, setInviteCode] = useState("");
+  const [inviteLink, setInviteLink] = useState("");
   const [error, setError] = useState("");
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const id = JSON.parse(localStorage.getItem("createdGroupId"));
+    console.log("userid", id);
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
-    e.preventDefault();
 
-    if (!inviteCode.trim()) {
-      setError("Please paste your invite link.");
-      return;
-    }
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/${id}/join`,
-        { invite: inviteCode },
+        { invite: inviteLink },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,18 +32,20 @@ const Join_Group = () => {
           },
         }
       );
+
       console.log("res", res);
+      toast.success(res?.data?.message || "Joined group successfully!");
+      setError("");
     } catch (error) {
       console.log("ERR", error);
-      console.log("invite", inviteCode);
-      console.log(id);
-      console.log("Backend response:", error.response?.data);
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
-    setError("");
   };
 
   return (
     <Content>
+      <ToastContainer />
+
       <div className="circle_top_left"></div>
       <div className="circle_top_right"></div>
       <div className="circle_mid_left"></div>
@@ -65,21 +67,19 @@ const Join_Group = () => {
       <Wrapper>
         <h1 style={{ paddingBottom: "1rem" }}>Join an existing group</h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input_div">
             <input
               type="text"
               placeholder="Paste your invite link here"
-              value={inviteCode}
-              onChange={(e) => setInviteCode(e.target.value)}
+              value={inviteLink}
+              onChange={(e) => setInviteLink(e.target.value)}
             />
           </div>
 
           {error && <p className="error">{error}</p>}
 
-          <button onClick={handleSubmit} type="submit">
-            Join Group
-          </button>
+          <button type="submit">Join Group</button>
         </form>
       </Wrapper>
     </Content>

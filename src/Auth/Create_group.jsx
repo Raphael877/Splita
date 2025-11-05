@@ -61,7 +61,9 @@ const Create_group = () => {
   );
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const handleCreate = async () => {
+  const handleCreate = async (e) => {
+    e.preventDefault();
+
     try {
       setLoading(true);
       const res = await axios.post(`${BaseUrl}/groups/create`, formData, {
@@ -75,11 +77,11 @@ const Create_group = () => {
       console.log(groupId);
       console.log(res);
       toast.success(res?.data?.message);
+      handleSubmit();
     } catch (error) {
-      // toast.error(res?.data?.message);
+      toast.error(error?.data?.message);
     } finally {
       setLoading(false);
-      handleSubmit();
     }
   };
 
