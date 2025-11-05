@@ -21,6 +21,7 @@ const UserDashDetails = () => {
   );
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const userId = JSON.parse(localStorage.getItem("userid"));
+  console.log(userId);
 
   const id = JSON.parse(localStorage.getItem("createdGroupId"));
   useEffect(() => {
