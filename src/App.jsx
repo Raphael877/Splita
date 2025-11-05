@@ -93,7 +93,7 @@ const App = () => {
           element={<ProtectedRoute>
                     <UserDashboard />
                   </ProtectedRoute>}/> */}
-        <Route path="/join_group" element={<Join_Group />} />
+        <Route path="/join_group/:groupid/:invite" element={<Join_Group />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>

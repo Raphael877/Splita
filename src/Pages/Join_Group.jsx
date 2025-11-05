@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Splita_logo from "../assets/Splita_logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -10,6 +10,8 @@ const Join_Group = () => {
   const navigate = useNavigate();
   const [inviteLink, setInviteLink] = useState("");
   const [error, setError] = useState("");
+  const { groupid, invite } = useParams();
+  console.log(groupid, invite);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handleSubmit = async (e) => {
@@ -20,6 +22,7 @@ const Join_Group = () => {
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
+    console.log(id);
 
     try {
       const res = await axios.post(
