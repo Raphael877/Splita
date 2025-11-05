@@ -39,6 +39,7 @@ const UserDashDetails = () => {
       }
     };
     if (userId) handleDetails();
+    
     const contributionsummary = async () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {

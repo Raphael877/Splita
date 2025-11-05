@@ -55,7 +55,7 @@ const Join_Group = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
       </div>
 
       <div
