@@ -53,7 +53,7 @@ const GroupCreated = () => {
         <Inner_main>
           <h1>{groupName}</h1>
           <p style={{ color: "#666666" }}>Created on Aug 21, 2025</p>
-          <div className="back" style={{ cursor: "pointer" }}>
+          <div className="back" onClick={() => navigate('userdashboard')} style={{ cursor: "pointer" }}>
             <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
             <p>back home</p>
           </div>
@@ -151,6 +151,19 @@ const Created = styled.div`
     .party_icon {
       font-size: 10rem;
       color: #7b2bbd;
+      animation: move 3s infinite;
+
+      @keyframes move {
+        0%{
+          scale: 0.5;
+        }
+        50%{
+          scale: 0.7;
+        }
+        100%{
+          scale: 1;
+        }
+      }
 
       @media (max-width: 768px) {
         font-size: 7rem;

@@ -10,6 +10,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [formData, setFormData] = useState({
     bankName: "",
@@ -41,6 +42,10 @@ const Add_payout_bank = ({ onSave, onClose }) => {
     "Moniepoint",
     "PalmPay",
   ];
+
+  const filteredBanks = banks.filter((bank) =>
+    bank.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleBankSelect = (bank) => {
     setSelectedBank(bank);
@@ -122,11 +127,31 @@ const Add_payout_bank = ({ onSave, onClose }) => {
 
               {openDropdown && (
                 <div className="bank_dropdown">
-                  {banks.map((bank) => (
-                    <p key={bank} onClick={() => handleBankSelect(bank)}>
-                      {bank}
+                  <input
+                    type="text"
+                    placeholder="Search banks..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={{
+                      width: "95%",
+                      margin: "0.5rem",
+                      padding: "0.4rem",
+                      borderRadius: "0.4rem",
+                      border: "1px solid #ccc",
+                      outline: "none",
+                    }}
+                  />
+                  {filteredBanks.length > 0 ? (
+                    filteredBanks.map((bank) => (
+                      <p key={bank} onClick={() => handleBankSelect(bank)}>
+                        {bank}
+                      </p>
+                    ))
+                  ) : (
+                    <p style={{ padding: "0.5rem 1rem", color: "#999" }}>
+                      No results found
                     </p>
-                  ))}
+                  )}
                 </div>
               )}
             </div>
