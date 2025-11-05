@@ -13,7 +13,6 @@ const GroupCreated = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   const groupName =
     (location?.state && location.state.groupName) ||
     (typeof window !== "undefined"
@@ -34,11 +33,12 @@ const GroupCreated = () => {
           "Content-Type": "application/json",
         },
       });
-      const inviteCode = res.data.inviteCode;
+      const inviteLink = res.data.inviteLink;
       localStorage.setItem(
         "latestInvite",
-        JSON.stringify({ groupId: id, inviteCode })
+        JSON.stringify({ groupId: id, inviteLink })
       );
+      await navigator.clipboard.writeText(inviteLink);
       console.log("res", res);
     } catch (error) {
       console.log("error", error);
