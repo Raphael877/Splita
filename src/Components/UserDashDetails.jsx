@@ -221,7 +221,7 @@ const UserDashDetails = () => {
                           onClick={() => {
                             if (group.myRole === "admin") {
                               navigate(
-                                `/admincirclestartvacationdashboard/${group.id}`
+                               ` /admincirclestartvacationdashboard/${group.id}`
                               );
                             } else if (group.myRole === "user") {
                               navigate(`/womendashboard/${group.id}`);
