@@ -10,10 +10,12 @@ import AutomaticRotation from '../Components/CreategroupModal/AutomaticRotation.
 import PayoutManually from '../Components/Payout/PayoutManually.jsx';
 import PayoutManuallySuccessful from '../Components/Payout/PayoutManuallySuccessful.jsx';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RequestApproved = () => {
   
   const location = useLocation();
+  const navigate = useNavigate();
 
   const groupName =
     (location?.state && location.state.groupName) ||
@@ -46,7 +48,7 @@ const RequestApproved = () => {
           </button>
         </div>
 
-        <div className="back" style={{ cursor: "pointer" }}>
+        <div className="back" onClick={() => navigate('/userdashboard')} style={{ cursor: "pointer" }}>
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
           <p>back home</p>
         </div>

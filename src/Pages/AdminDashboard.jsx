@@ -97,7 +97,7 @@ const AdminDashboard = () => {
                         </button>
                     </div>            
             </div>
-            <div className="back" style={{ cursor: "pointer" }}>
+            <div className="back" onClick={() => navigate('/userdashboard')} style={{ cursor: "pointer" }}>
                 <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
                 <p>back home</p>
             </div>

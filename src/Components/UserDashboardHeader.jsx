@@ -35,7 +35,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         />
         <ul>
           <li
-            className={location.pathname === "/userdashboard" ? "active" : ""}
+            className={location.pathname === "/dashboard" ? "active" : ""}
             onClick={() => navigate("/userdashboard")}
           >
             Home
@@ -63,7 +63,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
             <div className="dp">
               <img src={Avatar} />
             </div>
-            <p>{userData?.fullName || userData?.name || "User"}</p>
+            <p>{userData.fullName || "User"}</p>
             <IoIosArrowDown />
           </div>
 

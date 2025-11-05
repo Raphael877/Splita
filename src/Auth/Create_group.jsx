@@ -99,7 +99,7 @@ const Create_group = () => {
 
       <div
         className="back"
-        onClick={() => navigate("/userdashboard")}
+        onClick={() => navigate(-1)}
         style={{ cursor: "pointer" }}
       >
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
