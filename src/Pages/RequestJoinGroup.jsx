@@ -2,7 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 // import AdminDashboardHeader from "../Components/AdminDashboardHeader.jsx";
 // import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+// import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // import { useNavigate, useLocation } from "react-router-dom";
 // import { IoIosArrowRoundBack } from "react-icons/io";
 import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
@@ -10,7 +11,7 @@ import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
 
 const RequestJoinGroup = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;

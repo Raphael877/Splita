@@ -87,7 +87,7 @@ const SignIn = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')}/>
       </div>
 
       <SignIn_wrapper>

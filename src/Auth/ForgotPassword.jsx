@@ -54,7 +54,7 @@ const ForgotPassword = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita logo" />
+        <img src={Splita_logo} alt="Splita logo"  onClick={() => navigate('/')}/>
       </div>
 
       <ForgotPassword_wrapper>
