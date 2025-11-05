@@ -13,7 +13,7 @@ const Groups = () => {
         <Wrapper>
             <UserDashboardHeader />
             <div className='back_wrap'>
-                <p className='back' onClick={() => navigate('/useremptystate')}><IoIosArrowRoundBack style={{fontWeight: 'bold', fontSize: '1.5rem'}}/>Back home</p>
+                <p className='back' onClick={() => navigate('/userdashboard')}><IoIosArrowRoundBack style={{fontWeight: 'bold', fontSize: '1.5rem'}}/>Back home</p>
             </div>    
             <Oops>
                 <div className='oops_wrapper'>

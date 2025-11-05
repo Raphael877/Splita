@@ -1,8 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import UserDashboardHeader from '../Components/UserDashboardHeader.jsx'
-import UserDashboardFooter from '../Components/UserDashboardFooter.jsx';
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
+import UserDashboardHeader from "../Components/UserDashboardHeader.jsx";
+import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
+
 import { TbCurrencyNaira } from "react-icons/tb";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
@@ -10,346 +11,416 @@ import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
+import axios from "axios";
+
+const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+const BaseUrl = import.meta.env.VITE_BaseUrl;
 
 const WomenDashboard = () => {
+  const { groupId } = useParams();
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [groupDetails, setGroupDetails] = useState([]);
+  useEffect(() => {
+    const fetchGroup = async () => {
+      try {
+        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        setGroupDetails(res.data);
+        console.log("Group details:", res.data);
 
-    const Array = [
-        {   id: 1,
-            top: 'Contribution Amount',
-            mid: 'N200,000 ',
-            bottom: 'Per member',
-            icon : <BsCash/>,
-            bgcolor: "#efd5f2",
-            color: '#7b2cbf'
-        },
-        {   id: 2,
-            top: 'Cycle duration',
-            mid: 'Weekly' ,
-            bottom: 'Frequency',
-            icon : <MdOutlineEventNote/>,
-            bgcolor: "#fee1ef",
-            color: '#f967ad'
-        },
-        {   id: 3,
-            top: 'Total Members',
-            mid: '10' ,
-            bottom: 'Active',
-            icon : <HiOutlineUserGroup/>,
-            bgcolor: "#ffe4cc",
-            color: '#ff7900'
-        },
-        {   id: 4,
-            top: 'Current Pot',
-            mid: 'N300,000' ,
-            bottom: 'Group Wallet',
-            icon : <PiCoinsLight/>,
-            bgcolor: "#d6ecd1",
-            color: '#34a218'
-        },
-    ];
+        localStorage.setItem("selectedGroupId", groupId);
+        console.log("Group ID saved:", groupId);
+      } catch (error) {
+        console.error("Error fetching group:", error);
+      }
+    };
+    if (groupId) fetchGroup();
+  }, []);
+  const id = localStorage.getItem("selectedGroupId");
+  const handlContribute = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${id}/contribute`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setGroupDetails(res?.data);
+      console.log("Fetched groups:", res.data);
+    } catch (error) {
+      console.log("Error fetching groups:", error);
+    }
+  };
+
+  const Array = [
+    {
+      id: 1,
+      top: "Contribution Amount",
+      mid: "0.00",
+      bottom: "Per member",
+      icon: <BsCash />,
+      bgcolor: "#efd5f2",
+      color: "#7b2cbf",
+    },
+    {
+      id: 2,
+      top: "Cycle duration",
+      mid: groupDetails?.group?.contributionFrequency,
+      bottom: "Frequency",
+      icon: <MdOutlineEventNote />,
+      bgcolor: "#fee1ef",
+      color: "#f967ad",
+    },
+    {
+      id: 3,
+      top: "Total Members",
+      mid: groupDetails?.group?.members?.length,
+      bottom: "Active",
+      icon: <HiOutlineUserGroup />,
+      bgcolor: "#ffe4cc",
+      color: "#ff7900",
+    },
+    {
+      id: 4,
+      top: "Current Pot",
+      mid: groupDetails?.group?.contributionAmount,
+      bottom: "Group Wallet",
+      icon: <PiCoinsLight />,
+      bgcolor: "#d6ecd1",
+      color: "#34a218",
+    },
+  ];
 
   return (
     <AdminDashboard_content>
-        <AdminDashboard_wrapper>
-            <UserDashboardHeader />
-            <div className='groupname'><h1>Women in Tech Ajo</h1></div>
-            <div className='round'>
-                <div className='left'>
-                    <p>Round <span>3/10</span></p>
-                    <div className='ongoing'>
-                        <p style={{color: '#3b82f6', fontSize: '0.8rem'}}>Ongoing</p>
-                    </div>
-                </div>
-                <div className='right'>
-                    <button className='btn2'><TbCurrencyNaira style={{fontSize: '1rem'}}/><p>Make Contribution</p></button>
-                </div>
+      <AdminDashboard_wrapper>
+        <UserDashboardHeader />
+        <div className="groupname">
+          <h1>{groupDetails?.group?.groupName}</h1>
+        </div>
+        <div className="round">
+          <div className="left">
+            <p>
+              Round <span>3/10</span>
+            </p>
+            <div className="ongoing">
+              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>Ongoing</p>
             </div>
-            <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate('/userdashboard')}>
-                <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
-                <p>back home</p>
-            </div>
+          </div>
+          <div className="right">
+            <button className="btn2">
+              <TbCurrencyNaira style={{ fontSize: "1rem" }} />
+              <p onClick={handlContribute}>Make Contribution</p>
+            </button>
+          </div>
+        </div>
+        <div
+          className="back"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/userdashboard")}
+        >
+          <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
+          <p>back home</p>
+        </div>
 
-            <Ad>
-                <div className='Ad_wrap'>
-                    {Array.map((items) =>
-                    <div className='card' id={items.id}>
-                        <div className='card_wrapper'>
-                            <div className='left'>
-                                <p>{items.top}</p>
-                                <h3>{items.mid}</h3>
-                                <p><small style={{color: '#828181'}}>{items.bottom}</small></p>
-                            </div>
-                            <div className='right' style={{backgroundColor: items.bgcolor, color: items.color}}>
-                                {items.icon}
-                            </div>
-                        </div>
-                    </div>
-                    )}
+        <Ad>
+          <div className="Ad_wrap">
+            {Array.map((items) => (
+              <div className="card" id={items.id}>
+                <div className="card_wrapper">
+                  <div className="left">
+                    <p>{items.top}</p>
+                    <h3>{items.mid}</h3>
+                    <p>
+                      <small style={{ color: "#828181" }}>{items.bottom}</small>
+                    </p>
+                  </div>
+                  <div
+                    className="right"
+                    style={{
+                      backgroundColor: items.bgcolor,
+                      color: items.color,
+                    }}
+                  >
+                    {items.icon}
+                  </div>
                 </div>
-            </Ad>
-            <div className='option'>
-                <div className='option_wrap'>
-                    <div className='inner_wrap'>
-                        <div className='mem' onClick={() => navigate('')}>
-                            <p>Members</p>
-                        </div>
-                        <div className='cont' onClick={() => navigate('women_contribution')}>
-                            <p>Contributions</p>
-                        </div>
-                    </div>
-                </div>
+              </div>
+            ))}
+          </div>
+        </Ad>
+        <div className="option">
+          <div className="option_wrap">
+            <div className="inner_wrap">
+              <div className="mem" onClick={() => navigate("")}>
+                <p>Members</p>
+              </div>
+              <div
+                className="cont"
+                onClick={() => navigate("women_contribution")}
+              >
+                <p>Contributions</p>
+              </div>
             </div>
-            <Outlet />
-            <UserDashboardFooter />
-        </AdminDashboard_wrapper>
+          </div>
+        </div>
+        <Outlet />
+        <UserDashboardFooter />
+      </AdminDashboard_wrapper>
     </AdminDashboard_content>
-  )
-}
+  );
+};
 
-export default WomenDashboard
+export default WomenDashboard;
 
 const AdminDashboard_content = styled.div`
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f5f0;
-`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f5f0;
+`;
 
 const AdminDashboard_wrapper = styled.div`
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .groupname {
+    width: 80%;
+    margin-top: 18vh;
+
+    @media (max-width: 768px) {
+      width: 90%;
+      word-spacing: 10px;
+      letter-spacing: 5px;
+    }
+  }
+
+  .round {
+    width: 81%;
+    height: 10vh;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 
-    .groupname{
-        width: 80%;
-        margin-top: 18vh;
-
-        @media (max-width: 768px) {
-            width: 90%;
-            word-spacing: 10px;
-            letter-spacing: 5px;
-        }
+    @media (max-width: 768px) {
+      align-items: start;
+      flex-direction: column;
+      width: 90%;
+      gap: 0.5rem;
+      height: 17vh;
     }
 
-    .round{
-        width: 81%;
-        height: 10vh;
+    .left {
+      width: 18%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      p {
+        color: #666666;
+
+        span {
+          color: #afadab;
+        }
+      }
+
+      .ongoing {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.8rem;
+        padding-block: 0.3rem;
+        padding-inline: 1rem;
+        background-color: #d2def1;
+      }
+    }
+
+    .right {
+      width: 30%;
+      height: 70%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .btn2 {
+        width: 65%;
+        height: 100%;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        background-color: #7b2cbf;
+        color: white;
+        &:hover {
+          background-color: #9472b2;
+          transition: all 350ms ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .back {
+    width: 85%;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .option {
+    width: 75%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+
+    .option_wrap {
+      width: 45%;
+      height: 70%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .inner_wrap {
+        width: 90%;
+        height: 75%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #d6beeb;
+        border-radius: 0.5rem;
+
+        .mem {
+          width: 40%;
+          height: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          border-radius: 0.5rem;
+          background-color: #9556cc;
+          cursor: pointer;
+          &:hover {
+            background-color: #9472b2;
+            transition: all 350ms ease-in-out;
+          }
+        }
+
+        .cont {
+          width: 40%;
+          height: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          &:hover {
+            background-color: #9472b2;
+            transition: all 350ms ease-in-out;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+`;
+
+const Ad = styled.div`
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    height: 60vh;
+  }
+
+  .Ad_wrap {
+    width: 85%;
+    height: 80%;
+    display: flex;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+    }
+
+    .card {
+      width: 24%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+      @media (max-width: 768px) {
+        width: 48%;
+        height: 50%;
+      }
+
+      .card_wrapper {
+        width: 85%;
+        height: 90%;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        @media (max-width: 768px) {
-            align-items: start;
-            flex-direction: column;
-            width: 90%;
-            gap: 0.5rem;
-            height: 17vh;
-        }    
-
-        .left{
-            width: 18%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            @media (max-width: 768px) {
-                width: 100%;
-                justify-content: flex-start;
-                gap: 1rem;
-            }
-
-            p{
-                color: #666666;
-
-                span{
-                    color: #afadab;
-                }
-            }
-
-            .ongoing{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 0.8rem;
-                padding-block: 0.3rem;
-                padding-inline: 1rem;
-                background-color: #d2def1;
-            }
+        .left {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
         }
 
-        .right{
-            width: 30%;
-            height: 70%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-
-            @media (max-width: 768px) {
-                width: 100%;
-            }
-            
-            .btn2{
-                width: 65%;
-                height: 100%;
-                display: flex;
-                gap: 0.5rem;
-                justify-content: center;
-                align-items: center;
-                border: none;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                background-color: #7b2cbf;
-                color: white;
-                &:hover{
-                    background-color: #9472b2;
-                    transition: all 350ms ease-in-out;
-                }
-
-                @media (max-width: 768px) {
-                    width: 100%;
-                }
-            }
+        .right {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 2.2rem;
+          height: 2.2rem;
+          border-radius: 50%;
+          font-size: 1.3rem;
         }
+      }
     }
-
-    .back{
-        width: 85%;
-        display: flex;
-        align-items: center;
-
-        @media (max-width: 768px) {
-            margin-top: 0.5rem;
-        }
-    }
-
-    .option{
-        width: 75%;
-        height: 20vh;
-        display: flex;
-        align-items: center;
-
-        .option_wrap{
-            width: 45%;
-            height: 70%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            @media (max-width: 768px) {
-                width: 100%;
-            }
-
-            .inner_wrap{
-                width: 90%;
-                height: 75%;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                background-color: #d6beeb;
-                border-radius: 0.5rem;
-
-                .mem{
-                    width: 40%;
-                    height: 60%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: white;
-                    border-radius: 0.5rem;
-                    background-color: #9556cc;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #9472b2;
-                        transition: all 350ms ease-in-out;
-                    }
-                }
-
-                .cont{
-                    width: 40%;
-                    height: 60%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 0.5rem;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #9472b2;
-                        transition: all 350ms ease-in-out;
-                        color: white;
-                    }
-                }
-            }
-        }
-    }
-`
-
-const Ad = styled.div`
-    width: 100%;
-    height: 35vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        height: 60vh;
-    }
-
-    .Ad_wrap{
-        width: 85%;
-        height: 80%;
-        display: flex;
-        gap: 1rem;
-
-        @media (max-width: 768px) {
-            flex-wrap: wrap;
-        }
-
-        .card{
-            width: 24%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-            @media (max-width: 768px) {
-                width: 48%;
-                height: 50%;
-            }
-
-            .card_wrapper{
-                width: 85%;
-                height: 90%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                .left{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                }
-
-                .right{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 2.2rem;
-                    height: 2.2rem;
-                    border-radius: 50%;
-                    font-size: 1.3rem;
-                }
-            }
-        }
-    }
-`
-
+  }
+`;

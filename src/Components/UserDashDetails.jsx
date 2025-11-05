@@ -7,35 +7,53 @@ import { CiBellOn, CiTrophy } from "react-icons/ci";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { TiTick } from "react-icons/ti";
 import { BsCash } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserDashDetails = () => {
+  const { groupId } = useParams();
+  console.log("Group ID:", groupId);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
-
-  const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
+  const [groups, setGroups] = useState([]);
+  const [summary, setSummary] = useState([]);
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const userId = JSON.parse(localStorage.getItem("userid"));
 
+  const id = JSON.parse(localStorage.getItem("createdGroupId"));
   useEffect(() => {
-    const getUserData = async () => {
+    const handleDetails = async () => {
       try {
-        const res = await axios.get(`${BaseUrl}${userId}`, {
+        const res = await axios.get(`${BaseUrl}/groups/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
-
-        setUserData(res.data); 
+        console.log(res.data);
+        setGroups(res.data?.data || []);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.log("Error fetching groups:", error);
       }
     };
-
-    if (userId) {
-      getUserData();
-    }
-  }, [userId]);
+    if (userId) handleDetails();
+    const contributionsummary = async () => {
+      try {
+        const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        setSummary(res.data?.data || []);
+      } catch (error) {
+        console.log("Error fetching groups:", error);
+      }
+    };
+    if (userId) contributionsummary();
+  }, []);
 
   return (
     <UserDashDetails_content>
@@ -43,9 +61,10 @@ const UserDashDetails = () => {
         <Hello>
           <div className="left">
             <h1>Welcome Back,</h1>
-            <h2>{userId?.name} ! 👋🏽</h2>
+            <h2>{userId?.name} 👋🏽</h2>
             <p style={{ color: "#240046" }}>
-              You have 2 active groups and 1 payout coming up this week.
+              You have {groups?.length} active groups and 1 payout coming up
+              this week.
             </p>
           </div>
           <div className="hello_btn">
@@ -76,7 +95,7 @@ const UserDashDetails = () => {
                   <TiGroupOutline />
                 </div>
                 <p>Active groups</p>
-                <p style={{ fontWeight: "bold" }}>3 groups</p>
+                <p style={{ fontWeight: "bold" }}>{groups?.length} groups</p>
               </div>
             </div>
 
@@ -120,7 +139,7 @@ const UserDashDetails = () => {
               <div className="top">
                 <h1>My groups</h1>
                 <p
-                  onClick={() => navigate("/mygroup")}
+                  onClick={() => navigate("/mygroupdetail")}
                   style={{
                     color: "#7b2cbf",
                     fontWeight: "bolder",
@@ -130,138 +149,98 @@ const UserDashDetails = () => {
                   <small>View all</small>
                 </p>
               </div>
-              <div className="main_top_group">
-                <div className="group">
-                  <div className="wrapper">
-                    <div className="women">
-                      <p>
-                        <strong>Women in Tech Ajo</strong>
-                      </p>
-                      <div className="in_prog">
-                        <p>
-                          <small>in progress</small>
-                        </p>
+              <div
+                className="main_top_group"
+                style={{
+                  maxHeight: "400px",
+                  overflowY: "auto",
+                }}
+              >
+                {groups?.length > 0 ? (
+                  groups.slice(0, 2).map((group, index) => (
+                    <div className="group" key={index}>
+                      <div className="wrapper">
+                        <div className="women">
+                          <p>
+                            <strong>{group.groupName}</strong>
+                          </p>
+                          <div className="in_prog">
+                            <p>
+                              <small>in progress</small>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p_cont">
+                          <p>
+                            <small>Progress</small>
+                          </p>
+                          <p>
+                            <small>{group.progress || "0/10 Payouts"}</small>
+                          </p>
+                        </div>
+                        <div
+                          className="progress_parent1"
+                          style={{ marginBottom: "1rem" }}
+                        >
+                          <div className="progress_child1"></div>
+                        </div>
+                        <div className="total_naira">
+                          <p>
+                            <small>Total Pot</small>
+                          </p>
+                          <p>
+                            <TbCurrencyNaira />
+                            <small>{group.totalPot || 0}</small>
+                          </p>
+                        </div>
+                        <div className="last_date">
+                          <p>
+                            <small>Last contribution</small>
+                          </p>
+                          <p>
+                            <small>{group.lastContributionDate || "N/A"}</small>
+                          </p>
+                        </div>
+                        <div className="cycle_round">
+                          <p>
+                            <small>Cycle</small>
+                          </p>
+                          <p>
+                            <small>{group.cycle || "N/A"}</small>
+                          </p>
+                        </div>
+                        <div className="role_mem">
+                          <p>
+                            <small>Role</small>
+                          </p>
+                          <p>
+                            <small>{group.myRole || "Member"}</small>
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            if (group.myRole === "admin") {
+                              navigate(
+                                `/admincirclestartvacationdashboard/${group.id}`
+                              );
+                            } else if (group.myRole === "user") {
+                              navigate(`/womendashboard/${group.id}`);
+                            } else {
+                              console.warn("Unknown role:", myRole);
+                            }
+                          }}
+                        >
+                          View group details
+                        </button>
                       </div>
                     </div>
-                    <div className="p_cont">
-                      <p>
-                        <small>Progress</small>
-                      </p>
-                      <p>
-                        <small>4/10 Payouts</small>
-                      </p>
-                    </div>
-                    <div
-                      className="progress_parent1"
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <div className="progress_child1"></div>
-                    </div>
-                    <div className="total_naira">
-                      <p>
-                        <small>Total Pot</small>
-                      </p>
-                      <p>
-                        <TbCurrencyNaira />
-                        <small>300,000</small>
-                      </p>
-                    </div>
-                    <div className="last_date">
-                      <p>
-                        <small>Last contribution</small>
-                      </p>
-                      <p>
-                        <small>Oct 12, 2025</small>
-                      </p>
-                    </div>
-                    <div className="cycle_round">
-                      <p>
-                        <small>Cycle</small>
-                      </p>
-                      <p>
-                        <small>Round 3/10</small>
-                      </p>
-                    </div>
-                    <div className="role_mem">
-                      <p>
-                        <small>Role</small>
-                      </p>
-                      <p>
-                        <small>Member</small>
-                      </p>
-                    </div>
-                    <button onClick={() => navigate("/womendashboard")}>
-                      View Details
-                    </button>
-                  </div>
-                </div>
-
-                <div className="group">
-                  <div className="wrapper">
-                    <div className="women">
-                      <p>
-                        <strong>Obele Ajo</strong>
-                      </p>
-                      <div className="in_prog">
-                        <p>
-                          <small>Due soon</small>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="p_cont">
-                      <p>
-                        <small>Progress</small>
-                      </p>
-                      <p>
-                        <small>8/10 Payouts</small>
-                      </p>
-                    </div>
-                    <div
-                      className="progress_parent2"
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <div className="progress_child2"></div>
-                    </div>
-                    <div className="total_naira">
-                      <p>
-                        <small>Total Pot</small>
-                      </p>
-                      <p>
-                        <TbCurrencyNaira />
-                        <small>500,000</small>
-                      </p>
-                    </div>
-                    <div className="last_date">
-                      <p>
-                        <small>Last contribution</small>
-                      </p>
-                      <p>
-                        <small>Oct 1, 2025</small>
-                      </p>
-                    </div>
-                    <div className="cycle_round">
-                      <p>
-                        <small>Cycle</small>
-                      </p>
-                      <p>
-                        <small>Round 6/10</small>
-                      </p>
-                    </div>
-                    <div className="role_mem">
-                      <p>
-                        <small>Role</small>
-                      </p>
-                      <p>
-                        <small>Admin</small>
-                      </p>
-                    </div>
-                    <button onClick={() => navigate("/obele")}>
-                      View Details
-                    </button>
-                  </div>
-                </div>
+                  ))
+                ) : (
+                  <p>No groups found</p>
+                )}
               </div>
             </My_groups>
+
             <Recent>
               <h1>Recent Updates</h1>
               <div className="recent_updates">
@@ -277,7 +256,6 @@ const UserDashDetails = () => {
                       <p style={{ color: "#939393" }}>2 hours ago</p>
                     </div>
                   </div>
-
                   <div className="one">
                     <div className="left2">
                       <BsCash />
@@ -289,7 +267,6 @@ const UserDashDetails = () => {
                       <p style={{ color: "#939393" }}>1 week ago</p>
                     </div>
                   </div>
-
                   <div className="one">
                     <div className="left3">
                       <MdOutlinePersonAddAlt />
@@ -301,7 +278,6 @@ const UserDashDetails = () => {
                       <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
-
                   <div className="one">
                     <div className="left4">
                       <CiTrophy />
@@ -317,101 +293,42 @@ const UserDashDetails = () => {
               </div>
             </Recent>
           </Left>
+
           <Right>
             <h3>Contribution Summary</h3>
             <div className="card_container">
-              <div className="contribution-card">
-                <p style={{ paddingLeft: "0.8rem", paddingTop: "0.8rem" }}>
-                  Women in Tech
-                </p>
-                <div className="content">
-                  <div className="row">
-                    <p>Your Contribution</p>
-                    <p className="amount">₦ 60,000</p>
-                  </div>
-
-                  <div className="progress-circle">
-                    <div className="circle1">
-                      <div className="inner-circle">
-                        <span>40%</span>
+              {groups?.map((group, index) => (
+                <div className="contribution-card" key={index}>
+                  <p style={{ paddingLeft: "0.8rem", paddingTop: "0.8rem" }}>
+                    {group.groupName}
+                  </p>
+                  <div className="content">
+                    <div className="row">
+                      <p>Your Contribution</p>
+                      <p className="amount">
+                        ₦ {group.contributionAmount || 0}
+                      </p>
+                    </div>
+                    <div className="progress-circle">
+                      <div className="circle1">
+                        <div className="inner-circle">
+                          <span>{group.progressPercentage || "0%"} </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="info">
+                      <div className="row">
+                        <p>Next contribution Date</p>
+                        <p>{group.nextContributionDate || "N/A"}</p>
+                      </div>
+                      <div className="row">
+                        <p>Yet to Pay</p>
+                        <p>{group.yetToPay || "N/A"} members</p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="info">
-                    <div className="row">
-                      <p>Next contribution Date</p>
-                      <p>Oct 25, 2025</p>
-                    </div>
-                    <div className="row">
-                      <p>Yet to Pay</p>
-                      <p>4 members</p>
-                    </div>
-                  </div>
                 </div>
-              </div>
-
-              <div className="contribution-card">
-                <p style={{ paddingLeft: "0.8rem", paddingTop: "0.8rem" }}>
-                  Vacation Ajo
-                </p>
-                <div className="content">
-                  <div className="row">
-                    <p>Your Contribution</p>
-                    <p className="amount">₦ 400,000</p>
-                  </div>
-
-                  <div className="progress-circle">
-                    <div className="circle2">
-                      <div className="inner-circle">
-                        <span>70%</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="info">
-                    <div className="row">
-                      <p>Next contribution Date</p>
-                      <p>Oct 25, 2025</p>
-                    </div>
-                    <div className="row">
-                      <p>Yet to Pay</p>
-                      <p>4 members</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="contribution-card">
-                <p style={{ paddingLeft: "0.8rem", paddingTop: "0.8rem" }}>
-                  Obele Ajo
-                </p>
-                <div className="content">
-                  <div className="row">
-                    <p>Your Contribution</p>
-                    <p className="amount">₦ 50,000</p>
-                  </div>
-
-                  <div className="progress-circle">
-                    <div className="circle3">
-                      <div className="inner-circle">
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="info">
-                    <div className="row">
-                      <p>Next contribution Date</p>
-                      <p>Oct 25, 2025</p>
-                    </div>
-                    <div className="row">
-                      <p>Yet to Pay</p>
-                      <p>4 members</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </Right>
         </Main_bottom>
@@ -429,6 +346,10 @@ const UserDashDetails_content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    
+  }
 `;
 
 const UserDashDetails_wrapper = styled.div`
@@ -455,6 +376,7 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    height: 40vh;
   }
 
   .left {
@@ -560,6 +482,12 @@ const Details = styled.div`
         flex-direction: column;
         gap: 0.5rem;
 
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+
         .icon_cont {
           width: 2.2rem;
           height: 2.2rem;
@@ -597,6 +525,12 @@ const Details = styled.div`
         flex-direction: column;
         gap: 0.5rem;
 
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+
         .icon_cont {
           width: 2.2rem;
           height: 2.2rem;
@@ -633,6 +567,12 @@ const Details = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        p{
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
 
         .first {
           display: flex;
@@ -687,6 +627,12 @@ const Details = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        p{
+          @media (max-width: 768px) {
+            font-size: 13px;
+          }
+        }
 
         .first {
           display: flex;
