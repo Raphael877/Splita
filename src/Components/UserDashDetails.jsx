@@ -26,9 +26,9 @@ const UserDashDetails = () => {
   useEffect(() => {
     const handleDetails = async () => {
       try {
-        const res = await axios.get(${BaseUrl}/groups/all, {
+        const res = await axios.get(`${BaseUrl}/groups/all`, {
           headers: {
-            Authorization: Bearer ${token},
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
@@ -41,9 +41,9 @@ const UserDashDetails = () => {
     if (userId) handleDetails();
     const contributionsummary = async () => {
       try {
-        const res = await axios.get(${BaseUrl}/groups/${id}/summary, {
+        const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
           headers: {
-            Authorization: Bearer ${token},
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
@@ -221,10 +221,10 @@ const UserDashDetails = () => {
                           onClick={() => {
                             if (group.myRole === "admin") {
                               navigate(
-                                /admincirclestartvacationdashboard/${group.id}
+                                `/admincirclestartvacationdashboard/${group.id}`
                               );
                             } else if (group.myRole === "user") {
-                              navigate(/womendashboard/${group.id});
+                              navigate(`/womendashboard/${group.id}`);
                             } else {
                               console.warn("Unknown role:", myRole);
                             }
