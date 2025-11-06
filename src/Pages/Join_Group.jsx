@@ -27,7 +27,7 @@ const Join_Group = () => {
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/join/${id}/${invite}`,
-        { invite: inviteLink || invite },
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
