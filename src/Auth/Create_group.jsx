@@ -378,6 +378,17 @@ const Create_group_content = styled.div`
     top: 4%;
     right: 7%;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      top: 9%;
+      left: -65%;
+    }
+
+    p{
+    @media (max-width:768px) {
+      display: none;
+    }
+    }
   }
 `;
 
@@ -393,6 +404,7 @@ const Create_group_wrapper = styled.div`
 
   @media (max-width: 768px) {
     width: 85%;
+    padding-top: 8rem;
   }
 
   h1 {
@@ -400,6 +412,7 @@ const Create_group_wrapper = styled.div`
 
     @media (max-width: 768px) {
       text-align: center;
+      font-size: 2rem;
     }
   }
 
@@ -453,6 +466,10 @@ const Create_group_wrapper = styled.div`
       .label {
         display: flex;
         gap: 0.5rem;
+
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+        }
       }
 
       .input_div {
@@ -465,6 +482,10 @@ const Create_group_wrapper = styled.div`
         padding-right: 0.5rem;
         justify-content: space-between;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+          height: 2.8rem;
+        }
 
         p {
           color: #9c9a9a;
@@ -488,6 +509,11 @@ const Create_group_wrapper = styled.div`
       margin-top: 0.2rem;
       margin-left: 0.3rem;
       font-weight: 500;
+
+      @media (max-width: 768px) {
+        display: flex;
+        width: 100%;
+      }
     }
 
     button {
@@ -502,6 +528,10 @@ const Create_group_wrapper = styled.div`
       &:hover {
         background-color: #9472b2;
         transition: all 350ms ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        height: 3rem;
       }
     }
   }
