@@ -65,10 +65,6 @@ const SignUp = () => {
 
     if (password !== confirmPassword)
       newErrors.confirmPassword = "Passwords do not match.";
-    if (!formData.agree) {
-      newErrors.agree =
-        "You must agree to the Terms & Conditions before continuing.";
-    }
 
     setFormErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -118,7 +114,11 @@ const SignUp = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')}/>
+        <img
+          src={Splita_logo}
+          alt="Splita Logo"
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <ToastContainer />
@@ -192,7 +192,6 @@ const SignUp = () => {
             )}
           </div>
 
-
           <div className="inp">
             <div className="label">
               <MdLockOutline />
@@ -257,8 +256,6 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
-          {/* 👇 Place this just after the checkbox container */}
-          {formErrors.agree && <p className="error-text">{formErrors.agree}</p>}
 
           <button type="submit">
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
