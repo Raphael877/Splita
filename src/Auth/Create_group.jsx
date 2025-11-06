@@ -488,6 +488,11 @@ const Create_group_wrapper = styled.div`
       margin-top: 0.2rem;
       margin-left: 0.3rem;
       font-weight: 500;
+
+      @media (max-width: 768px) {
+        display: flex;
+        width: 100%;
+      }
     }
 
     button {
