@@ -25,6 +25,14 @@ import { useLocation } from "react-router-dom";
 const Start_group = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const groupName =
+      (location?.state && location.state.groupName) ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("createdGroupName")
+        : null) ||
+      "Not Available";
+      
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handleStartCycle = async () => {
@@ -43,12 +51,7 @@ const Start_group = () => {
     } finally {
       setLoading(false);
     }
-    const groupName =
-      (location?.state && location.state.groupName) ||
-      (typeof window !== "undefined"
-        ? localStorage.getItem("createdGroupName")
-        : null) ||
-      "Not Available";
+    
 
     const [showSelectPayout, setShowSelectPayout] = useState(false);
     const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
