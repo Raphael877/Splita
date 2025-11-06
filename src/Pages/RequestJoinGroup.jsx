@@ -13,13 +13,12 @@ import axios from "axios";
 const RequestJoinGroup = () => {
   // const navigate = useNavigate();
   const location = useLocation();
-
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const token = JSON.parse(localStorage.getItem("user_token"));
-  const userId = localStorage.getItem("userid");
+  const userId = JSON.parse(localStorage.getItem("userid"));
   const groupId = JSON.parse(localStorage.getItem("createdGroupId"));
 
-  const handleRequest = async (action) => {
+  const handleRequest = async (userId, action) => {
     try {
       const config = {
         headers: {
@@ -27,24 +26,19 @@ const RequestJoinGroup = () => {
         },
       };
 
-      let res;
-      if (action === "approve") {
-        res = await axios.post(
-          `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
-          {},
-          config
-        );
-      } else if (action === "delete") {
-        res = await axios.post(
-          `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
-          {},
-          config
-        );
-      }
-
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
+        { action },
+        config
+      );
+      setShowApproveModal(true);
+      setShowDeclineModal(true);
       console.log(`${action} successful:`, res.data);
     } catch (error) {
-      console.log(`Error performing ${action}:`, error.response?.data || error);
+      console.log(
+        `Error performing ${action}:`,
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -68,8 +62,6 @@ const RequestJoinGroup = () => {
   return (
     <AdminDashboard_content>
       <AdminDashboard_wrapper>
-        
-
         <Block>
           <div className="inner_block">
             <div className="block_wrap">
@@ -91,15 +83,13 @@ const RequestJoinGroup = () => {
                         <div className="btn">
                           <button
                             className="btn1"
-                            onClick={() => setShowApproveModal(true)}
-                            // onClick={() => handleRequest("approve")}
+                            onClick={() => handleRequest(userId, "accept")}
                           >
                             Approve
                           </button>
                           <button
                             className="btn2"
-                            // onClick={() => handleRequest("delete")}
-                            onClick={() => setShowDeclineModal(true)}
+                            onClick={() => handleRequest(userId, "reject")}
                           >
                             Decline
                           </button>

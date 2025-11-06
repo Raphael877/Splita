@@ -19,6 +19,7 @@ const Create_group = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showBankModal, setShowBankModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     groupName: "",
     contributionAmount: "",
@@ -61,8 +62,24 @@ const Create_group = () => {
   );
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.groupName.trim()) newErrors.groupName = "Group name is required.";
+    if (!formData.contributionAmount.trim()) newErrors.contributionAmount = "Contribution amount is required.";
+    if (!formData.contributionFrequency.trim()) newErrors.contributionFrequency = "Select a contribution frequency.";
+    if (!formData.payoutFrequency.trim()) newErrors.payoutFrequency = "Select a payout frequency.";
+    if (!formData.description.trim()) newErrors.description = "Please describe your group.";
+    if (!formData.totalMembers.trim()) newErrors.totalMembers = "Select total members.";
+    return newErrors;
+  };
+
   const handleCreate = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
 
     try {
       setLoading(true);
@@ -126,6 +143,7 @@ const Create_group = () => {
                 }
               />
             </div>
+            {errors.groupName && <p className="error">{errors.groupName}</p>}
           </div>
 
           <div className="inp">
@@ -146,6 +164,7 @@ const Create_group = () => {
                 }
               />
             </div>
+            {errors.contributionAmount && <p className="error">{errors.contributionAmount}</p>}
           </div>
 
           <div className="inp">
@@ -173,6 +192,7 @@ const Create_group = () => {
                 ))}
               </div>
             )}
+            {errors.contributionFrequency && <p className="error">{errors.contributionFrequency}</p>}
           </div>
 
           <div className="inp">
@@ -200,6 +220,7 @@ const Create_group = () => {
                 ))}
               </div>
             )}
+            {errors.payoutFrequency && <p className="error">{errors.payoutFrequency}</p>}
           </div>
 
           <div className="inp">
@@ -220,6 +241,7 @@ const Create_group = () => {
                 }
               />
             </div>
+            {errors.description && <p className="error">{errors.description}</p>}
           </div>
 
           <div className="inp">
@@ -247,6 +269,7 @@ const Create_group = () => {
                 ))}
               </div>
             )}
+            {errors.totalMembers && <p className="error">{errors.totalMembers}</p>}
           </div>
 
           {loading ? (
@@ -457,6 +480,14 @@ const Create_group_wrapper = styled.div`
           padding-left: 0.8rem;
         }
       }
+    }
+
+    .error {
+      color: #d93025; 
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+      margin-left: 0.3rem;
+      font-weight: 500;
     }
 
     button {
