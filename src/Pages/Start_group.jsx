@@ -24,7 +24,6 @@ const Start_group = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [loading, setLoading] = useState(false);
   const [showSelectPayout, setShowSelectPayout] = useState(false);
   const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
   const [showPayoutManually, setShowPayoutManually] = useState(false);
@@ -47,8 +46,6 @@ const Start_group = () => {
     console.log("GroupId:", groupId);
     console.log("Full URL:", `${BaseUrl}/groups/${groupId}/start-cycle`);
 
-    setLoading(true);
-
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/${groupId}/start-cycle`,
@@ -64,8 +61,6 @@ const Start_group = () => {
       toast.success(res.data?.message || "Cycle started successfully!");
     } catch (error) {
       console.error("Error starting cycle:", error.response || error);
-    } finally {
-      setLoading(false);
     }
   };
   const Array = [
