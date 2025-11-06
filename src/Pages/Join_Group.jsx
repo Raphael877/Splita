@@ -44,6 +44,8 @@ const Join_Group = () => {
     } catch (error) {
       console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
