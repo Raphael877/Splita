@@ -8,16 +8,14 @@ import { toast, ToastContainer } from "react-toastify";
 
 const Join_Group = () => {
   const [inviteLink, setInviteLink] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const { groupid, invite } = useParams();
   const navigate = useNavigate();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   useEffect(() => {
-    const id = JSON.parse(localStorage.getItem("createdGroupId"));
-    const token = JSON.parse(
-      localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-    );
+    const id = localStorage.getItem("createdGroupId");
+    const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 
     if (!id || !token) {
       toast.error("You must be logged in to join a group.");
@@ -28,10 +26,8 @@ const Join_Group = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const id = JSON.parse(localStorage.getItem("createdGroupId"));
-    const token = JSON.parse(
-      localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-    );
+    const id = localStorage.getItem("createdGroupId");
+    const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 
     if (!id || !token) {
       toast.error("Authentication failed. Please log in again.");
@@ -44,7 +40,7 @@ const Join_Group = () => {
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/join/${id}/${invite}`,
-        { invite: inviteLink || invite },
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,8 +96,9 @@ const Join_Group = () => {
               onChange={(e) => setInviteLink(e.target.value)}
             />
           </div>
-
-          <button type="submit">Join Group</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Joining..." : "Join Group"}
+          </button>
         </form>
       </Wrapper>
     </Content>
