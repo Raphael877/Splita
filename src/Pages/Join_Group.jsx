@@ -9,24 +9,54 @@ import { toast, ToastContainer } from "react-toastify";
 const Join_Group = () => {
   const navigate = useNavigate();
   const [inviteLink, setInviteLink] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { groupid, invite } = useParams();
-  console.log("di9in9", groupid, "new", invite);
+
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const id = JSON.parse(localStorage.getItem("createdGroupId"));
-    console.log("userid", id);
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
-    console.log(id);
+
+    if (!token) {
+      toast.error("Please log in to join a group.");
+      navigate("/signup");
+      return;
+    }
+
+    let actualGroupId = groupid;
+    let actualInviteCode = invite;
+
+    if (inviteLink && (!actualGroupId || !actualInviteCode)) {
+      try {
+        const parts = inviteLink.split("/");
+        actualGroupId = parts.at(-2);
+        actualInviteCode = parts.at(-1);
+      } catch {
+        toast.error("Invalid invite link format.");
+        return;
+      }
+    }
+
+    if (!actualGroupId || !actualInviteCode) {
+      toast.error("Invalid or missing invite link.");
+      return;
+    }
+
+    console.log("🧠 Joining group with:", {
+      groupid: actualGroupId,
+      invite: actualInviteCode,
+      url: `${BaseUrl}/groups/join/${actualGroupId}/${actualInviteCode}`,
+    });
+
+    setLoading(true);
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/join/${id}/${invite}`,
+        `${BaseUrl}/groups/join/${actualGroupId}/${actualInviteCode}`,
         {},
         {
           headers: {
@@ -36,12 +66,12 @@ const Join_Group = () => {
         }
       );
 
-      console.log("res", res);
       toast.success(res?.data?.message || "Joined group successfully!");
-      setError("");
     } catch (error) {
       console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,11 +115,9 @@ const Join_Group = () => {
             />
           </div>
 
-          {loading ? (
-            <button type="submit">Joining.....</button>
-          ) : (
-            <button type="submit">Join Group</button>
-          )}
+          <button type="submit" disabled={loading}>
+            {loading ? "Joining..." : "Join Group"}
+          </button>
         </form>
       </Wrapper>
     </Content>

@@ -41,10 +41,11 @@ const Start_group = () => {
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
     const token = localStorage.getItem("token");
-
-    console.log("BaseUrl:", BaseUrl);
-    console.log("GroupId:", groupId);
-    console.log("Full URL:", `${BaseUrl}/groups/${groupId}/start-cycle`);
+    console.log("🧠 Joining group with:", {
+      groupid,
+      invite,
+      url: `${BaseUrl}/groups/join/${groupid}/${invite}`,
+    });
 
     try {
       const res = await axios.post(
