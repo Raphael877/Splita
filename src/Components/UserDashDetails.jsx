@@ -378,6 +378,7 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    height: 40vh;
   }
 
   .left {
@@ -496,6 +497,7 @@ const Details = styled.div`
       @media (max-width: 768px) {
         width: 47%;
         height: 47%;
+        font-size: 0.85rem;
       }
 
       .card_wrapper {
@@ -533,6 +535,7 @@ const Details = styled.div`
       @media (max-width: 768px) {
         width: 47%;
         height: 47%;
+        font-size: 0.85rem;
       }
 
       .card_wrapper {
@@ -570,6 +573,7 @@ const Details = styled.div`
       @media (max-width: 768px) {
         width: 47%;
         height: 47%;
+        font-size: 0.85rem;
       }
 
       .card_wrapper {
@@ -624,6 +628,7 @@ const Details = styled.div`
       @media (max-width: 768px) {
         width: 47%;
         height: 47%;
+        font-size: 0.85rem;
       }
 
       .card_wrapper {
