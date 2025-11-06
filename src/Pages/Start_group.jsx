@@ -9,7 +9,6 @@ import PayoutManuallySuccessful from "../Components/Payout/PayoutManuallySuccess
 import Members from "../Components/Members";
 import Contribution from "../Components/Contribution";
 import RequestJoinGroup from "./RequestJoinGroup";
-// import RequestApproved from './RequestApproved';
 import { FiSend } from "react-icons/fi";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BsCash } from "react-icons/bs";
@@ -17,93 +16,106 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { PiCoinsLight } from "react-icons/pi";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-
-import { Outlet } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Start_group = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [loading, setLoading] = useState(false);
+  const [showSelectPayout, setShowSelectPayout] = useState(false);
+  const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
+  const [showPayoutManually, setShowPayoutManually] = useState(false);
+  const [showPayoutManuallySuccessful, setShowPayoutManuallySuccessful] =
+    useState(false);
+
+  const groupName =
+    (location?.state && location.state.groupName) ||
+    (typeof window !== "undefined"
+      ? localStorage.getItem("createdGroupName")
+      : null) ||
+    "Not Available";
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
+    const token = localStorage.getItem("token");
+
+    console.log("BaseUrl:", BaseUrl);
+    console.log("GroupId:", groupId);
+    console.log("Full URL:", `${BaseUrl}/groups/${groupId}/start-cycle`);
 
     setLoading(true);
+
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/${groupId}/start-cycle`,
-        {}
-      ); 
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       toast.success(res.data?.message || "Cycle started successfully!");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to start cycle");
       console.error("Error starting cycle:", error.response || error);
     } finally {
       setLoading(false);
     }
-    const groupName =
-      (location?.state && location.state.groupName) ||
-      (typeof window !== "undefined"
-        ? localStorage.getItem("createdGroupName")
-        : null) ||
-      "Not Available";
-
-    const [showSelectPayout, setShowSelectPayout] = useState(false);
-    const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
-    const [showPayoutManually, setShowPayoutManually] = useState(false);
-    const [showPayoutManuallySuccessful, setShowPayoutManuallySuccessful] =
-      useState(false);
-
-    const Array = [
-      {
-        id: 1,
-        top: "Contribution Amount",
-        mid: (
-          <>
-            <TbCurrencyNaira />
-            10,000
-          </>
-        ),
-        bottom: "Per member",
-        icon: <BsCash />,
-        bgcolor: "#efd5f2",
-        color: "#7b2cbf",
-      },
-      {
-        id: 2,
-        top: "Cycle duration",
-        mid: "Weekly",
-        bottom: "Frequency",
-        icon: <MdOutlineEventNote />,
-        bgcolor: "#fee1ef",
-        color: "#f967ad",
-      },
-      {
-        id: 3,
-        top: "Total Members",
-        mid: "0",
-        bottom: "Active",
-        icon: <HiOutlineUserGroup />,
-        bgcolor: "#ffe4cc",
-        color: "#ff7900",
-      },
-      {
-        id: 4,
-        top: "Current Pot",
-        mid: (
-          <>
-            <TbCurrencyNaira />0
-          </>
-        ),
-        bottom: "Group Wallet",
-        icon: <PiCoinsLight />,
-        bgcolor: "#d6ecd1",
-        color: "#34a218",
-      },
-    ];
   };
+  const Array = [
+    {
+      id: 1,
+      top: "Contribution Amount",
+      mid: (
+        <>
+          <TbCurrencyNaira />
+          10,000
+        </>
+      ),
+      bottom: "Per member",
+      icon: <BsCash />,
+      bgcolor: "#efd5f2",
+      color: "#7b2cbf",
+    },
+    {
+      id: 2,
+      top: "Cycle duration",
+      mid: "Weekly",
+      bottom: "Frequency",
+      icon: <MdOutlineEventNote />,
+      bgcolor: "#fee1ef",
+      color: "#f967ad",
+    },
+    {
+      id: 3,
+      top: "Total Members",
+      mid: "0",
+      bottom: "Active",
+      icon: <HiOutlineUserGroup />,
+      bgcolor: "#ffe4cc",
+      color: "#ff7900",
+    },
+    {
+      id: 4,
+      top: "Current Pot",
+      mid: (
+        <>
+          <TbCurrencyNaira />0
+        </>
+      ),
+      bottom: "Group Wallet",
+      icon: <PiCoinsLight />,
+      bgcolor: "#d6ecd1",
+      color: "#34a218",
+    },
+  ];
+
   return (
     <Content>
       <Wrapper>
@@ -111,6 +123,7 @@ const Start_group = () => {
         <div className="groupname">
           <h1>{groupName}</h1>
         </div>
+
         <div className="round">
           <div className="left">
             <p>
@@ -120,11 +133,12 @@ const Start_group = () => {
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>pending</p>
             </div>
           </div>
-          <button onClick={() => setShowSelectPayout(true)}>
+          <button onClick={handleStartCycle}>
             <FiSend />
             Start Cycle
           </button>
         </div>
+
         <div
           className="back"
           onClick={() => navigate("/userdashboard")}
@@ -137,7 +151,7 @@ const Start_group = () => {
         <Ad>
           <div className="Ad_wrap">
             {Array.map((items) => (
-              <div className="card" id={items.id}>
+              <div className="card" key={items.id}>
                 <div className="card_wrapper">
                   <div className="left">
                     <p>{items.top}</p>
@@ -162,6 +176,7 @@ const Start_group = () => {
             ))}
           </div>
         </Ad>
+
         <div className="option">
           <div className="option_wrap">
             <div className="inner_wrap">
@@ -193,7 +208,9 @@ const Start_group = () => {
             </div>
           </div>
         </div>
+
         <Outlet />
+
         {showSelectPayout && (
           <SelectPayout
             onClose={() => setShowSelectPayout(false)}
@@ -218,6 +235,7 @@ const Start_group = () => {
             onClose={() => setShowPayoutManuallySuccessful(false)}
           />
         )}
+
         <UserDashboardFooter />
       </Wrapper>
     </Content>
