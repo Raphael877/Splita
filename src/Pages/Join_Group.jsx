@@ -71,7 +71,12 @@ const Join_Group = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
+        <img
+          src={Splita_logo}
+          alt="Splita Logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        />
       </div>
 
       <div
@@ -95,8 +100,6 @@ const Join_Group = () => {
               onChange={(e) => setInviteLink(e.target.value)}
             />
           </div>
-
-          {error && <p className="error">{error}</p>}
 
           <button type="submit">Join Group</button>
         </form>
