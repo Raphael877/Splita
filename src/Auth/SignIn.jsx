@@ -68,7 +68,7 @@ const SignIn = () => {
       );
       toast.success(res?.data?.message || "Login successful!");
       console.log("res", res);
-      navigate("/userdashboard");
+      navigate("/userdashboardpage");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");
@@ -87,7 +87,7 @@ const SignIn = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')}/>
       </div>
 
       <SignIn_wrapper>
@@ -191,7 +191,7 @@ export default SignIn;
 
 const SignIn_content = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

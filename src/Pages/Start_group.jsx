@@ -1,102 +1,90 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components'
-import AdminDashboardHeader from '../Components/AdminDashboardHeader.jsx'
-import UserDashboardFooter from '../Components/UserDashboardFooter.jsx';
-import { Outlet, useNavigate } from "react-router-dom";
-import { TbCurrencyNaira } from "react-icons/tb";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import AdminDashboardHeader from '../Components/AdminDashboardHeader'
+import UserDashboardFooter from '../Components/UserDashboardFooter';
+import SelectPayout from '../Components/CreategroupModal/SelectPayout';
+import AutomaticRotation from '../Components/CreategroupModal/AutomaticRotation.jsx';
+import PayoutManually from '../Components/Payout/PayoutManually.jsx';
+import PayoutManuallySuccessful from '../Components/Payout/PayoutManuallySuccessful.jsx';
+import Members from '../Components/Members';
+import Contribution from '../Components/Contribution';
+import RequestJoinGroup from './RequestJoinGroup';
+// import RequestApproved from './RequestApproved';
 import { FiSend } from "react-icons/fi";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { BsCash } from "react-icons/bs";
-import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
+import { HiOutlineUserGroup } from "react-icons/hi";
 import { PiCoinsLight } from "react-icons/pi";
-import { useState } from 'react';
-import Payout from '../Components/Payout/Payout.jsx';
-import PayoutSuccessful from '../Components/Payout/PayoutSuccessful.jsx'
-import PayoutDetails from '../Components/Payout/PayoutDetails.jsx';
-import ConfirmPayout from '../Components/Payout/ConfirmPayout.jsx';
-import ContributionSummary from '../Components/ContibutionPop/ContributionSummary.jsx';
-import ContributionSuccessful from '../Components/ContibutionPop/ContributionSuccessful.jsx';
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
+import { Outlet } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
-const AdminDashboard = () => {
-
+const Start_group = () => {
+    
     const navigate = useNavigate();
     const location = useLocation();
-    
-        const groupName =
+
+    const groupName =
         (location?.state && location.state.groupName) ||
         (typeof window !== "undefined" ? localStorage.getItem("createdGroupName") : null) ||
           "Not Available";
-    
-        const [currentModal, setCurrentModal] = useState(null);
-        
-        const handleModalFlow = (modalName) => {
-            setCurrentModal(modalName);
-        };
+
+          const [showSelectPayout, setShowSelectPayout] = useState(false);
+            const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
+            const [showPayoutManually, setShowPayoutManually] = useState(false);
+            const [showPayoutManuallySuccessful, setShowPayoutManuallySuccessful] = useState(false);
 
     const Array = [
-        {   id: 1,
-            top: 'Contribution Amount',
-            mid: (<><TbCurrencyNaira/>10,000</>),
-            bottom: 'Per member',
-            icon : <BsCash/>,
-            bgcolor: "#efd5f2",
-            color: '#7b2cbf'
-        },
-        {   id: 2,
-            top: 'Cycle duration',
-            mid: 'Weekly' ,
-            bottom: 'Frequency',
-            icon : <MdOutlineEventNote/>,
-            bgcolor: "#fee1ef",
-            color: '#f967ad'
-        },
-        {   id: 3,
-            top: 'Total Members',
-            mid: '10' ,
-            bottom: 'Active',
-            icon : <HiOutlineUserGroup/>,
-            bgcolor: "#ffe4cc",
-            color: '#ff7900'
-        },
-        {   id: 4,
-            top: 'Current Pot',
-            mid: (<><TbCurrencyNaira/>100,000</>) ,
-            bottom: 'Group Wallet',
-            icon : <PiCoinsLight/>,
-            bgcolor: "#d6ecd1",
-            color: '#34a218'
-        },
-    ];
-
+            {   id: 1,
+                top: 'Contribution Amount',
+                mid: (<><TbCurrencyNaira/>10,000</>),
+                bottom: 'Per member',
+                icon : <BsCash/>,
+                bgcolor: "#efd5f2",
+                color: '#7b2cbf'
+            },
+            {   id: 2,
+                top: 'Cycle duration',
+                mid: 'Weekly' ,
+                bottom: 'Frequency',
+                icon : <MdOutlineEventNote/>,
+                bgcolor: "#fee1ef",
+                color: '#f967ad'
+            },
+            {   id: 3,
+                top: 'Total Members',
+                mid: '0' ,
+                bottom: 'Active',
+                icon : <HiOutlineUserGroup/>,
+                bgcolor: "#ffe4cc",
+                color: '#ff7900'
+            },
+            {   id: 4,
+                top: 'Current Pot',
+                mid: (<><TbCurrencyNaira/>0</>) ,
+                bottom: 'Group Wallet',
+                icon : <PiCoinsLight/>,
+                bgcolor: "#d6ecd1",
+                color: '#34a218'
+            },
+        ];
   return (
-    <AdminDashboard_content>
-        <AdminDashboard_wrapper>
+    <Content>
+        <Wrapper>
             <AdminDashboardHeader />
             <div className='groupname'><h1>{groupName}</h1></div>
             <div className='round'>
                 <div className='left'>
-                    <p>Round <span>5/5</span></p>
+                    <p>Round <span>0/0</span></p>
                     <div className='ongoing'>
-                        <p style={{color: '#3b82f6', fontSize: '0.8rem'}}>Ongoing</p>
+                        <p style={{color: '#3b82f6', fontSize: '0.8rem'}}>pending</p>
                     </div>
                 </div>
-                <div className='right'>
-                        <button 
-                            className='btn1'
-                            onClick={() => handleModalFlow('payout')}
-                        >
-                            <FiSend style={{fontSize: '1rem'}} />
-                            <p>Trigger Payout</p>
-                        </button>
-                        <button className="btn2" onClick={() => handleModalFlow('contributionSummary')}>
-                            <TbCurrencyNaira style={{ fontSize: '1rem' }} />
-                            <p>Make Contribution</p>
-                        </button>
-                    </div>            
-                </div>
+                <button onClick={() => setShowSelectPayout(true)}><FiSend />Start Cycle</button>       
+            </div>
             <div className="back" onClick={() => navigate('/userdashboard')} style={{ cursor: "pointer" }}>
                 <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
                 <p>back home</p>
@@ -126,65 +114,49 @@ const AdminDashboard = () => {
                         <div style={{backgroundColor: 'transparent'}} className={`mem ${location.pathname.endsWith('') ? 'active' : ''}`} onClick={() => navigate('')}>
                             <p>Members</p>
                         </div>
-                        <div className={`cont ${location.pathname.includes('admin_contribution') ? 'active' : ''}`} onClick={() => navigate('admin_contribution')}>
+                        <div className={`cont ${location.pathname.includes('contribution') ? 'active' : ''}`} onClick={() => navigate('contribution')}>
                             <p>Contributions</p>
                         </div>
-                        <div className={`req ${location.pathname.includes('admin_request') ? 'active' : ''}`} onClick={() => navigate('admin_request')}>
+                        <div className={`req ${location.pathname.includes('requestjoingroup') ? 'active' : ''}`} onClick={() => navigate('requestjoingroup')}>
                             <p>Request</p>
                         </div>
                     </div>
                 </div>
             </div>
             <Outlet />
+            {showSelectPayout && (
+          <SelectPayout
+            onClose={() => setShowSelectPayout(false)}
+            onAutomaticRotation={() => setShowAutomaticRotation(true)}
+            onManualSelection={() => setShowPayoutManually(true)}
+          />
+        )}
+
+        {showAutomaticRotation && (
+          <AutomaticRotation onClose={() => setShowAutomaticRotation(false)} />
+        )}
+
+        {showPayoutManually && (
+          <PayoutManually
+            onClose={() => setShowPayoutManually(false)}
+            onSave={() => setShowPayoutManuallySuccessful(true)}
+          />
+        )}
+
+        {showPayoutManuallySuccessful && (
+          <PayoutManuallySuccessful
+            onClose={() => setShowPayoutManuallySuccessful(false)}
+          />
+        )}
             <UserDashboardFooter />
-        </AdminDashboard_wrapper>
-        {currentModal === 'payout' && (
-                <Payout 
-                    onClose={() => setCurrentModal(null)}
-                    onContinue={() => handleModalFlow('payoutDetails')}
-                />
-            )}
-
-            {currentModal === 'payoutDetails' && (
-                <PayoutDetails 
-                    onClose={() => setCurrentModal(null)}
-                    onProceed={() => handleModalFlow('confirmPayout')}
-                />
-            )}
-
-            {currentModal === 'confirmPayout' && (
-                <ConfirmPayout 
-                    onClose={() => setCurrentModal(null)}
-                    onConfirm={() => handleModalFlow('payoutSuccessful')}
-                />
-            )}
-
-            {currentModal === 'payoutSuccessful' && (
-                <PayoutSuccessful 
-                    onClose={() => setCurrentModal(null)}
-                />
-            )}
-            {currentModal === 'contributionSummary' && (
-            <ContributionSummary
-                onClose={() => setCurrentModal(null)}
-                onContinue={() => handleModalFlow('contributionSuccessful')} 
-                formData={{ groupName, contributionAmount: 10000 }}
-            />
-            )}
-
-            {currentModal === 'contributionSuccessful' && (
-            <ContributionSuccessful
-                onClose={() => setCurrentModal(null)} 
-            />
-            )}
-
-    </AdminDashboard_content>
+        </Wrapper>
+    </Content>
   )
 }
 
-export default AdminDashboard
+export default Start_group
 
-const AdminDashboard_content = styled.div`
+const Content = styled.div`
     width: 100%;
     height: auto;
     display: flex;
@@ -193,7 +165,7 @@ const AdminDashboard_content = styled.div`
     background-color: #f8f5f0;
 `
 
-const AdminDashboard_wrapper = styled.div`
+const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -225,6 +197,25 @@ const AdminDashboard_wrapper = styled.div`
             /* gap: 0.5rem; */
             height: 25vh;
         }    
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.7rem;
+            color: #FF7900;
+            border: 1.5px solid #FF7900;
+            border-radius: 0.5rem;
+            background-color: transparent;
+            width: 12rem;
+            height: 2.5rem;
+            cursor: pointer;
+            &:hover {
+                background-color: #FF7900;
+                color: white;
+                transition: all 350ms ease-in-out;
+            }
+        }
 
         .left{
             width: 18%;
@@ -269,55 +260,9 @@ const AdminDashboard_wrapper = styled.div`
                 width: 100%;
                 flex-direction: column;
             }
-
-            .btn1{
-                width: 50%;
-                height: 100%;
-                gap: 0.5rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border: none;
-                outline: none;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                background-color: #7b2cbf;
-                color: white;
-                &:hover{
-                    background-color: #9472b2;
-                    transition: all 350ms ease-in-out;
-                }
-
-                @media (max-width: 768px) {
-                    width: 100%;
-                }    
-            }
-
-            .btn2{
-                width: 50%;
-                height: 100%;
-                display: flex;
-                gap: 0.5rem;
-                justify-content: center;
-                align-items: center;
-                border: 1.5px solid #ff7900;
-                color: #ff7900;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                background-color: transparent;
-                &:hover{
-                    background-color: #ff7900;
-                    color: white;
-                    transition: all 350ms ease-in-out;
-                }
-
-                @media (max-width: 768px) {
-                    width: 100%;
-                }    
-            }
         }
-    }
-
+    }  
+    
     .back{
         width: 85%;
         display: flex;
@@ -453,4 +398,3 @@ const Ad = styled.div`
         }
     }
 `
-

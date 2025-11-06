@@ -114,7 +114,7 @@ const VerifyEmail = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo" onClick={() => navigate('/')} />
       </div>
 
       <VerifyEmail_wrapper>
@@ -179,7 +179,7 @@ export default VerifyEmail;
 
 const VerifyEmail_content = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

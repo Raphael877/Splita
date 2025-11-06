@@ -53,7 +53,7 @@ const UserEmptyHello = () => {
                 Start fresh and invite your family,<br></br> team, or friends.
               </p>
             </div>
-            <div className="card2">
+            <div className="card2" onClick={() => navigate("/join_group/:groupid?/:invite?")}>
               <div className="main">
                 <TiGroupOutline style={{ fontSize: "1.3rem" }} />
                 <p>Join a group</p>

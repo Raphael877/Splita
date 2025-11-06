@@ -42,7 +42,7 @@ const UserDashboardPage = () => {
 
   if (loading) return <p>Loading...</p>;
 
-  return hasGroups ?   <Dashboard /> : <UserDashboard />;
+  return hasGroups ? <UserDashboard /> : <Dashboard />;
 };
 
 export default UserDashboardPage;

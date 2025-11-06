@@ -1,15 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
-import AdminDashboardHeader from "../Components/AdminDashboardHeader.jsx";
-import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { IoIosArrowRoundBack } from "react-icons/io";
+// import AdminDashboardHeader from "../Components/AdminDashboardHeader.jsx";
+// import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
+// import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import { IoIosArrowRoundBack } from "react-icons/io";
 import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
 import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
 
 const RequestJoinGroup = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
@@ -66,21 +68,7 @@ const RequestJoinGroup = () => {
   return (
     <AdminDashboard_content>
       <AdminDashboard_wrapper>
-        <AdminDashboardHeader />
-        <div className="groupname">
-          <h1>{groupName}</h1>
-        </div>
-        <div className="create">
-          <p style={{ color: "#666666" }}>Created on Aug 21, 2025</p>
-        </div>
-        <div
-          className="back"
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate(-1)}
-        >
-          <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
-          <p>back home</p>
-        </div>
+        
 
         <Block>
           <div className="inner_block">
@@ -103,14 +91,15 @@ const RequestJoinGroup = () => {
                         <div className="btn">
                           <button
                             className="btn1"
-                            // onClick={() => setShowApproveModal(true)}
-                            onClick={() => handleRequest("approve")}
+                            onClick={() => setShowApproveModal(true)}
+                            // onClick={() => handleRequest("approve")}
                           >
                             Approve
                           </button>
                           <button
                             className="btn2"
-                            onClick={() => handleRequest("delete")}
+                            // onClick={() => handleRequest("delete")}
+                            onClick={() => setShowDeclineModal(true)}
                           >
                             Decline
                           </button>
@@ -123,8 +112,6 @@ const RequestJoinGroup = () => {
             </div>
           </div>
         </Block>
-
-        <UserDashboardFooter />
       </AdminDashboard_wrapper>
 
       {showApproveModal && (

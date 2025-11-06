@@ -15,6 +15,8 @@ const SignUp = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [loading, setloading] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
   const [showTerms, setShowTerms] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -38,54 +40,38 @@ const SignUp = () => {
 
   const validateForm = () => {
     const { name, email, phone, password, confirmPassword } = formData;
+    const newErrors = {};
 
-    if (!name.trim()) {
-      toast.error("Please enter your full name.");
-      return false;
-    }
-
-    if (!email.trim()) {
-      toast.error("Email is required.");
-      return false;
-    }
+    if (!name.trim()) newErrors.name = "Please enter your full name.";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address.");
-      return false;
-    }
-
-    if (!phone.trim()) {
-      toast.error("Phone number is required.");
-      return false;
-    }
+    if (!email.trim()) newErrors.email = "Email is required.";
+    else if (!emailRegex.test(email))
+      newErrors.email = "Please enter a valid email address.";
 
     const phoneRegex = /^(?:\+234|0)[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-      toast.error("Please enter a valid phone number.");
-      return false;
+    if (!phone.trim()) newErrors.phone = "Phone number is required.";
+    else if (!phoneRegex.test(phone))
+      newErrors.phone = "Please enter a valid phone number.";
+
+    if (!password.trim()) newErrors.password = "Password cannot be empty.";
+    else {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_*#?&-])[A-Za-z\d@$!%_*#?&-]{8,}$/;
+      if (!passwordRegex.test(password))
+        newErrors.password =
+          "Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character.";
     }
 
-    if (!password.trim()) {
-      toast.error("Password cannot be empty.");
-      return false;
+    if (password !== confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match.";
+    if (!formData.agree) {
+      newErrors.agree =
+        "You must agree to the Terms & Conditions before continuing.";
     }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_*#?&-])[A-Za-z\d@$!%_*#?&-]{8,}$/;
-    if (!passwordRegex.test(password)) {
-      toast.error(
-        "Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character"
-      );
-      return false;
-    }
-
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
-      return false;
-    }
-
-    return true;
+    setFormErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const Register = async () => {
@@ -101,14 +87,12 @@ const SignUp = () => {
         fullName: formData.name,
         email: formData.email,
         phone: formData.phone,
-        firstName: formData.name.split(' ')[0]
+        firstName: formData.name.split(" ")[0],
       };
-      localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(userData));
       localStorage.setItem("userEmail", formData.email);
 
       toast.success(res?.data?.message || "Registration successful!");
-
-      
 
       localStorage.setItem("userEmail", formData.email);
 
@@ -134,7 +118,7 @@ const SignUp = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')}/>
       </div>
 
       <ToastContainer />
@@ -165,6 +149,9 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
+            {formErrors.email && (
+              <p className="error-text">{formErrors.name}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -181,6 +168,9 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
+            {formErrors.email && (
+              <p className="error-text">{formErrors.email}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -197,9 +187,11 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
+            {formErrors.email && (
+              <p className="error-text">{formErrors.phone}</p>
+            )}
           </div>
 
-          <p style={{ color: "#888888" }}><small>Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character</small></p>
 
           <div className="inp">
             <div className="label">
@@ -218,7 +210,17 @@ const SignUp = () => {
                 {show ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
+            {formErrors.email && (
+              <p className="error-text">{formErrors.password}</p>
+            )}
           </div>
+
+          <p style={{ color: "#888888" }}>
+            <small>
+              Password must be at least 8 characters long and contain one
+              uppercase, one lowercase, one number, and one special character
+            </small>
+          </p>
 
           <div className="inp">
             <div className="label">
@@ -237,13 +239,13 @@ const SignUp = () => {
                 {show2 ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
+            {formErrors.email && (
+              <p className="error-text">{formErrors.confirmPassword}</p>
+            )}
           </div>
 
           <div className="check_cont">
-            <input
-              type="checkbox"
-              style={{ cursor: "pointer" }}
-            />
+            <input type="checkbox" style={{ cursor: "pointer" }} />
             <p>
               I have read the{" "}
               <i
@@ -255,12 +257,14 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
+          {/* 👇 Place this just after the checkbox container */}
+          {formErrors.agree && <p className="error-text">{formErrors.agree}</p>}
 
           <button type="submit">
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
           </button>
 
-          <p className="already" style={{marginBottom: '1rem' }}>
+          <p className="already" style={{ marginBottom: "1rem" }}>
             Already have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
@@ -281,7 +285,7 @@ export default SignUp;
 
 const SignUp_content = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -446,6 +450,12 @@ const SignUp_wrapper = styled.div`
       display: flex;
       gap: 0.5rem;
       margin-block: 0.5rem;
+    }
+    .error-text {
+      color: red;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      margin-left: 25px;
     }
 
     button {

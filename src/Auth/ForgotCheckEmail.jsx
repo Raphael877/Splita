@@ -81,7 +81,7 @@ const ForgotCheckEmail = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" />
+        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')} />
       </div>
 
       <ForgotCheckEmail_wrapper>
@@ -171,7 +171,7 @@ export default ForgotCheckEmail;
 
 const ForgotCheckEmail_content = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

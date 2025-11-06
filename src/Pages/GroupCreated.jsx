@@ -27,7 +27,7 @@ const GroupCreated = () => {
   const id = JSON.parse(localStorage.getItem("createdGroupId"));
   const handleCreate = async () => {
     try {
-      const res = await axios.get(`${BaseUrl}/groups/${id}/invite`, {
+      const res = await axios.get(`${BaseUrl}/groups/generate-invite/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -53,7 +53,11 @@ const GroupCreated = () => {
         <Inner_main>
           <h1>{groupName}</h1>
           <p style={{ color: "#666666" }}>Created on Aug 21, 2025</p>
-          <div className="back" onClick={() => navigate('userdashboard')} style={{ cursor: "pointer" }}>
+          <div
+            className="back"
+            onClick={() => navigate("userdashboard")}
+            style={{ cursor: "pointer" }}
+          >
             <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
             <p>back home</p>
           </div>
@@ -75,7 +79,7 @@ const GroupCreated = () => {
                 </button>
                 <button
                   className="btn2"
-                  onClick={() => navigate("/requestjoingroup")}
+                  onClick={() => navigate("/start_group")}
                 >
                   View Members
                 </button>
@@ -154,13 +158,13 @@ const Created = styled.div`
       animation: move 3s infinite;
 
       @keyframes move {
-        0%{
+        0% {
           scale: 0.5;
         }
-        50%{
+        50% {
           scale: 0.7;
         }
-        100%{
+        100% {
           scale: 1;
         }
       }
