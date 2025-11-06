@@ -59,7 +59,7 @@ const Stories = () => {
                 <img
                   src="/pics1.jpg"
                   alt=""
-                  srcset=""
+                  // srcset=""
                   style={{
                     height: "100%",
                     width: "100%",
@@ -131,7 +131,7 @@ const Stories = () => {
                 <img
                   src="/pics2.jpg"
                   alt=""
-                  srcset=""
+                  // srcset=""
                   style={{
                     height: "100%",
                     width: "100%",
@@ -203,7 +203,7 @@ const Stories = () => {
                 <img
                   src="/pics3.jpg"
                   alt=""
-                  srcset=""
+                  // srcset=""
                   style={{
                     height: "100%",
                     width: "100%",

@@ -31,7 +31,7 @@ const UserEmptyHello = () => {
             >
               + Create New Group
             </button>
-            <button className="hello_btn2" onClick={() => navigate('/join_group')}>Join Group</button>
+            <button className="hello_btn2" onClick={() => navigate("/join_group")}>Join Group</button>
           </div>
         </Hello>
         <Oops>
@@ -53,7 +53,7 @@ const UserEmptyHello = () => {
                 Start fresh and invite your family,<br></br> team, or friends.
               </p>
             </div>
-            <div className="card2" onClick={() => navigate("/join_group/:groupid?/:invite?")}>
+            <div className="card2" onClick={() => navigate("/join_group")}>
               <div className="main">
                 <TiGroupOutline style={{ fontSize: "1.3rem" }} />
                 <p>Join a group</p>

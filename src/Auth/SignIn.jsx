@@ -66,9 +66,32 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.user)
       );
-      toast.success(res?.data?.message || "Login successful!");
-      console.log("res", res);
-      navigate("/userdashboardpage");
+
+      try {
+        const groupRes = await axios.get(`${BaseUrl}/groups/all`, {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+      const hasGroups = Array.isArray(groupRes?.data?.data) && groupRes?.data?.data.length > 0;
+
+        toast.success(res?.data?.message || "Login successful!");
+
+        if (hasGroups) {
+          // User has groups - go to full dashboard
+          navigate("/userdashboard");
+        } else {
+          // No groups - go to empty dashboard
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Error checking groups:", error);
+        // If error checking groups, default to empty dashboard
+        navigate("/dashboard");
+      }
+
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");

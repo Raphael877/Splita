@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Splita_logo from "../assets/Splita_logo.png";
@@ -7,35 +7,22 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 const Join_Group = () => {
-  const [inviteLink, setInviteLink] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { groupid, invite } = useParams();
   const navigate = useNavigate();
+  const [inviteLink, setInviteLink] = useState("");
+  const [error, setError] = useState("");
+  const { groupid, invite } = useParams();
+  console.log("di9in9", groupid, "new", invite);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-
-  useEffect(() => {
-    const id = localStorage.getItem("createdGroupId");
-    const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
-
-    if (!id || !token) {
-      toast.error("You must be logged in to join a group.");
-      navigate("/signup");
-    }
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const id = localStorage.getItem("createdGroupId");
-    const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
-
-    if (!id || !token) {
-      toast.error("Authentication failed. Please log in again.");
-      navigate("/signup");
-      return;
-    }
-
-    setLoading(true);
+    const id = JSON.parse(localStorage.getItem("createdGroupId"));
+    console.log("userid", id);
+    const token = JSON.parse(
+      localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+    );
+    console.log(id);
 
     try {
       const res = await axios.post(
@@ -49,14 +36,15 @@ const Join_Group = () => {
         }
       );
 
+      console.log("res", res);
       toast.success(res?.data?.message || "Joined group successfully!");
+      setError("");
     } catch (error) {
       console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
-    } finally {
-      setLoading(false);
     }
   };
+
   return (
     <Content>
       <ToastContainer />
@@ -67,12 +55,7 @@ const Join_Group = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img
-          src={Splita_logo}
-          alt="Splita Logo"
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
-        />
+        <img src={Splita_logo} alt="Splita Logo" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
       </div>
 
       <div
@@ -96,9 +79,10 @@ const Join_Group = () => {
               onChange={(e) => setInviteLink(e.target.value)}
             />
           </div>
-          <button type="submit" disabled={loading}>
-            {loading ? "Joining..." : "Join Group"}
-          </button>
+
+          {error && <p className="error">{error}</p>}
+
+          <button type="submit">Join Group</button>
         </form>
       </Wrapper>
     </Content>
