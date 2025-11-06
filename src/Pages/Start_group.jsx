@@ -267,16 +267,17 @@ const Start_group = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
-    console.log(groupId);
+
     setLoading(true);
+
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/${groupId}/start-cycle`,
+
         {}
       );
       toast.success(res.data?.message || "Cycle started successfully!");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to start cycle");
       console.error("Error starting cycle:", error.response || error);
     } finally {
       setLoading(false);

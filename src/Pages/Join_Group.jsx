@@ -85,9 +85,11 @@ const Join_Group = () => {
             />
           </div>
 
-          {error && <p className="error">{error}</p>}
-
-          <button type="submit">Join Group</button>
+          {loading ? (
+            <button type="submit">Joining.....</button>
+          ) : (
+            <button type="submit">Join Group</button>
+          )}
         </form>
       </Wrapper>
     </Content>
