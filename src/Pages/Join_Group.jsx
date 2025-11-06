@@ -10,7 +10,6 @@ const Join_Group = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
-  const [loading, setLoading] = useState(false);
   const { groupid, invite } = useParams();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
