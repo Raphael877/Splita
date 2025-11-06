@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
     const token = localStorage.getItem("token");
 
     if (!userId || !token) {
-      return <Navigate to="/signup" replace />;
+      return <Navigate to="/signin" replace />;
     }
 
     return children;
