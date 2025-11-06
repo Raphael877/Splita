@@ -31,7 +31,7 @@ const UserEmptyHello = () => {
             >
               + Create New Group
             </button>
-            <button className="hello_btn2" onClick={() => navigate('/join_group')}>Join Group</button>
+            <button className="hello_btn2" onClick={() => navigate("/join_group/:groupid?/:invite?")}>Join Group</button>
           </div>
         </Hello>
         <Oops>
