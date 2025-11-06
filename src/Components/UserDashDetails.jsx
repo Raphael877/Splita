@@ -75,6 +75,12 @@ const UserDashDetails = () => {
             >
               + Create New Group
             </button>
+            <button
+              className="hello_btn2"
+              onClick={() => navigate("/join_group")}
+            >
+              Join Group
+            </button>
           </div>
         </Hello>
 
@@ -396,7 +402,7 @@ const Hello = styled.div`
   }
 
   .hello_btn {
-    width: 20%;
+    width: 40%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -408,7 +414,7 @@ const Hello = styled.div`
     }
 
     .hello_btn1 {
-      width: 100%;
+      width: 50%;
       height: 3rem;
       border: none;
       outline: none;
@@ -421,6 +427,28 @@ const Hello = styled.div`
       &:hover {
         border: none;
         background-color: #c29ee2;
+        color: white;
+        transition: all 500ms ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        height: 3rem;
+      }
+    }
+
+    .hello_btn2 {
+      width: 50%;
+      height: 3rem;
+      border: 1.5px solid #ff7900;
+      outline: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      background-color: white;
+      color: #ff7900;
+      &:hover {
+        background-color: #ff7900;
         color: white;
         transition: all 500ms ease-in-out;
       }
