@@ -1,63 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-// import AdminDashboardHeader from "../Components/AdminDashboardHeader.jsx";
-// import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
-// import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-// import { useNavigate, useLocation } from "react-router-dom";
-// import { IoIosArrowRoundBack } from "react-icons/io";
 import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
 import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const RequestJoinGroup = () => {
-  // const navigate = useNavigate();
   const location = useLocation();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const token = JSON.parse(localStorage.getItem("user_token"));
-  const userId = JSON.parse(localStorage.getItem("userid"));
-  const groupId = JSON.parse(localStorage.getItem("createdGroupId"));
+  const token = localStorage.getItem("token");
+  const groupId = localStorage.getItem("createdGroupId");
 
-  const handleRequest = async (userId, action) => {
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showDeclineModal, setShowDeclineModal] = useState(false);
+
+  const groupName =
+    location?.state?.groupName ||
+    localStorage.getItem("createdGroupName") ||
+    "Not Available";
+
+  const fetchRequests = async () => {
+    setLoading(true);
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
-        { action },
-        config
-      );
-      setShowApproveModal(true);
-      setShowDeclineModal(true);
-      console.log(`${action} successful:`, res.data);
+      const res = await axios.get(`${BaseUrl}/groups/${groupId}/requests`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setRequests(res.data || []);
     } catch (error) {
-      console.log(
-        `Error performing ${action}:`,
-        error.response?.data || error.message
+      console.error("Error fetching requests:", error);
+      toast.error("Failed to fetch join requests");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRequestAction = async (requestId, action) => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/requests/${requestId}/${action}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      toast.success(res?.data?.message || `Request ${action}ed successfully`);
+      if (action === "approve") setShowApproveModal(true);
+      else setShowDeclineModal(true);
+
+      fetchRequests();
+    } catch (error) {
+      console.error(`Error performing ${action}:`, error.response || error);
+      toast.error(
+        error.response?.data?.message || `Failed to ${action} request`
       );
     }
   };
 
-  const groupName =
-    (location?.state && location.state.groupName) ||
-    (typeof window !== "undefined"
-      ? localStorage.getItem("createdGroupName")
-      : null) ||
-    "Not Available";
-
-  const [showApproveModal, setShowApproveModal] = useState(false);
-  const [showDeclineModal, setShowDeclineModal] = useState(false);
-
-  const Array = [
-    { name: "Chidera", num: "07038204858", date: "Sept 10" },
-    { name: "Chisom", num: "07038204858", date: "Sept 18" },
-    { name: "Ademola", num: "07038204858", date: "Sept 25" },
-    { name: "Habeeb", num: "07038204858", date: "Sept 25" },
-  ];
+  useEffect(() => {
+    fetchRequests();
+  }, []);
 
   return (
     <AdminDashboard_content>
@@ -65,37 +70,51 @@ const RequestJoinGroup = () => {
         <Block>
           <div className="inner_block">
             <div className="block_wrap">
-              <h2>Requests</h2>
+              <h2>Requests for {groupName}</h2>
+
               <div className="table_wall">
                 <div className="table_wrap">
                   <div className="header">
                     <h3>Name</h3>
-                    <h3>Phone Number</h3>
+                    <h3>Email</h3>
                     <h3>Date</h3>
                     <h3>Action</h3>
                   </div>
+
                   <div className="body">
-                    {Array.map((array, index) => (
-                      <div className="data" key={index}>
-                        <div className="name">{array.name}</div>
-                        <div className="num">{array.num}</div>
-                        <div className="date">{array.date}</div>
-                        <div className="btn">
-                          <button
-                            className="btn1"
-                            onClick={() => handleRequest(userId, "accept")}
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="btn2"
-                            onClick={() => handleRequest(userId, "reject")}
-                          >
-                            Decline
-                          </button>
+                    {loading ? (
+                      <p>Loading requests...</p>
+                    ) : requests.length === 0 ? (
+                      <p>No pending join requests.</p>
+                    ) : (
+                      requests.map((req) => (
+                        <div className="data" key={req.id}>
+                          <div className="name">{req.user?.name || "N/A"}</div>
+                          <div className="num">{req.user?.email || "N/A"}</div>
+                          <div className="date">
+                            {new Date(req.createdAt).toLocaleDateString()}
+                          </div>
+                          <div className="btn">
+                            <button
+                              className="btn1"
+                              onClick={() =>
+                                handleRequestAction(req.id, "approve")
+                              }
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className="btn2"
+                              onClick={() =>
+                                handleRequestAction(req.id, "reject")
+                              }
+                            >
+                              Decline
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
