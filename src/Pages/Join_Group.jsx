@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const Join_Group = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
   const [error, setError] = useState("");
   const { groupid, invite } = useParams();
@@ -16,9 +17,9 @@ const Join_Group = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const id = JSON.parse(localStorage.getItem("createdGroupId"));
-    console.log("userid", id);
+
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
@@ -39,6 +40,7 @@ const Join_Group = () => {
       console.log("res", res);
       toast.success(res?.data?.message || "Joined group successfully!");
       setError("");
+      setLoading(false);
     } catch (error) {
       console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
