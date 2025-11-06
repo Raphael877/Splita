@@ -55,7 +55,7 @@ const GroupCreated = () => {
           <p style={{ color: "#666666" }}>Created on Aug 21, 2025</p>
           <div
             className="back"
-            onClick={() => navigate("userdashboard")}
+            onClick={() => navigate("/userdashboard")}
             style={{ cursor: "pointer" }}
           >
             <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
