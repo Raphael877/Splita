@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
   const ProtectedRoute = ({ children }) => {
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
@@ -12,6 +11,5 @@ const ProtectedRoute = ({ children }) => {
 
     return children;
   };
-};
 
 export default ProtectedRoute;
