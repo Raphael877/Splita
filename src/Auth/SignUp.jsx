@@ -214,13 +214,6 @@ const SignUp = () => {
             )}
           </div>
 
-          <p style={{ color: "#888888" }}>
-            <small>
-              Password must be at least 8 characters long and contain one
-              uppercase, one lowercase, one number, and one special character
-            </small>
-          </p>
-
           <div className="inp">
             <div className="label">
               <MdLockOutline />

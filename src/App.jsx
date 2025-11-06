@@ -70,7 +70,7 @@ const App = () => {
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
         <Route
-          path="/admincirclestartvacationdashboard/:groupId"
+          path="/admincirclestartvacationdashboard/:groupId?"
           element={<AdminCircleStartVacationDashboard />}
         />
         <Route path="/admindashboard" element={<AdminDashboard />}>
@@ -89,7 +89,7 @@ const App = () => {
         <Route path="/mygroupdetail" element={<MyGroupDetail />} />
         <Route path="/requestapproved" element={<RequestApproved />} />
         <Route path="/mycontribution" element={<MyContribution />} />
-        <Route path="/womendashboard/:groupId" element={<WomenDashboard />}>
+        <Route path="/womendashboard/:groupId?" element={<WomenDashboard />}>
           <Route path="" element={<WomenMembers />} />
           <Route path="women_contribution" element={<WomenContribution />} />
         </Route>
