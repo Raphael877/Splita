@@ -90,7 +90,7 @@ const ForgotCheckEmail = () => {
           style={{
             color: "#4e4a4a",
             textAlign: "center",
-            marginBlock: "1.5rem",
+            marginBlock: "1rem",
           }}
         >
           Enter the 6-digit reset code Splita sent to your email address and
@@ -156,6 +156,7 @@ const ForgotCheckEmail = () => {
               color: "#7b2cbf",
               cursor: "pointer",
               textAlign: "center",
+              marginBottom: "2rem"
             }}
             onClick={() => navigate("/forgotpassword")}
           >
@@ -288,7 +289,7 @@ const ForgotCheckEmail_wrapper = styled.div`
 
   form {
     width: 100%;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
