@@ -494,8 +494,8 @@ const Wrapper = styled.div`
       align-items: start;
       flex-direction: column;
       width: 90%;
-      /* gap: 0.5rem; */
-      height: 25vh;
+      min-height: 15vh;
+      margin-top: 1.5rem;
     }
 
     button {
@@ -667,7 +667,7 @@ const Ad = styled.div`
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
       @media (max-width: 768px) {
-        width: 48%;
+        width: 47%;
         height: 50%;
       }
 
