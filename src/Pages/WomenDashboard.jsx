@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams, useNavigate, Outlet } from "react-router-dom";
 import UserDashboardHeader from "../Components/UserDashboardHeader.jsx";
 import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
-
+import { toast, ToastContainer } from "react-toastify";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
@@ -42,11 +42,12 @@ const WomenDashboard = () => {
     if (groupId) fetchGroup();
   }, []);
   const id = localStorage.getItem("selectedGroupId");
-  const handlContribute = async () => {
+
+  const handleContribute = async () => {
     try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${id}/contribute`,
-        {},
+      const initRes = await axios.post(
+        `${BaseUrl}/Payments/initialize-contribution`,
+        { groupId: id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,10 +55,44 @@ const WomenDashboard = () => {
           },
         }
       );
-      setGroupDetails(res?.data);
-      console.log("Fetched groups:", res.data);
+
+      console.log("Initialize response:", initRes.data);
+
+      const reference = initRes?.data?.reference;
+
+      if (!reference) {
+        toast.error("No reference returned from initialization.");
+        setLoading(false);
+        return;
+      }
+
+      toast.success("Contribution initialized successfully!");
+
+      const verifyRes = await axios.post(
+        `${BaseUrl}/Payments/verify-contribution`,
+        { reference },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Verify response:", verifyRes.data);
+
+      toast.success(
+        verifyRes?.data?.message || "Contribution verified successfully!"
+      );
     } catch (error) {
-      console.log("Error fetching groups:", error);
+      console.error("Error contributing:", error);
+
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to process contribution. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,6 +137,7 @@ const WomenDashboard = () => {
 
   return (
     <AdminDashboard_content>
+      <ToastContainer />
       <AdminDashboard_wrapper>
         <UserDashboardHeader />
         <div className="groupname">
@@ -119,7 +155,7 @@ const WomenDashboard = () => {
           <div className="right">
             <button className="btn2">
               <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-              <p onClick={handlContribute}>Make Contribution</p>
+              <p onClick={handleContribute}>Make Contribution</p>
             </button>
           </div>
         </div>

@@ -22,7 +22,7 @@ const UserDashDetails = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const userId = JSON.parse(localStorage.getItem("userid"));
 
-  const id = JSON.parse(localStorage.getItem("createdGroupId"));
+  const id = localStorage.getItem("createdGroupId");
   useEffect(() => {
     const handleDetails = async () => {
       try {
@@ -39,7 +39,7 @@ const UserDashDetails = () => {
       }
     };
     if (userId) handleDetails();
-    
+
     const contributionsummary = async () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
@@ -159,7 +159,6 @@ const UserDashDetails = () => {
               <div
                 className="main_top_group"
                 style={{
-                  maxHeight: "400px",
                   overflowY: "auto",
                 }}
               >
@@ -227,12 +226,13 @@ const UserDashDetails = () => {
                         <button
                           onClick={() => {
                             if (group.myRole === "admin") {
-                              navigate("/admincirclestartvacationdashboard/:groupId?"
+                              navigate(
+                                `/admincirclestartvacationdashboard/${group.id}`
                               );
                             } else if (group.myRole === "user") {
-                              navigate("/womendashboard/:groupId?");
+                              navigate(`/womendashboard/${group.id}`);
                             } else {
-                              console.warn("Unknown role:", myRole);
+                              console.log("Unknown role:", myRole);
                             }
                           }}
                         >
@@ -365,7 +365,7 @@ const UserDashDetails_wrapper = styled.div`
 
 const Hello = styled.div`
   width: 100%;
-  height: 35vh;
+  min-height: 35vh;
   display: flex;
   justify-content: space-between;
   padding: 1.8rem;
@@ -378,7 +378,7 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
-    height: 40vh;
+    min-height: 40vh;
   }
 
   .left {
@@ -433,7 +433,7 @@ const Hello = styled.div`
       }
 
       @media (max-width: 768px) {
-        height: 3rem;
+        min-height: 3rem;
       }
     }
 

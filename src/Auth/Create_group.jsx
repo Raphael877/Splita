@@ -101,6 +101,13 @@ const Create_group = () => {
       handleSubmit();
     } catch (error) {
       toast.error(error?.data?.message);
+      console.log(error?.response?.status);
+      if (error?.response?.status === 403) {
+        toast.error("session expired ");
+        setTimeout(() => {
+          navigate("/signin");
+        }, 3000);
+      }
     } finally {
       setLoading(false);
     }

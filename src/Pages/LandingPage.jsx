@@ -25,6 +25,7 @@ const LandingPage = () => {
   return (
     <>
       <Header />
+      <section id="home">
       <LandingPageStyle>
         <div className="hero">
           <section className="info">
@@ -46,6 +47,8 @@ const LandingPage = () => {
           </section>
         </div>
       </LandingPageStyle>
+      </section>
+      
       <section id="benefit">
         <Benefit />
       </section>

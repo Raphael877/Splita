@@ -1,0 +1,17 @@
+*   [33m3263af5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrose[m[33m)[m Merge branch 'master' of https://github.com/Raphael877/Splita into rose
+[31m|[m[32m\[m  
+[31m|[m *   [33mbda8124[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #19 from Raphael877/demola-branch
+[31m|[m [33m|[m[34m\[m  
+[31m|[m [33m|[m *   [33m30c939e[m Merge branch 'master' into demola-branch
+[31m|[m [33m|[m [35m|[m[33m\[m  
+[31m|[m [33m|[m [35m|[m[33m/[m  
+[31m|[m [33m|[m[33m/[m[35m|[m   
+[31m|[m * [35m|[m [33mfb5b5bc[m added mobile responsiveness on the create group
+[31m|[m * [35m|[m [33m1028c33[m updated
+[31m|[m * [35m|[m [33md0166d2[m updated
+[31m|[m * [35m|[m [33mc14db39[m added the join_group button to the userdashboard
+[31m|[m [36m|[m * [33m80d9cd6[m start cycle and accept and reject members done
+[31m|[m [36m|[m[36m/[m  
+* [36m|[m [33m811555d[m Save local changes before merge
+* [36m|[m [33m39a52c2[m Resolved merge conflict in Join_Group.jsx
+[1;31m|[m[36m\[m[36m|[m 

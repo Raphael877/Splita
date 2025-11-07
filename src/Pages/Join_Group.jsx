@@ -17,6 +17,7 @@ const Join_Group = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
     );
@@ -204,6 +205,17 @@ const Content = styled.div`
     top: 4%;
     right: 7%;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      top: 12%;
+      left: -70%;
+    }
+
+    p {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 `;
 
