@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
 
-const ConfirmPayout = ({ onClose, onConfirm }) => {
+const ConfirmPayout = ({ onClose, onConfirm, nextMember }) => {
   return (
     <Payout_content>
       <Payout_wrapper>

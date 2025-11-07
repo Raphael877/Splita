@@ -18,14 +18,20 @@ import PayoutDetails from "../Components/Payout/PayoutDetails.jsx";
 import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const { groupId } = useParams();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
   const [groupDetails, setGroupDetails] = useState([]);
+  const [currentModal, setCurrentModal] = useState(null);
+  const [nextMember, setNextMember] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchGroup = async () => {
       try {
@@ -46,8 +52,125 @@ const AdminCircleStartVacationDashboard = () => {
     };
     if (groupId) fetchGroup();
   }, []);
+  const id = groupId;
+  const fetchNextPayoutMember = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${BaseUrl}/groups/${id}/payout-order`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(groupId);
+      setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
+      setCurrentModal("payoutDetails");
+      console.log("res", res);
+    } catch (error) {
+      console.error("Error fetching next payout member:", error);
+      toast.error("Failed to fetch next payout member");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const startCycle = async () => {
+    try {
+      setLoading(true);
 
-  const location = useLocation();
+      const res = await axios.post(
+        `${BaseUrl}/groups/${id}/start-cycle`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Cycle started:", res.data);
+      toast.success("Cycle started successfully!");
+
+      if (res.data?.nextMember) {
+        setNextMember(res.data.nextMember);
+      }
+    } catch (error) {
+      console.error("Error starting cycle:", error);
+      toast.error(error.response?.data?.message || "Failed to start cycle");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const confirmPayout = async () => {
+    try {
+      setLoading(true);
+
+      const payload = {
+        payoutOrder: [
+          {
+            userId: nextMember?.userId,
+            position: nextMember?.position,
+          },
+        ],
+      };
+
+      const res = await axios.put(
+        `${BaseUrl}/groups/${groupId}/payout-order`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(groupId);
+      toast.success("Payout confirmed successfully");
+      setCurrentModal("payoutSuccessful");
+    } catch (error) {
+      console.error("Error confirming payout:", error);
+      toast.error(error.response?.data?.message || "Failed to confirm payout");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const randomizePayoutOrder = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(groupId);
+      toast.success("Payout order randomized successfully");
+    } catch (error) {
+      console.error("Error randomizing payout order:", error);
+      toast.error("Could not randomize payout order");
+    }
+  };
+
+  const handlContribute = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/contribute`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setGroupDetails(res?.data);
+      toast.success("Contribution successful");
+    } catch (error) {
+      console.log("Error fetching groups:", error);
+    }
+  };
 
   const groupName =
     (location?.state && location.state.groupName) ||
@@ -55,8 +178,6 @@ const AdminCircleStartVacationDashboard = () => {
       ? localStorage.getItem("createdGroupName")
       : null) ||
     "Not Available";
-
-  const [currentModal, setCurrentModal] = useState(null);
 
   const handleModalFlow = (modalName) => {
     setCurrentModal(modalName);
@@ -66,7 +187,12 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 1,
       top: "Contribution Amount",
-      mid: (<><TbCurrencyNaira/>10,000</>),
+      mid: (
+        <>
+          <TbCurrencyNaira />
+          10,000
+        </>
+      ),
       bottom: "Per member",
       icon: <BsCash />,
       bgcolor: "#efd5f2",
@@ -84,7 +210,9 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 3,
       top: "Total Members",
-      mid: groupDetails?.group?.members?.length,
+      mid:
+        groupDetails?.group?.members?.length ||
+        groupDetails?.group?.totalMembers,
       bottom: "Active",
       icon: <HiOutlineUserGroup />,
       bgcolor: "#ffe4cc",
@@ -93,7 +221,11 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid: (<><TbCurrencyNaira/> 0</>),
+      mid: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",
@@ -104,61 +236,101 @@ const AdminCircleStartVacationDashboard = () => {
   const AllData = [
     {
       member: "Chisom",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "2nd",
       delete: <CiTrash />,
     },
     {
       member: "Dera",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "1st",
       delete: <CiTrash />,
     },
     {
       member: "Dinma",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "3rd",
       delete: <CiTrash />,
     },
     {
       member: "Zeal",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "4th",
       delete: <CiTrash />,
     },
     {
       member: "Habeeb",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "5th",
       delete: <CiTrash />,
     },
     {
       member: "Felix",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "6th",
       delete: <CiTrash />,
     },
     {
       member: "Raphael",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "7th",
       delete: <CiTrash />,
     },
     {
       member: "Arinze",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "8th",
       delete: <CiTrash />,
     },
     {
       member: "Darasimi",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "9th",
       delete: <CiTrash />,
     },
     {
       member: "Michael",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "10th",
       delete: <CiTrash />,
     },
@@ -184,7 +356,7 @@ const AdminCircleStartVacationDashboard = () => {
               <FiSend style={{ fontSize: "1rem" }} />
               <p>Trigger Payout</p>
             </button>
-            <button className="btn2">
+            <button onClick={randomizePayoutOrder} className="btn2">
               <TbCurrencyNaira style={{ fontSize: "1rem" }} />
               <p>Make Contribution</p>
             </button>
@@ -202,7 +374,9 @@ const AdminCircleStartVacationDashboard = () => {
                 <div className="card_wrapper">
                   <div className="left">
                     <p>{items.top}</p>
-                    <h3 style={{display: 'flex', alignItems: 'center'}}>{items.mid}</h3>
+                    <h3 style={{ display: "flex", alignItems: "center" }}>
+                      {items.mid}
+                    </h3>
                     <p>
                       <small style={{ color: "#828181" }}>{items.bottom}</small>
                     </p>
@@ -262,7 +436,9 @@ const AdminCircleStartVacationDashboard = () => {
                     <p>{items.member}</p>
                   </div>
                   <div className="contribution">
-                    <p style={{display: 'flex', alignItems: 'center'}}>{items.contribution}</p>
+                    <p style={{ display: "flex", alignItems: "center" }}>
+                      {items.contribution}
+                    </p>
                   </div>
                   <div className="payout_order">
                     <p>{items.payout_order}</p>
@@ -278,12 +454,15 @@ const AdminCircleStartVacationDashboard = () => {
       {currentModal === "payout" && (
         <Payout
           onClose={() => setCurrentModal(null)}
-          onContinue={() => handleModalFlow("payoutDetails")}
+          // onContinue={() => handleModalFlow("payoutDetails")}
+          onContinue={fetchNextPayoutMember}
         />
       )}
 
       {currentModal === "payoutDetails" && (
         <PayoutDetails
+          loading={loading}
+          nextMember={nextMember}
           onClose={() => setCurrentModal(null)}
           onProceed={() => handleModalFlow("confirmPayout")}
         />
@@ -291,13 +470,19 @@ const AdminCircleStartVacationDashboard = () => {
 
       {currentModal === "confirmPayout" && (
         <ConfirmPayout
+          loading={loading}
+          nextMember={nextMember}
           onClose={() => setCurrentModal(null)}
           onConfirm={() => handleModalFlow("payoutSuccessful")}
         />
       )}
 
       {currentModal === "payoutSuccessful" && (
-        <PayoutSuccessful onClose={() => setCurrentModal(null)} />
+        <PayoutSuccessful
+          loading={loading}
+          nextMember={nextMember}
+          onClose={() => setCurrentModal(null)}
+        />
       )}
     </AdminCircleStartVacationDashboard_content>
   );
