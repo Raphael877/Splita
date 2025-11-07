@@ -3,10 +3,17 @@ import styled from "styled-components";
 import { TiSocialFacebook } from "react-icons/ti";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-  const navigate = useNavigate()
+  
+    const scrollToSection = (id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+        setIsOpen(false); 
+      }
+    };
+
   return (
     <FooterStyled>
       <article className="small"></article>
@@ -33,23 +40,23 @@ const Footer = () => {
           </div>
           <div>
             <p style={{fontWeight: 'bolder'}}>Product</p>
-            <p style={{cursor: 'pointer'}}>How it works</p>
-            <p style={{cursor: 'pointer'}}>Benefit</p>
+            <p style={{cursor: 'pointer'}} onClick={() => scrollToSection("how-it-works")} className="underline">How it works</p>
+            <p style={{cursor: 'pointer'}} className="underline" onClick={() => scrollToSection("benefit")} >Benefit</p>
           </div>
           <div>
             <p style={{fontWeight: 'bolder'}}>Company</p>
-            <p style={{cursor: 'pointer'}}>About Us</p>
-            <p style={{cursor: 'pointer'}}>Careers</p>
-            <p style={{cursor: 'pointer'}}>Blog</p>
-            <p style={{cursor: 'pointer'}}>Contact</p>
+            <p style={{cursor: 'pointer'}}className="underline" onClick={() => scrollToSection("about")}>About Us</p>
+            <p style={{cursor: 'pointer'}} className="underline">Careers</p>
+            <p style={{cursor: 'pointer'}} className="underline">Blog</p>
+            <p style={{cursor: 'pointer'}}  className="underline">Contact</p>
           </div>
           <div>
             {" "}
             <p style={{fontWeight: 'bolder'}}>Support</p>
-            <p style={{cursor: 'pointer'}}>Help Center</p>
-            <p style={{cursor: 'pointer'}}>Privacy Policy</p>
-            <p style={{cursor: 'pointer'}}>Terms of Service</p>
-            <p style={{cursor: 'pointer'}}>Status</p>
+            <p style={{cursor: 'pointer'}} className="underline">Help Center</p>
+            <p style={{cursor: 'pointer'}} className="underline">Privacy Policy</p>
+            <p style={{cursor: 'pointer'}} className="underline">Terms of Service</p>
+            <p style={{cursor: 'pointer'}} className="underline">Status</p>
           </div>
         </article>
       </section>
@@ -106,6 +113,13 @@ const FooterStyled = styled.div`
       line-height: 24px;
       color: #ffffff;
       border-bottom: 1px solid #374151;
+
+      div > .underline{
+        font-weight: 200;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
 
       @media (max-width: 768px) {
         padding-block: 1rem;
