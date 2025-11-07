@@ -263,22 +263,6 @@ const Start_group = () => {
       ? localStorage.getItem("createdGroupName")
       : null) ||
     "Not Available";
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const handleStartCycle = async () => {
-    const groupId = localStorage.getItem("createdGroupId");
-    const token = localStorage.getItem("token");
-
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/start-cycle`,
-
-        {}
-      );
-      toast.success(res.data?.message || "Cycle started successfully!");
-    } catch (error) {
-      console.error("Error starting cycle:", error.response || error);
-    }
-  };
 
   const Array = [
     {
@@ -345,7 +329,7 @@ const Start_group = () => {
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>pending</p>
             </div>
           </div>
-          <button onClick={handleStartCycle}>
+          <button onClick={() => setShowSelectPayout(true)}>
             <FiSend />
             Start Cycle
           </button>

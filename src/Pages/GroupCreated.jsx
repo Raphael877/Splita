@@ -20,7 +20,9 @@ const GroupCreated = () => {
       : null) ||
     "Not Available";
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
 
   const id = localStorage.getItem("createdGroupId");
   const handleCreate = async () => {
@@ -37,7 +39,7 @@ const GroupCreated = () => {
         JSON.stringify({ groupId: id, inviteLink })
       );
       await navigator.clipboard.writeText(inviteLink);
-      console.log("res", res);
+      toast.success("Invite Link copied successfully");
     } catch (error) {
       console.log("error", error);
       console.log("id:", id);

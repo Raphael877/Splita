@@ -57,7 +57,9 @@ const Create_group = () => {
     navigate("/groupcreated", { state: { groupName: formData.groupName } });
   };
 
-  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
