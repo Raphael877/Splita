@@ -39,7 +39,7 @@ const Profile = () => {
       <div className='circle_mid_left'></div>
       <div className='circle_down_right'></div>
 
-      <div className="back" onClick={() => navigate('/userdashboard')}>
+      <div className="back" onClick={() => navigate(-1)}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
       </div>

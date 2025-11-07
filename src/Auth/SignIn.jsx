@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const SignIn = () => {
   const [show, setShow] = useState(false);
@@ -127,6 +128,10 @@ const SignIn = () => {
       </div>
 
       <SignIn_wrapper>
+        <div onClick={() => navigate("/")} className="back" >
+          <IoIosArrowRoundBack style={{ fontSize: "1.7rem",fontWeight: "bold" }}/>
+            <p>Back home</p>
+        </div>
         <h1 style={{ textAlign: "center" }}>Welcome Back!</h1>
         <p
           style={{
@@ -308,6 +313,27 @@ const SignIn_wrapper = styled.div`
 
   @media (max-width: 1024px) {
     width: 85%;
+  }
+
+  .back{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      left: 6%;
+      top: 12%;
+    }
+
+    p{
+      display: flex;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 
   h1 {

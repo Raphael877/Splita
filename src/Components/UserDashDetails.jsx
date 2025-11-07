@@ -159,7 +159,6 @@ const UserDashDetails = () => {
               <div
                 className="main_top_group"
                 style={{
-                  maxHeight: "400px",
                   overflowY: "auto",
                 }}
               >
@@ -365,7 +364,7 @@ const UserDashDetails_wrapper = styled.div`
 
 const Hello = styled.div`
   width: 100%;
-  height: 35vh;
+  min-height: 35vh;
   display: flex;
   justify-content: space-between;
   padding: 1.8rem;
@@ -378,7 +377,7 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
-    height: 40vh;
+    min-height: 40vh;
   }
 
   .left {
@@ -433,7 +432,7 @@ const Hello = styled.div`
       }
 
       @media (max-width: 768px) {
-        height: 3rem;
+        min-height: 3rem;
       }
     }
 

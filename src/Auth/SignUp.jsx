@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Terms from "./Terms";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
@@ -124,8 +125,12 @@ const SignUp = () => {
       <ToastContainer />
 
       <SignUp_wrapper>
+        <div onClick={() => navigate("/")} className="back" >
+          <IoIosArrowRoundBack style={{ fontSize: "1.7rem",fontWeight: "bold" }}/>
+                  <p>Back home</p>
+                </div>
         <h1>Join the circle</h1>
-        <p style={{ color: "#888888" }}>
+        <p style={{ color: "#888888", textAlign: 'center' }}>
           Start your digital ajo journey and grow your money with Splita!
         </p>
 
@@ -213,6 +218,8 @@ const SignUp = () => {
               <p className="error-text">{formErrors.password}</p>
             )}
           </div>
+
+          <p><small>Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character.</small></p>
 
           <div className="inp">
             <div className="label">
@@ -374,20 +381,37 @@ const SignUp_wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
+  .back{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      left: 6%;
+      top: 9%;
+    }
+
+    p{
+      display: flex;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
 
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
-  @media (max-width: 1024px) and (min-width: 768px) {
-    width: 85%;
-    padding-top: 8rem;
-  }
 
   @media (max-width: 768px) {
     width: 85%;
-    padding-top: 6rem;
+    padding-top: 8rem;
     padding-bottom: 2rem;
   }
 

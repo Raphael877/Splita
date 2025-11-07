@@ -37,19 +37,19 @@ const AdminDashboardHeader = () => {
 
         <ul>
           <li
-            className={location.pathname === "/admin-dashboard" ? "active" : ""}
+            className={location.pathname === "/userdashboard" ? "active" : ""}
             onClick={() => navigate("/userdashboard")}
           >
             Home
           </li>
           <li
-            className={location.pathname === "/admin-groups" ? "active" : ""}
+            className={location.pathname === "/mygroupdetail" ? "active" : ""}
             onClick={() => navigate("/mygroupdetail")}
           >
             My groups
           </li>
           <li
-            className={location.pathname === "/admin-contributions" ? "active" : ""}
+            className={location.pathname === "/mycontribution" ? "active" : ""}
             onClick={() => navigate("/mycontribution")}
           >
             Contributions
@@ -88,13 +88,13 @@ const AdminDashboardHeader = () => {
                   onClick={closeDropdown}
                 />
 
-                <p className="nav" onClick={() => navigate("/admin-dashboard")}>
+                <p className="nav" onClick={() => navigate("/userdashboard")}>
                   Home
                 </p>
-                <p className="nav" onClick={() => navigate("/admin-groups")}>
+                <p className="nav" onClick={() => navigate("/mygroupdetail")}>
                   Groups
                 </p>
-                <p className="nav" onClick={() => navigate("/admin-contributions")}>
+                <p className="nav" onClick={() => navigate("/mycontribution")}>
                   Contributions
                 </p>
                 <p

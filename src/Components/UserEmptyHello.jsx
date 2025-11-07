@@ -115,7 +115,7 @@ const UserEmptyHello_wrapper = styled.div`
 
 const Hello = styled.div`
   width: 100%;
-  height: 30vh;
+  min-height: 30vh;
   display: flex;
   justify-content: space-between;
   padding: 1.8rem;
@@ -125,7 +125,7 @@ const Hello = styled.div`
   background-color: #f2eaf9;
 
   @media (max-width: 768px) {
-    height: 46vh;
+    min-height: 46vh;
     flex-direction: column;
     padding: 1rem;
     justify-content: flex-start;
@@ -149,7 +149,7 @@ const Hello = styled.div`
     gap: 0.8rem;
 
     @media (max-width: 768px) {
-      height: 50%;
+      min-height: 50%;
       width: 100%;
       flex-direction: column;
       gap: 1rem;
