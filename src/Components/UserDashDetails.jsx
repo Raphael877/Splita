@@ -22,7 +22,7 @@ const UserDashDetails = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const userId = JSON.parse(localStorage.getItem("userid"));
 
-  const id = JSON.parse(localStorage.getItem("createdGroupId"));
+  const id = localStorage.getItem("createdGroupId");
   useEffect(() => {
     const handleDetails = async () => {
       try {
