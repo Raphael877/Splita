@@ -141,6 +141,16 @@ const Profile_content = styled.div`
     top: 8%;
     left: 7%;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      top: 5%;
+    }
+
+    p{
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 `;
 

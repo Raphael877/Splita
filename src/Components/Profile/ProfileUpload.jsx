@@ -35,7 +35,7 @@ const ProfileUpload = ({ onClose }) => {
 
           <div className='img_div'>
             <FaRegImage style={{ cursor: 'pointer', fontSize: '1.8rem' }} />
-            <p>Upload a picture</p>
+            <p>Click to upload a picture</p>
           </div>
 
           <button type="button" onClick={handleSave} disabled={loading}>
@@ -58,6 +58,8 @@ const ProfileUpload_content = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    top: 0;
+    left: 0;
 `
 
 const ProfileUpload_wrapper = styled.div`
