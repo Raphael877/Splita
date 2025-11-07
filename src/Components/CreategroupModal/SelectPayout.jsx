@@ -3,6 +3,24 @@ import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
 
 const SelectPayout = ({ onClose, onAutomaticRotation, onManualSelection }) => {
+  const randomizePayoutOrder = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(groupId);
+      toast.success("Payout order randomized successfully");
+    } catch (error) {
+      console.error("Error randomizing payout order:", error);
+      toast.error("Could not randomize payout order");
+    }
+  };
   return (
     <Payout_content>
       <Payout_wrapper>

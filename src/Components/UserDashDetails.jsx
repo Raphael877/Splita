@@ -232,7 +232,7 @@ const UserDashDetails = () => {
                             } else if (group.myRole === "user") {
                               navigate(`/womendashboard/${group.id}`);
                             } else {
-                              console.warn("Unknown role:", myRole);
+                              console.log("Unknown role:", myRole);
                             }
                           }}
                         >
