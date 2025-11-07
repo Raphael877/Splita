@@ -66,16 +66,26 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.user)
       );
-
+      const token = res?.data?.token;
+      localStorage.setItem(
+        import.meta.env.VITE_USERTOKEN,
+        JSON.stringify(token)
+      );
+      localStorage.setItem(
+        import.meta.env.VITE_USERID,
+        JSON.stringify(res?.data?.user)
+      );
       try {
         const groupRes = await axios.get(`${BaseUrl}/groups/all`, {
-          headers: { 
+          headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         });
 
-      const hasGroups = Array.isArray(groupRes?.data?.data) && groupRes?.data?.data.length > 0;
+        const hasGroups =
+          Array.isArray(groupRes?.data?.data) &&
+          groupRes?.data?.data.length > 0;
 
         toast.success(res?.data?.message || "Login successful!");
 
@@ -91,7 +101,6 @@ const SignIn = () => {
         // If error checking groups, default to empty dashboard
         navigate("/dashboard");
       }
-
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message || "Invalid email or password");
@@ -110,7 +119,11 @@ const SignIn = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo"  onClick={() => navigate('/')}/>
+        <img
+          src={Splita_logo}
+          alt="Splita Logo"
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <SignIn_wrapper>
