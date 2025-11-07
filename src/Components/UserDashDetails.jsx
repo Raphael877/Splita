@@ -39,7 +39,7 @@ const UserDashDetails = () => {
       }
     };
     if (userId) handleDetails();
-    
+
     const contributionsummary = async () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
@@ -226,7 +226,8 @@ const UserDashDetails = () => {
                         <button
                           onClick={() => {
                             if (group.myRole === "admin") {
-                              navigate(`/admincirclestartvacationdashboard/${group.id}`
+                              navigate(
+                                `/admincirclestartvacationdashboard/${group.id}`
                               );
                             } else if (group.myRole === "user") {
                               navigate(`/womendashboard/${group.id}`);
