@@ -52,30 +52,79 @@ const SignIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // const Login = async () => {
+  //   if (!validateInputs()) return;
+
+  //   SetLoading(true);
+  //   try {
+  //     const res = await axios.post(`${BaseUrl}/users/login`, formData);
+
+  //     const token = localStorage.setItem(
+  //       import.meta.env.VITE_USERTOKEN,
+  //       JSON.stringify(res?.data?.token)
+  //     );
+  //     localStorage.setItem(
+  //       import.meta.env.VITE_USERID,
+  //       JSON.stringify(res?.data?.user)
+  //     );
+  //     // const token = res?.data?.token;
+  //     localStorage.setItem(
+  //       import.meta.env.VITE_USERTOKEN,
+  //       JSON.stringify(token)
+  //     );
+  //     localStorage.setItem(
+  //       import.meta.env.VITE_USERID,
+  //       JSON.stringify(res?.data?.user)
+  //     );
+  //     try {
+  //       const groupRes = await axios.get(`${BaseUrl}/groups/all`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+
+  //       const hasGroups =
+  //         Array.isArray(groupRes?.data?.data) &&
+  //         groupRes?.data?.data.length > 0;
+
+  //       toast.success(res?.data?.message || "Login successful!");
+
+  //       if (hasGroups) {
+  //         // User has groups - go to full dashboard
+  //         navigate("/userdashboard");
+  //       } else {
+  //         // No groups - go to empty dashboard
+  //         navigate("/dashboard");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error checking groups:", error);
+  //       // If error checking groups, default to empty dashboard
+  //       navigate("/dashboard");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.response?.data?.message || "Invalid email or password");
+  //   } finally {
+  //     SetLoading(false);
+  //   }
+  // };
   const Login = async () => {
     if (!validateInputs()) return;
 
     SetLoading(true);
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
+      const token = res?.data?.token;
+      const user = res?.data?.user;
 
-      const token = localStorage.setItem(
-        import.meta.env.VITE_USERTOKEN,
-        JSON.stringify(res?.data?.token)
-      );
-      localStorage.setItem(
-        import.meta.env.VITE_USERID,
-        JSON.stringify(res?.data?.user)
-      );
-      // const token = res?.data?.token;
+      // Save token and user info
       localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(token)
       );
-      localStorage.setItem(
-        import.meta.env.VITE_USERID,
-        JSON.stringify(res?.data?.user)
-      );
+      localStorage.setItem(import.meta.env.VITE_USERID, JSON.stringify(user));
+      console.log("the token", token);
       try {
         const groupRes = await axios.get(`${BaseUrl}/groups/all`, {
           headers: {
@@ -91,15 +140,12 @@ const SignIn = () => {
         toast.success(res?.data?.message || "Login successful!");
 
         if (hasGroups) {
-          // User has groups - go to full dashboard
           navigate("/userdashboard");
         } else {
-          // No groups - go to empty dashboard
           navigate("/dashboard");
         }
       } catch (error) {
         console.error("Error checking groups:", error);
-        // If error checking groups, default to empty dashboard
         navigate("/dashboard");
       }
     } catch (err) {
@@ -128,9 +174,11 @@ const SignIn = () => {
       </div>
 
       <SignIn_wrapper>
-        <div onClick={() => navigate("/")} className="back" >
-          <IoIosArrowRoundBack style={{ fontSize: "1.7rem",fontWeight: "bold" }}/>
-            <p>Back home</p>
+        <div onClick={() => navigate("/")} className="back">
+          <IoIosArrowRoundBack
+            style={{ fontSize: "1.7rem", fontWeight: "bold" }}
+          />
+          <p>Back home</p>
         </div>
         <h1 style={{ textAlign: "center" }}>Welcome Back!</h1>
         <p
@@ -315,7 +363,7 @@ const SignIn_wrapper = styled.div`
     width: 85%;
   }
 
-  .back{
+  .back {
     display: flex;
     align-items: center;
     position: absolute;
@@ -328,7 +376,7 @@ const SignIn_wrapper = styled.div`
       top: 12%;
     }
 
-    p{
+    p {
       display: flex;
       @media (max-width: 768px) {
         display: none;

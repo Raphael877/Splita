@@ -123,12 +123,6 @@ const AdminCircleStartVacationDashboard = () => {
 
       const reference = initRes?.data?.reference;
 
-      if (!reference) {
-        toast.error("No reference returned from initialization.");
-        setLoading(false);
-        return;
-      }
-
       toast.success("Contribution initialized successfully!");
 
       const verifyRes = await axios.post(
@@ -327,7 +321,7 @@ const AdminCircleStartVacationDashboard = () => {
       <AdminCircleStartVacationDashboard_wrapper>
         <AdminDashboardHeader />
         <div className="groupname">
-          <h1>{groupDetails?.group?.groupName}</h1>
+          <h1>{groupName}</h1>
         </div>
         <div className="round">
           <div className="left">
