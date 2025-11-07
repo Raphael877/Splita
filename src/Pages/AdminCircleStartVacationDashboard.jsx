@@ -17,9 +17,11 @@ import PayoutSuccessful from "../Components/Payout/PayoutSuccessful.jsx";
 import PayoutDetails from "../Components/Payout/PayoutDetails.jsx";
 import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import axios from "axios";
+// import Members from "../Components/Members.jsx";
 
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const { groupId } = useParams();
@@ -66,7 +68,12 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 1,
       top: "Contribution Amount",
-      mid: (<><TbCurrencyNaira/>10,000</>),
+      mid: (
+        <>
+          <TbCurrencyNaira />
+          10,000
+        </>
+      ),
       bottom: "Per member",
       icon: <BsCash />,
       bgcolor: "#efd5f2",
@@ -93,7 +100,11 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid: (<><TbCurrencyNaira/> 0</>),
+      mid: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",
@@ -104,61 +115,101 @@ const AdminCircleStartVacationDashboard = () => {
   const AllData = [
     {
       member: "Chisom",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "2nd",
       delete: <CiTrash />,
     },
     {
       member: "Dera",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "1st",
       delete: <CiTrash />,
     },
     {
       member: "Dinma",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "3rd",
       delete: <CiTrash />,
     },
     {
       member: "Zeal",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "4th",
       delete: <CiTrash />,
     },
     {
       member: "Habeeb",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "5th",
       delete: <CiTrash />,
     },
     {
       member: "Felix",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "6th",
       delete: <CiTrash />,
     },
     {
       member: "Raphael",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "7th",
       delete: <CiTrash />,
     },
     {
       member: "Arinze",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "8th",
       delete: <CiTrash />,
     },
     {
       member: "Darasimi",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "9th",
       delete: <CiTrash />,
     },
     {
       member: "Michael",
-      contribution: (<><TbCurrencyNaira/> 0</>),
+      contribution: (
+        <>
+          <TbCurrencyNaira /> 0
+        </>
+      ),
       payout_order: "10th",
       delete: <CiTrash />,
     },
@@ -202,7 +253,9 @@ const AdminCircleStartVacationDashboard = () => {
                 <div className="card_wrapper">
                   <div className="left">
                     <p>{items.top}</p>
-                    <h3 style={{display: 'flex', alignItems: 'center'}}>{items.mid}</h3>
+                    <h3 style={{ display: "flex", alignItems: "center" }}>
+                      {items.mid}
+                    </h3>
                     <p>
                       <small style={{ color: "#828181" }}>{items.bottom}</small>
                     </p>
@@ -221,58 +274,40 @@ const AdminCircleStartVacationDashboard = () => {
             ))}
           </div>
         </Ad>
+
         <div className="option">
           <div className="option_wrap">
             <div className="inner_wrap">
-              <div className="mem">
+              <div
+                style={{ backgroundColor: "transparent" }}
+                className={`mem ${
+                  location.pathname.endsWith("") ? "active" : ""
+                }`}
+                onClick={() => navigate("")}
+              >
                 <p>Members</p>
               </div>
-              <div className="cont">
+              <div
+                className={`cont ${
+                  location.pathname.includes("contribution") ? "active" : ""
+                }`}
+                onClick={() => navigate("contribution")}
+              >
                 <p>Contributions</p>
               </div>
-              <div className="req">
+              <div
+                className={`req ${
+                  location.pathname.includes("requestjoingroup") ? "active" : ""
+                }`}
+                onClick={() => navigate("requestjoingroup")}
+              >
                 <p>Request</p>
               </div>
             </div>
           </div>
         </div>
 
-        <Table>
-          <div className="table_wrap">
-            <div className="top">
-              <h2>Members</h2>
-            </div>
-
-            <div className="main_table">
-              <div className="all_header">
-                <div className="header">
-                  <h3>Member</h3>
-                </div>
-                <div className="header">
-                  <h3>Contribution</h3>
-                </div>
-                <div className="header">
-                  <h3>Payout Order</h3>
-                </div>
-                <div className="header" style={{ color: "white" }}></div>
-              </div>
-              {AllData.map((items) => (
-                <div className="all_data">
-                  <div className="member">
-                    <p>{items.member}</p>
-                  </div>
-                  <div className="contribution">
-                    <p style={{display: 'flex', alignItems: 'center'}}>{items.contribution}</p>
-                  </div>
-                  <div className="payout_order">
-                    <p>{items.payout_order}</p>
-                  </div>
-                  <div className="delete">{items.delete}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Table>
+        <Outlet />
         <UserDashboardFooter />
       </AdminCircleStartVacationDashboard_wrapper>
       {currentModal === "payout" && (
@@ -435,37 +470,8 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #d6beeb;
         border-radius: 0.5rem;
 
-        .mem {
-          width: 25%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
-          border-radius: 0.5rem;
-          background-color: #9556cc;
-          cursor: pointer;
-          &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-          }
-        }
-
-        .cont {
-          width: 25%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 0.5rem;
-          cursor: pointer;
-          &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-            color: white;
-          }
-        }
-
+        .mem,
+        .cont,
         .req {
           width: 25%;
           height: 60%;
@@ -474,11 +480,26 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
           align-items: center;
           border-radius: 0.5rem;
           cursor: pointer;
+          background-color: transparent;
+          color: inherit;
+          transition: all 350ms ease-in-out;
+
           &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-            color: white;
+            background-color: rgba(123, 44, 191, 0.15);
+            color: #7b2cbf;
           }
+        }
+
+        .cont {
+          width: 30%;
+          @media (max-width: 768px) {
+            width: 40%;
+          }
+        }
+
+        .active {
+          background-color: #7b2cbf !important;
+          color: white !important;
         }
       }
     }

@@ -20,11 +20,9 @@ const GroupCreated = () => {
       : null) ||
     "Not Available";
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const token = JSON.parse(
-    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-  );
+  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 
-  const id = JSON.parse(localStorage.getItem("createdGroupId"));
+  const id = localStorage.getItem("createdGroupId");
   const handleCreate = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate-invite/${id}`, {

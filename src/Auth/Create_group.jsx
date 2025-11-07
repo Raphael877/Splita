@@ -57,20 +57,24 @@ const Create_group = () => {
     navigate("/groupcreated", { state: { groupName: formData.groupName } });
   };
 
-  const token = JSON.parse(
-    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-  );
+  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.groupName.trim()) newErrors.groupName = "Group name is required.";
-    if (!formData.contributionAmount.trim()) newErrors.contributionAmount = "Contribution amount is required.";
-    if (!formData.contributionFrequency.trim()) newErrors.contributionFrequency = "Select a contribution frequency.";
-    if (!formData.payoutFrequency.trim()) newErrors.payoutFrequency = "Select a payout frequency.";
-    if (!formData.description.trim()) newErrors.description = "Please describe your group.";
-    if (!formData.totalMembers.trim()) newErrors.totalMembers = "Select total members.";
+    if (!formData.groupName.trim())
+      newErrors.groupName = "Group name is required.";
+    if (!formData.contributionAmount.trim())
+      newErrors.contributionAmount = "Contribution amount is required.";
+    if (!formData.contributionFrequency.trim())
+      newErrors.contributionFrequency = "Select a contribution frequency.";
+    if (!formData.payoutFrequency.trim())
+      newErrors.payoutFrequency = "Select a payout frequency.";
+    if (!formData.description.trim())
+      newErrors.description = "Please describe your group.";
+    if (!formData.totalMembers.trim())
+      newErrors.totalMembers = "Select total members.";
     return newErrors;
   };
 
@@ -90,7 +94,7 @@ const Create_group = () => {
         },
       });
       const groupId = res?.data?.group?.id;
-      localStorage.setItem("createdGroupId", JSON.stringify(groupId));
+      localStorage.setItem("createdGroupId", groupId);
       console.log(groupId);
       console.log(res);
       toast.success(res?.data?.message);
@@ -111,7 +115,11 @@ const Create_group = () => {
       <div className="circle_down_right"></div>
 
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita Logo" onClick={() => navigate('/')} />
+        <img
+          src={Splita_logo}
+          alt="Splita Logo"
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <div
@@ -164,7 +172,9 @@ const Create_group = () => {
                 }
               />
             </div>
-            {errors.contributionAmount && <p className="error">{errors.contributionAmount}</p>}
+            {errors.contributionAmount && (
+              <p className="error">{errors.contributionAmount}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -177,8 +187,12 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("contribution")}
             >
-              <p style={{ color: formData.contributionFrequency ? "#000" : "#9c9a9a" }}>
-              {formData.contributionFrequency || "e.g Weekly"}
+              <p
+                style={{
+                  color: formData.contributionFrequency ? "#000" : "#9c9a9a",
+                }}
+              >
+                {formData.contributionFrequency || "e.g Weekly"}
               </p>
 
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
@@ -195,7 +209,9 @@ const Create_group = () => {
                 ))}
               </div>
             )}
-            {errors.contributionFrequency && <p className="error">{errors.contributionFrequency}</p>}
+            {errors.contributionFrequency && (
+              <p className="error">{errors.contributionFrequency}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -208,9 +224,11 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("payout")}
             >
-            <p style={{ color: formData.payoutFrequency ? "#000" : "#9c9a9a" }}>
-            {formData.payoutFrequency || "e.g Weekly"}
-            </p>
+              <p
+                style={{ color: formData.payoutFrequency ? "#000" : "#9c9a9a" }}
+              >
+                {formData.payoutFrequency || "e.g Weekly"}
+              </p>
 
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
             </div>
@@ -226,7 +244,9 @@ const Create_group = () => {
                 ))}
               </div>
             )}
-            {errors.payoutFrequency && <p className="error">{errors.payoutFrequency}</p>}
+            {errors.payoutFrequency && (
+              <p className="error">{errors.payoutFrequency}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -247,7 +267,9 @@ const Create_group = () => {
                 }
               />
             </div>
-            {errors.description && <p className="error">{errors.description}</p>}
+            {errors.description && (
+              <p className="error">{errors.description}</p>
+            )}
           </div>
 
           <div className="inp">
@@ -278,7 +300,9 @@ const Create_group = () => {
                 ))}
               </div>
             )}
-            {errors.totalMembers && <p className="error">{errors.totalMembers}</p>}
+            {errors.totalMembers && (
+              <p className="error">{errors.totalMembers}</p>
+            )}
           </div>
 
           {loading ? (
@@ -393,10 +417,10 @@ const Create_group_content = styled.div`
       left: -70%;
     }
 
-    p{
-    @media (max-width:768px) {
-      display: none;
-    }
+    p {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 `;
@@ -513,7 +537,7 @@ const Create_group_wrapper = styled.div`
     }
 
     .error {
-      color: #d93025; 
+      color: #d93025;
       font-size: 0.8rem;
       margin-top: 0.2rem;
       margin-left: 0.3rem;
