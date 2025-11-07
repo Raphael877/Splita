@@ -266,7 +266,7 @@ const Start_group = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
-
+    const token = localStorage.getItem("token");
 
     try {
       const res = await axios.post(

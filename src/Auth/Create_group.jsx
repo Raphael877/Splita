@@ -57,9 +57,7 @@ const Create_group = () => {
     navigate("/groupcreated", { state: { groupName: formData.groupName } });
   };
 
-  const token = JSON.parse(
-    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-  );
+  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
@@ -96,7 +94,7 @@ const Create_group = () => {
         },
       });
       const groupId = res?.data?.group?.id;
-      localStorage.setItem("createdGroupId", JSON.stringify(groupId));
+      localStorage.setItem("createdGroupId", groupId);
       console.log(groupId);
       console.log(res);
       toast.success(res?.data?.message);
@@ -196,8 +194,12 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("contribution")}
             >
-              <p style={{ color: formData.contributionFrequency ? "#000" : "#9c9a9a" }}>
-              {formData.contributionFrequency || "e.g Weekly"}
+              <p
+                style={{
+                  color: formData.contributionFrequency ? "#000" : "#9c9a9a",
+                }}
+              >
+                {formData.contributionFrequency || "e.g Weekly"}
               </p>
 
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
@@ -229,9 +231,11 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("payout")}
             >
-            <p style={{ color: formData.payoutFrequency ? "#000" : "#9c9a9a" }}>
-            {formData.payoutFrequency || "e.g Weekly"}
-            </p>
+              <p
+                style={{ color: formData.payoutFrequency ? "#000" : "#9c9a9a" }}
+              >
+                {formData.payoutFrequency || "e.g Weekly"}
+              </p>
 
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
             </div>

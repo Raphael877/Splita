@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-const ApproveMember = ({ onClose }) => {
+const ApproveMember = ({ onClose, group }) => {
   const navigate = useNavigate();
 
   const handleApprove = () => {
     onClose();
     setTimeout(() => {
-      navigate('/requestapproved');
+      navigate(`/requestapproved/${group.id}`);
     }, 200);
   };
 
@@ -18,14 +18,26 @@ const ApproveMember = ({ onClose }) => {
       <Payout_wrapper>
         <Inner_wrap>
           <h3>Approve Member</h3>
-          <p>Are you sure you want to approve this<br /> member?</p>
-          <div className='btn'>
-            <button className='btn1' onClick={onClose}>Cancel</button>
-            <button className='btn2' onClick={handleApprove}>Approve</button>
+          <p>
+            Are you sure you want to approve this
+            <br /> member?
+          </p>
+          <div className="btn">
+            <button className="btn1" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn2" onClick={handleApprove}>
+              Approve
+            </button>
           </div>
         </Inner_wrap>
         <FaRegTimesCircle
-          style={{ cursor: 'pointer', position: 'absolute', top: '10%', right: '6%' }}
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            top: "10%",
+            right: "6%",
+          }}
           onClick={onClose}
         />
       </Payout_wrapper>
@@ -36,7 +48,7 @@ const ApproveMember = ({ onClose }) => {
 export default ApproveMember;
 
 const Payout_content = styled.div`
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

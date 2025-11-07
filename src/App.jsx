@@ -70,9 +70,13 @@ const App = () => {
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
         <Route
-          path="/admincirclestartvacationdashboard/:groupId?"
+          path="/admincirclestartvacationdashboard/:groupId"
           element={<AdminCircleStartVacationDashboard />}
-        />
+        >
+          <Route path="" element={<Members />} />
+          <Route path="requestjoingroup" element={<RequestJoinGroup />} />
+          <Route path="contribution" element={<Contribution />} />
+        </Route>
         <Route path="/admindashboard" element={<AdminDashboard />}>
           <Route path="" element={<AdminMemberDashboard />} />
           <Route
@@ -87,7 +91,7 @@ const App = () => {
         <Route path="/usergrouppage" element={<UserGroupPage />} />
         <Route path="/usercontributionpage" element={<UserContributionPage />} /> */}
         <Route path="/mygroupdetail" element={<MyGroupDetail />} />
-        <Route path="/requestapproved" element={<RequestApproved />} />
+        <Route path="/requestapproved/:groupId" element={<RequestApproved />} />
         <Route path="/mycontribution" element={<MyContribution />} />
         <Route path="/womendashboard/:groupId?" element={<WomenDashboard />}>
           <Route path="" element={<WomenMembers />} />

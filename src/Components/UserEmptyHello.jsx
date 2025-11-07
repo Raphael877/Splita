@@ -10,7 +10,6 @@ const UserEmptyHello = () => {
   const [user, setuser] = useState("");
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("userid"));
-
   console.log(userId);
 
   return (
@@ -31,7 +30,12 @@ const UserEmptyHello = () => {
             >
               + Create New Group
             </button>
-            <button className="hello_btn2" onClick={() => navigate("/join_group")}>Join Group</button>
+            <button
+              className="hello_btn2"
+              onClick={() => navigate("/join_group")}
+            >
+              Join Group
+            </button>
           </div>
         </Hello>
         <Oops>

@@ -17,6 +17,7 @@ import PayoutSuccessful from "../Components/Payout/PayoutSuccessful.jsx";
 import PayoutDetails from "../Components/Payout/PayoutDetails.jsx";
 import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
@@ -395,60 +396,40 @@ const AdminCircleStartVacationDashboard = () => {
             ))}
           </div>
         </Ad>
+
         <div className="option">
           <div className="option_wrap">
             <div className="inner_wrap">
-              <div className="mem">
+              <div
+                style={{ backgroundColor: "transparent" }}
+                className={`mem ${
+                  location.pathname.endsWith("") ? "active" : ""
+                }`}
+                onClick={() => navigate("")}
+              >
                 <p>Members</p>
               </div>
-              <div className="cont">
+              <div
+                className={`cont ${
+                  location.pathname.includes("contribution") ? "active" : ""
+                }`}
+                onClick={() => navigate("contribution")}
+              >
                 <p>Contributions</p>
               </div>
-              <div className="req">
+              <div
+                className={`req ${
+                  location.pathname.includes("requestjoingroup") ? "active" : ""
+                }`}
+                onClick={() => navigate("requestjoingroup")}
+              >
                 <p>Request</p>
               </div>
             </div>
           </div>
         </div>
 
-        <Table>
-          <div className="table_wrap">
-            <div className="top">
-              <h2>Members</h2>
-            </div>
-
-            <div className="main_table">
-              <div className="all_header">
-                <div className="header">
-                  <h3>Member</h3>
-                </div>
-                <div className="header">
-                  <h3>Contribution</h3>
-                </div>
-                <div className="header">
-                  <h3>Payout Order</h3>
-                </div>
-                <div className="header" style={{ color: "white" }}></div>
-              </div>
-              {AllData.map((items) => (
-                <div className="all_data">
-                  <div className="member">
-                    <p>{items.member}</p>
-                  </div>
-                  <div className="contribution">
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      {items.contribution}
-                    </p>
-                  </div>
-                  <div className="payout_order">
-                    <p>{items.payout_order}</p>
-                  </div>
-                  <div className="delete">{items.delete}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Table>
+        <Outlet />
         <UserDashboardFooter />
       </AdminCircleStartVacationDashboard_wrapper>
       {currentModal === "payout" && (
@@ -620,37 +601,8 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #d6beeb;
         border-radius: 0.5rem;
 
-        .mem {
-          width: 25%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
-          border-radius: 0.5rem;
-          background-color: #9556cc;
-          cursor: pointer;
-          &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-          }
-        }
-
-        .cont {
-          width: 25%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 0.5rem;
-          cursor: pointer;
-          &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-            color: white;
-          }
-        }
-
+        .mem,
+        .cont,
         .req {
           width: 25%;
           height: 60%;
@@ -659,11 +611,26 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
           align-items: center;
           border-radius: 0.5rem;
           cursor: pointer;
+          background-color: transparent;
+          color: inherit;
+          transition: all 350ms ease-in-out;
+
           &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-            color: white;
+            background-color: rgba(123, 44, 191, 0.15);
+            color: #7b2cbf;
           }
+        }
+
+        .cont {
+          width: 30%;
+          @media (max-width: 768px) {
+            width: 40%;
+          }
+        }
+
+        .active {
+          background-color: #7b2cbf !important;
+          color: white !important;
         }
       }
     }

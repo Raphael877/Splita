@@ -5,15 +5,19 @@ import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
 import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const RequestJoinGroup = () => {
   const location = useLocation();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const token = localStorage.getItem("token");
-  const groupId = localStorage.getItem("createdGroupId");
 
+  const token = localStorage.getItem("user_token");
+  const userId = JSON.parse(localStorage.getItem("userid"));
+  // const { groupId } = useParams();
+  const groupId = localStorage.getItem("createdGroupId");
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [group, setGroup] = useState("");
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
 
@@ -24,23 +28,28 @@ const RequestJoinGroup = () => {
 
   const fetchRequests = async () => {
     setLoading(true);
+    console.log(groupId);
     try {
-      const res = await axios.get(`${BaseUrl}/groups/${groupId}/requests`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setRequests(res.data || []);
+      const res = await axios.get(
+        `${BaseUrl}/groups/${groupId}/pending-requests`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setRequests(res?.data.requests);
+      setGroup(res?.data?.group?.id);
+      console.log("res", res.data.group.id);
     } catch (error) {
-      console.error("Error fetching requests:", error);
+      console.error("Error fetching requests", error);
       toast.error("Failed to fetch join requests");
     } finally {
       setLoading(false);
     }
   };
-
-  const handleRequestAction = async (requestId, action) => {
+  const handleRequestAction = async (userId, action) => {
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/requests/${requestId}/${action}`,
+        `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -48,6 +57,7 @@ const RequestJoinGroup = () => {
       );
 
       toast.success(res?.data?.message || `Request ${action}ed successfully`);
+
       if (action === "approve") setShowApproveModal(true);
       else setShowDeclineModal(true);
 
@@ -63,7 +73,6 @@ const RequestJoinGroup = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
-
   return (
     <AdminDashboard_content>
       <AdminDashboard_wrapper>
@@ -97,16 +106,24 @@ const RequestJoinGroup = () => {
                           <div className="btn">
                             <button
                               className="btn1"
-                              onClick={() =>
-                                handleRequestAction(req.id, "approve")
+                              onClick={(group) =>
+                                handleRequestAction(
+                                  req.user.id,
+                                  "approve",
+                                  group
+                                )
                               }
                             >
                               Approve
                             </button>
                             <button
                               className="btn2"
-                              onClick={() =>
-                                handleRequestAction(req.id, "reject")
+                              onClick={(group) =>
+                                handleRequestAction(
+                                  req.user.id,
+                                  "reject",
+                                  group
+                                )
                               }
                             >
                               Decline
@@ -124,10 +141,16 @@ const RequestJoinGroup = () => {
       </AdminDashboard_wrapper>
 
       {showApproveModal && (
-        <ApproveMember onClose={() => setShowApproveModal(false)} />
+        <ApproveMember
+          onClose={() => setShowApproveModal(false)}
+          group={group}
+        />
       )}
       {showDeclineModal && (
-        <DeclineMember onClose={() => setShowDeclineModal(false)} />
+        <DeclineMember
+          onClose={() => setShowDeclineModal(false)}
+          group={group}
+        />
       )}
     </AdminDashboard_content>
   );
