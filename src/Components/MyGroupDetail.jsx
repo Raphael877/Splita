@@ -11,9 +11,7 @@ const MyGroupDetail = () => {
   const { groupId } = useParams();
   console.log("Group ID:", groupId);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  const token = JSON.parse(
-    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-  );
+  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
   const navigate = useNavigate();
 
   const [groups, setGroups] = useState([]);

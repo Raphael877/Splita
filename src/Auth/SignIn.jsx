@@ -59,7 +59,7 @@ const SignIn = () => {
     try {
       const res = await axios.post(`${BaseUrl}/users/login`, formData);
 
-      localStorage.setItem(
+      const token = localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(res?.data?.token)
       );
@@ -67,7 +67,7 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.user)
       );
-      const token = res?.data?.token;
+      // const token = res?.data?.token;
       localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(token)
