@@ -67,7 +67,7 @@ const SignIn = () => {
         import.meta.env.VITE_USERID,
         JSON.stringify(res?.data?.user)
       );
-      const token = res?.data?.token;
+      // const token = res?.data?.token;
       localStorage.setItem(
         import.meta.env.VITE_USERTOKEN,
         JSON.stringify(token)
