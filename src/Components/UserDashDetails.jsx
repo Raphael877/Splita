@@ -226,12 +226,12 @@ const UserDashDetails = () => {
                         <button
                           onClick={() => {
                             if (group.myRole === "admin") {
-                              navigate("/admincirclestartvacationdashboard/:groupId?"
+                              navigate(`/admincirclestartvacationdashboard/${group.id}`
                               );
                             } else if (group.myRole === "user") {
-                              navigate("/womendashboard/:groupId?");
+                              navigate(`/womendashboard/${group.id}`);
                             } else {
-                              console.warn("Unknown role:", myRole);
+                              console.log("Unknown role:", myRole);
                             }
                           }}
                         >

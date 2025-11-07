@@ -34,8 +34,8 @@ import Contributions from "./Pages/Contributions.jsx";
 import Join_Group from "./Pages/Join_Group.jsx";
 import MyGroupDetail from "./Components/MyGroupDetail.jsx";
 import Start_group from "./Pages/Start_group.jsx";
-import Members from './Components/Members.jsx'
-import Contribution from './Components/Contribution.jsx'
+import Members from "./Components/Members.jsx";
+import Contribution from "./Components/Contribution.jsx";
 // import UserDashboardPage from './Pages/UserDashboardPage.jsx';
 // import ProtectedRoute from "./config/ProtectedRoute.jsx";
 // import UserGroupPage from './Pages/UserGroupPage.jsx';
@@ -56,7 +56,7 @@ const App = () => {
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/contributions" element={<Contributions />} />
-        <Route path="/start_group" element={<Start_group />} >
+        <Route path="/start_group" element={<Start_group />}>
           <Route path="requestjoingroup" element={<RequestJoinGroup />} />
           <Route path="contribution" element={<Contribution />} />
           <Route path="" element={<Members />} />
@@ -82,7 +82,7 @@ const App = () => {
           <Route path="admin_request" element={<AdminRequestDashboard />} />
         </Route>
         <Route path="/group_created" element={<GroupCreated />} />
-        
+
         {/* <Route path="/userdashboardpage" element={<UserDashboardPage />} />
         <Route path="/usergrouppage" element={<UserGroupPage />} />
         <Route path="/usercontributionpage" element={<UserContributionPage />} /> */}
