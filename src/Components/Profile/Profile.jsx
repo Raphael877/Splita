@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 const Profile = () => {
   const navigate = useNavigate();
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem('profileImage') || null
+  );
 
   const userData = (() => {
     try {
@@ -32,6 +35,12 @@ const Profile = () => {
   const bankName = bankData.bankName || 'Not Available';
   const accountNumber = bankData.accountNumber || 'Not Available';
 
+  // Handle the image upload event from modal
+  const handleImageUpload = (imageUrl) => {
+    setProfileImage(imageUrl);
+    localStorage.setItem('profileImage', imageUrl); // persist for refresh
+  };
+
   return (
     <Profile_content>
       <div className='circle_top_left'></div>
@@ -48,9 +57,13 @@ const Profile = () => {
         <h1>My Profile</h1>
 
         <div className='image_div'>
-          <FaRegUserCircle style={{color: '#969695', fontSize: '1.5rem'}}/>
+          {profileImage ? (
+            <img src={profileImage} className="profile_img" />
+          ) : (
+            <FaRegUserCircle style={{ color: '#969695', fontSize: '2rem' }} />
+          )}
           <div className='edit_cont' onClick={() => setShowUploadModal(true)}>
-            <FiEdit style={{ cursor: "pointer" }}/>
+            <FiEdit style={{ cursor: "pointer" }} />
           </div>
         </div>
 
@@ -100,7 +113,12 @@ const Profile = () => {
         </div>
       </Profile_wrapper>
 
-      {showUploadModal && <ProfileUpload onClose={() => setShowUploadModal(false)} />}
+      {showUploadModal && (
+        <ProfileUpload
+          onClose={() => setShowUploadModal(false)}
+          onImageUpload={handleImageUpload}
+        />
+      )}
     </Profile_content>
   );
 };
@@ -146,7 +164,7 @@ const Profile_content = styled.div`
       top: 5%;
     }
 
-    p{
+    p {
       @media (max-width: 768px) {
         display: none;
       }
@@ -177,17 +195,18 @@ const Profile_wrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 768px) {
-      align-self: center;
-      width: 9rem;
-      height: 9rem;
+    .profile_img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     .edit_cont {
       width: 2rem;
       height: 2rem;
       border-radius: 50%;
-      background-color: #969695;
+      background-color: #c0c0b4;
       color: #ffc18a;
       position: absolute;
       display: flex;
@@ -221,12 +240,12 @@ const Profile_wrapper = styled.div`
     }
   }
 
-  .btn{
+  .btn {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 2rem;
 
-    .btn1{
+    .btn1 {
       width: 50%;
       height: 2.5rem;
       border-radius: 0.5rem;
@@ -235,13 +254,13 @@ const Profile_wrapper = styled.div`
       background-color: #b8b8b8;
       color: white;
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: #dfcece;
         transition: all 350ms ease-in-out;
       }
-    }  
+    }
 
-    .btn2{
+    .btn2 {
       width: 50%;
       height: 2.5rem;
       border-radius: 0.5rem;
@@ -250,10 +269,10 @@ const Profile_wrapper = styled.div`
       background-color: #7b2cbf;
       color: white;
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: #9551d0;
         transition: all 350ms ease-in-out;
       }
-    }  
+    }
   }
 `;

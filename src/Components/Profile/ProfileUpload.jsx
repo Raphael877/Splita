@@ -5,7 +5,7 @@ import { ClipLoader } from "react-spinners";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ProfileUpload = ({ onClose }) => {
+const ProfileUpload = ({ onClose, onImageUpload }) => {
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -28,6 +28,9 @@ const ProfileUpload = ({ onClose }) => {
     setTimeout(() => {
       setLoading(false);
       toast.success("Upload successful!");
+
+      onImageUpload(selectedImage);
+
       setTimeout(() => {
         onClose();
       }, 1500);
