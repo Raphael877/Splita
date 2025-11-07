@@ -251,7 +251,6 @@ const Start_group = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [loading, setLoading] = useState(false);
   const [showSelectPayout, setShowSelectPayout] = useState(false);
   const [showAutomaticRotation, setShowAutomaticRotation] = useState(false);
   const [showPayoutManually, setShowPayoutManually] = useState(false);
@@ -268,7 +267,6 @@ const Start_group = () => {
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
 
-    setLoading(true);
 
     try {
       const res = await axios.post(
@@ -279,8 +277,6 @@ const Start_group = () => {
       toast.success(res.data?.message || "Cycle started successfully!");
     } catch (error) {
       console.error("Error starting cycle:", error.response || error);
-    } finally {
-      setLoading(false);
     }
   };
 

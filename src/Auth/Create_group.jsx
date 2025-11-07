@@ -196,7 +196,10 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("contribution")}
             >
-              <p>{formData.contributionFrequency || "e.g Weekly"}</p>
+              <p style={{ color: formData.contributionFrequency ? "#000" : "#9c9a9a" }}>
+              {formData.contributionFrequency || "e.g Weekly"}
+              </p>
+
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
             </div>
             {openDropdown === "contribution" && (
@@ -226,7 +229,10 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("payout")}
             >
-              <p>{formData.payoutFrequency || "e.g Weekly"}</p>
+            <p style={{ color: formData.payoutFrequency ? "#000" : "#9c9a9a" }}>
+            {formData.payoutFrequency || "e.g Weekly"}
+            </p>
+
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
             </div>
             {openDropdown === "payout" && (
@@ -279,7 +285,10 @@ const Create_group = () => {
               style={{ paddingInline: "0.8rem" }}
               onClick={() => toggleDropdown("members")}
             >
-              <p>{formData.totalMembers || "e.g Min 2, Max 12"}</p>
+              <p style={{ color: formData.totalMembers ? "#000" : "#9c9a9a" }}>
+                {formData.totalMembers || "e.g Min 2, Max 12"}
+              </p>
+
               <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
             </div>
             {openDropdown === "members" && (
@@ -387,7 +396,7 @@ const Create_group_content = styled.div`
   .brand_name {
     position: absolute;
     top: 3%;
-    left: 10%;
+    left: 8%;
     z-index: 1;
 
     img {
@@ -408,7 +417,7 @@ const Create_group_content = styled.div`
 
     @media (max-width: 768px) {
       top: 9%;
-      left: -65%;
+      left: -70%;
     }
 
     p {
