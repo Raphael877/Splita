@@ -108,6 +108,9 @@ const AdminCircleStartVacationDashboard = () => {
   // };
   const handleContribute = async () => {
     try {
+      setLoading(true);
+
+      // Step 1: Initialize contribution
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -121,29 +124,20 @@ const AdminCircleStartVacationDashboard = () => {
 
       console.log("Initialize response:", initRes.data);
 
-      const reference = initRes?.data?.reference;
+      const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      toast.success("Contribution initialized successfully!");
+      if (!authorizationUrl || !reference) {
+        toast.error("Payment initialization failed. No URL returned.");
+        return;
+      }
 
-      const verifyRes = await axios.post(
-        `${BaseUrl}/Payments/verify-contribution`,
-        { reference },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      toast.success("Redirecting to payment gateway...");
 
-      console.log("Verify response:", verifyRes.data);
+      window.location.href = authorizationUrl;
 
-      toast.success(
-        verifyRes?.data?.message || "Contribution verified successfully!"
-      );
+      l;
     } catch (error) {
       console.error("Error contributing:", error);
-
       toast.error(
         error?.response?.data?.message ||
           "Failed to process contribution. Please try again."
