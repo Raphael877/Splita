@@ -9,10 +9,17 @@ const WomenMembers = () => {
         {
             member: 'Chidinma',
             contribution: (<><TbCurrencyNaira/>10,000</>),
-            cycle: 'Cycle1',
+            order: '1st',
             id: 1,
             delete: <CiTrash/>
-        },      
+        },  
+        {
+            member: 'Demola',
+            contribution: (<><TbCurrencyNaira/>10,000</>),
+            order: '2nd',
+            id: 1,
+            delete: <CiTrash/>
+        },     
     ]
   return (
     <AdminMemberDashboard_content>
@@ -47,8 +54,8 @@ const WomenMembers = () => {
                             <div className='contribution'>
                                 <p style={{display: 'flex', alignItems: 'center'}}>{items.contribution}</p>
                             </div>
-                            <div className='cycle'>
-                                <p>{items.cycle}</p>
+                            <div className='order'>
+                                <p>{items.order}</p>
                             </div>
                             <div className='delete' style={{cursor: "pointer"}}>
                                 {items.delete}
@@ -163,7 +170,7 @@ const Table = styled.div`
                     }
                 }
 
-                .cycle{
+                .order{
                     display: flex;
                     justify-content: center;
                     align-items: center;
