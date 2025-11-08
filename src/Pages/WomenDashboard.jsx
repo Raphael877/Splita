@@ -13,12 +13,12 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import axios from "axios";
 
-const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 
 const WomenDashboard = () => {
   const { groupId } = useParams();
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [groupDetails, setGroupDetails] = useState([]);
   useEffect(() => {
@@ -43,8 +43,63 @@ const WomenDashboard = () => {
   }, []);
   const id = localStorage.getItem("selectedGroupId");
 
+  // const handleContribute = async () => {
+  //   try {
+  //     const initRes = await axios.post(
+  //       `${BaseUrl}/Payments/initialize-contribution`,
+  //       { groupId: id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     console.log("Initialize response:", initRes.data);
+
+  //     const reference = initRes?.data?.reference;
+
+  //     if (!reference) {
+  //       toast.error("No reference returned from initialization.");
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     toast.success("Contribution initialized successfully!");
+
+  //     const verifyRes = await axios.post(
+  //       `${BaseUrl}/Payments/verify-contribution`,
+  //       { reference },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     console.log("Verify response:", verifyRes.data);
+
+  //     toast.success(
+  //       verifyRes?.data?.message || "Contribution verified successfully!"
+  //     );
+  //   } catch (error) {
+  //     console.error("Error contributing:", error);
+
+  //     toast.error(
+  //       error?.response?.data?.message ||
+  //         "Failed to process contribution. Please try again."
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handleContribute = async () => {
     try {
+      setLoading(true);
+
+      // Step 1: Initialize contribution
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -58,35 +113,20 @@ const WomenDashboard = () => {
 
       console.log("Initialize response:", initRes.data);
 
-      const reference = initRes?.data?.reference;
+      const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      if (!reference) {
-        toast.error("No reference returned from initialization.");
-        setLoading(false);
+      if (!authorizationUrl || !reference) {
+        toast.error("Payment initialization failed. No URL returned.");
         return;
       }
 
-      toast.success("Contribution initialized successfully!");
+      toast.success("Redirecting to payment gateway...");
 
-      const verifyRes = await axios.post(
-        `${BaseUrl}/Payments/verify-contribution`,
-        { reference },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      window.location.href = authorizationUrl;
 
-      console.log("Verify response:", verifyRes.data);
-
-      toast.success(
-        verifyRes?.data?.message || "Contribution verified successfully!"
-      );
+      l;
     } catch (error) {
       console.error("Error contributing:", error);
-
       toast.error(
         error?.response?.data?.message ||
           "Failed to process contribution. Please try again."

@@ -39,6 +39,7 @@ const UserDashDetails = () => {
       }
     };
     if (userId) handleDetails();
+    console.log("user", userId);
 
     const contributionsummary = async () => {
       try {
@@ -229,10 +230,10 @@ const UserDashDetails = () => {
                               navigate(
                                 `/admincirclestartvacationdashboard/${group.id}`
                               );
-                            } else if (group.myRole === "user") {
+                            } else if (group.myRole === "member") {
                               navigate(`/womendashboard/${group.id}`);
                             } else {
-                              console.log("Unknown role:", myRole);
+                              console.log("Unknown role:");
                             }
                           }}
                         >

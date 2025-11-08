@@ -321,7 +321,7 @@ const AdminCircleStartVacationDashboard = () => {
       <AdminCircleStartVacationDashboard_wrapper>
         <AdminDashboardHeader />
         <div className="groupname">
-          <h1>{groupName}</h1>
+          <h1>{groupDetails?.group?.groupName}</h1>
         </div>
         <div className="round">
           <div className="left">

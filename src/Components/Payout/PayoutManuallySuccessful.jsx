@@ -1,38 +1,46 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const PayoutManuallySuccessful = ({ onClose }) => {
-    const navigate = useNavigate();
+const PayoutManuallySuccessful = ({ onClose, payoutData, groupId }) => {
+  const navigate = useNavigate();
 
-    const handleDone = () => {
+  const handleDone = () => {
     if (onClose) onClose();
-    navigate('/admincirclestartvacationdashboard');
+    navigate(`/admincirclestartvacationdashboard/${groupId}`);
   };
+
+  // Sort by position if needed
+  const sortedData = payoutData
+    ?.slice()
+    .sort((a, b) => a.position - b.position);
+
   return (
     <Content>
       <Wrapper>
         <Inner>
           <h3>Payout Order Saved Successfully!</h3>
-          <p style={{ color: '#777777' }}>Here's your payout rotation</p>
+          <p style={{ color: "#777777" }}>Here's your payout rotation:</p>
 
-          <div className='cont'>
-            <p>1st Dera</p>
-            <p>2nd Chisom</p>
-            <p>3rd Dinma</p>
-            <p>4th Ademola</p>
-            <p>5th Habeeb</p>
+          <div className="cont">
+            {sortedData && sortedData.length > 0 ? (
+              sortedData.map((member) => (
+                <p key={member.id}>
+                  {member.position}nd - {member.name}
+                </p>
+              ))
+            ) : (
+              <p>No payout data available</p>
+            )}
           </div>
 
           <button onClick={handleDone}>Done</button>
         </Inner>
       </Wrapper>
     </Content>
-  )
-}
-
-export default PayoutManuallySuccessful
-
+  );
+};
+export default PayoutManuallySuccessful;
 const Content = styled.div`
   width: 100%;
   height: 100vh;
