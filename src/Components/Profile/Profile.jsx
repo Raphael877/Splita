@@ -175,6 +175,12 @@ const Profile = () => {
     overflow: "hidden",
   };
 
+  // Handle the image upload event from modal
+  const handleImageUpload = (imageUrl) => {
+    setProfileImage(imageUrl);
+    localStorage.setItem('profileImage', imageUrl); // persist for refresh
+  };
+
   return (
     <Profile_content>
       <div className="circle_top_left"></div>
@@ -415,17 +421,18 @@ const Profile_wrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 768px) {
-      align-self: center;
-      width: 9rem;
-      height: 9rem;
+    .profile_img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     .edit_cont {
       width: 2rem;
       height: 2rem;
       border-radius: 50%;
-      background-color: #969695;
+      background-color: #c0c0b4;
       color: #ffc18a;
       position: absolute;
       display: flex;
