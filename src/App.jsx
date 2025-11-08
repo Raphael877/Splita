@@ -23,8 +23,8 @@ import RequestJoinGroup from "./Pages/RequestJoinGroup.jsx";
 import RequestApproved from "./Pages/RequestApproved.jsx";
 import MyContribution from "./Components/MyContribution.jsx";
 import WomenDashboard from "./Pages/WomenDashboard.jsx";
-import WomenMembers from "./Components/WomenMembers.jsx";
-import WomenContribution from "./Components/WomenContribution.jsx";
+import WMembers from "./Components/WMembers.jsx";
+import WContribution from "./Components/wContribution.jsx";
 import Dashboard from "./Pages/Dashboard.jsx";
 import Obele from "./Pages/Obele.jsx";
 import ObeleMembers from "./Components/ObeleMembers.jsx";
@@ -36,10 +36,7 @@ import MyGroupDetail from "./Components/MyGroupDetail.jsx";
 import Start_group from "./Pages/Start_group.jsx";
 import Members from "./Components/Members.jsx";
 import Contribution from "./Components/Contribution.jsx";
-// import UserDashboardPage from './Pages/UserDashboardPage.jsx';
-// import ProtectedRoute from "./config/ProtectedRoute.jsx";
-// import UserGroupPage from './Pages/UserGroupPage.jsx';
-// import UserContributionPage from './Pages/UserContributionPage.jsx';
+import Cont from "./Components/Cont.jsx";
 
 const App = () => {
   return (
@@ -61,11 +58,6 @@ const App = () => {
           <Route path="contribution" element={<Contribution />} />
           <Route path="" element={<Members />} />
         </Route>
-        {/* <Route
-          path="/dashboard"
-          element={<ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>}/> */}
         <Route path="/creategroup" element={<Create_group />} />
         <Route path="/groups" element={<MyGroup />} />
         <Route path="/profile" element={<Profile />} />
@@ -73,9 +65,9 @@ const App = () => {
           path="/admincirclestartvacationdashboard/:groupId"
           element={<AdminCircleStartVacationDashboard />}
         >
-          <Route path="" element={<Members />} />
+          <Route path="" element={<WMembers />} />
+          <Route path="contribution" element={<WContribution />} />
           <Route path="requestjoingroup" element={<RequestJoinGroup />} />
-          <Route path="contribution" element={<Contribution />} />
         </Route>
         <Route path="/admindashboard" element={<AdminDashboard />}>
           <Route path="" element={<AdminMemberDashboard />} />
@@ -94,8 +86,8 @@ const App = () => {
         <Route path="/requestapproved/:groupId" element={<RequestApproved />} />
         <Route path="/mycontribution" element={<MyContribution />} />
         <Route path="/womendashboard/:groupId?" element={<WomenDashboard />}>
-          <Route path="" element={<WomenMembers />} />
-          <Route path="women_contribution" element={<WomenContribution />} />
+          <Route path="" element={<WMembers />} />
+          <Route path="women_contribution" element={<WContribution />} />
         </Route>
 
         <Route path="/obele" element={<Obele />}>

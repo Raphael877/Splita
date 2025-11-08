@@ -6,7 +6,7 @@ const Contribution = () => {
     <Content>
         <Wrapper>
             <h3>Oops</h3>
-            <p>Your group is waiting to begin! Invite and approve members to start your first round of contributions.</p>
+            <p>No contributions yet. Invite members to start contributing.</p>
         </Wrapper>
     </Content>
   )

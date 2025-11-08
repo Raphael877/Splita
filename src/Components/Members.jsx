@@ -5,8 +5,8 @@ const Members = () => {
   return (
     <Content>
         <Wrapper>
-            <h3>Oops</h3>
-            <p>No contributions yet. Invite members to start contributing.</p>
+            <h3>Oops</h3> 
+            <p>Your group is waiting to begin! Invite and approve members to start your first round of contributions.</p>
         </Wrapper>
     </Content>
   )
