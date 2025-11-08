@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import { FaRegImage, FaRegTimesCircle } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const ProfileUpload = ({ onClose, onImageUpload }) => {
+const ProfileUpload = ({ onClose, onUpload }) => {
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  // Handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setSelectedFile(file);
       setSelectedImage(URL.createObjectURL(file));
     }
   };
 
-  // Simulate save action
   const handleSave = () => {
-    if (!selectedImage) {
+    if (!selectedFile) {
       toast.error("Please select an image first!");
       return;
     }
 
     setLoading(true);
+
     setTimeout(() => {
       setLoading(false);
       toast.success("Upload successful!");
 
-      onImageUpload(selectedImage);
+      if (onUpload) {
+        onUpload(selectedImage, selectedFile);
+      }
 
       setTimeout(() => {
         onClose();
@@ -42,20 +45,23 @@ const ProfileUpload = ({ onClose, onImageUpload }) => {
       <ToastContainer />
       <ProfileUpload_wrapper>
         <Inner_wrap>
-          <FaRegTimesCircle 
+          <FaRegTimesCircle
             className="cancel_icon"
-            style={{ fontSize: '1.4rem', cursor: 'pointer' }}
+            style={{ fontSize: "1.4rem", cursor: "pointer" }}
             onClick={onClose}
           />
 
           <h3>Tap to change</h3>
 
-          <div className="img_div" onClick={() => document.getElementById('fileInput').click()}>
+          <div
+            className="img_div"
+            onClick={() => document.getElementById("fileInput").click()}
+          >
             {selectedImage ? (
               <img src={selectedImage} alt="Preview" className="preview_img" />
             ) : (
               <>
-                <FaRegImage style={{ cursor: 'pointer', fontSize: '1.8rem' }} />
+                <FaRegImage style={{ cursor: "pointer", fontSize: "1.8rem" }} />
                 <p>Click to upload a picture</p>
               </>
             )}
@@ -65,7 +71,7 @@ const ProfileUpload = ({ onClose, onImageUpload }) => {
             type="file"
             id="fileInput"
             accept="image/*"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={handleImageChange}
           />
 

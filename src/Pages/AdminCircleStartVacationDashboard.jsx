@@ -19,7 +19,7 @@ import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
@@ -312,6 +312,7 @@ const AdminCircleStartVacationDashboard = () => {
   ];
   return (
     <AdminCircleStartVacationDashboard_content>
+      <ToastContainer />
       <AdminCircleStartVacationDashboard_wrapper>
         <AdminDashboardHeader />
         <div className="groupname">
@@ -333,7 +334,7 @@ const AdminCircleStartVacationDashboard = () => {
             </button>
             <button onClick={handleContribute} className="btn2">
               <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-              <p>Make Contribution</p>
+              {loading ? "loading...." : <p>Make Contribution</p>}
             </button>
           </div>
         </div>
