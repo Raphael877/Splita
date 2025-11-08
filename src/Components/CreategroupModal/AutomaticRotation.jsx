@@ -1,31 +1,75 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const AutomaticRotation = ({ onClose }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const handleStartCycle = async () => {
+    const BaseUrl = import.meta.env.VITE_BaseUrl;
+    const groupId = localStorage.getItem("createdGroupId");
+    const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+    const token = storedToken ? JSON.parse(storedToken) : null;
+
+    if (!token) {
+      toast.error("No valid token found. Please log in again.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/start-cycle`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res?.data?.data?.message || "Cycle started successfully!");
+      console.log(res);
+      navigate("/admindashboard");
+    } catch (error) {
+      console.error("Error starting cycle:", error.response || error);
+      toast.error(error.response?.data?.message || "Failed to start cycle");
+    }
+  };
   return (
     <Payout_content>
       <Payout_wrapper>
+        <ToastContainer />
         <Inner_wrap>
           <h3>Start Cycle with Automatic Rotation</h3>
-          <p>Splita will automatically assign payout turns to all members randomly.</p>
-          <div className='btn'>
-            <button className='btn1' onClick={onClose}>Cancel</button>
-            <button className='btn2' onClick={() => navigate('/admindashboard')}>Confirm & Start</button>
+          <p>
+            Splita will automatically assign payout turns to all members
+            randomly.
+          </p>
+          <div className="btn">
+            <button className="btn1" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn2" onClick={handleStartCycle}>
+              Confirm & Start
+            </button>
           </div>
         </Inner_wrap>
-        <FaRegTimesCircle 
+        <FaRegTimesCircle
           onClick={onClose}
-          style={{cursor: 'pointer', position: 'absolute', top: '10%', right: '6%'}}
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            top: "10%",
+            right: "6%",
+          }}
         />
       </Payout_wrapper>
     </Payout_content>
-  )
-}
+  );
+};
 
-export default AutomaticRotation
+export default AutomaticRotation;
 
 const Payout_content = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
@@ -36,7 +80,7 @@ const Payout_content = styled.div`
   align-items: center;
   position: fixed;
   inset: 0;
-  z-index: 100; 
+  z-index: 100;
 `;
 
 const Payout_wrapper = styled.div`
@@ -64,15 +108,15 @@ const Inner_wrap = styled.div`
   align-items: center;
   text-align: center;
 
-  p{
+  p {
     color: #777777;
   }
 
-  .btn{
+  .btn {
     display: flex;
     gap: 1.3rem;
 
-    .btn1{
+    .btn1 {
       border: none;
       outline: none;
       color: white;
@@ -83,7 +127,7 @@ const Inner_wrap = styled.div`
       background-color: #9d9d9d;
     }
 
-    .btn2{
+    .btn2 {
       border: none;
       outline: none;
       color: white;

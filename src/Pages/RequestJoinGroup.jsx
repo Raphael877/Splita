@@ -11,7 +11,7 @@ const RequestJoinGroup = () => {
   const location = useLocation();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const token = localStorage.getItem("user_token");
+  const token = JSON.parse(localStorage.getItem("user_token"));
   const userId = JSON.parse(localStorage.getItem("userid"));
   // const { groupId } = useParams();
   const groupId = localStorage.getItem("createdGroupId");
@@ -50,7 +50,7 @@ const RequestJoinGroup = () => {
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
-        {},
+        { action },
         {
           headers: { Authorization: `Bearer ${token}` },
         }

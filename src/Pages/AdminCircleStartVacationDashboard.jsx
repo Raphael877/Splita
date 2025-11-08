@@ -73,13 +73,47 @@ const AdminCircleStartVacationDashboard = () => {
       setLoading(false);
     }
   };
-  const startCycle = async () => {
+
+  // const confirmPayout = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     const payload = {
+  //       payoutOrder: [
+  //         {
+  //           userId: nextMember?.userId,
+  //           position: nextMember?.position,
+  //         },
+  //       ],
+  //     };
+
+  //     const res = await axios.put(
+  //       `${BaseUrl}/groups/${groupId}/payout-order`,
+  //       payload,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     console.log(groupId);
+  //     toast.success("Payout confirmed successfully");
+  //     setCurrentModal("payoutSuccessful");
+  //   } catch (error) {
+  //     console.error("Error confirming payout:", error);
+  //     toast.error(error.response?.data?.message || "Failed to confirm payout");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const handleContribute = async () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        `${BaseUrl}/groups/${id}/start-cycle`,
-        {},
+      // Step 1: Initialize contribution
+      const initRes = await axios.post(
+        `${BaseUrl}/Payments/initialize-contribution`,
+        { groupId: id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,88 +122,28 @@ const AdminCircleStartVacationDashboard = () => {
         }
       );
 
-      console.log("Cycle started:", res.data);
-      toast.success("Cycle started successfully!");
+      console.log("Initialize response:", initRes.data);
 
-      if (res.data?.nextMember) {
-        setNextMember(res.data.nextMember);
+      const { authorizationUrl, reference } = initRes?.data?.data || {};
+
+      if (!authorizationUrl || !reference) {
+        toast.error("Payment initialization failed. No URL returned.");
+        return;
       }
+
+      toast.success("Redirecting to payment gateway...");
+
+      window.location.href = authorizationUrl;
+
+      l;
     } catch (error) {
-      console.error("Error starting cycle:", error);
-      toast.error(error.response?.data?.message || "Failed to start cycle");
+      console.error("Error contributing:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to process contribution. Please try again."
+      );
     } finally {
       setLoading(false);
-    }
-  };
-
-  const confirmPayout = async () => {
-    try {
-      setLoading(true);
-
-      const payload = {
-        payoutOrder: [
-          {
-            userId: nextMember?.userId,
-            position: nextMember?.position,
-          },
-        ],
-      };
-
-      const res = await axios.put(
-        `${BaseUrl}/groups/${groupId}/payout-order`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(groupId);
-      toast.success("Payout confirmed successfully");
-      setCurrentModal("payoutSuccessful");
-    } catch (error) {
-      console.error("Error confirming payout:", error);
-      toast.error(error.response?.data?.message || "Failed to confirm payout");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const randomizePayoutOrder = async () => {
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(groupId);
-      toast.success("Payout order randomized successfully");
-    } catch (error) {
-      console.error("Error randomizing payout order:", error);
-      toast.error("Could not randomize payout order");
-    }
-  };
-
-  const handlContribute = async () => {
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/contribute`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setGroupDetails(res?.data);
-      toast.success("Contribution successful");
-    } catch (error) {
-      console.log("Error fetching groups:", error);
     }
   };
 
@@ -357,7 +331,7 @@ const AdminCircleStartVacationDashboard = () => {
               <FiSend style={{ fontSize: "1rem" }} />
               <p>Trigger Payout</p>
             </button>
-            <button onClick={randomizePayoutOrder} className="btn2">
+            <button onClick={handleContribute} className="btn2">
               <TbCurrencyNaira style={{ fontSize: "1rem" }} />
               <p>Make Contribution</p>
             </button>

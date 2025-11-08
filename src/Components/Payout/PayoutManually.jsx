@@ -1,52 +1,134 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FaRegTimesCircle } from "react-icons/fa";
-import styled from 'styled-components'
+import { toast, ToastContainer } from "react-toastify";
+import styled from "styled-components";
 
 const PayoutManually = ({ onClose, onSave }) => {
+  const [members, setMembers] = useState([]);
+  const [payoutOrder, setPayoutOrder] = useState({});
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
+  const groupId = localStorage.getItem("createdGroupId");
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setMembers(res.data.group.members || []);
+        console.log("Members fetched:", res.data);
+      } catch (error) {
+        console.error("Error fetching members:", error);
+        toast.error("Failed to load group members");
+      }
+    };
+    fetchMembers();
+  }, []);
+
+  const handleInputChange = (userId, value) => {
+    setPayoutOrder((prev) => ({ ...prev, [userId]: value }));
+  };
+
+  const handleSaveOrder = async () => {
+    const payload = {
+      payoutOrder: members
+        .filter((m) => payoutOrder[m.id])
+        .map((m) => ({
+          userId: m.id,
+          position: Number(payoutOrder[m.id]),
+        })),
+    };
+
+    if (payload.payoutOrder.length === 0) {
+      toast.error("Please enter at least one payout position");
+      return;
+    }
+
+    try {
+      const res = await axios.put(
+        `${BaseUrl}/groups/${groupId}/payout-order`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(res.data.message || "Payout order saved!");
+      onSave(res.data.data);
+    } catch (error) {
+      console.error("Error saving payout order:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to save payout order"
+      );
+    }
+  };
+
   return (
     <Content>
+      <ToastContainer />
       <Wrapper>
         <Inner>
           <h3>Select Payout Numbers</h3>
-          <p style={{color: '#777777'}}>
-            Enter a payout number between 1 and the total number of members in your group.
-            Each number represents a payout position.
+          <p style={{ color: "#777777" }}>
+            Enter a payout number between 1 and the total number of members in
+            your group.
           </p>
 
-          <div className='cont'>
-            <div className='one_main'>
+          <div className="cont">
+            <div className="one_main">
               <p>Member Name</p>
               <p>Payout Order</p>
             </div>
-            {['Dera', 'Chisom', 'Dinma', 'Ademola', 'Habeeb'].map((name, i) => (
-              <div className='one' key={i}>
-                <p>{name}</p>
-                <div className='input_div'>
-                  <input type='text' placeholder={`e.g ${i+1}`} />
+
+            {members.length > 0 ? (
+              members.map((member, i) => (
+                <div className="one" key={member.id}>
+                  <p>{member.name}</p>
+                  <div className="input_div">
+                    <input
+                      type="number"
+                      placeholder={`e.g ${i + 1}`}
+                      value={payoutOrder[member.id] || ""}
+                      onChange={(e) =>
+                        handleInputChange(member.id, e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p style={{ textAlign: "center", color: "#888" }}>
+                No members found
+              </p>
+            )}
           </div>
 
-          <button onClick={onSave}>Save Order</button>
+          <button onClick={handleSaveOrder}>Save Order</button>
         </Inner>
 
         <FaRegTimesCircle
           onClick={onClose}
           style={{
-            cursor: 'pointer',
-            fontSize: '1rem',
-            position: 'absolute',
-            top: '5%',
-            right: '10%'
+            cursor: "pointer",
+            fontSize: "1rem",
+            position: "absolute",
+            top: "5%",
+            right: "10%",
           }}
         />
       </Wrapper>
     </Content>
-  )
-}
+  );
+};
 
-export default PayoutManually
+export default PayoutManually;
 
 const Content = styled.div`
   width: 100%;
@@ -86,42 +168,44 @@ const Inner = styled.div`
     flex-direction: column;
     gap: 1rem;
 
-    .one_main{ 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        width: 100%; 
-        padding-right: 1rem;
-     }
-        .one{ 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
-            width: 100%; 
+    .one_main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding-right: 1rem;
+    }
+    .one {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
 
-                p{ 
-                    width: 60%; 
-                    display: flex; 
-                    justify-content: flex-start; padding-left: 2rem; 
-                }
-                 .input_div{ 
-                    display: flex; 
-                    justify-content: center; 
-                    align-items: center; 
-                    width: 40%; 
-                    height: 2rem; 
-                    border: 1.5px solid #cccccc; border-radius: 0.3rem; 
-                    overflow: hidden; 
+      p {
+        width: 60%;
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 2rem;
+      }
+      .input_div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        height: 2rem;
+        border: 1.5px solid #cccccc;
+        border-radius: 0.3rem;
+        overflow: hidden;
 
-                    input{ 
-                        width: 100%; 
-                        height: 100%; 
-                        outline: none; 
-                        border: none; 
-                        text-align: center;
-                    } 
-                } 
-            } 
+        input {
+          width: 100%;
+          height: 100%;
+          outline: none;
+          border: none;
+          text-align: center;
+        }
+      }
+    }
   }
 
   button {

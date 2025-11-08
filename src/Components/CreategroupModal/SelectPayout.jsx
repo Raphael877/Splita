@@ -1,3 +1,68 @@
+// import React from "react";
+// import styled from "styled-components";
+// import { FaRegTimesCircle } from "react-icons/fa";
+
+// const SelectPayout = ({ onClose, onAutomaticRotation, onManualSelection }) => {
+//   const randomizePayoutOrder = async () => {
+//     try {
+//       const res = await axios.post(
+//         `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+//         {},
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+//       console.log(groupId);
+//       toast.success("Payout order randomized successfully");
+//     } catch (error) {
+//       console.error("Error randomizing payout order:", error);
+//       toast.error("Could not randomize payout order");
+//     }
+//   };
+//   return (
+//     <Payout_content>
+//       <Payout_wrapper>
+//         <Inner_wrap>
+//           <h3>Select payout type</h3>
+//           <div className="btn">
+//             <button
+//               className="btn1"
+//               onClick={() => {
+//                 onClose();
+//                 setTimeout(() => onAutomaticRotation(), 150);
+//               }}
+//             >
+//               Automatic Rotation
+//             </button>
+//             <button
+//               className="btn2"
+//               onClick={() => {
+//                 onClose();
+//                 setTimeout(() => onManualSelection(), 150);
+//               }}
+//             >
+//               Manual Selection
+//             </button>
+//           </div>
+//         </Inner_wrap>
+
+//         <FaRegTimesCircle
+//           onClick={onClose}
+//           style={{
+//             cursor: "pointer",
+//             position: "absolute",
+//             top: "15%",
+//             right: "6%",
+//           }}
+//         />
+//       </Payout_wrapper>
+//     </Payout_content>
+//   );
+// };
+
+// export default SelectPayout;
 import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
