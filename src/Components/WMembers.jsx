@@ -7,9 +7,9 @@ const WomenMembers = () => {
 
     const AllData = [
         {
-            member: 'Sept 10',
+            member: 'Chidinma',
             contribution: (<><TbCurrencyNaira/>10,000</>),
-            order: 'Cycle1',
+            cycle: 'Cycle1',
             id: 1,
             delete: <CiTrash/>
         },      
@@ -33,10 +33,10 @@ const WomenMembers = () => {
                                 <h3>Contribution</h3>
                             </div>
                             <div className='header'>
-                                <h3>Payout Order</h3>
+                                <h3>Cycle</h3>
                             </div>
                             <div className='header'>
-                                <h3 style={{color: 'white'}}>Delete</h3>
+                                <h3 style={{color: 'transparent'}}>Delete</h3>
                             </div>
                         </div>
                         {AllData.map((items) =>
@@ -45,10 +45,10 @@ const WomenMembers = () => {
                                 <p>{items.member}</p>
                             </div>
                             <div className='contribution'>
-                                <p>{items.contribution}</p>
+                                <p style={{display: 'flex', alignItems: 'center'}}>{items.contribution}</p>
                             </div>
-                            <div className='order'>
-                                <p>{items.order}</p>
+                            <div className='cycle'>
+                                <p>{items.cycle}</p>
                             </div>
                             <div className='delete' style={{cursor: "pointer"}}>
                                 {items.delete}
@@ -123,6 +123,10 @@ const Table = styled.div`
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                @media (max-width: 768px) {
+                display: none;
+            }
             }
 
             .all_data{
@@ -145,7 +149,7 @@ const Table = styled.div`
                     width: 25%;
 
                     @media (max-width: 768px) {
-                        width: 20%;
+                        width: 40%;
                     }
                 }
 
@@ -153,9 +157,13 @@ const Table = styled.div`
                     width: 25%;
                     display: flex;
                     justify-content: flex-end;
+
+                    @media (max-width: 768px) {
+                        width: 5%;
+                    }
                 }
 
-                .order{
+                .cycle{
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -164,6 +172,7 @@ const Table = styled.div`
 
                     @media (max-width: 768px) {
                         padding-left: 0;
+                        width: 20%;
                     }
                 }
 
@@ -175,7 +184,7 @@ const Table = styled.div`
 
                     @media (max-width: 768px) {
                         padding-left: 0;
-                        width: 30%;
+                        width: 35%;
                     }
                 }
             }

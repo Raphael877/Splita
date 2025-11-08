@@ -465,6 +465,12 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
   .groupname {
     width: 80%;
     margin-top: 18vh;
+
+    @media (max-width: 768px) {
+      width: 90%;
+      word-spacing: 10px;
+      letter-spacing: 5px;
+    }
   }
 
   .round {
@@ -474,12 +480,25 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    @media (max-width: 768px) {
+      align-items: start;
+      flex-direction: column;
+      width: 90%;
+      /* gap: 0.5rem; */
+      height: 25vh;
+    }
+
     .left {
       width: 18%;
       height: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      @media (max-width: 768px) {
+        width: 45%;
+        height: 30%;
+      }
 
       p {
         color: #666666;
@@ -507,6 +526,11 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       gap: 1rem;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        flex-direction: column;
+      }
 
       .btn1 {
         width: 50%;
@@ -552,6 +576,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
     width: 85%;
     display: flex;
     align-items: center;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
   }
 
   .option {
@@ -566,6 +594,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
 
       .inner_wrap {
         width: 90%;
@@ -619,11 +651,19 @@ const Ad = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    height: 60vh;
+  }
+
   .Ad_wrap {
     width: 85%;
     height: 80%;
     display: flex;
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+    }
 
     .card {
       width: 24%;
@@ -634,6 +674,11 @@ const Ad = styled.div`
       background-color: white;
       border-radius: 0.5rem;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+      @media (max-width: 768px) {
+        width: 48%;
+        height: 50%;
+      }
 
       .card_wrapper {
         width: 85%;
