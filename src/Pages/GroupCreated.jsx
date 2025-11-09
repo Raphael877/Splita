@@ -27,12 +27,16 @@ const GroupCreated = () => {
   const id = localStorage.getItem("createdGroupId");
   const handleCreate = async () => {
     try {
-      const res = await axios.get(`${BaseUrl}/groups/generate-invite/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(
+        `${BaseUrl}/groups/generate-invite/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const inviteLink = res.data.inviteLink;
       localStorage.setItem(
         "latestInvite",
