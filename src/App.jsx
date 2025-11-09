@@ -98,7 +98,6 @@ const App = () => {
         <Route path="/contribution/verify" element={<VerifyContribution />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
-      <Route path="/contribution/verify" element={<VerifyContribution />} />
     </HashRouter>
   );
 };
