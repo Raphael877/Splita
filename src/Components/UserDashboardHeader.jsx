@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Splita_logo from "../assets/Splita_logo.png";
 import Avatar from "../assets/Avatar.png";
@@ -10,7 +10,14 @@ import ConfirmLogout from "../Components/ConfirmLogout";
 const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -61,7 +68,16 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         <div className="right">
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
-              <img src={Avatar} />
+              <img
+                src={user?.profilePicture ? user.profilePicture : Avatar}
+                alt="User Profile"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
             </div>
             <p>{userData.fullName || "User"}</p>
             <IoIosArrowDown />
