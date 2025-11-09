@@ -70,7 +70,9 @@ const Add_payout_bank = ({ onSave, onClose }) => {
     navigate("/group_created");
   };
 
-  const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
