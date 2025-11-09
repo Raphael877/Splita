@@ -17,15 +17,14 @@ const VerifyContribution = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ define function first using useCallback
   const verifyContribution = useCallback(
     async (reference, groupId) => {
       try {
         setLoading(true);
 
-        const res = await axios.post(
-          `${BaseUrl}/Payments/verify-contribution`,
-          { reference },
+        const res = axios.post(
+          `${BaseUrl}/Payments/verify-contribution?reference=${reference}`,
+          {},
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -59,7 +58,6 @@ const VerifyContribution = () => {
     [navigate]
   );
 
-  // ✅ now safely call it inside useEffect
   useEffect(() => {
     const hash = window.location.hash;
     const query = hash.split("?")[1];
@@ -85,7 +83,6 @@ const VerifyContribution = () => {
   );
 };
 
-// ✅ Correct export name
 export default VerifyContribution;
 
 // 💅 Styles
