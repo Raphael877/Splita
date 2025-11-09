@@ -12,7 +12,7 @@ const RequestJoinGroup = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const token = JSON.parse(localStorage.getItem("user_token"));
-  const userId = JSON.parse(localStorage.getItem("userid"));
+  // const userId = JSON.parse(localStorage.getItem("userid"));
   // const { groupId } = useParams();
   const groupId = localStorage.getItem("createdGroupId");
   const [requests, setRequests] = useState([]);
@@ -41,7 +41,6 @@ const RequestJoinGroup = () => {
       console.log("res", res.data.group.id);
     } catch (error) {
       console.error("Error fetching requests", error);
-      toast.error("Failed to fetch join requests");
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
 
 const ConfirmPayout = ({ onClose, onConfirm, nextMember }) => {
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const token = JSON.parse(localStorage.getItem("user_token"));
   return (
     <Payout_content>
       <Payout_wrapper>
