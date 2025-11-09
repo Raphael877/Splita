@@ -185,7 +185,7 @@ const Table = styled.div`
           width: 25%;
 
           @media (max-width: 768px) {
-            width: 40%;
+            width: 45%;
           }
         }
 
@@ -220,7 +220,7 @@ const Table = styled.div`
 
           @media (max-width: 768px) {
             padding-left: 0;
-            width: 35%;
+            width: 30%;
           }
         }
       }
