@@ -36,36 +36,38 @@ const Start_group = () => {
       ? localStorage.getItem("createdGroupName")
       : null) ||
     "Not Available";
-  // const BaseUrl = import.meta.env.VITE_BaseUrl;
-  // const token = JSON.parse(
-  //   localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-  // );
 
-  // const handleCreate = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `${BaseUrl}/groups/generate-invite/${id}`,
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  );
 
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const inviteLink = res.data.inviteLink;
-  //     localStorage.setItem(
-  //       "latestInvite",
-  //       JSON.stringify({ groupId: id, inviteLink })
-  //     );
-  //     await navigator.clipboard.writeText(inviteLink);
-  //     toast.success("Invite Link copied successfully");
-  //   } catch (error) {
-  //     console.log("error", error);
-  //     console.log("id:", id);
-  //   } finally {
-  //   }
-  // };
+  const handleCreate = async () => {
+    try {
+      const res = await axios.get(
+        `${BaseUrl}/groups/generate-invite/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const inviteLink = res.data.inviteLink;
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteLink })
+      );
+      await navigator.clipboard.writeText(inviteLink);
+      toast.success("Invite Link copied successfully");
+    } catch (error) {
+      console.log("error", error);
+      console.log("id:", id);
+    } finally {
+    }
+  };
+
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
 
@@ -149,7 +151,7 @@ const Start_group = () => {
           </div>
           <div className="btn">
             <button className="btn1"
-            //  onClick={handleCreate}
+             onClick={handleCreate}
              >Copy Invite Link</button>
             <button className="btn2" onClick={() => setShowSelectPayout(true)}>
               <FiSend />
