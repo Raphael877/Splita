@@ -20,6 +20,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import WomenMembers from "../Components/WMembers.jsx";
 const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
@@ -38,7 +39,7 @@ const AdminCircleStartVacationDashboard = () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: ` Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
@@ -88,11 +89,11 @@ const AdminCircleStartVacationDashboard = () => {
   //     };
 
   //     const res = await axios.put(
-  //       `${BaseUrl}/groups/${groupId}/payout-order`,
+  //       ${BaseUrl}/groups/${groupId}/payout-order,
   //       payload,
   //       {
   //         headers: {
-  //           Authorization: `Bearer ${token}`,
+  //           Authorization: Bearer ${token},
   //         },
   //       }
   //     );
@@ -112,7 +113,7 @@ const AdminCircleStartVacationDashboard = () => {
 
       // Step 1: Initialize contribution
       const initRes = await axios.post(
-        `${BaseUrl}/Payments/initialize-contribution`,
+        ` ${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
         {
           headers: {
@@ -346,7 +347,7 @@ const AdminCircleStartVacationDashboard = () => {
         <Ad>
           <div className="Ad_wrap">
             {Array.map((items) => (
-              <div className="card" id={items.id}>
+              <div className="card" key={items.id}>
                 <div className="card_wrapper">
                   <div className="left">
                     <p>{items.top}</p>
@@ -376,7 +377,7 @@ const AdminCircleStartVacationDashboard = () => {
           <div className="option_wrap">
             <div className="inner_wrap">
               <div
-                style={{ backgroundColor: "transparent" }}
+                style={{ backgroundColor: " #7b2cbf", color: "white" }}
                 className={`mem ${
                   location.pathname.endsWith("") ? "active" : ""
                 }`}
@@ -404,7 +405,13 @@ const AdminCircleStartVacationDashboard = () => {
           </div>
         </div>
 
-        <Outlet />
+        <Outlet
+          context={{
+            members: groupDetails?.group?.members || [],
+            contributionAmount: groupDetails?.group?.contributionAmount,
+            contributions: groupDetails?.group?.contributions || [],
+          }}
+        />
         <UserDashboardFooter />
       </AdminCircleStartVacationDashboard_wrapper>
       {currentModal === "payout" && (
