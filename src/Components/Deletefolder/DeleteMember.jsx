@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-const DeleteMember = ({ onClose }) => {
+const DeleteMember = ({ onClose, memberName }) => {
   const handleDelete = () => {
-    toast.success("Member Deleted Successfully");
+    toast.success(`${memberName} Deleted Successfully`);
     setTimeout(() => {
       if (onClose) onClose();
     }, 1500);
@@ -17,16 +17,25 @@ const DeleteMember = ({ onClose }) => {
         <Inner_wrap>
           <h3>Delete Member</h3>
           <p>
-            Are you sure you want to delete this member?<br />
-            This action cannot be undone
+            Are you sure you want to delete <strong>{memberName}</strong>?<br />
+            This action cannot be undone.
           </p>
-          <div className='btn'>
-            <button className='btn1' onClick={onClose}>Cancel</button>
-            <button className='btn2' onClick={handleDelete}>Delete</button>
+          <div className="btn">
+            <button className="btn1" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn2" onClick={handleDelete}>
+              Delete
+            </button>
           </div>
         </Inner_wrap>
         <FaRegTimesCircle
-          style={{ cursor: 'pointer', position: 'absolute', top: '10%', right: '6%' }}
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            top: "10%",
+            right: "6%",
+          }}
           onClick={onClose}
         />
       </Payout_wrapper>
