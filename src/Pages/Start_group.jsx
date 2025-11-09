@@ -36,7 +36,36 @@ const Start_group = () => {
       ? localStorage.getItem("createdGroupName")
       : null) ||
     "Not Available";
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  // const BaseUrl = import.meta.env.VITE_BaseUrl;
+  // const token = JSON.parse(
+  //   localStorage.getItem(import.meta.env.VITE_USERTOKEN)
+  // );
+
+  // const handleCreate = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${BaseUrl}/groups/generate-invite/${id}`,
+
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const inviteLink = res.data.inviteLink;
+  //     localStorage.setItem(
+  //       "latestInvite",
+  //       JSON.stringify({ groupId: id, inviteLink })
+  //     );
+  //     await navigator.clipboard.writeText(inviteLink);
+  //     toast.success("Invite Link copied successfully");
+  //   } catch (error) {
+  //     console.log("error", error);
+  //     console.log("id:", id);
+  //   } finally {
+  //   }
+  // };
   const handleStartCycle = async () => {
     const groupId = localStorage.getItem("createdGroupId");
 
@@ -118,10 +147,15 @@ const Start_group = () => {
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>pending</p>
             </div>
           </div>
-          <button onClick={() => setShowSelectPayout(true)}>
-            <FiSend />
-            Start Cycle
-          </button>
+          <div className="btn">
+            <button className="btn1"
+            //  onClick={handleCreate}
+             >Copy Invite Link</button>
+            <button className="btn2" onClick={() => setShowSelectPayout(true)}>
+              <FiSend />
+              Start Cycle
+            </button>
+          </div>
         </div>
 
         <div
@@ -278,7 +312,31 @@ const Wrapper = styled.div`
       height: 25vh;
     }
 
-    button {
+    .btn {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      color: white;
+      background-color: #7b2cbf;
+      width: 12rem;
+      height: 2.5rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #b088d3;
+        transition: all 350ms ease-in-out;
+      }
+    }
+
+    .btn2 {
       display: flex;
       justify-content: center;
       align-items: center;

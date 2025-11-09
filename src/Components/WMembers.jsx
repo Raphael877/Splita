@@ -31,7 +31,7 @@ const WomenMembers = () => {
                   <h3>Contribution</h3>
                 </div>
                 <div className="header">
-                  <h3>Cycle</h3>
+                  <h3>Payout Order</h3>
                 </div>
                 <div className="header">
                   <h3 style={{ color: "transparent" }}>Delete</h3>
