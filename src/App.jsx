@@ -95,10 +95,7 @@ const App = () => {
           <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
         <Route path="/join_group/:groupid?/:invite?" element={<Join_Group />} />
-        <Route
-          path="/contribution/verify"
-          element={<VerifyContributionPage />}
-        />
+        <Route path="/contribution/verify" element={<VerifyContribution />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
       <Route path="/contribution/verify" element={<VerifyContribution />} />
