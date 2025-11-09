@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Splita_logo from "../assets/Splita_logo.png";
 import Avatar from "../assets/Avatar.png";
@@ -10,6 +10,14 @@ import ConfirmLogout from "../Components/ConfirmLogout";
 const AdminDashboardHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -59,8 +67,17 @@ const AdminDashboardHeader = () => {
         <div className="right">
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
-              <img src={Avatar} alt="Admin profile" />
-            </div>  
+              <img
+                src={user?.profilePicture ? user.profilePicture : Avatar}
+                alt="User Profile"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
             <p>{userData.fullName || "Admin User"}</p>
             <IoIosArrowDown />
             <div className="admin">
@@ -72,7 +89,16 @@ const AdminDashboardHeader = () => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  <img src={Avatar} alt="Profile" />
+                  <img
+                src={user?.profilePicture ? user.profilePicture : Avatar}
+                alt="User Profile"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
                   <p>{userData.fullName || "Admin User"}</p>
                 </div>
 
@@ -229,7 +255,7 @@ const HeaderWrapper = styled.div`
       cursor: pointer;
       position: relative;
 
-      .dp{
+      .dp {
         border-radius: 50%;
         width: 2.5rem;
         height: 2.5rem;
@@ -238,7 +264,7 @@ const HeaderWrapper = styled.div`
         align-items: center;
         overflow: hidden;
 
-        img{
+        img {
           width: 100%;
           height: 100%;
         }
@@ -298,7 +324,7 @@ const HeaderWrapper = styled.div`
           gap: 1rem;
           align-items: center;
 
-          img{
+          img {
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;
@@ -317,13 +343,12 @@ const HeaderWrapper = styled.div`
           }
         }
 
-        .prof{
-          
+        .prof {
           cursor: pointer;
           color: #100f0f;
           padding-block: 0.2rem;
-          &:hover{
-            background-color:  #f2eaf9;
+          &:hover {
+            background-color: #f2eaf9;
           }
         }
 
