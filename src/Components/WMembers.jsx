@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { CiTrash } from "react-icons/ci";
 import DeleteMember from "./Deletefolder/DeleteMember";
-import { useState } from "react";
-
+import { useOutletContext } from "react-router-dom";
 const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
@@ -13,33 +12,7 @@ const WomenMembers = () => {
     setSelectedMember(member);
     setShowModal(true);
   };
-
-  const AllData = [
-    {
-      member: "Chidinma",
-      contribution: (
-        <>
-          <TbCurrencyNaira />
-          10,000
-        </>
-      ),
-      order: "1st",
-      id: 1,
-      delete: <CiTrash />,
-    },
-    {
-      member: "Demola",
-      contribution: (
-        <>
-          <TbCurrencyNaira />
-          10,000
-        </>
-      ),
-      order: "2nd",
-      id: 1,
-      delete: <CiTrash />,
-    },
-  ];
+  const { members, contributionAmount } = useOutletContext();
   return (
     <AdminMemberDashboard_content>
       <AdminMemberDashboard_wrapper>
@@ -64,32 +37,42 @@ const WomenMembers = () => {
                   <h3 style={{ color: "transparent" }}>Delete</h3>
                 </div>
               </div>
-              {AllData.map((items) => (
-                <div className="all_data">
-                  <div className="member">
-                    <p>{items.member}</p>
+
+              {members && members.length > 0 ? (
+                members.map((member, index) => (
+                  <div className="all_data" key={member.id || index}>
+                    <div className="member">
+                      <p>{member.name}</p>
+                    </div>
+                    <div className="contribution">
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <TbCurrencyNaira /> {contributionAmount}
+                      </p>
+                    </div>
+                    <div className="order">
+                      <p>{`${index + 1}${
+                        ["st", "nd", "rd"][index] || "th"
+                      }`}</p>
+                    </div>
+                    <div
+                      className="delete"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleDeleteClick(member.name)}
+                    >
+                      <CiTrash />
+                    </div>
                   </div>
-                  <div className="contribution">
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      {items.contribution}
-                    </p>
-                  </div>
-                  <div className="order">
-                    <p>{items.order}</p>
-                  </div>
-                  <div
-                    className="delete"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleDeleteClick(items.member)}
-                  >
-                    {items.delete}
-                  </div>
+                ))
+              ) : (
+                <div style={{ textAlign: "center", padding: "20px" }}>
+                  <p>No members found yet.</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Table>
       </AdminMemberDashboard_wrapper>
+
       {showModal && (
         <DeleteMember
           memberName={selectedMember}

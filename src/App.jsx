@@ -37,7 +37,7 @@ import Start_group from "./Pages/Start_group.jsx";
 import Members from "./Components/Members.jsx";
 import Contribution from "./Components/Contribution.jsx";
 import Cont from "./Components/Cont.jsx";
-
+import VerifyContribution from "./Components/VerifyContributionPage.jsx";
 const App = () => {
   return (
     <HashRouter>
@@ -95,6 +95,7 @@ const App = () => {
           <Route path="obele_contribution" element={<ObeleContribution />} />
         </Route>
         <Route path="/join_group/:groupid?/:invite?" element={<Join_Group />} />
+        <Route path="/contribution/verify" element={<VerifyContribution />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>
