@@ -1,5 +1,5 @@
 // src/Pages/VerifyContribution.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
@@ -13,59 +13,64 @@ const spin = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-const VerifyContributionPage = () => {
+const VerifyContribution = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // ✅ define function first using useCallback
+  const verifyContribution = useCallback(
+    async (reference, groupId) => {
+      try {
+        setLoading(true);
+
+        const res = await axios.post(
+          `${BaseUrl}/Payments/verify-contribution`,
+          { reference },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        toast.success(
+          res?.data?.message || "Contribution verified successfully!"
+        );
+
+        setTimeout(() => {
+          navigate(`/womendashboard/${groupId}`);
+        }, 2000);
+      } catch (error) {
+        console.error(error);
+        toast.error(
+          error?.response?.data?.message || "Failed to verify contribution"
+        );
+
+        setTimeout(() => {
+          navigate(
+            `/womendashboard/${localStorage.getItem("selectedGroupId")}`
+          );
+        }, 2000);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate]
+  );
+
+  // ✅ now safely call it inside useEffect
   useEffect(() => {
     const hash = window.location.hash;
-    const query = hash.split("?")[1]; // everything after "?"
+    const query = hash.split("?")[1];
     if (!query) return;
 
     const params = new URLSearchParams(query);
     const reference = params.get("reference");
-    const groupId = localStorage.getItem("selectedGroupId"); // or get from somewhere
+    const groupId = localStorage.getItem("selectedGroupId");
 
     if (reference) verifyContribution(reference, groupId);
-  }, []);
-
-  const verifyContribution = async (reference, groupId) => {
-    try {
-      setLoading(true);
-
-      const res = await axios.post(
-        `${BaseUrl}/Payments/verify-contribution`,
-        { reference },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      toast.success(
-        res?.data?.message || "Contribution verified successfully!"
-      );
-
-      // Wait a short time so user sees the toast
-      setTimeout(() => {
-        navigate(`/womendashboard/${groupId}`); // Redirect back to dashboard
-      }, 2000);
-    } catch (error) {
-      console.error(error);
-      toast.error(
-        error?.response?.data?.message || "Failed to verify contribution"
-      );
-
-      // Redirect anyway after showing error
-      setTimeout(() => {
-        navigate(`/womendashboard/${localStorage.getItem("selectedGroupId")}`);
-      }, 2000);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [verifyContribution]);
 
   return (
     <Content>
@@ -80,8 +85,10 @@ const VerifyContributionPage = () => {
   );
 };
 
-export default VerifyContributionPage;
+// ✅ Correct export name
+export default VerifyContribution;
 
+// 💅 Styles
 const Content = styled.div`
   position: fixed;
   top: 0;
