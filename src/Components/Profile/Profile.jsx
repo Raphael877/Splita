@@ -200,7 +200,7 @@ const Profile = () => {
             <img
               src={formData.profilePicture}
               alt="Profile"
-              style={{ width: 80, height: 80, borderRadius: "50%" }}
+              style={{ width: 120, height: 120, borderRadius: "50%" }}
             />
           ) : (
             <FaRegUserCircle style={{ color: "#969695", fontSize: "1.5rem" }} />
