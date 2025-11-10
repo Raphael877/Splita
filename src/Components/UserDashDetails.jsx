@@ -41,21 +41,21 @@ const UserDashDetails = () => {
     if (userId) handleDetails();
     console.log("user", userId);
 
-    const contributionsummary = async () => {
-      try {
-        const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-        setSummary(res.data?.data || []);
-      } catch (error) {
-        console.log("Error fetching groups:", error);
-      }
-    };
-    if (userId) contributionsummary();
-  }, []);
+  //   const contributionsummary = async () => {
+  //     try {
+  //       const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       setSummary(res.data?.data || []);
+  //     } catch (error) {
+  //       console.log("Error fetching groups:", error);
+  //     }
+  //   };
+  //   if (userId) contributionsummary();
+  // }, []);
 
   return (
     <UserDashDetails_content>
