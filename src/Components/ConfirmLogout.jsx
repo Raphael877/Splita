@@ -4,14 +4,13 @@ import styled from "styled-components";
 
 const ConfirmLogout = ({ onClose }) => {
   const handleLogout = () => {
-    localStorage.removeItem("user_token");
-    localStorage.removeItem("userid");
+    localStorage.clear();
 
     // navigate("/");
 
     navigate("/", { replace: true });
     window.location.reload();
-    };
+  };
 
   const navigate = useNavigate();
   return (
