@@ -24,7 +24,7 @@ const GroupCreated = () => {
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
 
-  const id = localStorage.getItem("createdGroupId");
+  const id = localStorage.getItem("selectedGroupId");
   const handleCreate = async () => {
     try {
       const res = await axios.get(
