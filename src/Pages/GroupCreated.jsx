@@ -24,19 +24,31 @@ const GroupCreated = () => {
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
 
-  const id = localStorage.getItem("createdGroupId");
+  // const id = localStorage.getItem("selectedGroupId");
   const handleCreate = async () => {
-    try {
-      const res = await axios.get(
-        `${BaseUrl}/groups/generate-invite/${id}`,
+    // const id = localStorage.getItem("selectedGroupId");
+    const id = localStorage.getItem("selectedGroupId");
+    console.log("Selected Group ID:", id);
 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    // const token = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+
+    if (!id) {
+      toast.error("No group selected");
+      return;
+    }
+    if (!token) {
+      toast.error("User token missing");
+      return;
+    }
+
+    try {
+      const res = await axios.get(`${BaseUrl}/groups/generate-invite/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
       const inviteLink = res.data.inviteLink;
       localStorage.setItem(
         "latestInvite",
@@ -46,10 +58,10 @@ const GroupCreated = () => {
       toast.success("Invite Link copied successfully");
     } catch (error) {
       console.log("error", error);
-      console.log("id:", id);
-    } finally {
+      toast.error("Failed to generate invite link");
     }
   };
+
   return (
     <Content>
       <AdminDashboardHeader />
