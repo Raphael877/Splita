@@ -37,7 +37,7 @@ const Profile = () => {
         const userRes = await axios.get(`${BaseUrl}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const payoutRes = await axios.get(`${BaseUrl}/groups/payout-accounts`, {
+        const payoutRes = await axios.get(`${BaseUrl}/groups/payout_accounts`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
