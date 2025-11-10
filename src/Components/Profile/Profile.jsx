@@ -158,7 +158,7 @@ const Profile = () => {
       setEditableField(null);
     } catch (err) {
       console.error(err);
-      alert("Failed to update profile.");
+      t("Failed to update profile.");
     }
   };
 
@@ -178,7 +178,7 @@ const Profile = () => {
   // Handle the image upload event from modal
   const handleImageUpload = (imageUrl) => {
     setProfileImage(imageUrl);
-    localStorage.setItem('profileImage', imageUrl); // persist for refresh
+    localStorage.setItem("profileImage", imageUrl); // persist for refresh
   };
 
   return (
