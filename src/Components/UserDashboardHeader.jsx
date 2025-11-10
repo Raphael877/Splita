@@ -18,6 +18,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
       setUser(storedUser);
     }
   }, []);
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -87,7 +88,16 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
             <div className="dropdown">
               <div className="dropdown_wrap">
                 <div className="top">
-                  <img src={Avatar} />
+                  <img
+                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    alt="User Profile"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
                   <p>{userData.fullName || "User"}</p>
                 </div>
                 <MdOutlineCancel

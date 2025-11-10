@@ -17,6 +17,7 @@ const SignUp = () => {
   const [show2, setShow2] = useState(false);
   const [loading, setloading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [termsChecked, setTermsChecked] = useState(false);
 
   const [showTerms, setShowTerms] = useState(false);
 
@@ -43,7 +44,10 @@ const SignUp = () => {
     const { name, email, phone, password, confirmPassword } = formData;
     const newErrors = {};
 
+    const nameRegex = /^[a-zA-Z ]+$/;
     if (!name.trim()) newErrors.name = "Please enter your full name.";
+    else if (!nameRegex.test(name))
+      newErrors.name = "Please enter a valid full name.";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim()) newErrors.email = "Email is required.";
@@ -66,6 +70,10 @@ const SignUp = () => {
 
     if (password !== confirmPassword)
       newErrors.confirmPassword = "Passwords do not match.";
+
+    if (!termsChecked) {
+      newErrors.terms = "Please agree to the terms and conditions.";
+    }
 
     setFormErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -125,12 +133,14 @@ const SignUp = () => {
       <ToastContainer />
 
       <SignUp_wrapper>
-        <div onClick={() => navigate("/")} className="back" >
-          <IoIosArrowRoundBack style={{ fontSize: "1.7rem",fontWeight: "bold" }}/>
-                  <p>Back home</p>
-                </div>
+        <div onClick={() => navigate("/")} className="back">
+          <IoIosArrowRoundBack
+            style={{ fontSize: "1.7rem", fontWeight: "bold" }}
+          />
+          <p>Back home</p>
+        </div>
         <h1>Join the circle</h1>
-        <p style={{ color: "#888888", textAlign: 'center' }}>
+        <p style={{ color: "#888888", textAlign: "center" }}>
           Start your digital ajo journey and grow your money with Splita!
         </p>
 
@@ -154,9 +164,7 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
-            {formErrors.email && (
-              <p className="error-text">{formErrors.name}</p>
-            )}
+            {formErrors.name && <p className="error-text">{formErrors.name}</p>}
           </div>
 
           <div className="inp">
@@ -192,7 +200,7 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
-            {formErrors.email && (
+            {formErrors.phone && (
               <p className="error-text">{formErrors.phone}</p>
             )}
           </div>
@@ -214,12 +222,17 @@ const SignUp = () => {
                 {show ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
-            {formErrors.email && (
+            {formErrors.password && (
               <p className="error-text">{formErrors.password}</p>
             )}
           </div>
 
-          <p><small>Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character.</small></p>
+          <p>
+            <small>
+              Password must be at least 8 characters long and contain one
+              uppercase, one lowercase, one number, and one special character.
+            </small>
+          </p>
 
           <div className="inp">
             <div className="label">
@@ -238,13 +251,18 @@ const SignUp = () => {
                 {show2 ? <GoEye /> : <GoEyeClosed />}
               </div>
             </div>
-            {formErrors.email && (
+            {formErrors.confirmPassword && (
               <p className="error-text">{formErrors.confirmPassword}</p>
             )}
           </div>
 
           <div className="check_cont">
-            <input type="checkbox" style={{ cursor: "pointer" }} />
+            <input
+              type="checkbox"
+              style={{ cursor: "pointer" }}
+              checked={termsChecked}
+              onChange={(e) => setTermsChecked(e.target.checked)}
+            />
             <p>
               I have read the{" "}
               <i
@@ -256,6 +274,7 @@ const SignUp = () => {
               and I agree
             </p>
           </div>
+          {formErrors.terms && <p className="error-text">{formErrors.terms}</p>}
 
           <button type="submit">
             {loading ? <ClipLoader size={20} color="#fff" /> : "Sign Up"}
@@ -381,8 +400,8 @@ const SignUp_wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
-  .back{
+
+  .back {
     display: flex;
     align-items: center;
     position: absolute;
@@ -395,7 +414,7 @@ const SignUp_wrapper = styled.div`
       top: 9%;
     }
 
-    p{
+    p {
       display: flex;
       @media (max-width: 768px) {
         display: none;
@@ -407,7 +426,6 @@ const SignUp_wrapper = styled.div`
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
   }
-
 
   @media (max-width: 768px) {
     width: 85%;
