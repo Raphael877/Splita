@@ -35,7 +35,7 @@ const VerifyContribution = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
+      const res = await axios.get(
         `${BaseUrl}/Payments/verify-contribution/${reference}`,
         {
           headers: {
@@ -50,7 +50,7 @@ const VerifyContribution = () => {
       );
 
       setTimeout(() => {
-        navigate(`/womendashboard/${groupId}`);
+        navigate(`/womendashboard/${localStorage.getItem("selectedGroupId")}`);
       }, 2000);
     } catch (error) {
       console.error(error);

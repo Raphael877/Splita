@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 const ConfirmLogout = ({ onClose }) => {
   const handleLogout = () => {
-    const keysToRemove = [user_token, userid];
+    const keysToRemove = ["user_token", "userid"];
 
     keysToRemove.forEach((key) => localStorage.removeItem(key));
 
     navigate("/", { replace: true });
+
     window.location.reload();
   };
 

@@ -130,21 +130,20 @@ const AdminCircleStartVacationDashboard = () => {
 
       const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      if (!authorizationUrl || !reference) {
-        toast.error("Payment initialization failed. No URL returned.");
-        return;
-      }
+      // if (!authorizationUrl || !reference) {
+      //   toast.error("Payment initialization failed. No URL returned.");
+      //   return;
+      // }
 
       toast.success("Redirecting to payment gateway...");
 
       window.location.href = authorizationUrl;
 
-      l;
     } catch (error) {
-      console.error("Error contributing:", error);
+     
       toast.error(
-        error?.response?.data?.message ||
-          "Failed to process contribution. Please try again."
+        error?.response?.data?.message 
+      
       );
     } finally {
       setLoading(false);
