@@ -4,8 +4,8 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { useOutletContext } from "react-router-dom";
 
 const WomenContribution = () => {
-  // 👇 Pull contributions from Outlet context
-  const { contributions = [] } = useOutletContext();
+  // Safe context handling
+  const { contributions = [] } = useOutletContext() || {};
 
   return (
     <AdminMemberDashboard_content>
@@ -69,7 +69,9 @@ const WomenContribution = () => {
                   </div>
                 ))
               ) : (
-                <p>No contributions yet.</p>
+                <div style={{ textAlign: "center", padding: "20px" }}>
+                  <p>No contributions yet.</p>
+                </div>
               )}
             </div>
           </div>
@@ -80,7 +82,6 @@ const WomenContribution = () => {
 };
 
 export default WomenContribution;
-
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;

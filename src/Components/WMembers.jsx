@@ -1,18 +1,112 @@
+// import React, { useState } from "react";
+// import styled from "styled-components";
+// import { TbCurrencyNaira } from "react-icons/tb";
+// import { CiTrash } from "react-icons/ci";
+// import DeleteMember from "./Deletefolder/DeleteMember";
+// import { useOutletContext } from "react-router-dom";
+// const WomenMembers = () => {
+//   const [showModal, setShowModal] = useState(false);
+//   const [selectedMember, setSelectedMember] = useState(null);
+
+//   const handleDeleteClick = (member) => {
+//     setSelectedMember(member);
+//     setShowModal(true);
+//   };
+//   const { members, contributionAmount } = useOutletContext();
+//   return (
+//     <AdminMemberDashboard_content>
+//       <AdminMemberDashboard_wrapper>
+//         <Table>
+//           <div className="table_wrap">
+//             <div className="top">
+//               <h2>Members</h2>
+//             </div>
+
+//             <div className="main_table">
+//               <div className="all_header">
+//                 <div className="header">
+//                   <h3>Member</h3>
+//                 </div>
+//                 <div className="header">
+//                   <h3>Contribution</h3>
+//                 </div>
+//                 <div className="header">
+//                   <h3>Payout Order</h3>
+//                 </div>
+//                 <div className="header">
+//                   <h3 style={{ color: "transparent" }}>Delete</h3>
+//                 </div>
+//               </div>
+
+//               {members && members.length > 0 ? (
+//                 members.map((member, index) => (
+//                   <div className="all_data" key={member.id || index}>
+//                     <div className="member">
+//                       <p>{member.name}</p>
+//                     </div>
+//                     <div className="contribution">
+//                       <p style={{ display: "flex", alignItems: "center" }}>
+//                         <TbCurrencyNaira /> {contributionAmount}
+//                       </p>
+//                     </div>
+//                     <div className="order">
+//                       <p>{`${index + 1}${
+//                         ["st", "nd", "rd"][index] || "th"
+//                       }`}</p>
+//                     </div>
+//                     <div
+//                       className="delete"
+//                       style={{ cursor: "pointer" }}
+//                       onClick={() => handleDeleteClick(member.name)}
+//                     >
+//                       <CiTrash />
+//                     </div>
+//                   </div>
+//                 ))
+//               ) : (
+//                 <div style={{ textAlign: "center", padding: "20px" }}>
+//                   <p>No members found yet.</p>
+//                 </div>
+//               )}
+//             </div>
+//           </div>
+//         </Table>
+//       </AdminMemberDashboard_wrapper>
+
+//       {showModal && (
+//         <DeleteMember
+//           memberName={selectedMember}
+//           onClose={() => setShowModal(false)}
+//         />
+//       )}
+//     </AdminMemberDashboard_content>
+//   );
+// };
+
+// export default WomenMembers;
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { CiTrash } from "react-icons/ci";
 import DeleteMember from "./Deletefolder/DeleteMember";
 import { useOutletContext } from "react-router-dom";
+
 const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+
+  // Safe context handling
+  const {
+    members = [],
+    contributionAmount = 0,
+    contributions = [],
+  } = useOutletContext() || {};
 
   const handleDeleteClick = (member) => {
     setSelectedMember(member);
     setShowModal(true);
   };
-  const { members, contributionAmount } = useOutletContext();
+
   return (
     <AdminMemberDashboard_content>
       <AdminMemberDashboard_wrapper>
@@ -38,7 +132,7 @@ const WomenMembers = () => {
                 </div>
               </div>
 
-              {members && members.length > 0 ? (
+              {members.length > 0 ? (
                 members.map((member, index) => (
                   <div className="all_data" key={member.id || index}>
                     <div className="member">
@@ -84,7 +178,6 @@ const WomenMembers = () => {
 };
 
 export default WomenMembers;
-
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;

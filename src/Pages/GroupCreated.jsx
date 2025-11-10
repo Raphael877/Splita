@@ -28,12 +28,12 @@ const GroupCreated = () => {
   const handleCreate = async () => {
     try {
       const res = await axios.get(
-        `${BaseUrl}/groups/generate-invite/${id}`,
+        ` ${BaseUrl}/groups/generate-invite/${id}`,
 
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": `"application/json"`,
           },
         }
       );

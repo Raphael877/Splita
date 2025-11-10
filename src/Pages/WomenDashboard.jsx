@@ -13,10 +13,12 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import axios from "axios";
 
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
-const BaseUrl = import.meta.env.VITE_BaseUrl;
-
 const WomenDashboard = () => {
+  const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const token = storedToken ? JSON.parse(storedToken) : null;
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   const { groupId } = useParams();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -99,7 +101,6 @@ const WomenDashboard = () => {
     try {
       setLoading(true);
 
-      // Step 1: Initialize contribution
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -112,19 +113,11 @@ const WomenDashboard = () => {
       );
 
       console.log("Initialize response:", initRes.data);
+      toast.success("Redirecting to payment gateway...");
 
       const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      if (!authorizationUrl || !reference) {
-        toast.error("Payment initialization failed. No URL returned.");
-        return;
-      }
-
-      toast.success("Redirecting to payment gateway...");
-
       window.location.href = authorizationUrl;
-
-      l;
     } catch (error) {
       console.error("Error contributing:", error);
       toast.error(
