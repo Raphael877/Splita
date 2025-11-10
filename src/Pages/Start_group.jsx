@@ -70,11 +70,11 @@ const Start_group = () => {
   };
 
   const handleStartCycle = async () => {
-    const groupId = localStorage.getItem("createdGroupId");
+    const groupId = localStorage.getItem("selectedGroupId");
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/start-cycle`,
+        `${BaseUrl}/groups/${groupId}/start_cycle`,
 
         {}
       );
