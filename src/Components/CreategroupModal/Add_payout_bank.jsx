@@ -18,6 +18,11 @@ const Add_payout_bank = ({ onSave, onClose }) => {
     isDefault: true,
   });
 
+  const [errors, setErrors] = useState({
+    accountNumber: "",
+    bankName: "",
+  });
+
   const banks = [
     "Access Bank",
     "Citibank",
@@ -54,9 +59,50 @@ const Add_payout_bank = ({ onSave, onClose }) => {
       bankName: bank,
     });
     setOpenDropdown(false);
+    setErrors((prev) => ({ ...prev, bankName: "" }));
+  };
+
+  // 🔹 Handle input change with validation
+  const handleAccountNumberChange = (e) => {
+    const value = e.target.value;
+
+    // Allow only numbers
+    if (!/^\d*$/.test(value)) return;
+
+    // Update state
+    setFormData((prev) => ({ ...prev, accountNumber: value }));
+
+    // Validate
+    if (value.length > 0 && value.length < 10) {
+      setErrors((prev) => ({
+        ...prev,
+        accountNumber: "Account number must be 10 digits",
+      }));
+    } else if (value.length === 10) {
+      setErrors((prev) => ({ ...prev, accountNumber: "" }));
+    } else if (value.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        accountNumber: "Account number is required",
+      }));
+    }
   };
 
   const handleSave = () => {
+    // 🔹 Final validation before saving
+    if (!selectedBank) {
+      setErrors((prev) => ({ ...prev, bankName: "Please select a bank" }));
+      return;
+    }
+
+    if (!/^\d{10}$/.test(formData.accountNumber)) {
+      setErrors((prev) => ({
+        ...prev,
+        accountNumber: "Please enter a valid 10-digit account number",
+      }));
+      return;
+    }
+
     const bankData = {
       bankName: selectedBank,
       accountNumber: formData.accountNumber,
@@ -73,10 +119,15 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
-
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handlePayout = async () => {
+    // Validate before sending request
+    if (!selectedBank || !/^\d{10}$/.test(formData.accountNumber)) {
+      handleSave(); // reuse validation logic
+      return;
+    }
+
     try {
       const res = await axios.post(
         `${BaseUrl}/groups/payout_account`,
@@ -112,6 +163,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
           />
 
           <form>
+            {/* Bank name field */}
             <div className="main_label">
               <div className="label">
                 <PiBank style={{ fontSize: "1.3rem" }} />
@@ -125,6 +177,12 @@ const Add_payout_bank = ({ onSave, onClose }) => {
                 <p>{selectedBank || "Select a Bank"}</p>
                 <RiArrowDropDownLine style={{ fontSize: "1.5rem" }} />
               </div>
+
+              {errors.bankName && (
+                <p style={{ color: "red", fontSize: "0.8rem" }}>
+                  {errors.bankName}
+                </p>
+              )}
 
               {openDropdown && (
                 <div className="bank_dropdown">
@@ -167,14 +225,15 @@ const Add_payout_bank = ({ onSave, onClose }) => {
                   type="text"
                   placeholder="e.g 7038204858"
                   value={formData.accountNumber}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      accountNumber: e.target.value,
-                    })
-                  }
+                  onChange={handleAccountNumberChange}
+                  maxLength={10}
                 />
               </div>
+              {errors.accountNumber && (
+                <p style={{ color: "red", fontSize: "0.8rem" }}>
+                  {errors.accountNumber}
+                </p>
+              )}
             </div>
 
             <button type="button" onClick={handlePayout}>
@@ -188,6 +247,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
 };
 
 export default Add_payout_bank;
+
 
 const Add_payout_bank_content = styled.div`
   position: fixed;
