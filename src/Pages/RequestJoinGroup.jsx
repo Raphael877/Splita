@@ -14,7 +14,7 @@ const RequestJoinGroup = () => {
   const token = JSON.parse(localStorage.getItem("user_token"));
   // const userId = JSON.parse(localStorage.getItem("userid"));
   // const { groupId } = useParams();
-  const groupId = localStorage.getItem("selectedGroupId");
+  const groupId = localStorage.getItem("createdGroupId");
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [group, setGroup] = useState("");
@@ -57,8 +57,8 @@ const RequestJoinGroup = () => {
 
       toast.success(res?.data?.message || `Request ${action}ed successfully`);
 
-      if (action === "approve") setShowApproveModal(true);
-      else setShowDeclineModal(true);
+      // if (action === "approve") setShowApproveModal(true);
+      // else setShowDeclineModal(true);
 
       fetchRequests();
     } catch (error) {
