@@ -4,8 +4,9 @@ import styled, { keyframes } from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+const token = storedToken ? JSON.parse(storedToken) : null;
 
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 
 const spin = keyframes`
@@ -24,20 +25,20 @@ const VerifyContribution = () => {
 
     const params = new URLSearchParams(query);
     const reference = params.get("reference");
-    const groupId = localStorage.getItem("selectedGroupId");
 
     if (reference) {
-      verifyContribution(reference, groupId);
+      verifyContribution(reference);
+      console.log("myref", reference);
     }
   }, []);
 
-  const verifyContribution = async (reference, groupId) => {
+  const verifyContribution = async (reference) => {
     try {
       setLoading(true);
 
       const res = await axios.post(
-        `${BaseUrl}/Payments/verify-contribution?reference=${reference}`,
-        {},
+        `${BaseUrl}/Payments/verify-contribution?reference`,
+        { params: { reference } },
         {
           headers: {
             Authorization: `Bearer ${token}`,
