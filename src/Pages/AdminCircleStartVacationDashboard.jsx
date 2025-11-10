@@ -20,7 +20,10 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+
+const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+const token = storedToken ? JSON.parse(storedToken) : null;
+
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const { groupId } = useParams();
