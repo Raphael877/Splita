@@ -20,7 +20,7 @@ const AutomaticRotation = ({ onClose }) => {
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/start-cycle`,
+        `${BaseUrl}/groups/${groupId}/randomize_payout-order`,
         {},
         {
           headers: {
@@ -28,12 +28,12 @@ const AutomaticRotation = ({ onClose }) => {
           },
         }
       );
-      toast.success(res?.data?.data?.message || "Cycle started successfully!");
+      toast.success(res?.data?.data?.message);
       console.log(res);
       navigate("/admindashboard");
     } catch (error) {
       console.error("Error starting cycle:", error.response || error);
-      toast.error(error.response?.data?.message || "Failed to start cycle");
+      toast.error(error.response?.data?.message);
     }
   };
   return (

@@ -20,13 +20,16 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
+import PayoutManually from "../Components/Payout/PayoutManually.jsx";
 
-import WomenMembers from "../Components/WMembers.jsx";
+// import WomenMembers from "../Components/WMembers.jsx";
 const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 const token = storedToken ? JSON.parse(storedToken) : null;
 
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
+  const [group, setGroup] = useState("");
   const { groupId } = useParams();
 
   const navigate = useNavigate();
@@ -36,6 +39,52 @@ const AdminCircleStartVacationDashboard = () => {
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
   const [loading, setLoading] = useState(false);
+  const handleCreate = async () => {
+    try {
+      const res = await axios.get(
+        ` ${BaseUrl}/groups/generate-invite/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": `"application/json"`,
+          },
+        }
+      );
+      const inviteLink = res.data.inviteLink;
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteLink })
+      );
+      await navigator.clipboard.writeText(inviteLink);
+      toast.success("Invite Link copied successfully");
+    } catch (error) {
+      console.log("error", error);
+      console.log("id:", id);
+    } finally {
+    }
+  };
+
+  const handleStartCycle = async () => {
+    const groupId = localStorage.getItem("createdGroupId");
+
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/start-cycle`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(res.data?.message || "Cycle started successfully!");
+      setShowSelectPayout(true);
+    } catch (error) {
+      console.error("Error starting cycle:", error.response || error);
+    }
+  };
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -51,6 +100,7 @@ const AdminCircleStartVacationDashboard = () => {
 
         localStorage.setItem("selectedGroupId", groupId);
         console.log("Group ID saved:", groupId);
+        setGroup(res?.data?.group);
       } catch (error) {
         console.error("Error fetching group:", error);
       }
@@ -331,18 +381,70 @@ const AdminCircleStartVacationDashboard = () => {
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>Ongoing</p>
             </div>
           </div>
-          <div className="right">
-            <button className="btn1" onClick={() => handleModalFlow("payout")}>
-              <FiSend style={{ fontSize: "1rem" }} />
-              <p>Trigger Payout</p>
-            </button>
-            <button onClick={handleContribute} className="btn2">
-              <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-              {loading ? "loading...." : <p>Make Contribution</p>}
-            </button>
-          </div>
+          {group?.contributions?.length === 0 ? (
+            <div className="btn">
+              <button className="btn1" onClick={handleCreate}>
+                Copy Invite Link
+              </button>
+              <button
+                className="btn2"
+                onClick={() => handleModalFlow("selectPayout")}
+              >
+                <FiSend />
+                Start Cycle
+              </button>
+            </div>
+          ) : (
+            <div className="right">
+              <button
+                className="btn1"
+                onClick={() => handleModalFlow("payout")}
+              >
+                <FiSend style={{ fontSize: "1rem" }} />
+                <p>Trigger Payout</p>
+              </button>
+              <button onClick={handleContribute} className="btn2">
+                <TbCurrencyNaira style={{ fontSize: "1rem" }} />
+                {loading ? "loading...." : <p>Make Contribution</p>}
+              </button>
+                
+            </div>
+          )}
+          {/* {group?.contributions?.length === 0 ? (
+            <div className="btn">
+              <button className="btn1" onClick={handleCreate}>
+                Copy Invite Link
+              </button>
+              <button
+                className="btn2"
+                onClick={() => handleModalFlow("selectPayout")}
+              >
+                <FiSend />
+                Start Cycle
+              </button>
+            </div>
+          ) : (
+            <div className="right">
+              <button
+                className="btn1"
+                onClick={() => handleModalFlow("payout")}
+              >
+                <FiSend style={{ fontSize: "1rem" }} />
+                <p>Trigger Payout</p>
+              </button>
+              <button onClick={handleContribute} className="btn2">
+                <TbCurrencyNaira style={{ fontSize: "1rem" }} />
+                {loading ? "loading...." : <p>Make Contribution</p>}
+              </button>
+                
+            </div>
+          )} */}
         </div>
-        <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate(-1)}>
+        <div
+          className="back"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
+        >
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
           <p>back home</p>
         </div>
@@ -450,6 +552,27 @@ const AdminCircleStartVacationDashboard = () => {
           onClose={() => setCurrentModal(null)}
         />
       )}
+
+      {currentModal === "selectPayout" && (
+        <SelectPayout
+          onClose={() => setCurrentModal(null)}
+          onAutomaticRotation={() => {
+            // here you can trigger your automatic payout logic
+            toast.info("Automatic rotation selected!");
+          }}
+          onManualSelection={() => setCurrentModal("manualPayout")}
+        />
+      )}
+
+      {currentModal === "manualPayout" && (
+        <PayoutManually
+          onClose={() => setCurrentModal(null)}
+          onSave={() => {
+            toast.success("Payout order saved successfully!");
+            setCurrentModal(null);
+          }}
+        />
+      )}
     </AdminCircleStartVacationDashboard_content>
   );
 };
@@ -528,7 +651,48 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #d2def1;
       }
     }
+    .btn {
+      display: flex;
+      gap: 1rem;
+    }
 
+    .btn1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      color: white;
+      background-color: #7b2cbf;
+      width: 12rem;
+      height: 2.5rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #b088d3;
+        transition: all 350ms ease-in-out;
+      }
+    }
+
+    .btn2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      color: #ff7900;
+      border: 1.5px solid #ff7900;
+      border-radius: 0.5rem;
+      background-color: transparent;
+      width: 12rem;
+      height: 2.5rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #ff7900;
+        color: white;
+        transition: all 350ms ease-in-out;
+      }
+    }
     .right {
       width: 35%;
       height: 70%;
