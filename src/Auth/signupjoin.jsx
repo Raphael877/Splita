@@ -284,7 +284,7 @@ const SignUpJoin = () => {
             Already have an account?{" "}
             <span
               style={{ color: "#7b2cbf", cursor: "pointer" }}
-              onClick={() => navigate("/signin_join")}
+              onClick={() => navigate("/signinjoin")}
             >
               Sign in
             </span>
