@@ -35,7 +35,7 @@ const VerifyContribution = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
+      const res = await axios.get(
         `${BaseUrl}/Payments/verify-contribution`,{reference},
         {
           headers: {
