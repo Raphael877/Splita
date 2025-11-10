@@ -50,7 +50,7 @@ const VerifyContribution = () => {
       );
 
       setTimeout(() => {
-        navigate(`/womendashboard/${groupId}`);
+        navigate(`/womendashboard/${localStorage.getItem("selectedGroupId")}`);
       }, 2000);
     } catch (error) {
       console.error(error);
