@@ -82,7 +82,6 @@ const WomenContribution = () => {
 };
 
 export default WomenContribution;
-
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;

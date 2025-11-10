@@ -20,8 +20,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+
 import WomenMembers from "../Components/WMembers.jsx";
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+const token = storedToken ? JSON.parse(storedToken) : null;
+
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const { groupId } = useParams();
@@ -339,7 +342,7 @@ const AdminCircleStartVacationDashboard = () => {
             </button>
           </div>
         </div>
-        <div className="back" style={{ cursor: "pointer" }}>
+        <div className="back" style={{ cursor: "pointer" }} onClick={() => navigate(-1)}>
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
           <p>back home</p>
         </div>
