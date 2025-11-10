@@ -1,4 +1,3 @@
-// src/Components/VerifyContributionPage.jsx
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
@@ -37,13 +36,8 @@ const VerifyContribution = () => {
       setLoading(true);
 
       const res = await axios.post(
-<<<<<<< HEAD
         `${BaseUrl}/Payments/verify-contribution?reference`,
         { params: { reference } },
-=======
-        `${BaseUrl}/Payments/verify-contribution?reference=${reference}`,
-
->>>>>>> 1fb33de88fc9895f3d513917e0033d710b05752b
         {
           headers: {
             Authorization: `Bearer ${token}`,
