@@ -101,7 +101,6 @@ const WomenDashboard = () => {
     try {
       setLoading(true);
 
-      // Step 1: Initialize contribution
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -114,19 +113,11 @@ const WomenDashboard = () => {
       );
 
       console.log("Initialize response:", initRes.data);
+      toast.success("Redirecting to payment gateway...");
 
       const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      if (!authorizationUrl || !reference) {
-        toast.error("Payment initialization failed. No URL returned.");
-        return;
-      }
-
-      toast.success("Redirecting to payment gateway...");
-
       window.location.href = authorizationUrl;
-
-      l;
     } catch (error) {
       console.error("Error contributing:", error);
       toast.error(
