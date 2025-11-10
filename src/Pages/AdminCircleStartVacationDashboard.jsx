@@ -130,10 +130,10 @@ const AdminCircleStartVacationDashboard = () => {
 
       const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      if (!authorizationUrl || !reference) {
-        toast.error("Payment initialization failed. No URL returned.");
-        return;
-      }
+      // if (!authorizationUrl || !reference) {
+      //   toast.error("Payment initialization failed. No URL returned.");
+      //   return;
+      // }
 
       toast.success("Redirecting to payment gateway...");
 
