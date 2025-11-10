@@ -13,10 +13,12 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import axios from "axios";
 
-const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
-const BaseUrl = import.meta.env.VITE_BaseUrl;
-
 const WomenDashboard = () => {
+  const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
+  const token = storedToken ? JSON.parse(storedToken) : null;
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
   const { groupId } = useParams();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
