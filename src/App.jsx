@@ -48,9 +48,9 @@ const App = () => {
         <Route path="*" element={<RouterError />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signup_join" element={<SignUpJoin />} />
+        <Route path="/signupjoin" element={<SignUpJoin />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/signin_join" element={<SignInJoin />} />
+        <Route path="/signinjoin" element={<SignInJoin />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/forgotcheckemail" element={<ForgotCheckEmail />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />

@@ -48,7 +48,7 @@ const Join_Group = () => {
         JSON.stringify({ groupid, invite })
       );
 
-      navigate("/signin_join");
+      navigate("/signinjoin");
       return;
     }
     groupInfo();
@@ -65,7 +65,7 @@ const Join_Group = () => {
 
     if (!token) {
       toast.error("Please log in to join a group.");
-      navigate("/signin_join");
+      navigate("/signinjoin");
       return;
     }
 
