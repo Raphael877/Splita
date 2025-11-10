@@ -110,6 +110,7 @@ const Join_Group = () => {
 
       toast.success(res?.data?.message || "Joined group successfully!");
       handleBank();
+      navigate("/userdashboard");
     } catch (error) {
       console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
