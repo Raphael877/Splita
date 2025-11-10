@@ -42,15 +42,16 @@ const Start_group = () => {
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
 
+  const id = localStorage.getItem("selectedGroupId");
   const handleCreate = async () => {
     try {
       const res = await axios.get(
-        `${BaseUrl}/groups/generate-invite/${id}`,
+        ` ${BaseUrl}/groups/generate-invite/${id}`,
 
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": `"application/json"`,
           },
         }
       );
@@ -79,6 +80,7 @@ const Start_group = () => {
       );
 
       toast.success(res.data?.message || "Cycle started successfully!");
+      setShowSelectPayout(true);
     } catch (error) {
       console.error("Error starting cycle:", error.response || error);
     }
@@ -150,10 +152,10 @@ const Start_group = () => {
             </div>
           </div>
           <div className="btn">
-            <button className="btn1"
-             onClick={handleCreate}
-             >Copy Invite Link</button>
-            <button className="btn2" onClick={() => setShowSelectPayout(true)}>
+            <button className="btn1" onClick={handleCreate}>
+              Copy Invite Link
+            </button>
+            <button className="btn2" onClick={handleStartCycle}>
               <FiSend />
               Start Cycle
             </button>
