@@ -37,7 +37,6 @@ const VerifyContribution = () => {
 
       const res = await axios.post(
         `${BaseUrl}/Payments/verify-contribution?reference`,
-        { params: { reference } },
         {
           headers: {
             Authorization: `Bearer ${token}`,
