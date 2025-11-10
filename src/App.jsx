@@ -85,7 +85,7 @@ const App = () => {
         <Route path="/mygroupdetail" element={<MyGroupDetail />} />
         <Route path="/requestapproved/:groupId" element={<RequestApproved />} />
         <Route path="/mycontribution" element={<MyContribution />} />
-        <Route path="/womendashboard/:groupId?" element={<WomenDashboard />}>
+        <Route path="/womendashboard/:groupId" element={<WomenDashboard />}>
           <Route path="" element={<WMembers />} />
           <Route path="women_contribution" element={<WContribution />} />
         </Route>

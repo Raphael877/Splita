@@ -79,7 +79,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   const handlePayout = async () => {
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/payout-account`,
+        `${BaseUrl}/groups/payout_account`,
         formData,
         {
           headers: {
