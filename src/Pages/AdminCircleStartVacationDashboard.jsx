@@ -141,10 +141,10 @@ const AdminCircleStartVacationDashboard = () => {
 
       l;
     } catch (error) {
-      console.error("Error contributing:", error);
+     
       toast.error(
-        error?.response?.data?.message ||
-          "Failed to process contribution. Please try again."
+        error?.response?.data?.message 
+      
       );
     } finally {
       setLoading(false);
