@@ -140,6 +140,7 @@ const AddPayoutBankJoin = ({ onClose }) => {
         }
       );
       console.log("Response:", res.data);
+      navigate("/userdashboard");
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
     } finally {
