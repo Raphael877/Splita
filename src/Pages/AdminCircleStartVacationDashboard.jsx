@@ -139,7 +139,6 @@ const AdminCircleStartVacationDashboard = () => {
 
       window.location.href = authorizationUrl;
 
-      l;
     } catch (error) {
      
       toast.error(
