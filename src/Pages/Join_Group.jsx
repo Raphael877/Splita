@@ -89,7 +89,7 @@ const Join_Group = () => {
         <img
           src={Splita_logo}
           alt="Splita Logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/userdashboard")}
           style={{ cursor: "pointer" }}
         />
       </div>
