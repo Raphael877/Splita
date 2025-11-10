@@ -6,11 +6,14 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 
-const VerifyEmail = () => {
+const VerifyEmailJoin = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(15);
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
+  const [joinInfo] = useState(
+    JSON.parse(localStorage.getItem("join_group_info"))
+  );
   const navigate = useNavigate();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
@@ -70,7 +73,7 @@ const VerifyEmail = () => {
       });
       toast.success(res?.data?.message || "Email verified successfully!");
       setOtp(["", "", "", "", "", ""]);
-      navigate("/dashboard");
+      navigate(`/join_group/${joinInfo.groupid}/${joinInfo.invite}`);
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message || "Verification failed");
@@ -176,7 +179,7 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
+export default VerifyEmailJoin;
 
 const VerifyEmail_content = styled.div`
   width: 100%;

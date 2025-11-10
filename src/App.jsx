@@ -4,10 +4,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RouterError from "./Components/RouterError.jsx";
 import SignUp from "./Auth/SignUp.jsx";
+import SignUpJoin from "./Auth/signupjoin.jsx";
 import SignIn from "./Auth/SignIn.jsx";
+import SignInJoin from "./Auth/signinjoin.jsx";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ForgotCheckEmail from "./Auth/ForgotCheckEmail";
 import VerifyEmail from "./Auth/VerifyEmail";
+import VerifyEmailJoin from "./Auth/VerifyEmailjoin.jsx";
 import LandingPage from "./Pages/LandingPage.jsx";
 import UserDashboard from "./Pages/UserDashboard.jsx";
 import Create_group from "./Auth/Create_group.jsx";
@@ -45,10 +48,13 @@ const App = () => {
         <Route path="*" element={<RouterError />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup_join" element={<SignUpJoin />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin_join" element={<SignInJoin />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/forgotcheckemail" element={<ForgotCheckEmail />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
+        <Route path="/verifyemail_join" element={<VerifyEmailJoin />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/groups" element={<Groups />} />
