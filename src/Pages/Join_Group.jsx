@@ -5,6 +5,7 @@ import Splita_logo from "../assets/Splita_logo.png";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import Add_payout_bank from "../Components/CreategroupModal/Add_payout_bank";
 
 const Join_Group = () => {
   const navigate = useNavigate();
@@ -16,7 +17,6 @@ const Join_Group = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     const token = JSON.parse(
       localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -116,7 +116,11 @@ const Join_Group = () => {
             />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            onClick={<Add_payout_bank />}
+          >
             {loading ? "Joining..." : "Join Group"}
           </button>
         </form>

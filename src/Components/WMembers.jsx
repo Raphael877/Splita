@@ -4,15 +4,23 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { CiTrash } from "react-icons/ci";
 import DeleteMember from "./Deletefolder/DeleteMember";
 import { useOutletContext } from "react-router-dom";
+
 const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+
+  // Safe context handling
+  const {
+    members = [],
+    contributionAmount = 0,
+    contributions = [],
+  } = useOutletContext() || {};
 
   const handleDeleteClick = (member) => {
     setSelectedMember(member);
     setShowModal(true);
   };
-  const { members, contributionAmount } = useOutletContext();
+
   return (
     <AdminMemberDashboard_content>
       <AdminMemberDashboard_wrapper>
@@ -38,7 +46,7 @@ const WomenMembers = () => {
                 </div>
               </div>
 
-              {members && members.length > 0 ? (
+              {members.length > 0 ? (
                 members.map((member, index) => (
                   <div className="all_data" key={member.id || index}>
                     <div className="member">
