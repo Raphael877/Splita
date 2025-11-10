@@ -14,7 +14,7 @@ const RequestJoinGroup = () => {
   const token = JSON.parse(localStorage.getItem("user_token"));
   // const userId = JSON.parse(localStorage.getItem("userid"));
   // const { groupId } = useParams();
-  const groupId = localStorage.getItem("createdGroupId");
+  const groupId = localStorage.getItem("selectedGroupId");
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [group, setGroup] = useState("");
