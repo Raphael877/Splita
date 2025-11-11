@@ -1,11 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
+import axios from "axios";
+import Payout from "./Payout";
 
 const ConfirmPayout = ({ onClose, onConfirm, nextMember }) => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const token = JSON.parse(localStorage.getItem("user_token"));
+  const payoutId = localStorage.getItem("payoutId");
+  const handleConfirmPayout = async () => {
+    try {
+      const res = await axios.post(`${BaseUrl}/payouts/process/${payoutId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Payout_content>
       <Payout_wrapper>
@@ -20,7 +35,7 @@ const ConfirmPayout = ({ onClose, onConfirm, nextMember }) => {
             <button className="btn1" onClick={onClose}>
               Cancel
             </button>
-            <button className="btn2" onClick={onConfirm}>
+            <button className="btn2" onClick={handleConfirmPayout}>
               Confirm & Send
             </button>{" "}
           </div>

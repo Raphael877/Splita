@@ -7,6 +7,16 @@ const WomenContribution = () => {
   // Safe context handling
   const { contributions = [] } = useOutletContext() || {};
 
+  // Reusable date formatter
+  const formatDate = (date) =>
+    date
+      ? new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "-";
+
   return (
     <AdminMemberDashboard_content>
       <AdminMemberDashboard_wrapper>
@@ -42,16 +52,14 @@ const WomenContribution = () => {
                     <div className="amount">
                       <p>
                         <TbCurrencyNaira />
-                        {item.amount?.toLocaleString() || "0"}
+                        {item.amount
+                          ? Number(item.amount).toLocaleString()
+                          : "0"}
                       </p>
                     </div>
 
                     <div className="date">
-                      <p>
-                        {item.date
-                          ? new Date(item.date).toLocaleDateString()
-                          : "-"}
-                      </p>
+                      <p>{formatDate(item.date)}</p>
                     </div>
 
                     <div className="status">
@@ -82,6 +90,7 @@ const WomenContribution = () => {
 };
 
 export default WomenContribution;
+
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;
