@@ -313,12 +313,19 @@ const Wrapper = styled.div`
       flex-direction: column;
       width: 90%;
       /* gap: 0.5rem; */
-      height: 25vh;
+      min-height: 18vh;
     }
 
     .btn {
       display: flex;
       gap: 1rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+      }
     }
 
     .btn1 {
@@ -338,6 +345,10 @@ const Wrapper = styled.div`
         background-color: #b088d3;
         transition: all 350ms ease-in-out;
       }
+
+      @media (max-width: 768px) {
+        width: 22rem;
+      }
     }
 
     .btn2 {
@@ -356,6 +367,10 @@ const Wrapper = styled.div`
         background-color: #ff7900;
         color: white;
         transition: all 350ms ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        width: 22rem;
       }
     }
 
@@ -411,7 +426,7 @@ const Wrapper = styled.div`
     align-items: center;
 
     @media (max-width: 768px) {
-      margin-top: 0.5rem;
+      margin-top: 4rem;
     }
   }
 
@@ -485,7 +500,8 @@ const Ad = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 100vh;
+    margin-top: 2rem;
   }
 
   .Ad_wrap {
@@ -495,6 +511,7 @@ const Ad = styled.div`
     gap: 1rem;
 
     @media (max-width: 768px) {
+      height: 100%;
       flex-wrap: wrap;
     }
 
@@ -509,8 +526,8 @@ const Ad = styled.div`
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
       @media (max-width: 768px) {
-        width: 48%;
-        height: 50%;
+        width: 100%;
+        height: 23%;
       }
 
       .card_wrapper {
