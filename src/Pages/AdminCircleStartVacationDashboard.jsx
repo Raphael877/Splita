@@ -30,6 +30,7 @@ const token = storedToken ? JSON.parse(storedToken) : null;
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const [group, setGroup] = useState("");
+  const [payoutInfo, setPayoutInfo] = useState("");
   const { groupId } = useParams();
   const [cycleId, setCycleId] = useState("");
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const AdminCircleStartVacationDashboard = () => {
   const handleCreate = async () => {
     try {
       const res = await axios.get(
-        ` ${BaseUrl}/groups/generate-invite/${id}`,
+        ` ${BaseUrl}/groups/generate_invite/${id}`,
 
         {
           headers: {
@@ -111,7 +112,8 @@ const AdminCircleStartVacationDashboard = () => {
           }
         );
         setCycleId(response?.data?.data?.cycleId);
-
+        console.log("hiii", res?.data?.data?.pot?.totalCollected);
+        // setPayoutInfo("hiii", res);
         console.log(response);
       } catch (error) {
         console.error("Error fetching group:", error);
@@ -281,11 +283,10 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
+      mid:
+        // {/* <TbCurrencyNaira /> */}
+        groupDetails?.group?.pot?.totalCollected,
+
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",

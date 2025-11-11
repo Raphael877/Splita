@@ -31,7 +31,7 @@ const RequestJoinGroup = () => {
     console.log(groupId);
     try {
       const res = await axios.get(
-        `${BaseUrl}/groups/${groupId}/pending-requests`,
+        `${BaseUrl}/groups/${groupId}/pending_requests`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -97,7 +97,7 @@ const SignUpJoin = () => {
       localStorage.setItem("userData", JSON.stringify(userData));
       localStorage.setItem("userEmail", formData.email);
 
-      toast.success(res?.data?.message || "Registration successful!");
+      toast.success(res?.data?.message);
 
       localStorage.setItem("userEmail", formData.email);
 
