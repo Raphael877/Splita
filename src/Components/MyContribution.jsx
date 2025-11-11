@@ -258,11 +258,8 @@ const MyContribution = () => {
                       </div>
 
                       {/* Amount */}
-                      <div
-                        className="amount"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <p>
+                      <div className="amount">
+                        <p style={{ display: "flex", alignItems: "center" }}>
                           <TbCurrencyNaira style={{ fontSize: "1rem" }} />
                           {group.contributionAmount?.toLocaleString() || "0"}
                         </p>
@@ -385,7 +382,7 @@ const Table = styled.div`
         @media (max-width: 768px) {
           flex-wrap: wrap;
           gap: 2rem;
-          height: 8rem;
+          height: 6rem;
         }
 
         .cycle {
