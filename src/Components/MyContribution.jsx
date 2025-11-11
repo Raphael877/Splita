@@ -385,7 +385,7 @@ const Table = styled.div`
         @media (max-width: 768px) {
           flex-wrap: wrap;
           gap: 2rem;
-          height: 18rem;
+          height: 8rem;
         }
 
         .cycle {
