@@ -54,7 +54,7 @@ const MyGroupDetail = () => {
         <div className="main_top_group">
           {groups.length === 0 ? (
             <p style={{ textAlign: "center", marginTop: "50px" }}>
-              No groups found
+              Groups Loading.......
             </p>
           ) : (
             groups.map((group) => (

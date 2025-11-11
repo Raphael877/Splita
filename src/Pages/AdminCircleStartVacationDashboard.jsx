@@ -21,6 +21,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
+import UserDashDetails from "../Components/UserDashDetails.jsx";
 
 const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 const token = storedToken ? JSON.parse(storedToken) : null;
@@ -92,8 +93,6 @@ const AdminCircleStartVacationDashboard = () => {
     };
     if (groupId) fetchGroup();
   }, []);
-
-  // ✅ Updated handleCreatePayout
   const handleCreatePayout = async () => {
     try {
       const res = await axios.post(
@@ -108,7 +107,9 @@ const AdminCircleStartVacationDashboard = () => {
       );
       console.log(res);
       toast.success("Payout created successfully!");
-      setTimeout(() => handleModalFlow("payout"), 800); // ✅ Opens payout modal after success
+      localStorage.setItem("payoutId");
+
+      setTimeout(() => handleModalFlow("payout"), 800);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to create payout");
     }
@@ -268,13 +269,19 @@ const AdminCircleStartVacationDashboard = () => {
         <div className="groupname">
           <h1>{groupDetails?.group?.groupName}</h1>
         </div>
+        {/* <UserDashDetails  payoutInfo={payoutData}/> */}
         <div className="round">
           <div className="left">
             <p>
-              Round <span>0/3</span>
+              Round{" "}
+              <span>
+                {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
+              </span>
             </p>
             <div className="ongoing">
-              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>Ongoing</p>
+              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
+                {group?.status}
+              </p>
             </div>
           </div>
           {group?.status !== "active" ? (
