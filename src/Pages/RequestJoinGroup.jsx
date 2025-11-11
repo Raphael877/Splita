@@ -38,7 +38,7 @@ const RequestJoinGroup = () => {
       );
       setRequests(res?.data.requests);
       setGroup(res?.data?.group?.id);
-      console.log("res", res.data.group.id);
+      // console.log("res", res.data.group.id);
     } catch (error) {
       console.error("Error fetching requests", error);
     } finally {

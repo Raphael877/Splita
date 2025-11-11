@@ -6,35 +6,26 @@ import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { FiSend } from "react-icons/fi";
 import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import axios from "axios";
-import { useOutletContext } from "react-router-dom";
 
 const WomenDashboard = () => {
   const { groupId } = useParams();
-  const outletContext = useOutletContext() || {};
-  const {
-    members = [],
-    contributions = [],
-    contributionAmount = 0,
-    groupId: contextGroupId,
-  } = outletContext;
-
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
   const token = storedToken ? JSON.parse(storedToken) : null;
-
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [groupDetails, setGroupDetails] = useState([]);
+  const [groupDetails, setGroupDetails] = useState(null);
+  const [loading, setLoading] = useState(true); // initial loading
+
   useEffect(() => {
     const fetchGroup = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,74 +33,22 @@ const WomenDashboard = () => {
           },
         });
         setGroupDetails(res.data);
-        console.log("Group details:", res);
-
         localStorage.setItem("selectedGroupId", groupId);
-        console.log("Group ID saved:", groupId);
       } catch (error) {
         console.error("Error fetching group:", error);
+        toast.error("Failed to load group details");
+      } finally {
+        setLoading(false);
       }
     };
+
     if (groupId) fetchGroup();
-  }, []);
-  const id = localStorage.getItem("selectedGroupId");
+  }, [groupId]);
 
-  // const handleContribute = async () => {
-  //   try {
-  //     const initRes = await axios.post(
-  //       `${BaseUrl}/Payments/initialize-contribution`,
-  //       { groupId: id },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Initialize response:", initRes.data);
-
-  //     const reference = initRes?.data?.reference;
-
-  //     if (!reference) {
-  //       toast.error("No reference returned from initialization.");
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     toast.success("Contribution initialized successfully!");
-
-  //     const verifyRes = await axios.post(
-  //       `${BaseUrl}/Payments/verify-contribution`,
-  //       { reference },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Verify response:", verifyRes.data);
-
-  //     toast.success(
-  //       verifyRes?.data?.message || "Contribution verified successfully!"
-  //     );
-  //   } catch (error) {
-  //     console.error("Error contributing:", error);
-
-  //     toast.error(
-  //       error?.response?.data?.message ||
-  //         "Failed to process contribution. Please try again."
-  //     );
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const handleContribute = async () => {
+    const id = localStorage.getItem("selectedGroupId");
     try {
       setLoading(true);
-
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -121,11 +60,13 @@ const WomenDashboard = () => {
         }
       );
 
-      console.log("Initialize response:", initRes.data);
+      const { authorizationUrl } = initRes?.data?.data || {};
+      if (!authorizationUrl) {
+        toast.error("Payment initialization failed. No URL returned.");
+        return;
+      }
+
       toast.success("Redirecting to payment gateway...");
-
-      const { authorizationUrl, reference } = initRes?.data?.data || {};
-
       window.location.href = authorizationUrl;
     } catch (error) {
       console.error("Error contributing:", error);
@@ -138,53 +79,59 @@ const WomenDashboard = () => {
     }
   };
 
-  const Array = [
-    {
-      id: 1,
-      top: "Contribution Amount",
-      mid: "0.00",
-      bottom: "Per member",
-      icon: <BsCash />,
-      bgcolor: "#efd5f2",
-      color: "#7b2cbf",
-    },
-    {
-      id: 2,
-      top: "Cycle duration",
-      mid: groupDetails?.group?.contributionFrequency,
-      bottom: "Frequency",
-      icon: <MdOutlineEventNote />,
-      bgcolor: "#fee1ef",
-      color: "#f967ad",
-    },
-    {
-      id: 3,
-      top: "Total Members",
-      mid: groupDetails?.group?.members?.length,
-      bottom: "Active",
-      icon: <HiOutlineUserGroup />,
-      bgcolor: "#ffe4cc",
-      color: "#ff7900",
-    },
-    {
-      id: 4,
-      top: "Current Pot",
-      mid: groupDetails?.group?.contributionAmount,
-      bottom: "Group Wallet",
-      icon: <PiCoinsLight />,
-      bgcolor: "#d6ecd1",
-      color: "#34a218",
-    },
-  ];
+  const stats = groupDetails?.group
+    ? [
+        {
+          id: 1,
+          top: "Contribution Amount",
+          mid: groupDetails.group.contributionAmount || 0,
+          bottom: "Per member",
+          icon: <BsCash />,
+          bgcolor: "#efd5f2",
+          color: "#7b2cbf",
+        },
+        {
+          id: 2,
+          top: "Cycle duration",
+          mid: groupDetails.group.contributionFrequency || "-",
+          bottom: "Frequency",
+          icon: <MdOutlineEventNote />,
+          bgcolor: "#fee1ef",
+          color: "#f967ad",
+        },
+        {
+          id: 3,
+          top: "Total Members",
+          mid: groupDetails.group.members?.length || 0,
+          bottom: "Active",
+          icon: <HiOutlineUserGroup />,
+          bgcolor: "#ffe4cc",
+          color: "#ff7900",
+        },
+        {
+          id: 4,
+          top: "Current Pot",
+          mid: groupDetails.group.contributionAmount || 0,
+          bottom: "Group Wallet",
+          icon: <PiCoinsLight />,
+          bgcolor: "#d6ecd1",
+          color: "#34a218",
+        },
+      ]
+    : [];
+
+  if (loading) return <p style={{ textAlign: "center" }}>Loading group...</p>;
 
   return (
     <AdminDashboard_content>
       <ToastContainer />
       <AdminDashboard_wrapper>
         <UserDashboardHeader />
+
         <div className="groupname">
-          <h1>{groupDetails?.group?.groupName}</h1>
+          <h1>{groupDetails.group.groupName}</h1>
         </div>
+
         <div className="round">
           <div className="left">
             <p>
@@ -195,47 +142,46 @@ const WomenDashboard = () => {
             </div>
           </div>
           <div className="right">
-            <button className="btn2">
+            <button className="btn2" onClick={handleContribute}>
               <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-              <p onClick={handleContribute}>Make Contribution</p>
+              Make Contribution
             </button>
           </div>
         </div>
+
         <div
           className="back"
           style={{ cursor: "pointer" }}
           onClick={() => navigate("/userdashboard")}
         >
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
-          <p>back home</p>
+          <p>Back Home</p>
         </div>
 
         <Ad>
           <div className="Ad_wrap">
-            {Array.map((items) => (
-              <div className="card" id={items.id}>
+            {stats.map((item) => (
+              <div className="card" key={item.id}>
                 <div className="card_wrapper">
                   <div className="left">
-                    <p>{items.top}</p>
-                    <h3>{items.mid}</h3>
+                    <p>{item.top}</p>
+                    <h3>{item.mid}</h3>
                     <p>
-                      <small style={{ color: "#828181" }}>{items.bottom}</small>
+                      <small style={{ color: "#828181" }}>{item.bottom}</small>
                     </p>
                   </div>
                   <div
                     className="right"
-                    style={{
-                      backgroundColor: items.bgcolor,
-                      color: items.color,
-                    }}
+                    style={{ backgroundColor: item.bgcolor, color: item.color }}
                   >
-                    {items.icon}
+                    {item.icon}
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </Ad>
+
         <div className="option">
           <div className="option_wrap">
             <div className="inner_wrap">
@@ -251,12 +197,13 @@ const WomenDashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* Only pass context once data is ready */}
         <Outlet
           context={{
-            members: groupDetails?.group?.members || [],
-            contributions: groupDetails?.group?.contributions || [],
-            contributionAmount: groupDetails?.group?.contributionAmount || 0,
-            groupId: groupDetails?.group?._id,
+            members: groupDetails.group.members || [],
+            contributions: groupDetails.group.contributions || [],
+            contributionAmount: groupDetails.group.contributionAmount || 0,
           }}
         />
 

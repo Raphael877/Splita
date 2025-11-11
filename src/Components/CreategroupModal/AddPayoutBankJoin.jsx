@@ -5,6 +5,7 @@ import { PiBank } from "react-icons/pi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddPayoutBankJoin = ({ onClose }) => {
   const navigate = useNavigate();
@@ -139,10 +140,10 @@ const AddPayoutBankJoin = ({ onClose }) => {
           },
         }
       );
-      console.log("Response:", res.data);
+      toast.success("Response:", res.data);
       navigate("/userdashboard");
     } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
+      toast.error("Error:", error.response?.data || error.message);
     } finally {
       handleSave();
     }
@@ -153,6 +154,7 @@ const AddPayoutBankJoin = ({ onClose }) => {
       <Add_payout_bank_wrapper>
         <Inner_wrap>
           <Header>
+            <ToastContainer />
             <h3>Add Payout Bank</h3>
             <FaRegTimesCircle
               style={{ fontSize: "1.3rem", cursor: "pointer" }}
