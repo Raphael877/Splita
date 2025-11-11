@@ -72,12 +72,12 @@ const SignInJoin = () => {
       localStorage.setItem(import.meta.env.VITE_USERID, JSON.stringify(user));
       console.log("the token", token);
 
-      toast.success(res?.data?.message || "Login successful!");
+      toast.success(res?.data?.message);
 
       navigate(`/join_group/${joinInfo.groupid}/${joinInfo.invite}`);
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message || "Invalid email or password");
+      toast.error(err?.response?.data?.message);
     } finally {
       SetLoading(false);
     }
