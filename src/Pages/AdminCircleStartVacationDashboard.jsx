@@ -521,6 +521,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
     .btn {
       display: flex;
       gap: 1rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     .btn1 {
@@ -540,6 +544,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #b088d3;
         transition: all 350ms ease-in-out;
       }
+
+      @media (max-width: 768px) {
+        width: 26.5rem;
+      }
     }
 
     .btn2 {
@@ -558,6 +566,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #ff7900;
         color: white;
         transition: all 350ms ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        width: 26.5rem;
       }
     }
     .right {
@@ -717,7 +729,7 @@ const Ad = styled.div`
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
       @media (max-width: 768px) {
-        width: 48%;
+        width: 100%;
         height: 50%;
       }
 
