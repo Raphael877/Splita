@@ -144,6 +144,7 @@
 
 import styled from "styled-components";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import UserDashboardHeader from "./UserDashboardHeader";
 import UserDashboardFooter from "./UserDashboardFooter";
