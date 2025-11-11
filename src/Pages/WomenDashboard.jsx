@@ -15,12 +15,20 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 const WomenDashboard = () => {
+  const { groupId } = useParams();
+  const outletContext = useOutletContext() || {};
+  const {
+    members = [],
+    contributions = [],
+    contributionAmount = 0,
+    groupId: contextGroupId,
+  } = outletContext;
+
   const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
   const token = storedToken ? JSON.parse(storedToken) : null;
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const { groupId } = useParams();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [groupDetails, setGroupDetails] = useState([]);
@@ -243,7 +251,15 @@ const WomenDashboard = () => {
             </div>
           </div>
         </div>
-        <Outlet />
+        <Outlet
+          context={{
+            members: groupDetails?.group?.members || [],
+            contributions: groupDetails?.group?.contributions || [],
+            contributionAmount: groupDetails?.group?.contributionAmount || 0,
+            groupId: groupDetails?.group?._id,
+          }}
+        />
+
         <UserDashboardFooter />
       </AdminDashboard_wrapper>
     </AdminDashboard_content>
