@@ -238,9 +238,6 @@ const MyContribution = () => {
                   <div className="header">
                     <h3>Date</h3>
                   </div>
-                  <div className="header">
-                    <h3>Action</h3>
-                  </div>
                 </div>
 
                 {groups.length === 0 ? (
@@ -276,41 +273,12 @@ const MyContribution = () => {
                             : "—"}
                         </p>
                       </div>
-
-                      {/* Action */}
-                      <div className="action">
-                        <button
-                          onClick={() => handleFetchContribution(group.id)}
-                          style={{
-                            background: "#007bff",
-                            color: "#fff",
-                            border: "none",
-                            padding: "6px 12px",
-                            borderRadius: "8px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          View Contributions
-                        </button>
-                      </div>
                     </div>
                   ))
                 )}
               </div>
             </div>
           </Table>
-
-          {/* ✅ Conditionally show contribution data */}
-          {loading ? (
-            <p>Loading contribution history...</p>
-          ) : contributionData ? (
-            <div className="contribution_section">
-              <h3>Contribution History</h3>
-              <pre>{JSON.stringify(contributionData, null, 2)}</pre>
-            </div>
-          ) : selectedGroup ? (
-            <p>No contributions found for this group.</p>
-          ) : null}
         </Inner>
         <UserDashboardFooter />
       </MyGroupDetail_wrapper>
