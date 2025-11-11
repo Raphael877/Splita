@@ -12,6 +12,7 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
 const WomenDashboard = () => {
   const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
@@ -33,7 +34,7 @@ const WomenDashboard = () => {
           },
         });
         setGroupDetails(res.data);
-        console.log("Group details:", res.data);
+        console.log("Group details:", res);
 
         localStorage.setItem("selectedGroupId", groupId);
         console.log("Group ID saved:", groupId);

@@ -206,7 +206,7 @@ const PayoutManually = ({ onClose, onSave }) => {
         }
       );
       console.log(response);
-      toast.success(res.data.message || "Payout order saved!");
+      toast.success(res?.data?.data?.messages);
       onSave(res.data.data);
     } catch (error) {
       console.error("Error saving payout order:", error);
