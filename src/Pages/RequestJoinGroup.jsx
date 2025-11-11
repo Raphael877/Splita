@@ -48,7 +48,7 @@ const RequestJoinGroup = () => {
   const handleRequestAction = async (userId, action) => {
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/join-request/${userId}`,
+        `${BaseUrl}/groups/${groupId}/join_request/${userId}`,
         { action },
         {
           headers: { Authorization: `Bearer ${token}` },

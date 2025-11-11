@@ -31,7 +31,7 @@ const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const [group, setGroup] = useState("");
   const { groupId } = useParams();
-
+  const [cycleId, setCycleId] = useState("");
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -101,32 +101,63 @@ const AdminCircleStartVacationDashboard = () => {
         localStorage.setItem("selectedGroupId", groupId);
         console.log("Group ID saved:", groupId);
         setGroup(res?.data?.group);
+        const response = await axios.get(
+          `${BaseUrl}/groups/${groupId}/payout_info`,
+          {
+            headers: {
+              Authorization: ` Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setCycleId(response?.data?.data?.cycleId);
+
+        console.log(response);
       } catch (error) {
         console.error("Error fetching group:", error);
       }
     };
     if (groupId) fetchGroup();
   }, []);
-  const id = groupId;
-  const fetchNextPayoutMember = async () => {
+
+  const handleCreatePayout = async () => {
     try {
-      setLoading(true);
-      const res = await axios.get(`${BaseUrl}/groups/${id}/payout-order`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(groupId);
-      setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
-      setCurrentModal("payoutDetails");
-      console.log("res", res);
+      const res = await axios.post(
+        `${BaseUrl}/payouts/create`,
+        { groupId, cycleId },
+        {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res);
+      handleModalFlow("payout");
     } catch (error) {
-      console.error("Error fetching next payout member:", error);
-      toast.error("Failed to fetch next payout member");
-    } finally {
-      setLoading(false);
+      toast.error(error.response.data.message);
     }
   };
+  const id = groupId;
+  // const fetchNextPayoutMember = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await axios.get(`${BaseUrl}/groups/${id}/payout_order`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log(groupId);
+  //     setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
+  //     setCurrentModal("payoutDetails");
+  //     console.log("res", res);
+  //   } catch (error) {
+  //     console.error("Error fetching next payout member:", error);
+  //     toast.error("Failed to fetch next payout member");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // const confirmPayout = async () => {
   //   try {
@@ -381,7 +412,7 @@ const AdminCircleStartVacationDashboard = () => {
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>Ongoing</p>
             </div>
           </div>
-          {group?.contributions?.length === 0 ? (
+          {group?.status !== "active" ? (
             <div className="btn">
               <button className="btn1" onClick={handleCreate}>
                 Copy Invite Link
@@ -396,10 +427,7 @@ const AdminCircleStartVacationDashboard = () => {
             </div>
           ) : (
             <div className="right">
-              <button
-                className="btn1"
-                onClick={() => handleModalFlow("payout")}
-              >
+              <button className="btn1" onClick={handleCreatePayout}>
                 <FiSend style={{ fontSize: "1rem" }} />
                 <p>Trigger Payout</p>
               </button>
