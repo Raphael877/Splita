@@ -43,7 +43,7 @@ const AdminCircleStartVacationDashboard = () => {
   const handleCreate = async () => {
     try {
       const res = await axios.get(
-        ` ${BaseUrl}/groups/generate_invite/${id}`,
+        `${BaseUrl}/groups/generate_invite/${id}`,
 
         {
           headers: {
@@ -66,55 +66,53 @@ const AdminCircleStartVacationDashboard = () => {
     }
   };
 
-  const handleStartCycle = async () => {
-    const groupId = localStorage.getItem("createdGroupId");
+  // const handleStartCycle = async () => {
+  //   const groupId = localStorage.getItem("createdGroupId");
 
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/start-cycle`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  //   try {
+  //     const res = await axios.post(
+  //       `${BaseUrl}/groups/${groupId}/start-cycle`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      toast.success(res.data?.message || "Cycle started successfully!");
-      setShowSelectPayout(true);
-    } catch (error) {
-      console.error("Error starting cycle:", error.response || error);
-    }
-  };
+  //     toast.success(res.data?.message || "Cycle started successfully!");
+  //     setShowSelectPayout(true);
+  //   } catch (error) {
+  //     console.error("Error starting cycle:", error.response || error);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchGroup = async () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
           headers: {
-            Authorization: ` Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
         setGroupDetails(res.data);
-        console.log("Group details:", res.data);
-
-        localStorage.setItem("selectedGroupId", groupId);
-        console.log("Group ID saved:", groupId);
         setGroup(res?.data?.group);
+        localStorage.setItem("selectedGroupId", groupId);
+
+        // Fetch payout info
         const response = await axios.get(
           `${BaseUrl}/groups/${groupId}/payout_info`,
           {
             headers: {
-              Authorization: ` Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }
         );
+        setPayoutInfo(response?.data?.data); // <- Fixed here
         setCycleId(response?.data?.data?.cycleId);
-        console.log("hiii", res?.data?.data?.pot?.totalCollected);
-        // setPayoutInfo("hiii", res);
-        console.log(response);
+        console.log("Payout info:", response?.data?.data);
       } catch (error) {
         console.error("Error fetching group:", error);
       }
@@ -129,7 +127,7 @@ const AdminCircleStartVacationDashboard = () => {
         { groupId, cycleId },
         {
           headers: {
-            Authorization: ` Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -137,9 +135,10 @@ const AdminCircleStartVacationDashboard = () => {
       console.log(res);
       handleModalFlow("payout");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Failed to create payout");
     }
   };
+
   const id = groupId;
   // const fetchNextPayoutMember = async () => {
   //   try {
@@ -213,21 +212,11 @@ const AdminCircleStartVacationDashboard = () => {
 
       const { authorizationUrl, reference } = initRes?.data?.data || {};
 
-      // if (!authorizationUrl || !reference) {
-      //   toast.error("Payment initialization failed. No URL returned.");
-      //   return;
-      // }
-
       toast.success("Redirecting to payment gateway...");
 
       window.location.href = authorizationUrl;
-
     } catch (error) {
-     
-      toast.error(
-        error?.response?.data?.message 
-      
-      );
+      toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -249,10 +238,10 @@ const AdminCircleStartVacationDashboard = () => {
       id: 1,
       top: "Contribution Amount",
       mid: (
-        <>
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
           <TbCurrencyNaira />
-          10,000
-        </>
+          {groupDetails?.group?.contributionAmount || 0}
+        </span>
       ),
       bottom: "Per member",
       icon: <BsCash />,
@@ -282,117 +271,16 @@ const AdminCircleStartVacationDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid:
-        // {/* <TbCurrencyNaira /> */}
-        groupDetails?.group?.pot?.totalCollected,
-
+      mid: (
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <TbCurrencyNaira />
+          {payoutInfo?.pot?.totalCollected || 0}
+        </span>
+      ),
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",
       color: "#34a218",
-    },
-  ];
-
-  const AllData = [
-    {
-      member: "Chisom",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "2nd",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Dera",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "1st",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Dinma",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "3rd",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Zeal",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "4th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Habeeb",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "5th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Felix",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "6th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Raphael",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "7th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Arinze",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "8th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Darasimi",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "9th",
-      delete: <CiTrash />,
-    },
-    {
-      member: "Michael",
-      contribution: (
-        <>
-          <TbCurrencyNaira /> 0
-        </>
-      ),
-      payout_order: "10th",
-      delete: <CiTrash />,
     },
   ];
   return (
@@ -438,35 +326,6 @@ const AdminCircleStartVacationDashboard = () => {
                 
             </div>
           )}
-          {/* {group?.contributions?.length === 0 ? (
-            <div className="btn">
-              <button className="btn1" onClick={handleCreate}>
-                Copy Invite Link
-              </button>
-              <button
-                className="btn2"
-                onClick={() => handleModalFlow("selectPayout")}
-              >
-                <FiSend />
-                Start Cycle
-              </button>
-            </div>
-          ) : (
-            <div className="right">
-              <button
-                className="btn1"
-                onClick={() => handleModalFlow("payout")}
-              >
-                <FiSend style={{ fontSize: "1rem" }} />
-                <p>Trigger Payout</p>
-              </button>
-              <button onClick={handleContribute} className="btn2">
-                <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-                {loading ? "loading...." : <p>Make Contribution</p>}
-              </button>
-                
-            </div>
-          )} */}
         </div>
         <div
           className="back"
@@ -538,13 +397,18 @@ const AdminCircleStartVacationDashboard = () => {
           </div>
         </div>
 
-        <Outlet
-          context={{
-            members: groupDetails?.group?.members || [],
-            contributionAmount: groupDetails?.group?.contributionAmount,
-            contributions: groupDetails?.group?.contributions || [],
-          }}
-        />
+        {groupDetails?.group ? (
+          <Outlet
+            context={{
+              members: groupDetails.group.members,
+              contributions: groupDetails.group.contributions,
+              contributionAmount: groupDetails.group.contributionAmount,
+            }}
+          />
+        ) : (
+          <p>Loading group members...</p>
+        )}
+
         <UserDashboardFooter />
       </AdminCircleStartVacationDashboard_wrapper>
       {currentModal === "payout" && (

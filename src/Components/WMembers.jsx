@@ -96,16 +96,15 @@ const WomenMembers = () => {
   const [selectedMember, setSelectedMember] = useState(null);
 
   // Safe context handling
-  const {
-    members = [],
-    contributionAmount = 0,
-    contributions = [],
-  } = useOutletContext() || {};
+  const { members = [], contributionAmount = 0 } = useOutletContext() || {};
 
   const handleDeleteClick = (member) => {
     setSelectedMember(member);
     setShowModal(true);
   };
+
+  if (!members.length)
+    return <p style={{ textAlign: "center" }}>Loading members...</p>;
 
   return (
     <AdminMemberDashboard_content>
@@ -132,36 +131,28 @@ const WomenMembers = () => {
                 </div>
               </div>
 
-              {members.length > 0 ? (
-                members.map((member, index) => (
-                  <div className="all_data" key={member.id || index}>
-                    <div className="member">
-                      <p>{member.name}</p>
-                    </div>
-                    <div className="contribution">
-                      <p style={{ display: "flex", alignItems: "center" }}>
-                        <TbCurrencyNaira /> {contributionAmount}
-                      </p>
-                    </div>
-                    <div className="order">
-                      <p>{`${index + 1}${
-                        ["st", "nd", "rd"][index] || "th"
-                      }`}</p>
-                    </div>
-                    <div
-                      className="delete"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleDeleteClick(member.name)}
-                    >
-                      <CiTrash />
-                    </div>
+              {members.map((member, index) => (
+                <div className="all_data" key={member.id || index}>
+                  <div className="member">
+                    <p>{member.name}</p>
                   </div>
-                ))
-              ) : (
-                <div style={{ textAlign: "center", padding: "20px" }}>
-                  <p>No members found yet.</p>
+                  <div className="contribution">
+                    <p style={{ display: "flex", alignItems: "center" }}>
+                      <TbCurrencyNaira /> {contributionAmount}
+                    </p>
+                  </div>
+                  <div className="order">
+                    <p>{`${index + 1}${["st", "nd", "rd"][index] || "th"}`}</p>
+                  </div>
+                  <div
+                    className="delete"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleDeleteClick(member.name)}
+                  >
+                    <CiTrash />
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
           </div>
         </Table>
@@ -178,6 +169,7 @@ const WomenMembers = () => {
 };
 
 export default WomenMembers;
+
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;

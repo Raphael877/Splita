@@ -243,7 +243,15 @@ const UserDashDetails = () => {
                     </div>
                   ))
                 ) : (
-                  <p>No groups found</p>
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Loading groups..........
+                  </p>
                 )}
               </div>
             </My_groups>
