@@ -10,7 +10,6 @@ import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
-// import LoadingSpinner from "./LoadingSpinner";
 import { useEffect, useState } from "react";
 import Payout from "../Components/Payout/Payout.jsx";
 import PayoutSuccessful from "../Components/Payout/PayoutSuccessful.jsx";
@@ -23,7 +22,6 @@ import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
 
-// import WomenMembers from "../Components/WMembers.jsx";
 const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 const token = storedToken ? JSON.parse(storedToken) : null;
 
@@ -40,18 +38,15 @@ const AdminCircleStartVacationDashboard = () => {
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const handleCreate = async () => {
     try {
-      const res = await axios.get(
-        `${BaseUrl}/groups/generate_invite/${id}`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": `"application/json"`,
-          },
-        }
-      );
+      const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": `"application/json"`,
+        },
+      });
       const inviteLink = res.data.inviteLink;
       localStorage.setItem(
         "latestInvite",
@@ -66,27 +61,6 @@ const AdminCircleStartVacationDashboard = () => {
     }
   };
 
-  // const handleStartCycle = async () => {
-  //   const groupId = localStorage.getItem("createdGroupId");
-
-  //   try {
-  //     const res = await axios.post(
-  //       `${BaseUrl}/groups/${groupId}/start-cycle`,
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     toast.success(res.data?.message || "Cycle started successfully!");
-  //     setShowSelectPayout(true);
-  //   } catch (error) {
-  //     console.error("Error starting cycle:", error.response || error);
-  //   }
-  // };
-
   useEffect(() => {
     const fetchGroup = async () => {
       try {
@@ -100,7 +74,6 @@ const AdminCircleStartVacationDashboard = () => {
         setGroup(res?.data?.group);
         localStorage.setItem("selectedGroupId", groupId);
 
-        // Fetch payout info
         const response = await axios.get(
           `${BaseUrl}/groups/${groupId}/payout_info`,
           {
@@ -110,7 +83,7 @@ const AdminCircleStartVacationDashboard = () => {
             },
           }
         );
-        setPayoutInfo(response?.data?.data); // <- Fixed here
+        setPayoutInfo(response?.data?.data);
         setCycleId(response?.data?.data?.cycleId);
         console.log("Payout info:", response?.data?.data);
       } catch (error) {
@@ -120,6 +93,7 @@ const AdminCircleStartVacationDashboard = () => {
     if (groupId) fetchGroup();
   }, []);
 
+  // ✅ Updated handleCreatePayout
   const handleCreatePayout = async () => {
     try {
       const res = await axios.post(
@@ -133,72 +107,73 @@ const AdminCircleStartVacationDashboard = () => {
         }
       );
       console.log(res);
-      handleModalFlow("payout");
+      toast.success("Payout created successfully!");
+      setTimeout(() => handleModalFlow("payout"), 800); // ✅ Opens payout modal after success
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to create payout");
     }
   };
 
   const id = groupId;
-  // const fetchNextPayoutMember = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await axios.get(`${BaseUrl}/groups/${id}/payout_order`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     console.log(groupId);
-  //     setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
-  //     setCurrentModal("payoutDetails");
-  //     console.log("res", res);
-  //   } catch (error) {
-  //     console.error("Error fetching next payout member:", error);
-  //     toast.error("Failed to fetch next payout member");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchNextPayoutMember = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${BaseUrl}/groups/${id}/payout_order`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(groupId);
+      setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
+      setCurrentModal("payoutDetails");
+      console.log("res", res);
+    } catch (error) {
+      console.error("Error fetching next payout member:", error);
+      toast.error("Failed to fetch next payout member");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // const confirmPayout = async () => {
-  //   try {
-  //     setLoading(true);
+  const confirmPayout = async () => {
+    try {
+      setLoading(true);
 
-  //     const payload = {
-  //       payoutOrder: [
-  //         {
-  //           userId: nextMember?.userId,
-  //           position: nextMember?.position,
-  //         },
-  //       ],
-  //     };
+      const payload = {
+        payoutOrder: [
+          {
+            userId: nextMember?.userId,
+            position: nextMember?.position,
+          },
+        ],
+      };
 
-  //     const res = await axios.put(
-  //       ${BaseUrl}/groups/${groupId}/payout-order,
-  //       payload,
-  //       {
-  //         headers: {
-  //           Authorization: Bearer ${token},
-  //         },
-  //       }
-  //     );
-  //     console.log(groupId);
-  //     toast.success("Payout confirmed successfully");
-  //     setCurrentModal("payoutSuccessful");
-  //   } catch (error) {
-  //     console.error("Error confirming payout:", error);
-  //     toast.error(error.response?.data?.message || "Failed to confirm payout");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      const res = await axios.put(
+        `${BaseUrl}/groups/${groupId}/payout-order`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(groupId);
+      toast.success("Payout confirmed successfully");
+      setCurrentModal("payoutSuccessful");
+    } catch (error) {
+      console.error("Error confirming payout:", error);
+      toast.error(error.response?.data?.message || "Failed to confirm payout");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleContribute = async () => {
     try {
       setLoading(true);
 
-      // Step 1: Initialize contribution
       const initRes = await axios.post(
-        ` ${BaseUrl}/Payments/initialize-contribution`,
+        `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
         {
           headers: {
@@ -210,7 +185,7 @@ const AdminCircleStartVacationDashboard = () => {
 
       console.log("Initialize response:", initRes.data);
 
-      const { authorizationUrl, reference } = initRes?.data?.data || {};
+      const { authorizationUrl } = initRes?.data?.data || {};
 
       toast.success("Redirecting to payment gateway...");
 
@@ -229,6 +204,7 @@ const AdminCircleStartVacationDashboard = () => {
       : null) ||
     "Not Available";
 
+  // ✅ Fixed this function
   const handleModalFlow = (modalName) => {
     setCurrentModal(modalName);
   };
@@ -283,6 +259,7 @@ const AdminCircleStartVacationDashboard = () => {
       color: "#34a218",
     },
   ];
+
   return (
     <AdminCircleStartVacationDashboard_content>
       <ToastContainer />
@@ -323,7 +300,6 @@ const AdminCircleStartVacationDashboard = () => {
                 <TbCurrencyNaira style={{ fontSize: "1rem" }} />
                 {loading ? "loading...." : <p>Make Contribution</p>}
               </button>
-                
             </div>
           )}
         </div>
@@ -411,10 +387,10 @@ const AdminCircleStartVacationDashboard = () => {
 
         <UserDashboardFooter />
       </AdminCircleStartVacationDashboard_wrapper>
+
       {currentModal === "payout" && (
         <Payout
           onClose={() => setCurrentModal(null)}
-          // onContinue={() => handleModalFlow("payoutDetails")}
           onContinue={fetchNextPayoutMember}
         />
       )}
@@ -449,7 +425,6 @@ const AdminCircleStartVacationDashboard = () => {
         <SelectPayout
           onClose={() => setCurrentModal(null)}
           onAutomaticRotation={() => {
-            // here you can trigger your automatic payout logic
             toast.info("Automatic rotation selected!");
           }}
           onManualSelection={() => setCurrentModal("manualPayout")}
