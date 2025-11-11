@@ -127,7 +127,7 @@ const Create_group = () => {
         <img
           src={Splita_logo}
           alt="Splita Logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/userdashboard")}
         />
       </div>
 

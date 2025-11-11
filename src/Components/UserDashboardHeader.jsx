@@ -39,7 +39,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         <img
           src={Splita_logo}
           className="brand_logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/userdashboard")}
         />
         <ul>
           <li

@@ -39,7 +39,7 @@ const AdminDashboardHeader = () => {
         <img
           src={Splita_logo}
           className="brand_logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/userdashboard")}
           alt="Splita Logo"
         />
 
