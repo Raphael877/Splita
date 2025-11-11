@@ -138,7 +138,9 @@ const WomenDashboard = () => {
               Round <span>3/10</span>
             </p>
             <div className="ongoing">
-              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>Ongoing</p>
+              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
+                {groupDetails?.group?.status}
+              </p>
             </div>
           </div>
           <div className="right">

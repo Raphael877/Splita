@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { TiGroupOutline } from "react-icons/ti";
+import { TiGroupOutline, TiTick } from "react-icons/ti";
 import { MdEventNote, MdOutlinePersonAddAlt } from "react-icons/md";
 import { CiBellOn, CiTrophy } from "react-icons/ci";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { TiTick } from "react-icons/ti";
 import { BsCash } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 
-const UserDashDetails = () => {
+const UserDashDetails = ({ payoutInfo }) => {
   const { groupId } = useParams();
-  console.log("Group ID:", groupId);
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
   const [groups, setGroups] = useState([]);
-  const [summary, setSummary] = useState([]);
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
   const userId = JSON.parse(localStorage.getItem("userid"));
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const id = localStorage.getItem("createdGroupId");
   useEffect(() => {
-    const handleDetails = async () => {
+    const fetchGroups = async () => {
       try {
         const res = await axios.get(`${BaseUrl}/groups/all`, {
           headers: {
@@ -32,41 +27,30 @@ const UserDashDetails = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(res.data);
         setGroups(res.data?.data || []);
-      } catch (error) {
-        console.log("Error fetching groups:", error);
+      } catch (err) {
+        console.error("Error fetching groups:", err);
       }
     };
-    if (userId) handleDetails();
-    console.log("user", userId);
-
-    // const contributionsummary = async () => {
-    //   try {
-    //     const res = await axios.get(`${BaseUrl}/groups/${id}/summary`, {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //     setSummary(res.data?.data || []);
-    //   } catch (error) {
-    //     console.log("Error fetching groups:", error);
-    //   }
-    // };
-    // if (userId) contributionsummary();
+    if (userId) fetchGroups();
   }, []);
+
+  if (!groups) return <p>Loading groups...</p>;
 
   return (
     <UserDashDetails_content>
       <UserDashDetails_wrapper>
+        {/* Welcome Section */}
         <Hello>
           <div className="left">
             <h1>Welcome Back,</h1>
             <h2>{userId?.name} 👋🏽</h2>
             <p style={{ color: "#240046" }}>
-              You have {groups?.length} active groups and 1 payout coming up
-              this week.
+              You have {groups?.length ?? 0} active groups and{" "}
+              {payoutInfo?.data?.hasActiveCycle
+                ? "1 payout coming up this week"
+                : "no payouts this week"}
+              .
             </p>
           </div>
           <div className="hello_btn">
@@ -85,6 +69,7 @@ const UserDashDetails = () => {
           </div>
         </Hello>
 
+        {/* Summary Cards */}
         <Details>
           <div className="inner_details">
             <div className="card1">
@@ -93,7 +78,9 @@ const UserDashDetails = () => {
                   <CiTrophy />
                 </div>
                 <p>Completed cycles</p>
-                <p style={{ fontWeight: "bold" }}>3 cycles</p>
+                <p style={{ fontWeight: "bold" }}>
+                  {payoutInfo?.data?.contributions?.total ?? 0}
+                </p>
               </div>
             </div>
 
@@ -103,7 +90,9 @@ const UserDashDetails = () => {
                   <TiGroupOutline />
                 </div>
                 <p>Active groups</p>
-                <p style={{ fontWeight: "bold" }}>{groups?.length} groups</p>
+                <p style={{ fontWeight: "bold" }}>
+                  {groups?.length ?? 0} groups
+                </p>
               </div>
             </div>
 
@@ -141,6 +130,7 @@ const UserDashDetails = () => {
           </div>
         </Details>
 
+        {/* Groups List */}
         <Main_bottom>
           <Left>
             <My_groups>
@@ -157,12 +147,8 @@ const UserDashDetails = () => {
                   <small>View all</small>
                 </p>
               </div>
-              <div
-                className="main_top_group"
-                style={{
-                  overflowY: "auto",
-                }}
-              >
+
+              <div className="main_top_group" style={{ overflowY: "auto" }}>
                 {groups?.length > 0 ? (
                   groups.slice(0, 2).map((group, index) => (
                     <div className="group" key={index}>
@@ -173,57 +159,72 @@ const UserDashDetails = () => {
                           </p>
                           <div className="in_prog">
                             <p>
-                              <small>in progress</small>
+                              <small>{group?.status}</small>
                             </p>
                           </div>
                         </div>
+
                         <div className="p_cont">
                           <p>
-                            <small>Progress</small>
+                            <small>{group?.status}</small>
                           </p>
                           <p>
-                            <small>{group.progress || "0/10 Payouts"}</small>
+                            <small>
+                              {payoutInfo?.data?.currentRound ?? 0} /{" "}
+                              {payoutInfo?.data?.totalRounds ?? 0}
+                            </small>
                           </p>
                         </div>
+
                         <div
                           className="progress_parent1"
                           style={{ marginBottom: "1rem" }}
                         >
                           <div className="progress_child1"></div>
                         </div>
+
                         <div className="total_naira">
                           <p>
                             <small>Total Pot</small>
                           </p>
                           <p>
                             <TbCurrencyNaira />
-                            <small>{group.totalPot || 0}</small>
+                            <small>
+                              {payoutInfo?.data?.pot?.totalCollected ?? "0.00"}
+                            </small>
                           </p>
                         </div>
+
                         <div className="last_date">
                           <p>
                             <small>Last contribution</small>
                           </p>
                           <p>
-                            <small>{group.lastContributionDate || "N/A"}</small>
+                            <small>
+                              {payoutInfo?.data?.contributions?.received ?? 0} /{" "}
+                              {payoutInfo?.data?.contributions?.total ?? 0}
+                            </small>
                           </p>
                         </div>
+
                         <div className="cycle_round">
                           <p>
                             <small>Cycle</small>
                           </p>
                           <p>
-                            <small>{group.cycle || "N/A"}</small>
+                            <small>{group?.status}</small>
                           </p>
                         </div>
+
                         <div className="role_mem">
                           <p>
                             <small>Role</small>
                           </p>
                           <p>
-                            <small>{group.myRole || "Member"}</small>
+                            <small>{group.myRole ?? "Member"}</small>
                           </p>
                         </div>
+
                         <button
                           onClick={() => {
                             if (group.myRole === "admin") {
@@ -233,7 +234,7 @@ const UserDashDetails = () => {
                             } else if (group.myRole === "member") {
                               navigate(`/womendashboard/${group.id}`);
                             } else {
-                              console.log("Unknown role:");
+                              console.log("Unknown role");
                             }
                           }}
                         >
@@ -250,12 +251,13 @@ const UserDashDetails = () => {
                       fontSize: "20px",
                     }}
                   >
-                    Loading groups..........
+                    Loading groups...
                   </p>
                 )}
               </div>
             </My_groups>
 
+            {/* Recent Updates */}
             <Recent>
               <h1>Recent Updates</h1>
               <div className="recent_updates">
@@ -309,6 +311,7 @@ const UserDashDetails = () => {
             </Recent>
           </Left>
 
+          {/* Contribution Summary */}
           <Right>
             <h3>Contribution Summary</h3>
             <div className="card_container">
@@ -321,24 +324,24 @@ const UserDashDetails = () => {
                     <div className="row">
                       <p>Your Contribution</p>
                       <p className="amount">
-                        ₦ {group.contributionAmount || 0}
+                        ₦ {group.contributionAmount ?? 0}
                       </p>
                     </div>
                     <div className="progress-circle">
                       <div className="circle1">
                         <div className="inner-circle">
-                          <span>{group.progressPercentage || "0%"} </span>
+                          <span>{group.progressPercentage ?? "0%"}</span>
                         </div>
                       </div>
                     </div>
                     <div className="info">
                       <div className="row">
                         <p>Next contribution Date</p>
-                        <p>{group.nextContributionDate || "N/A"}</p>
+                        <p>{group.nextContributionDate ?? "N/A"}</p>
                       </div>
                       <div className="row">
                         <p>Yet to Pay</p>
-                        <p>{group.yetToPay || "N/A"} members</p>
+                        <p>{group.yetToPay ?? "N/A"} members</p>
                       </div>
                     </div>
                   </div>
