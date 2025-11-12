@@ -150,9 +150,9 @@ const Start_group = () => {
             </div>
           </div>
           <div className="btn">
-            <button className="btn1"
-             onClick={handleCreate}
-             >Copy Invite Link</button>
+            <button className="btn1" onClick={handleCreate}>
+              Copy Invite Link
+            </button>
             <button className="btn2" onClick={() => setShowSelectPayout(true)}>
               <FiSend />
               Start Cycle

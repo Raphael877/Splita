@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
 const token = storedToken ? JSON.parse(storedToken) : null;
-
+const [role, setrole] = useState("");
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 
 const spin = keyframes`
@@ -49,9 +49,14 @@ const VerifyContribution = () => {
       toast.success(
         res?.data?.message || "Contribution verified successfully!"
       );
-
+      const role = res?.data?.myRole;
+      setrole(role);
       setTimeout(() => {
-        navigate(`/womendashboard/${groupId}`);
+        if (role === "admin") {
+          navigate(`/admincirclestartvacationdashboard/${groupId}`);
+        } else {
+          navigate(`/womendashboard/${groupId}`);
+        }
       }, 2000);
     } catch (error) {
       console.error(error);

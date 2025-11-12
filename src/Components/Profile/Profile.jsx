@@ -37,9 +37,15 @@ const Profile = () => {
         const userRes = await axios.get(`${BaseUrl}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const payoutRes = await axios.get(`${BaseUrl}/groups/payout-accounts`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const payoutRes = await axios.get(
+          `${BaseUrl}/groups/user/payout_accounts`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         const userData = userRes.data.data;
         const payoutAccount = payoutRes.data.data[0] || {};
@@ -178,7 +184,7 @@ const Profile = () => {
   // Handle the image upload event from modal
   const handleImageUpload = (imageUrl) => {
     setProfileImage(imageUrl);
-    localStorage.setItem('profileImage', imageUrl); // persist for refresh
+    localStorage.setItem("profileImage", imageUrl); // persist for refresh
   };
 
   return (
