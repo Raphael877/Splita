@@ -117,7 +117,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                   Home
                 </p>
                 <p className="nav" onClick={() => navigate("/groups")}>
-                  Groups
+                  My groups
                 </p>
                 <p className="nav" onClick={() => navigate("/contributions")}>
                   Contributions
@@ -347,7 +347,7 @@ const UserDashboardHeader_wrapper = styled.div`
       .menu {
         display: none;
         font-size: 1.5rem;
-        
+
         @media (max-width: 768px) {
           display: flex;
         }
