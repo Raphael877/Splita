@@ -82,8 +82,8 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               />
             </div>
             <p>{userData.fullName || "User"}</p>
-            <IoIosArrowDown className="arrow"/>
-            <IoMdMenu className="menu" style={{display: "flex", fontSize: "1.5rem"}}/>
+            <IoIosArrowDown className="arrow" />
+            <IoMdMenu className="menu" />
           </div>
 
           {showDropdown && (
@@ -249,6 +249,10 @@ const UserDashboardHeader_wrapper = styled.div`
       align-items: center;
       overflow: hidden;
 
+      @media (max-width: 768px) {
+        display: none;
+      }
+
       img {
         width: 100%;
         height: 100%;
@@ -334,19 +338,16 @@ const UserDashboardHeader_wrapper = styled.div`
         justify-content: flex-end;
       }
 
-      .dp{
+      .arrow {
         @media (max-width: 768px) {
           display: none;
         }
       }
 
-      .arrow{
-        @media (max-width: 768px) {
-          display: none;
-        }
-      }
-
-      .menu{
+      .menu {
+        display: none;
+        font-size: 1.5rem;
+        
         @media (max-width: 768px) {
           display: flex;
         }
