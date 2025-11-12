@@ -19,7 +19,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
 
-  // ✅ fallback logic to get group name from multiple sources
+  
   const groupName =
     group?.groupName ||
     groupDetails?.group?.groupName ||
