@@ -313,7 +313,7 @@ const AdminCircleStartVacationDashboard = () => {
         <div
           className="back"
           style={{ cursor: "pointer" }}
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/userdashboard")}
         >
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
           <p>back home</p>
