@@ -320,7 +320,7 @@ const AdminDashboard_wrapper = styled.div`
         }
 
         @media (max-width: 768px) {
-          width: 100%;
+          width: 12rem;
         }
       }
     }
@@ -405,7 +405,7 @@ const Ad = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 100vh;
   }
 
   .Ad_wrap {
@@ -416,6 +416,7 @@ const Ad = styled.div`
 
     @media (max-width: 768px) {
       flex-wrap: wrap;
+      min-height: 80%;
     }
 
     .card {
@@ -430,7 +431,7 @@ const Ad = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 50%;
+        height: 25%;
       }
 
       .card_wrapper {

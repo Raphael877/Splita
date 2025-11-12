@@ -529,8 +529,8 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       display: flex;
       gap: 1rem;
 
-      @media (max-width: 768px) {
-        flex-direction: column;
+      @media (max-width: 768px) { 
+        height: 50%;
       }
     }
 
@@ -553,7 +553,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 26.5rem;
+        width: 12rem;
       }
     }
 
@@ -576,7 +576,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 26.5rem;
+        width: 12rem;
       }
     }
     .right {
@@ -609,6 +609,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
           background-color: #9472b2;
           transition: all 350ms ease-in-out;
         }
+
+        @media (max-width: 768px) {
+          width: 12rem;
+        }
       }
 
       .btn2 {
@@ -627,6 +631,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
           background-color: #ff7900;
           color: white;
           transition: all 350ms ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+          width: 12rem;
         }
       }
     }
@@ -712,7 +720,7 @@ const Ad = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 100vh;
   }
 
   .Ad_wrap {
@@ -723,6 +731,8 @@ const Ad = styled.div`
 
     @media (max-width: 768px) {
       flex-wrap: wrap;
+      min-height: 80%;
+      width: 88%;
     }
 
     .card {
@@ -737,7 +747,7 @@ const Ad = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 50%;
+        height: 25%;
       }
 
       .card_wrapper {

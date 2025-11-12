@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
+import { IoMdMenu } from "react-icons/io";
 
 const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
@@ -81,7 +82,8 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               />
             </div>
             <p>{userData.fullName || "User"}</p>
-            <IoIosArrowDown />
+            <IoIosArrowDown className="arrow"/>
+            <IoMdMenu className="menu" style={{display: "flex", fontSize: "1.5rem"}}/>
           </div>
 
           {showDropdown && (
@@ -330,6 +332,24 @@ const UserDashboardHeader_wrapper = styled.div`
 
       @media (max-width: 768px) {
         justify-content: flex-end;
+      }
+
+      .dp{
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      .arrow{
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      .menu{
+        @media (max-width: 768px) {
+          display: flex;
+        }
       }
 
       p {
