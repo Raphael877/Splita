@@ -114,7 +114,11 @@ const SignIn = () => {
 
     SetLoading(true);
     try {
-      const res = await axios.post(`${BaseUrl}/users/login`, formData);
+      const res = await axios.post(`${BaseUrl}/users/login`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const token = res?.data?.token;
       const user = res?.data?.user;
 

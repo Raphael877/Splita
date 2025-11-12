@@ -15,6 +15,8 @@ import axios from "axios";
 const WomenDashboard = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
+  const [payoutInfo, setPayoutInfo] = useState("");
+
   const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
   const token = storedToken ? JSON.parse(storedToken) : null;
   const BaseUrl = import.meta.env.VITE_BaseUrl;
@@ -135,7 +137,10 @@ const WomenDashboard = () => {
         <div className="round">
           <div className="left">
             <p>
-              Round <span>3/10</span>
+              Round{" "}
+              <span>
+                {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
+              </span>
             </p>
             <div className="ongoing">
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
