@@ -5,30 +5,30 @@ import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
 import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
-const RequestJoinGroup = () => {
+const RequestJoinGroup = ({ groupDetails }) => {
   const location = useLocation();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const token = JSON.parse(localStorage.getItem("user_token"));
-  // const userId = JSON.parse(localStorage.getItem("userid"));
-  // const { groupId } = useParams();
-  const groupId = localStorage.getItem("createdGroupId");
+  const groupId = localStorage.getItem("selectedGroupId");
+
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [group, setGroup] = useState("");
+  const [group, setGroup] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
 
+  // ✅ fallback logic to get group name from multiple sources
   const groupName =
+    group?.groupName ||
+    groupDetails?.group?.groupName ||
     location?.state?.groupName ||
     localStorage.getItem("createdGroupName") ||
     "Not Available";
 
   const fetchRequests = async () => {
     setLoading(true);
-    console.log(groupId);
     try {
       const res = await axios.get(
         `${BaseUrl}/groups/${groupId}/pending_requests`,
@@ -36,15 +36,17 @@ const RequestJoinGroup = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setRequests(res?.data.requests);
-      setGroup(res?.data?.group?.id);
-      // console.log("res", res.data.group.id);
+
+      setRequests(res?.data?.requests || []);
+      setGroup(res?.data?.group || null); // ✅ store full group object, not just id
     } catch (error) {
       console.error("Error fetching requests", error);
+      toast.error("Failed to fetch requests");
     } finally {
       setLoading(false);
     }
   };
+
   const handleRequestAction = async (userId, action) => {
     try {
       const res = await axios.post(
@@ -56,10 +58,6 @@ const RequestJoinGroup = () => {
       );
 
       toast.success(res?.data?.message || `Request ${action}ed successfully`);
-
-      // if (action === "approve") setShowApproveModal(true);
-      // else setShowDeclineModal(true);
-
       fetchRequests();
     } catch (error) {
       console.error(`Error performing ${action}:`, error.response || error);
@@ -72,12 +70,14 @@ const RequestJoinGroup = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
+
   return (
     <AdminDashboard_content>
       <AdminDashboard_wrapper>
         <Block>
           <div className="inner_block">
             <div className="block_wrap">
+              {/* ✅ Group name now shows correctly */}
               <h2>Requests for {groupName}</h2>
 
               <div className="table_wall">
@@ -88,7 +88,6 @@ const RequestJoinGroup = () => {
                     <h3>Date</h3>
                     <h3>Action</h3>
                   </div>
-
                   <div className="body">
                     {loading ? (
                       <p>Loading requests...</p>
