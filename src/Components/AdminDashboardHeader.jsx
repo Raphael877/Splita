@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
+import { IoMdMenu } from "react-icons/io";
 
 const AdminDashboardHeader = () => {
   const navigate = useNavigate();
@@ -79,10 +80,11 @@ const AdminDashboardHeader = () => {
               />
             </div>
             <p>{userData.fullName || "Admin User"}</p>
-            <IoIosArrowDown />
+            <IoIosArrowDown className="arrow" />
             <div className="admin">
               <small>Admin</small>
             </div>
+            <IoMdMenu className="menu" />
           </div>
 
           {showDropdown && (
@@ -90,15 +92,15 @@ const AdminDashboardHeader = () => {
               <div className="dropdown_wrap">
                 <div className="top">
                   <img
-                src={user?.profilePicture ? user.profilePicture : Avatar}
-                alt="User Profile"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
+                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    alt="User Profile"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
                   <p>{userData.fullName || "Admin User"}</p>
                 </div>
 
@@ -118,7 +120,7 @@ const AdminDashboardHeader = () => {
                   Home
                 </p>
                 <p className="nav" onClick={() => navigate("/mygroupdetail")}>
-                  Groups
+                  My groups
                 </p>
                 <p className="nav" onClick={() => navigate("/mycontribution")}>
                   Contributions
@@ -255,6 +257,31 @@ const HeaderWrapper = styled.div`
       cursor: pointer;
       position: relative;
 
+      @media (max-width: 768px) {
+        justify-content: flex-end;
+      }
+
+      .arrow {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      .menu {
+        display: none;
+        font-size: 1.5rem;
+
+        @media (max-width: 768px) {
+          display: flex;
+        }
+      }
+
+      p {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
       .dp {
         border-radius: 50%;
         width: 2.5rem;
@@ -263,6 +290,10 @@ const HeaderWrapper = styled.div`
         justify-content: center;
         align-items: center;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
 
         img {
           width: 100%;

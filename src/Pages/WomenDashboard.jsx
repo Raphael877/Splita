@@ -337,7 +337,7 @@ const AdminDashboard_wrapper = styled.div`
   }
 
   .option {
-    width: 75%;
+    width: 89%;
     height: 20vh;
     display: flex;
     align-items: center;

@@ -553,7 +553,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 12rem;
+        width: 11rem;
       }
     }
 
@@ -576,7 +576,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 12rem;
+        width: 11rem;
       }
     }
     .right {
@@ -611,7 +611,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         }
 
         @media (max-width: 768px) {
-          width: 12rem;
+          width: 11rem;
         }
       }
 
@@ -634,7 +634,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         }
 
         @media (max-width: 768px) {
-          width: 12rem;
+          width: 11rem;
         }
       }
     }
@@ -651,7 +651,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
   }
 
   .option {
-    width: 85%;
+    width: 89%;
     height: 20vh;
     display: flex;
     align-items: center;

@@ -156,6 +156,7 @@ const MyGroupDetail = () => {
             ))
           )}
         </div>
+        < UserDashboardFooter />
       </MyGroupDetail_wrapper>
     </MyGroupDetail_content>
   );
@@ -169,7 +170,7 @@ const MyGroupDetail_content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-block: 15vh;
+  padding-top: 15vh;
   background-color: #f8f5f0;
 
   @media (max-width: 768px) {
