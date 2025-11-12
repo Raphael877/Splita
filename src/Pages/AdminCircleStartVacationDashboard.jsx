@@ -352,9 +352,12 @@ const AdminCircleStartVacationDashboard = () => {
           <div className="option_wrap">
             <div className="inner_wrap">
               <div
-                style={{ backgroundColor: " #7b2cbf", color: "white" }}
                 className={`mem ${
-                  location.pathname.endsWith("") ? "active" : ""
+                  location.pathname.endsWith(
+                    `/admincirclestartvacationdashboard/${groupId}`
+                  )
+                    ? "active"
+                    : ""
                 }`}
                 onClick={() => navigate("")}
               >
@@ -529,7 +532,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       display: flex;
       gap: 1rem;
 
-      @media (max-width: 768px) { 
+      @media (max-width: 768px) {
         height: 50%;
       }
     }
@@ -693,6 +696,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
           &:hover {
             background-color: rgba(123, 44, 191, 0.15);
             color: #7b2cbf;
+            transition: all 350ms ease-in-out;
           }
         }
 

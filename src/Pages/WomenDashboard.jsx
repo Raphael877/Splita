@@ -192,11 +192,22 @@ const WomenDashboard = () => {
         <div className="option">
           <div className="option_wrap">
             <div className="inner_wrap">
-              <div className="mem" onClick={() => navigate("")}>
+              <div
+                className={`mem ${
+                  location.pathname.endsWith(`/womendashboard/${groupId}`)
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() => navigate("")}
+              >
                 <p>Members</p>
               </div>
               <div
-                className="cont"
+                className={`cont ${
+                  location.pathname.includes("women_contribution")
+                    ? "active"
+                    : ""
+                }`}
                 onClick={() => navigate("women_contribution")}
               >
                 <p>Contributions</p>
@@ -367,22 +378,7 @@ const AdminDashboard_wrapper = styled.div`
         background-color: #d6beeb;
         border-radius: 0.5rem;
 
-        .mem {
-          width: 40%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
-          border-radius: 0.5rem;
-          background-color: #9556cc;
-          cursor: pointer;
-          &:hover {
-            background-color: #9472b2;
-            transition: all 350ms ease-in-out;
-          }
-        }
-
+        .mem,
         .cont {
           width: 40%;
           height: 60%;
@@ -390,12 +386,18 @@ const AdminDashboard_wrapper = styled.div`
           justify-content: center;
           align-items: center;
           border-radius: 0.5rem;
+          background-color: transparent;
           cursor: pointer;
           &:hover {
-            background-color: #9472b2;
+            background-color: rgba(123, 44, 191, 0.15);
+            color: #7b2cbf;
             transition: all 350ms ease-in-out;
-            color: white;
           }
+        }
+
+        .active {
+          background-color: #7b2cbf !important;
+          color: white !important;
         }
       }
     }
