@@ -93,7 +93,7 @@ const AdminCircleStartVacationDashboard = () => {
     };
 
     if (groupId) fetchGroup();
-  }, [groupId, token]);
+  }, [groupId, token]); // 👈 add dependencies here
 
   const handleCreatePayout = async () => {
     try {
@@ -388,6 +388,7 @@ const AdminCircleStartVacationDashboard = () => {
               members: groupDetails.group.members,
               contributions: groupDetails.group.contributions,
               contributionAmount: groupDetails.group.contributionAmount,
+              groupDetails: groupDetails,
             }}
           />
         ) : (

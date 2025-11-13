@@ -4,10 +4,8 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { useOutletContext } from "react-router-dom";
 
 const WomenContribution = () => {
-  // Safe context handling
-  const { contributions = [] } = useOutletContext() || {};
+  const { contributions = [], groupDetails = [] } = useOutletContext() || {};
 
-  // Reusable date formatter
   const formatDate = (date) =>
     date
       ? new Date(date).toLocaleDateString("en-US", {
@@ -43,39 +41,44 @@ const WomenContribution = () => {
               </div>
 
               {contributions.length > 0 ? (
-                contributions.map((item, index) => (
-                  <div className="all_data" key={item.id || index}>
-                    <div className="cycle">
-                      <p>{item.cycle || `Cycle ${index + 1}`}</p>
-                    </div>
+                contributions.map((item, index) => {
+                  // Find the member who made this contribution
+                  const member = groupDetails?.group?.members?.find(
+                    (m) => m.id === item.userId
+                  );
 
-                    <div className="amount">
-                      <p>
-                        <TbCurrencyNaira />
-                        {item.amount
-                          ? Number(item.amount).toLocaleString()
-                          : "0"}
-                      </p>
-                    </div>
-
-                    <div className="date">
-                      <p>{formatDate(item.date)}</p>
-                    </div>
-
-                    <div className="status">
-                      <div
-                        className="status_wrap"
-                        style={{
-                          backgroundColor:
-                            item.status === "paid" ? "#d6ecd1" : "#ffe4cc",
-                          color: item.status === "paid" ? "#34a218" : "#ff7900",
-                        }}
-                      >
-                        {item.status || "Unpaid"}
+                  return (
+                    <div className="all_data" key={item.id || index}>
+                      <div className="cycle">
+                        <p>{member?.name || "Unknown Member"}</p>
+                      </div>
+                      <div className="amount">
+                        <p>
+                          <TbCurrencyNaira />
+                          {item.amount
+                            ? Number(item.amount).toLocaleString()
+                            : "0"}
+                        </p>
+                      </div>
+                      <div className="date">
+                        <p>{formatDate(item.contributionDate)}</p>
+                      </div>
+                      <div className="status">
+                        <div
+                          className="status_wrap"
+                          style={{
+                            backgroundColor:
+                              item.status === "paid" ? "#d6ecd1" : "#ffe4cc",
+                            color:
+                              item.status === "paid" ? "#34a218" : "#ff7900",
+                          }}
+                        >
+                          {item.status || "Unpaid"}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               ) : (
                 <div style={{ textAlign: "center", padding: "20px" }}>
                   <p>No contributions yet.</p>
