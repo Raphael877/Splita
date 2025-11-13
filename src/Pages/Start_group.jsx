@@ -204,9 +204,8 @@ const Start_group = () => {
           <div className="option_wrap">
             <div className="inner_wrap">
               <div
-                style={{ backgroundColor: "transparent" }}
                 className={`mem ${
-                  location.pathname.endsWith("") ? "active" : ""
+                  location.pathname.endsWith("/start_group") ? "active" : ""
                 }`}
                 onClick={() => navigate("")}
               >
