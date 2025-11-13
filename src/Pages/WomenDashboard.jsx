@@ -251,8 +251,6 @@ const AdminDashboard_wrapper = styled.div`
 
     @media (max-width: 768px) {
       width: 90%;
-      word-spacing: 10px;
-      letter-spacing: 5px;
     }
   }
 

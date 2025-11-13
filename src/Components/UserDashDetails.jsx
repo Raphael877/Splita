@@ -190,7 +190,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <p>
                             <TbCurrencyNaira />
                             <small>
-                              {payoutInfo?.data?.pot?.totalCollected ?? "0.00"}
+                              {payoutInfo?.data?.pot?.totalCollected || 0.00}
                             </small>
                           </p>
                         </div>

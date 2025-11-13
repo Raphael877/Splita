@@ -295,8 +295,6 @@ const Wrapper = styled.div`
 
     @media (max-width: 768px) {
       width: 90%;
-      word-spacing: 10px;
-      letter-spacing: 5px;
     }
   }
 
@@ -427,6 +425,12 @@ const Wrapper = styled.div`
     @media (max-width: 768px) {
       margin-top: 4rem;
     }
+
+    p {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 
   .option {
@@ -454,6 +458,10 @@ const Wrapper = styled.div`
         align-items: center;
         background-color: #d6beeb;
         border-radius: 0.5rem;
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
 
         .mem,
         .cont,

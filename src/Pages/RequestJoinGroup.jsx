@@ -169,6 +169,7 @@ const AdminDashboard_content = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
+    overflow: hidden;
   }
 `;
 
@@ -212,6 +213,18 @@ const Block = styled.div`
   align-items: center;
   margin-block: 1rem;
 
+  @media (max-width: 768px) {
+    overflow-x: scroll;
+    max-width: max-content;
+    background-color: white;
+    margin-inline: 2rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   .inner_block {
     width: 85%;
     height: 100%;
@@ -238,6 +251,10 @@ const Block = styled.div`
         border: 2px solid #f8f5f0;
         border-radius: 0.5rem;
 
+        @media (max-width: 768px) {
+          width: 200vw;
+        }
+
         .table_wrap {
           display: flex;
           justify-content: center;
@@ -258,9 +275,7 @@ const Block = styled.div`
             border-radius: 0.5rem;
 
             @media (max-width: 768px) {
-              display: none;
             }
-
             h3 {
               width: 25%;
             }
@@ -284,7 +299,6 @@ const Block = styled.div`
               padding-left: 1rem;
 
               @media (max-width: 768px) {
-                flex-wrap: wrap;
                 height: 15vh;
               }
 
@@ -300,12 +314,6 @@ const Block = styled.div`
                 align-items: center;
                 gap: 1rem;
                 height: 100%;
-
-                @media (max-width: 768px) {
-                  width: 100%;
-                  height: 70%;
-                  justify-content: center;
-                }
 
                 .btn1 {
                   height: 60%;

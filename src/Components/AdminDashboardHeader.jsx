@@ -306,10 +306,11 @@ const HeaderWrapper = styled.div`
         justify-content: center;
         align-items: center;
         background-color: #fef5d0;
-        color: #facc15;
+        color: #ba970b;
         padding-block: 0.2rem;
         padding-inline: 0.8rem;
         border-radius: 1rem;
+        font-size: 1.2rem;
       }
 
       @media (max-width: 768px) {

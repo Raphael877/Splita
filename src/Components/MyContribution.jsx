@@ -295,10 +295,6 @@ const MyGroupDetail_content = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #f8f5f0;
-
-  @media (max-width: 768px) {
-    height: auto;
-  }
 `;
 
 const MyGroupDetail_wrapper = styled.div`
@@ -335,7 +331,14 @@ const Table = styled.div`
   margin-block: 3rem;
 
   @media (max-width: 768px) {
-    font-size: 13px;
+    overflow-x: scroll;
+    max-width: max-content;
+    margin-inline: 2rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .table_wrap {
@@ -346,6 +349,10 @@ const Table = styled.div`
     height: 100%;
     flex-direction: column;
     gap: 2rem;
+
+    @media (max-width: 768px) {
+      width: 200vw;
+    }
 
     .top {
       width: 100%;
@@ -361,19 +368,11 @@ const Table = styled.div`
       flex-direction: column;
       gap: 1.5rem;
 
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-
       .all_header {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        @media (max-width: 768px) {
-          display: none;
-        }
       }
 
       .all_data {
@@ -382,12 +381,6 @@ const Table = styled.div`
         justify-content: space-between;
         align-items: center;
         gap: 1.5rem;
-
-        @media (max-width: 768px) {
-          flex-wrap: wrap;
-          gap: 2rem;
-          height: 6rem;
-        }
 
         .cycle {
           width: 20%;

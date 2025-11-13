@@ -47,8 +47,8 @@ const MyGroupDetail = () => {
         <p onClick={() => navigate("/userdashboard")}>
           <IoIosArrowRoundBack
             style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-          />
-          Back home
+          /><span>
+          Back home</span>
         </p>
 
         <div className="main_top_group">
@@ -192,6 +192,12 @@ const MyGroupDetail_wrapper = styled.div`
     gap: 1rem;
     font-weight: 500;
     cursor: pointer;
+
+    span{
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 
   .main_top_group {
