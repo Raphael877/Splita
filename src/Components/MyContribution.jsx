@@ -334,6 +334,10 @@ const Table = styled.div`
   align-items: center;
   margin-block: 3rem;
 
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+
   .table_wrap {
     display: flex;
     justify-content: center;
