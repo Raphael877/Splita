@@ -50,17 +50,13 @@ const VerifyContribution = () => {
       );
 
       setTimeout(() => {
-        navigate(`/womendashboard/${localStorage.getItem("selectedGroupId")}`);
+        navigate("/userdashboard");
       }, 2000);
     } catch (error) {
       console.error(error);
       toast.error(
         error?.response?.data?.message || "Failed to verify contribution"
       );
-
-      setTimeout(() => {
-        navigate(`/womendashboard/${localStorage.getItem("selectedGroupId")}`);
-      }, 2000);
     } finally {
       setLoading(false);
     }
