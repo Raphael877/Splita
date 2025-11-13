@@ -218,7 +218,7 @@ const MyContribution = () => {
             <IoIosArrowRoundBack
               style={{ fontSize: "1.5rem", fontWeight: "bold" }}
             />
-            Back home
+            <span>Back home</span>
           </p>
 
           {/* ✅ Show all groups */}
@@ -308,18 +308,37 @@ const MyGroupDetail_wrapper = styled.div`
   .back {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     font-weight: 500;
     cursor: pointer;
     padding-block: 15vh;
+    width: 85%;
+
+    span{
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 `;
 
 const Inner = styled.div`
-  width: 85%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    max-width: max-content;
+    scrollbar-width: none;
+    align-items: flex-start;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const Table = styled.div`
@@ -331,21 +350,14 @@ const Table = styled.div`
   margin-block: 3rem;
 
   @media (max-width: 768px) {
-    overflow-x: scroll;
-    max-width: max-content;
-    margin-inline: 2rem;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
+      width: 250vw;
     }
-  }
 
   .table_wrap {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 85%;
+    width: 95%;
     height: 100%;
     flex-direction: column;
     gap: 2rem;

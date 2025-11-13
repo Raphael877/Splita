@@ -118,7 +118,7 @@ const WomenMembers = () => {
             <div className="main_table">
               <div className="all_header">
                 <div className="header">
-                  <h3>Member</h3>
+                  <h3 className="member">Member</h3>
                 </div>
                 <div className="header">
                   <h3>Contribution</h3>
@@ -185,6 +185,17 @@ const AdminMemberDashboard_wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    max-width: max-content;
+    scrollbar-width: none;
+    align-items: flex-start;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const Table = styled.div`
@@ -196,15 +207,8 @@ const Table = styled.div`
   margin-block: 1.5rem;
 
   @media (max-width: 768px) {
-    overflow-x: scroll;
-    max-width: max-content;
-    margin-inline: 2rem;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
+      width: 250vw;
     }
-  }
 
   .table_wrap {
     display: flex;
@@ -215,9 +219,10 @@ const Table = styled.div`
     flex-direction: column;
     gap: 2rem;
 
-    @media (max-width: 768px) {
-      width: 200vw;
+    @media (max-width: 90%) {
+      width: 100%;
     }
+
 
     .top {
       width: 100%;
@@ -250,6 +255,10 @@ const Table = styled.div`
 
         .member {
           width: 25%;
+
+          @media (max-width: 768px) {
+            width: 30%;
+          }
         }
 
         .delete {

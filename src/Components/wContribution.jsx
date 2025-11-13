@@ -109,6 +109,17 @@ const AdminMemberDashboard_wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    max-width: max-content;
+    scrollbar-width: none;
+    align-items: flex-start;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const Table = styled.div`
@@ -120,15 +131,8 @@ const Table = styled.div`
   margin-block: 1.5rem;
 
   @media (max-width: 768px) {
-    overflow-x: scroll;
-    max-width: max-content;
-    margin-inline: 2rem;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
+      width: 250vw;
     }
-  }
 
   .table_wrap {
     display: flex;
@@ -140,7 +144,7 @@ const Table = styled.div`
     gap: 2rem;
 
     @media (max-width: 768px) {
-      width: 200vw;
+      width: 90%;
     }
 
     .top {

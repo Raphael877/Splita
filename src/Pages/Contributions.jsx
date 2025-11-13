@@ -13,7 +13,7 @@ const Contributions = () => {
         <Wrapper>
             <UserDashboardHeader />
             <div className='back_wrap'>
-                <p className='back' onClick={() => navigate('/userdashboard')}><IoIosArrowRoundBack style={{fontWeight: 'bold', fontSize: '1.5rem'}}/>Back home</p>
+                <p className='back' onClick={() => navigate('/userdashboard')}><IoIosArrowRoundBack style={{fontWeight: 'bold', fontSize: '1.5rem'}}/><span>Back home</span></p>
             </div>
             <Oops>
                 <div className='oops_wrapper'>
@@ -65,6 +65,12 @@ const Wrapper = styled.div`
             justify-self: flex-start;
             align-self: flex-start;
             cursor: pointer;
+
+            span{
+                @media (max-width: 768px) {
+                    display: none;
+                }
+            }
         }
     }
 `;
