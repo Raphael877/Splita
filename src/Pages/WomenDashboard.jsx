@@ -191,7 +191,7 @@ const WomenDashboard = () => {
           <div className="option_wrap">
             <div className="inner_wrap">
               <div
-                className={`mem ${!location.pathname.includes("women_contribution")
+                className={`mem ${!location.pathname.endsWith("women_contribution")
                     ? "active"
                     : ""
                 }`}
