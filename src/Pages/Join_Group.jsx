@@ -147,7 +147,7 @@ const Join_Group = () => {
 
       <Wrapper>
         <h1 style={{ paddingBottom: "1rem" }}>
-          Join an existing group {groupDetail?.group?.groupName}
+          Join {groupDetail?.group?.groupName}
         </h1>
         <br />
         <p>by:{groupDetail?.group?.admin?.name}</p>

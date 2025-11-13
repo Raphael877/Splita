@@ -19,7 +19,6 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
 
-  
   const groupName =
     group?.groupName ||
     groupDetails?.group?.groupName ||
@@ -69,6 +68,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
 
   useEffect(() => {
     fetchRequests();
+    const interval = setInterval(fetchGroupData, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
