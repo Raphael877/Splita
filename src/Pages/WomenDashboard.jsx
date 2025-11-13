@@ -378,7 +378,6 @@ const AdminDashboard_wrapper = styled.div`
         background-color: #d6beeb;
         border-radius: 0.5rem;
 
-        .mem,
         .cont {
           width: 40%;
           height: 60%;
@@ -387,6 +386,22 @@ const AdminDashboard_wrapper = styled.div`
           align-items: center;
           border-radius: 0.5rem;
           background-color: transparent;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(123, 44, 191, 0.15);
+            color: #7b2cbf;
+            transition: all 350ms ease-in-out;
+          }
+        }
+
+        .mem{
+          width: 40%;
+          height: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0.5rem;
+          background-color: #7b2cbf;
           cursor: pointer;
           &:hover {
             background-color: rgba(123, 44, 191, 0.15);
