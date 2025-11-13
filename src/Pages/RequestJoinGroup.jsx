@@ -37,7 +37,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
       );
 
       setRequests(res?.data?.requests || []);
-      setGroup(res?.data?.group || null); // ✅ store full group object, not just id
+      setGroup(res?.data?.group || null);
     } catch (error) {
       console.error("Error fetching requests", error);
       toast.error("Failed to fetch requests");

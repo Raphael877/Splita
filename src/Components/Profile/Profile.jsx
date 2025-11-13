@@ -37,9 +37,12 @@ const Profile = () => {
         const userRes = await axios.get(`${BaseUrl}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const payoutRes = await axios.get(`${BaseUrl}/groups/payout_accounts`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const payoutRes = await axios.get(
+          `${BaseUrl}/groups/users/payout_accounts`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         const userData = userRes.data.data;
         const payoutAccount = payoutRes.data.data[0] || {};
@@ -119,7 +122,7 @@ const Profile = () => {
 
       if (formData.payoutAccountId) {
         await axios.put(
-          `${BaseUrl}/groups/payout-account/${formData.payoutAccountId}`,
+          `${BaseUrl}/groups/payout_account/${formData.payoutAccountId}`,
           {
             bankName: formData.bankName,
             accountNumber: formData.accountNumber,
