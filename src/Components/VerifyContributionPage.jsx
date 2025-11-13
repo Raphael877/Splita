@@ -57,6 +57,9 @@ const VerifyContribution = () => {
       toast.error(
         error?.response?.data?.message || "Failed to verify contribution"
       );
+      setTimeout(() => {
+        navigate("/userdashboard");
+      }, 2000);
     } finally {
       setLoading(false);
     }
