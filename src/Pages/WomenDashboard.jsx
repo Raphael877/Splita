@@ -16,18 +16,17 @@ const WomenDashboard = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
   const [payoutInfo, setPayoutInfo] = useState("");
+  const [groupDetails, setGroupDetails] = useState(
+    JSON.parse(localStorage.getItem("groupDetails")) || null
+  );
 
   const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
   const token = storedToken ? JSON.parse(storedToken) : null;
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const [groupDetails, setGroupDetails] = useState(null);
-  const [loading, setLoading] = useState(true); // initial loading
-
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        setLoading(true);
         const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,12 +34,11 @@ const WomenDashboard = () => {
           },
         });
         setGroupDetails(res.data);
+        localStorage.setItem("groupDetails", JSON.stringify(res.data));
         localStorage.setItem("selectedGroupId", groupId);
       } catch (error) {
         console.error("Error fetching group:", error);
-        toast.error("Failed to load group details");
-      } finally {
-        setLoading(false);
+        toast.error("Failed to refresh group details");
       }
     };
 
@@ -50,7 +48,6 @@ const WomenDashboard = () => {
   const handleContribute = async () => {
     const id = localStorage.getItem("selectedGroupId");
     try {
-      setLoading(true);
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id },
@@ -76,53 +73,54 @@ const WomenDashboard = () => {
         error?.response?.data?.message ||
           "Failed to process contribution. Please try again."
       );
-    } finally {
-      setLoading(false);
     }
   };
 
-  const stats = groupDetails?.group
-    ? [
-        {
-          id: 1,
-          top: "Contribution Amount",
-          mid: groupDetails.group.contributionAmount || 0,
-          bottom: "Per member",
-          icon: <BsCash />,
-          bgcolor: "#efd5f2",
-          color: "#7b2cbf",
-        },
-        {
-          id: 2,
-          top: "Cycle duration",
-          mid: groupDetails.group.contributionFrequency || "-",
-          bottom: "Frequency",
-          icon: <MdOutlineEventNote />,
-          bgcolor: "#fee1ef",
-          color: "#f967ad",
-        },
-        {
-          id: 3,
-          top: "Total Members",
-          mid: groupDetails.group.members?.length || 0,
-          bottom: "Active",
-          icon: <HiOutlineUserGroup />,
-          bgcolor: "#ffe4cc",
-          color: "#ff7900",
-        },
-        {
-          id: 4,
-          top: "Current Pot",
-          mid: groupDetails.group.contributionAmount || 0,
-          bottom: "Group Wallet",
-          icon: <PiCoinsLight />,
-          bgcolor: "#d6ecd1",
-          color: "#34a218",
-        },
-      ]
-    : [];
+  if (!groupDetails)
+    return (
+      <p style={{ textAlign: "center", marginTop: "3rem" }}>
+        No group data found.
+      </p>
+    );
 
-  if (loading) return <p style={{ textAlign: "center" }}>Loading group...</p>;
+  const stats = [
+    {
+      id: 1,
+      top: "Contribution Amount",
+      mid: groupDetails?.group?.contributionAmount || 0,
+      bottom: "Per member",
+      icon: <BsCash />,
+      bgcolor: "#efd5f2",
+      color: "#7b2cbf",
+    },
+    {
+      id: 2,
+      top: "Cycle duration",
+      mid: groupDetails?.group?.contributionFrequency || "-",
+      bottom: "Frequency",
+      icon: <MdOutlineEventNote />,
+      bgcolor: "#fee1ef",
+      color: "#f967ad",
+    },
+    {
+      id: 3,
+      top: "Total Members",
+      mid: groupDetails?.group?.members?.length || 0,
+      bottom: "Active",
+      icon: <HiOutlineUserGroup />,
+      bgcolor: "#ffe4cc",
+      color: "#ff7900",
+    },
+    {
+      id: 4,
+      top: "Current Pot",
+      mid: groupDetails?.group?.contributionAmount || 0,
+      bottom: "Group Wallet",
+      icon: <PiCoinsLight />,
+      bgcolor: "#d6ecd1",
+      color: "#34a218",
+    },
+  ];
 
   return (
     <AdminDashboard_content>
@@ -139,12 +137,12 @@ const WomenDashboard = () => {
             <p>
               Round{" "}
               <span>
-                {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
+                {payoutInfo?.currentRound || 1} / {payoutInfo?.totalRounds || 1}
               </span>
             </p>
             <div className="ongoing">
               <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
-                {groupDetails?.group?.status}
+                {groupDetails?.group?.status || "Active"}
               </p>
             </div>
           </div>
@@ -216,7 +214,6 @@ const WomenDashboard = () => {
           </div>
         </div>
 
-        {/* Only pass context once data is ready */}
         <Outlet
           context={{
             members: groupDetails.group.members || [],
