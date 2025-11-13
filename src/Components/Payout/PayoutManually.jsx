@@ -141,7 +141,7 @@ import styled from "styled-components";
 const PayoutManually = ({ onClose, onSave }) => {
   const [members, setMembers] = useState([]);
   const [payoutOrder, setPayoutOrder] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -256,7 +256,11 @@ const PayoutManually = ({ onClose, onSave }) => {
             )}
           </div>
 
-          <button onClick={handleSaveOrder}>Save Order</button>
+          {loading ? (
+            "Saving order ...."
+          ) : (
+            <button onClick={handleSaveOrder}>Save Order</button>
+          )}
         </Inner>
 
         <FaRegTimesCircle

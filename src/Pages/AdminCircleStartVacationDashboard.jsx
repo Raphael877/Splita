@@ -91,8 +91,10 @@ const AdminCircleStartVacationDashboard = () => {
         console.error("Error fetching group:", error);
       }
     };
+
     if (groupId) fetchGroup();
-  }, []);
+  }, [groupId, token]);
+
   const handleCreatePayout = async () => {
     try {
       const res = await axios.post(
