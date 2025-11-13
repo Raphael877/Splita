@@ -397,6 +397,7 @@ const AdminDashboard_wrapper = styled.div`
           justify-content: center;
           align-items: center;
           border-radius: 0.5rem;
+          background-color: transparent;
           cursor: pointer;
           &:hover {
             background-color: rgba(123, 44, 191, 0.15);
