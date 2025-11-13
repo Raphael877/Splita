@@ -189,6 +189,7 @@ const MyGroupDetail_wrapper = styled.div`
   p {
     display: flex;
     align-items: center;
+    justify-self: flex-start;
     gap: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -204,7 +205,7 @@ const MyGroupDetail_wrapper = styled.div`
     width: 100%;
     height: 90%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;

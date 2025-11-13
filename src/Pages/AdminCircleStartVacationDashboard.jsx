@@ -476,7 +476,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
   align-items: center;
 
   .groupname {
-    width: 80%;
+    width: 85%;
     margin-top: 18vh;
 
     @media (max-width: 768px) {
@@ -485,7 +485,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
   }
 
   .round {
-    width: 81%;
+    width: 85%;
     height: 10vh;
     display: flex;
     justify-content: space-between;

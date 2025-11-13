@@ -87,7 +87,12 @@ const WomenDashboard = () => {
     {
       id: 1,
       top: "Contribution Amount",
-      mid: groupDetails?.group?.contributionAmount || 0,
+      mid: (
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <TbCurrencyNaira />
+          {groupDetails?.group?.contributionAmount || 0}
+        </span>
+      ),
       bottom: "Per member",
       icon: <BsCash />,
       bgcolor: "#efd5f2",
@@ -114,7 +119,12 @@ const WomenDashboard = () => {
     {
       id: 4,
       top: "Current Pot",
-      mid: groupDetails?.group?.contributionAmount || 0,
+      mid: (
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <TbCurrencyNaira />
+          {groupDetails?.group?.contributionAmount || 0}
+        </span>
+      ),
       bottom: "Group Wallet",
       icon: <PiCoinsLight />,
       bgcolor: "#d6ecd1",
@@ -160,7 +170,7 @@ const WomenDashboard = () => {
           onClick={() => navigate("/userdashboard")}
         >
           <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
-          <p>Back Home</p>
+          <p>back home</p>
         </div>
 
         <Ad>
@@ -191,7 +201,8 @@ const WomenDashboard = () => {
           <div className="option_wrap">
             <div className="inner_wrap">
               <div
-                className={`mem ${!location.pathname.endsWith("women_contribution")
+                className={`mem ${
+                  !location.pathname.endsWith("women_contribution")
                     ? "active"
                     : ""
                 }`}
@@ -246,7 +257,7 @@ const AdminDashboard_wrapper = styled.div`
   align-items: center;
 
   .groupname {
-    width: 80%;
+    width: 85%;
     margin-top: 18vh;
 
     @media (max-width: 768px) {
@@ -255,7 +266,7 @@ const AdminDashboard_wrapper = styled.div`
   }
 
   .round {
-    width: 81%;
+    width: 85%;
     height: 10vh;
     display: flex;
     justify-content: space-between;
@@ -330,7 +341,7 @@ const AdminDashboard_wrapper = styled.div`
         }
 
         @media (max-width: 768px) {
-          width: 100%
+          width: 100%;
         }
       }
     }
@@ -345,7 +356,7 @@ const AdminDashboard_wrapper = styled.div`
       margin-top: 0.5rem;
     }
 
-    p{
+    p {
       @media (max-width: 768px) {
         display: none;
       }
@@ -394,7 +405,7 @@ const AdminDashboard_wrapper = styled.div`
           }
         }
 
-        .mem{
+        .mem {
           width: 40%;
           height: 60%;
           display: flex;
