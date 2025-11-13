@@ -666,6 +666,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
     display: flex;
     align-items: center;
 
+    @media (max-width: 768px) {
+        width: 95%;
+      }
+
     .option_wrap {
       width: 45%;
       height: 70%;

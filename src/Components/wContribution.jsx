@@ -166,6 +166,14 @@ const Table = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .header{
+          .member{
+            @media (max-width: 768px) {
+              width: 30%;
+            }
+          }
+        }
       }
 
       .all_data {

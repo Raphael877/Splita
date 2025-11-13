@@ -314,6 +314,10 @@ const MyGroupDetail_wrapper = styled.div`
     padding-block: 15vh;
     width: 85%;
 
+    @media (max-width: 768px) {
+        margin-left: 2rem;
+      }
+
     span{
       @media (max-width: 768px) {
         display: none;
@@ -363,7 +367,7 @@ const Table = styled.div`
     gap: 2rem;
 
     @media (max-width: 768px) {
-      width: 200vw;
+      width: 100%;
     }
 
     .top {
@@ -385,6 +389,14 @@ const Table = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .header{
+          .member{
+            @media (max-width: 768px) {
+              width: 30%;
+            }
+          }
+        }
       }
 
       .all_data {
