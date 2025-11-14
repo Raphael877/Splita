@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 const Profile = () => {
   const navigate = useNavigate();
-
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const storedUser = JSON.parse(localStorage.getItem("userData")) || {};
@@ -28,25 +27,31 @@ const Profile = () => {
 
   const [editableField, setEditableField] = useState(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
+
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userRes = await axios.get(`${BaseUrl}/users/profile`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: ` Bearer ${token}` },
         });
+
         const payoutRes = await axios.get(
-          `${BaseUrl}/groups/users/payout_accounts`,
+          ` ${BaseUrl}/groups/user/payout_accounts`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           }
         );
 
         const userData = userRes.data.data;
         const payoutAccount = payoutRes.data.data[0] || {};
-
+        console.log(payoutAccount);
         setFormData({
           fullName: userData.name || "",
           email: userData.email || "",
@@ -67,6 +72,7 @@ const Profile = () => {
             profilePicture: userData.profilePicture,
           })
         );
+
         localStorage.setItem(
           "bankData",
           JSON.stringify({
@@ -91,16 +97,18 @@ const Profile = () => {
   const handleCancel = () => {
     const storedUser = JSON.parse(localStorage.getItem("userData")) || {};
     const storedBank = JSON.parse(localStorage.getItem("bankData")) || {};
+
     setFormData({
       fullName: storedUser.fullName || "User",
       email: storedUser.email || "Not Available",
       phone: storedUser.phone || "Not Available",
       profilePicture: storedUser.profilePicture || "",
       profilePictureFile: null,
-      bankName: storedBank.bankName || "Not Available",
-      accountNumber: storedBank.accountNumber || "Not Available",
+      bankName: storedBank.bankName || "",
+      accountNumber: storedBank.accountNumber || "",
       payoutAccountId: storedBank.id || null,
     });
+
     setEditableField(null);
   };
 
@@ -109,6 +117,7 @@ const Profile = () => {
       const userForm = new FormData();
       userForm.append("name", formData.fullName);
       userForm.append("phone", formData.phone);
+
       if (formData.profilePictureFile) {
         userForm.append("profilePicture", formData.profilePictureFile);
       }
@@ -120,9 +129,12 @@ const Profile = () => {
         },
       });
 
-      if (formData.payoutAccountId) {
+      // Correct payout account update
+      const payoutAccountId = formData.payoutAccountId;
+
+      if (payoutAccountId) {
         await axios.put(
-          `${BaseUrl}/groups/payout_account/${formData.payoutAccountId}`,
+          `${BaseUrl}/groups/payout_account/${payoutAccountId}`,
           {
             bankName: formData.bankName,
             accountNumber: formData.accountNumber,
@@ -142,12 +154,13 @@ const Profile = () => {
           profilePicture: updatedUser.profilePicture,
         })
       );
+
       localStorage.setItem(
         "bankData",
         JSON.stringify({
           bankName: formData.bankName,
           accountNumber: formData.accountNumber,
-          id: formData.payoutAccountId,
+          id: payoutAccountId,
         })
       );
 
@@ -160,8 +173,8 @@ const Profile = () => {
 
       setEditableField(null);
     } catch (err) {
-      console.error(err);
-      t("Failed to update profile.");
+      console.error("Failed to update profile:", err);
+      alert("Failed to update profile.");
     }
   };
 
@@ -169,28 +182,11 @@ const Profile = () => {
     border: "none",
     outline: "none",
     background: "transparent",
-    color: "inherit",
-    font: "inherit",
     textAlign: "right",
-    width: "auto",
-    minWidth: "50px",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-  };
-
-  // Handle the image upload event from modal
-  const handleImageUpload = (imageUrl) => {
-    setProfileImage(imageUrl);
-    localStorage.setItem("profileImage", imageUrl); // persist for refresh
   };
 
   return (
     <Profile_content>
-      <div className="circle_top_left"></div>
-      <div className="circle_top_right"></div>
-      <div className="circle_mid_left"></div>
-      <div className="circle_down_right"></div>
-
       <div className="back" onClick={() => navigate(-1)}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
@@ -198,6 +194,7 @@ const Profile = () => {
 
       <Profile_wrapper>
         <h1>My Profile</h1>
+
         <div className="image_div">
           {formData.profilePicture ? (
             <img
@@ -206,13 +203,15 @@ const Profile = () => {
               style={{ width: 120, height: 120, borderRadius: "50%" }}
             />
           ) : (
-            <FaRegUserCircle style={{ color: "#969695", fontSize: "1.5rem" }} />
+            <FaRegUserCircle style={{ fontSize: "1.5rem", color: "#969695" }} />
           )}
+
           <div className="edit_cont" onClick={() => setShowUploadModal(true)}>
-            <FiEdit style={{ cursor: "pointer" }} />
+            <FiEdit />
           </div>
         </div>
 
+        {/* FULL NAME */}
         <div className="first">
           <div className="top">
             <p>Name</p>
@@ -232,6 +231,7 @@ const Profile = () => {
           <hr />
         </div>
 
+        {/* EMAIL */}
         <div className="first">
           <div className="top">
             <p>Email</p>
@@ -240,6 +240,7 @@ const Profile = () => {
           <hr />
         </div>
 
+        {/* PHONE */}
         <div className="first">
           <div className="top">
             <p>Phone Number</p>
@@ -257,6 +258,7 @@ const Profile = () => {
           <hr />
         </div>
 
+        {/* BANK NAME */}
         <div className="first">
           <div className="top">
             <p>Bank Name</p>
@@ -276,6 +278,7 @@ const Profile = () => {
           <hr />
         </div>
 
+        {/* ACCOUNT NUMBER */}
         <div className="first">
           <div className="top">
             <p>Account Number</p>
