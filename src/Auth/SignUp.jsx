@@ -105,12 +105,7 @@ const SignUp = () => {
         navigate("/verifyemail");
       }, 1500);
     } catch (err) {
-      toast.error(
-        err?.response?.data?.message ||
-          err?.response?.data?.error ||
-          "Registration failed. Please try again."
-      );
-      console.error(err);
+      toast.error(err?.message);
     } finally {
       setloading(false);
     }
