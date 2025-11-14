@@ -158,7 +158,7 @@ const SignIn = () => {
       }
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message || "Invalid email or password");
+      toast.error(err?.message);
     } finally {
       SetLoading(false);
     }
