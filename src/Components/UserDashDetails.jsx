@@ -109,7 +109,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   </div>
                 </div>
                 <p>Next Payouts</p>
-                <p style={{ fontWeight: "bold" }}>View details</p>
+                <p style={{ fontWeight: "bold" }}>Payout Info</p>
               </div>
             </div>
 
@@ -715,7 +715,7 @@ const My_groups = styled.div`
 
     .group {
       width: 50%;
-      height: 100%;
+      min-height: 70%;
       display: flex;
       justify-content: center;
       align-items: center;

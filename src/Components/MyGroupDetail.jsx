@@ -73,15 +73,15 @@ const MyGroupDetail = () => {
 
                   <div className="p_cont">
                     <p>
-                      <small>Progress</small>
+                      Progress
                     </p>
                     <p>
-                      <small>
+                     
                         {group.progress ||
                           `${group.payoutsCompleted || 0}/${
                             group.totalPayouts || 0
                           } Payouts`}
-                      </small>
+                      
                     </p>
                   </div>
 
@@ -102,38 +102,38 @@ const MyGroupDetail = () => {
 
                   <div className="total_naira">
                     <p>
-                      <small>Total Pot</small>
+                     Total Pot
                     </p>
                     <p>
                       <TbCurrencyNaira />
-                      <small>{group.contributionAmount || "0"}</small>
+                      {group.contributionAmount || "0"}
                     </p>
                   </div>
 
                   <div className="last_date">
                     <p>
-                      <small>Last contribution</small>
+                     Last contribution
                     </p>
                     <p>
-                      <small>{group.lastContributionDate || "N/A"}</small>
+                      {group.lastContributionDate || "N/A"}
                     </p>
                   </div>
 
                   <div className="cycle_round">
                     <p>
-                      <small>Cycle</small>
+                     Cycle
                     </p>
                     <p>
-                      <small>{group.cycle || "Round 1"}</small>
+                     {group.cycle || "Round 1"}
                     </p>
                   </div>
 
                   <div className="role_mem">
                     <p>
-                      <small>Role</small>
+                     Role
                     </p>
                     <p>
-                      <small>{group.myRole || "Member"}</small>
+                      {group.myRole || "Member"}
                     </p>
                   </div>
                   <button
@@ -207,14 +207,13 @@ const MyGroupDetail_wrapper = styled.div`
     width: 100%;
     height: 90%;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
 
     .group {
       width: 30%;
-      height: 19rem;
+      min-height: 18rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -224,7 +223,7 @@ const MyGroupDetail_wrapper = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 19rem;
+        min-height: 18rem;
       }
 
       .wrapper {
