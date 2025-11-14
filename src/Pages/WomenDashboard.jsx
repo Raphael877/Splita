@@ -10,11 +10,13 @@ import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const WomenDashboard = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [payoutInfo, setPayoutInfo] = useState("");
   const [groupDetails, setGroupDetails] = useState(
     JSON.parse(localStorage.getItem("groupDetails")) || null
@@ -202,7 +204,7 @@ const WomenDashboard = () => {
             <div className="inner_wrap">
               <div
                 className={`mem ${
-                  !location.pathname.endsWith("women_contribution")
+                  location.pathname.endsWith(`/womendashboard/${groupId}`)
                     ? "active"
                     : ""
                 }`}
@@ -389,6 +391,7 @@ const AdminDashboard_wrapper = styled.div`
         background-color: #d6beeb;
         border-radius: 0.5rem;
 
+        .mem,
         .cont {
           width: 40%;
           height: 60%;
@@ -396,24 +399,10 @@ const AdminDashboard_wrapper = styled.div`
           justify-content: center;
           align-items: center;
           border-radius: 0.5rem;
-          background-color: transparent;
+          color: inherit;
           cursor: pointer;
-          &:hover {
-            background-color: rgba(123, 44, 191, 0.15);
-            color: #7b2cbf;
-            transition: all 350ms ease-in-out;
-          }
-        }
+          transition: all 350ms ease-in-out;
 
-        .mem {
-          width: 40%;
-          height: 60%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 0.5rem;
-          background-color: transparent;
-          cursor: pointer;
           &:hover {
             background-color: rgba(123, 44, 191, 0.15);
             color: #7b2cbf;

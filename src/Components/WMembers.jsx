@@ -93,6 +93,7 @@ import { useOutletContext } from "react-router-dom";
 const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+  
 
   // Safe context handling
   const { members = [], contributionAmount = 0 } = useOutletContext() || {};

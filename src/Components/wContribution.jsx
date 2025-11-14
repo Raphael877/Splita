@@ -48,8 +48,8 @@ const WomenContribution = () => {
                         <p>Cycle {index + 1}</p>
                       </div>
                       <div className="amount">
-                        <p>
-                          <TbCurrencyNaira />
+                        <p style={{display: 'flex', alignItems: "center"}}>
+                          <TbCurrencyNaira style={{fontSize: "1.2rem"}}/>
                           {item.amount
                             ? Number(item.amount).toLocaleString()
                             : "0"}
