@@ -27,7 +27,7 @@ const WomenContribution = () => {
             <div className="main_table">
               <div className="all_header">
                 <div className="header">
-                  <h3>Cycle</h3>
+                  <h3>Name</h3>
                 </div>
                 <div className="header">
                   <h3>Amount</h3>
@@ -42,10 +42,14 @@ const WomenContribution = () => {
 
               {contributions.length > 0 ? (
                 contributions.map((item, index) => {
+                  const member = groupDetails?.group?.members?.find(
+                    (m) => m.id === item.userId
+                  );
+
                   return (
                     <div className="all_data" key={item.id || index}>
                       <div className="cycle">
-                        <p>Cycle {index + 1}</p>
+                        <p>{member?.name}</p>
                       </div>
                       <div className="amount">
                         <p>
