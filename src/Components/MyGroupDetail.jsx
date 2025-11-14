@@ -213,7 +213,7 @@ const MyGroupDetail_wrapper = styled.div`
 
     .group {
       width: 30%;
-      min-height: 18rem;
+      height: 19rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -223,7 +223,7 @@ const MyGroupDetail_wrapper = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        min-height: 18rem;
+        height: 19rem;
       }
 
       .wrapper {
