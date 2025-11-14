@@ -177,7 +177,10 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <div className="progress_child1"></div>
                         </div>
 
-                        <div className="total_naira" style={{display: 'flex', alignItems: 'center'}}>
+                        <div
+                          className="total_naira"
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
                           <p>Total Pot</p>
                           <p>
                             <TbCurrencyNaira />
@@ -700,6 +703,12 @@ const My_groups = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h1 {
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
   }
 
   .main_top_group {
@@ -773,8 +782,8 @@ const My_groups = styled.div`
           .progress_child1 {
             height: 100%;
             border-radius: 1rem;
-            width: 40%;
-            background-color: #3b82f6;
+            /* width: 40%;
+            background-color: #3b82f6; */
           }
         }
 
@@ -823,7 +832,7 @@ const My_groups = styled.div`
 
         button {
           width: 100%;
-          height: 2rem;
+          min-height: 2rem;
           border: none;
           outline: none;
           border-radius: 0.5rem;
