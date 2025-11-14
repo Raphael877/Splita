@@ -44,7 +44,7 @@ const MyGroupDetail = () => {
       <MyGroupDetail_wrapper>
         <UserDashboardHeader onMyGroupClick={handleDetails} />
 
-        <p onClick={() => navigate("/userdashboard")}>
+        <p className="back" onClick={() => navigate("/userdashboard")}>
           <IoIosArrowRoundBack
             style={{ fontSize: "1.5rem", fontWeight: "bold" }}
           /><span>
@@ -185,8 +185,9 @@ const MyGroupDetail_wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  background-color: #f8f5f0;
 
-  p {
+  .back{
     display: flex;
     align-items: center;
     justify-self: flex-start;
