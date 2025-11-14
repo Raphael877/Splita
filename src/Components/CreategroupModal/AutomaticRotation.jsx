@@ -20,7 +20,7 @@ const AutomaticRotation = ({ onClose }) => {
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/randomize_payout-order`,
+        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
         {
           headers: {

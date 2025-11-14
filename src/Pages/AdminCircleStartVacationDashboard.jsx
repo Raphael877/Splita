@@ -21,10 +21,9 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
-import UserDashDetails from "../Components/UserDashDetails.jsx";
 
-const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
-const token = storedToken ? JSON.parse(storedToken) : null;
+const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+// const token = storedToken ? JSON.parse(storedToken) : null;
 
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
@@ -39,6 +38,26 @@ const AdminCircleStartVacationDashboard = () => {
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
   const [loading, setLoading] = useState(false);
+  const handleStartCycle = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(res?.data?.data?.message);
+      console.log(res);
+      navigate("/admindashboard");
+    } catch (error) {
+      console.error("Error starting cycle:", error.response || error);
+      toast.error(error.response?.data?.message);
+    }
+  };
 
   const handleCreate = async () => {
     try {
@@ -286,7 +305,7 @@ const AdminCircleStartVacationDashboard = () => {
               </p>
             </div>
           </div>
-          {group?.status !== "active" ? (
+          {group?.status !== "active" || group?.status === "completed" ? (
             <div className="btn">
               <button className="btn1" onClick={handleCreate}>
                 Copy Invite Link
@@ -442,7 +461,8 @@ const AdminCircleStartVacationDashboard = () => {
         <SelectPayout
           onClose={() => setCurrentModal(null)}
           onAutomaticRotation={() => {
-            toast.info("Automatic rotation selected!");
+            handleStartCycle();
+            // toast.info("Automatic rotation selected!");
           }}
           onManualSelection={() => setCurrentModal("manualPayout")}
         />
