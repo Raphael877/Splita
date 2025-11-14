@@ -48,7 +48,7 @@ const MyGroupDetail = () => {
           <IoIosArrowRoundBack
             style={{ fontSize: "1.5rem", fontWeight: "bold" }}
           /><span>
-          Back home</span>
+          back home</span>
         </p>
 
         <div className="main_top_group">
@@ -194,6 +194,7 @@ const MyGroupDetail_wrapper = styled.div`
     gap: 1rem;
     font-weight: 500;
     cursor: pointer;
+    width: 100%;
 
     span{
       @media (max-width: 768px) {
@@ -213,7 +214,7 @@ const MyGroupDetail_wrapper = styled.div`
 
     .group {
       width: 30%;
-      height: 18rem;
+      height: 19rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -223,7 +224,7 @@ const MyGroupDetail_wrapper = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 18rem;
+        height: 19rem;
       }
 
       .wrapper {
