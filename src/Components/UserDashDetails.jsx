@@ -249,7 +249,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <TiTick />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
+                      <p style={{}}>
                         You contributed 10,000 to Women in Tech Ajo
                       </p>
                       <p style={{ color: "#939393" }}>2 hours ago</p>
@@ -260,9 +260,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <BsCash />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
-                        Chisom received payout last week
-                      </p>
+                      <p style={{}}>Chisom received payout last week</p>
                       <p style={{ color: "#939393" }}>1 week ago</p>
                     </div>
                   </div>
@@ -271,9 +269,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <MdOutlinePersonAddAlt />
                     </div>
                     <div className="right">
-                      <p style={{  }}>
-                        New members joined vacation circle
-                      </p>
+                      <p style={{}}>New members joined vacation circle</p>
                       <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
@@ -282,9 +278,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <CiTrophy />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
-                        Cycle 3 completed for Hackathon circle
-                      </p>
+                      <p style={{}}>Cycle 3 completed for Hackathon circle</p>
                       <p style={{ color: "#939393" }}>6 days ago</p>
                     </div>
                   </div>
@@ -466,6 +460,10 @@ const Details = styled.div`
     margin-block: 2rem;
     height: 25vh;
     overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .inner_details {
@@ -774,7 +772,7 @@ const My_groups = styled.div`
           width: 100%;
           height: 3%;
           border-radius: 1rem;
-          background-color: #dddcdc;
+          background-color: #d8e6fd;
 
           .progress_child1 {
             height: 100%;
@@ -969,6 +967,7 @@ const Recent = styled.div`
     }
   }
 `;
+
 const Right = styled.div`
   width: 30%;
   height: 100%;
@@ -1003,6 +1002,9 @@ const Right = styled.div`
 
     @media (max-width: 768px) {
       gap: 2rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-direction: row;
     }
 
     .contribution-card {
@@ -1012,6 +1014,10 @@ const Right = styled.div`
       border-radius: 0.5rem;
       padding-bottom: 1rem;
       transition: transform 0.2s ease-in-out;
+
+      @media (max-width: 768px) {
+        
+      }
     }
 
     .row {

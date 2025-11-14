@@ -113,13 +113,13 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                   }}
                   onClick={closeDropdown}
                 />
-                <p className="nav" onClick={() => navigate("/useremptystate")}>
+                <p className="nav" onClick={() => navigate("/userdashboard")}>
                   Home
                 </p>
-                <p className="nav" onClick={() => navigate("/groups")}>
+                <p className="nav" onClick={() => navigate("/mygroupdetail")}>
                   My groups
                 </p>
-                <p className="nav" onClick={() => navigate("/contributions")}>
+                <p className="nav" onClick={() => navigate("/mycontribution")}>
                   Contributions
                 </p>
                 <p
