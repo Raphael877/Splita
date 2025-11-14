@@ -177,7 +177,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <div className="progress_child1"></div>
                         </div>
 
-                        <div className="total_naira">
+                        <div className="total_naira" style={{display: 'flex', alignItems: 'center'}}>
                           <p>Total Pot</p>
                           <p>
                             <TbCurrencyNaira />
@@ -1030,7 +1030,7 @@ const Right = styled.div`
       width: 6.5rem;
       height: 6.5rem;
       border-radius: 50%;
-      background: conic-gradient(#3b82f6 0% 40%, #d8e6fd 40% 100%);
+      background: conic-gradient(#3b82f6 0% 0%, #d8e6fd 0% 100%);
       display: flex;
       justify-content: center;
       align-items: center;

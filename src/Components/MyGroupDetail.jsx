@@ -100,7 +100,7 @@ const MyGroupDetail = () => {
                     ></div>
                   </div>
 
-                  <div className="total_naira">
+                  <div className="total_naira" style={{display: 'flex', alignItems: 'center'}}>
                     <p>
                      Total Pot
                     </p>
