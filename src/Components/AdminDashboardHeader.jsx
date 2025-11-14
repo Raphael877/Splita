@@ -204,12 +204,12 @@ const HeaderWrapper = styled.div`
 
   .brand_logo {
     width: 12%;
-    height: 65%;
+    height: 55%;
     cursor: pointer;
 
     @media (max-width: 768px) {
       width: 30%;
-      height: 40%;
+      height: 35%;
     }
   }
 
@@ -310,7 +310,7 @@ const HeaderWrapper = styled.div`
         padding-block: 0.2rem;
         padding-inline: 0.8rem;
         border-radius: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
 
       @media (max-width: 768px) {

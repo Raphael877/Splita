@@ -158,21 +158,15 @@ const UserDashDetails = ({ payoutInfo }) => {
                             <strong>{group.groupName}</strong>
                           </p>
                           <div className="in_prog">
-                            <p>
-                              <small>{group?.status}</small>
-                            </p>
+                            <p>{group?.status}</p>
                           </div>
                         </div>
 
                         <div className="p_cont">
+                          <p>{group?.status}</p>
                           <p>
-                            <small>{group?.status}</small>
-                          </p>
-                          <p>
-                            <small>
-                              {payoutInfo?.data?.currentRound ?? 0} /{" "}
-                              {payoutInfo?.data?.totalRounds ?? 0}
-                            </small>
+                            {payoutInfo?.data?.currentRound ?? 0} /{" "}
+                            {payoutInfo?.data?.totalRounds ?? 0}
                           </p>
                         </div>
 
@@ -184,45 +178,30 @@ const UserDashDetails = ({ payoutInfo }) => {
                         </div>
 
                         <div className="total_naira">
-                          <p>
-                            <small>Total Pot</small>
-                          </p>
+                          <p>Total Pot</p>
                           <p>
                             <TbCurrencyNaira />
-                            <small>
-                              {payoutInfo?.data?.pot?.totalCollected || 0.00}
-                            </small>
+
+                            {payoutInfo?.data?.pot?.totalCollected || 0.0}
                           </p>
                         </div>
 
                         <div className="last_date">
+                          <p>Last contribution</p>
                           <p>
-                            <small>Last contribution</small>
-                          </p>
-                          <p>
-                            <small>
-                              {payoutInfo?.data?.contributions?.received ?? 0} /{" "}
-                              {payoutInfo?.data?.contributions?.total ?? 0}
-                            </small>
+                            {payoutInfo?.data?.contributions?.received ?? 0} /{" "}
+                            {payoutInfo?.data?.contributions?.total ?? 0}
                           </p>
                         </div>
 
                         <div className="cycle_round">
-                          <p>
-                            <small>Cycle</small>
-                          </p>
-                          <p>
-                            <small>{group?.status}</small>
-                          </p>
+                          <p>Cycle</p>
+                          <p>{group?.status}</p>
                         </div>
 
                         <div className="role_mem">
-                          <p>
-                            <small>Role</small>
-                          </p>
-                          <p>
-                            <small>{group.myRole ?? "Member"}</small>
-                          </p>
+                          <p>Role</p>
+                          <p>{group.myRole ?? "Member"}</p>
                         </div>
 
                         <button

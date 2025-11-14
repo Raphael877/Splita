@@ -198,12 +198,12 @@ const UserDashboardHeader_wrapper = styled.div`
 
   .brand_logo {
     width: 12%;
-    height: 65%;
+    height: 55%;
     cursor: pointer;
 
     @media (max-width: 768px) {
       width: 30%;
-      height: 40%;
+      height: 35%;
     }
   }
 
