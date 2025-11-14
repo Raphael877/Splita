@@ -400,6 +400,7 @@ const Hello = styled.div`
 
     @media (max-width: 768px) {
       width: 100%;
+      flex-direction: column;
     }
 
     .hello_btn1 {
@@ -422,6 +423,7 @@ const Hello = styled.div`
 
       @media (max-width: 768px) {
         min-height: 3rem;
+        width: 100%;
       }
     }
 
@@ -434,7 +436,7 @@ const Hello = styled.div`
       font-weight: 500;
       letter-spacing: 1px;
       cursor: pointer;
-      background-color: white;
+      background-color: transparent;
       color: #ff7900;
       &:hover {
         background-color: #ff7900;
@@ -444,6 +446,7 @@ const Hello = styled.div`
 
       @media (max-width: 768px) {
         height: 3rem;
+        width: 100%;
       }
     }
   }
