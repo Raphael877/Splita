@@ -47,8 +47,8 @@ const MyGroupDetail = () => {
         <p className="back" onClick={() => navigate("/userdashboard")}>
           <IoIosArrowRoundBack
             style={{ fontSize: "1.5rem", fontWeight: "bold" }}
-          /><span>
-          back home</span>
+          />
+          <span>back home</span>
         </p>
 
         <div className="main_top_group">
@@ -72,16 +72,12 @@ const MyGroupDetail = () => {
                   </div>
 
                   <div className="p_cont">
+                    <p>Progress</p>
                     <p>
-                      Progress
-                    </p>
-                    <p>
-                     
-                        {group.progress ||
-                          `${group.payoutsCompleted || 0}/${
-                            group.totalPayouts || 0
-                          } Payouts`}
-                      
+                      {group.progress ||
+                        `${group.payoutsCompleted || 0}/${
+                          group.totalPayouts || 0
+                        } Payouts`}
                     </p>
                   </div>
 
@@ -100,10 +96,11 @@ const MyGroupDetail = () => {
                     ></div>
                   </div>
 
-                  <div className="total_naira" style={{display: 'flex', alignItems: 'center'}}>
-                    <p>
-                     Total Pot
-                    </p>
+                  <div
+                    className="total_naira"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <p>Total Pot</p>
                     <p>
                       <TbCurrencyNaira />
                       {group.contributionAmount || "0"}
@@ -111,30 +108,18 @@ const MyGroupDetail = () => {
                   </div>
 
                   <div className="last_date">
-                    <p>
-                     Last contribution
-                    </p>
-                    <p>
-                      {group.lastContributionDate || "N/A"}
-                    </p>
+                    <p>Last contribution</p>
+                    <p>{group.lastContributionDate || "N/A"}</p>
                   </div>
 
                   <div className="cycle_round">
-                    <p>
-                     Cycle
-                    </p>
-                    <p>
-                     {group.cycle || "Round 1"}
-                    </p>
+                    <p>Cycle</p>
+                    <p>{group.cycle || "Round 1"}</p>
                   </div>
 
                   <div className="role_mem">
-                    <p>
-                     Role
-                    </p>
-                    <p>
-                      {group.myRole || "Member"}
-                    </p>
+                    <p>Role</p>
+                    <p>{group.myRole || "Member"}</p>
                   </div>
                   <button
                     onClick={() => {
@@ -156,7 +141,7 @@ const MyGroupDetail = () => {
             ))
           )}
         </div>
-        < UserDashboardFooter />
+        <UserDashboardFooter />
       </MyGroupDetail_wrapper>
     </MyGroupDetail_content>
   );
@@ -187,7 +172,7 @@ const MyGroupDetail_wrapper = styled.div`
   gap: 3rem;
   background-color: #f8f5f0;
 
-  .back{
+  .back {
     display: flex;
     align-items: center;
     justify-self: flex-start;
@@ -196,7 +181,7 @@ const MyGroupDetail_wrapper = styled.div`
     cursor: pointer;
     width: 100%;
 
-    span{
+    span {
       @media (max-width: 768px) {
         display: none;
       }

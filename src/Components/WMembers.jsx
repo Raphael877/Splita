@@ -87,7 +87,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { CiTrash } from "react-icons/ci";
 import DeleteMember from "./Deletefolder/DeleteMember";
 import { useOutletContext } from "react-router-dom";
 
@@ -117,17 +116,20 @@ const WomenMembers = () => {
 
             <div className="main_table">
               <div className="all_header">
-                <div className="header">
-                  <h3 className="member">Member</h3>
+                <div className="mbr">
+                  <h3>Member</h3>
                 </div>
                 <div className="header">
                   <h3>Contribution</h3>
                 </div>
                 <div className="header">
+                  <h3>Status</h3>
+                </div>
+                <div className="header">
                   <h3>Payout Order</h3>
                 </div>
                 <div className="header">
-                  <h3 style={{ color: "transparent" }}>Delete</h3>
+                  <h3>Late Payment</h3>
                 </div>
               </div>
 
@@ -141,15 +143,20 @@ const WomenMembers = () => {
                       <TbCurrencyNaira /> {contributionAmount}
                     </p>
                   </div>
+
+
+                  <div className="status">
+                    <div className="inner_status">
+                    <p>Completed</p>
+                    </div>
+                  </div>
+
+
                   <div className="order">
                     <p>{`${index + 1}${["st", "nd", "rd"][index] || "th"}`}</p>
                   </div>
-                  <div
-                    className="delete"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleDeleteClick(member.name)}
-                  >
-                    <CiTrash />
+                  <div className="late_payment">
+                    <p>0</p>
                   </div>
                 </div>
               ))}
@@ -207,8 +214,8 @@ const Table = styled.div`
   margin-block: 1.5rem;
 
   @media (max-width: 768px) {
-      width: 250vw;
-    }
+    width: 250vw;
+  }
 
   .table_wrap {
     display: flex;
@@ -222,7 +229,6 @@ const Table = styled.div`
     @media (max-width: 90%) {
       width: 100%;
     }
-
 
     .top {
       width: 100%;
@@ -243,9 +249,17 @@ const Table = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background-color: #f6f6f6;
+        height: 4rem;
+        border-radius: 0.5rem;
+        padding-inline: 1rem;
 
-        .header{
-          .member{
+        .mbr {
+          width: 25%;
+        }
+
+        .header {
+          .member {
             @media (max-width: 768px) {
               width: 30%;
             }
@@ -260,24 +274,23 @@ const Table = styled.div`
         align-items: center;
         gap: 1.5rem;
         border-radius: 0.5rem;
+        padding-inline: 1rem;
+        padding-block: 1rem;
+        border-block: 2px solid #f6f6f6;
 
         .member {
           width: 25%;
+          display: flex;
+          justify-content: flex-start;
 
           @media (max-width: 768px) {
             width: 30%;
           }
         }
 
-        .delete {
-          width: 25%;
-          display: flex;
-          justify-content: flex-end;
-        }
-
         .order {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
           width: 25%;
           padding-left: 3rem;
@@ -285,9 +298,30 @@ const Table = styled.div`
 
         .contribution {
           display: flex;
+          justify-content: flex-start;
           padding-left: 4rem;
           align-items: center;
           width: 25%;
+        }
+
+        .status {
+          width: 10%;
+          display: flex;
+          justify-content: flex-start;
+
+          .inner_status{
+            padding-block: 0.5rem;
+            padding-inline: 0.8rem;
+            background-color: #d6ecd1;
+            color: #34a218;
+            border-radius: 2rem;
+          }
+        }
+
+        .late_payment {
+          width: 5%;
+          display: flex;
+          justify-content: flex-start;
         }
       }
     }
