@@ -42,15 +42,10 @@ const WomenContribution = () => {
 
               {contributions.length > 0 ? (
                 contributions.map((item, index) => {
-                  // Find the member who made this contribution
-                  const member = groupDetails?.group?.members?.find(
-                    (m) => m.id === item.userId
-                  );
-
                   return (
                     <div className="all_data" key={item.id || index}>
                       <div className="cycle">
-                        <p>{member?.name || "Unknown Member"}</p>
+                        <p>Cycle {index + 1}</p>
                       </div>
                       <div className="amount">
                         <p>
