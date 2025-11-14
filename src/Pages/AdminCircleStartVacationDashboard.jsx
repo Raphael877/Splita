@@ -374,7 +374,11 @@ const AdminCircleStartVacationDashboard = () => {
                 className={`req ${
                   location.pathname.includes("requestjoingroup") ? "active" : ""
                 }`}
-                onClick={() => navigate("requestjoingroup")}
+                onClick={() =>
+                  navigate("requestJoinGroup", {
+                    state: { group },
+                  })
+                }
               >
                 <p>Request</p>
               </div>

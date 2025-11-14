@@ -15,16 +15,12 @@ const RequestJoinGroup = ({ groupDetails }) => {
 
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const [group, setGroup] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
 
-  const groupName =
-    group?.groupName ||
-    groupDetails?.group?.groupName ||
-    location?.state?.groupName ||
-    localStorage.getItem("createdGroupName") ||
-    "Not Available";
+  const groupName = location.state?.group?.groupName || "Not Available";
 
   const fetchRequests = async () => {
     setLoading(true);
@@ -69,7 +65,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
   useEffect(() => {
     fetchRequests();
 
-    const interval = setInterval(fetchRequests, 5000);
+    const interval = setInterval(fetchRequests, 2400000);
 
     return () => clearInterval(interval);
   }, []);
@@ -80,7 +76,6 @@ const RequestJoinGroup = ({ groupDetails }) => {
         <Block>
           <div className="inner_block">
             <div className="block_wrap">
-              {/* ✅ Group name now shows correctly */}
               <h2>Requests for {groupName}</h2>
 
               <div className="table_wall">
