@@ -379,6 +379,7 @@ const SignUp_content = styled.div`
     top: 3%;
     left: 10%;
     z-index: 1;
+    cursor: pointer;
 
     img {
       width: 40%;
@@ -408,6 +409,7 @@ const SignUp_wrapper = styled.div`
     top: 4%;
     right: 5%;
     cursor: pointer;
+    display: none;
 
     @media (max-width: 768px) {
       left: 6%;
