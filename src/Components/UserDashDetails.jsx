@@ -464,6 +464,8 @@ const Details = styled.div`
 
   @media (max-width: 768px) {
     margin-block: 2rem;
+    height: 25vh;
+    overflow-x: auto;
   }
 
   .inner_details {
@@ -474,7 +476,6 @@ const Details = styled.div`
 
     @media (max-width: 768px) {
       height: 100%;
-      flex-wrap: wrap;
       gap: 1rem;
     }
 
@@ -489,9 +490,8 @@ const Details = styled.div`
       border-radius: 0.5rem;
 
       @media (max-width: 768px) {
-        width: 47%;
-        height: 47%;
-        font-size: 0.85rem;
+        min-width: 95%;
+        min-height: 90%;
       }
 
       .card_wrapper {
@@ -527,9 +527,8 @@ const Details = styled.div`
       border-radius: 0.5rem;
 
       @media (max-width: 768px) {
-        width: 47%;
-        height: 47%;
-        font-size: 0.85rem;
+        min-width: 95%;
+        min-height: 90%;
       }
 
       .card_wrapper {
@@ -565,9 +564,8 @@ const Details = styled.div`
       border-radius: 0.5rem;
 
       @media (max-width: 768px) {
-        width: 47%;
-        height: 47%;
-        font-size: 0.85rem;
+        min-width: 95%;
+        min-height: 90%;
       }
 
       .card_wrapper {
@@ -620,9 +618,8 @@ const Details = styled.div`
       border-radius: 0.5rem;
 
       @media (max-width: 768px) {
-        width: 47%;
-        height: 47%;
-        font-size: 0.85rem;
+        min-width: 95%;
+        min-height: 90%;
       }
 
       .card_wrapper {
