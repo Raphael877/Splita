@@ -706,7 +706,7 @@ const My_groups = styled.div`
 
     h1 {
       @media (max-width: 768px) {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
     }
   }
