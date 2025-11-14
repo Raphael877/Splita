@@ -1016,7 +1016,7 @@ const Right = styled.div`
       transition: transform 0.2s ease-in-out;
 
       @media (max-width: 768px) {
-        
+        min-width: 100%;
       }
     }
 
