@@ -14,7 +14,8 @@ const Stories = () => {
                 fontWeight: "600",
                 fontSize: "15px",
                 gap: "5px",
-              }} className="sto"
+              }}
+              className="sto"
             >
               <h1>Stories from our </h1>
               <h1 style={{ color: "#7B2CBF" }}>community</h1>
@@ -86,7 +87,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
-                    color: '#7b2cbf'
+                    color: "#7b2cbf",
                   }}
                 >
                   Contributor
@@ -158,7 +159,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
-                    color: '#7b2cbf'
+                    color: "#7b2cbf",
                   }}
                 >
                   Group Admin
@@ -230,7 +231,7 @@ const Stories = () => {
                     fontWeight: "400",
                     fontSize: "12px",
                     margin: 0,
-                    color: '#7b2cbf'
+                    color: "#7b2cbf",
                   }}
                 >
                   Contributor
@@ -289,7 +290,7 @@ const StoriesStyled = styled.div`
           gap: 1rem;
         }
 
-        .sto{
+        .sto {
           @media (max-width: 768px) {
             flex-direction: column;
           }
