@@ -7,35 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const AutomaticRotation = ({ onClose }) => {
   const navigate = useNavigate();
-  const handleStartCycle = async () => {
-    const BaseUrl = import.meta.env.VITE_BaseUrl;
-    const groupId = localStorage.getItem("createdGroupId");
-    const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
-    const token = storedToken ? JSON.parse(storedToken) : null;
 
-    if (!token) {
-      toast.error("No valid token found. Please log in again.");
-      return;
-    }
-
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      toast.success(res?.data?.data?.message);
-      console.log(res);
-      navigate("/admindashboard");
-    } catch (error) {
-      console.error("Error starting cycle:", error.response || error);
-      toast.error(error.response?.data?.message);
-    }
-  };
   return (
     <Payout_content>
       <Payout_wrapper>
@@ -50,9 +22,7 @@ const AutomaticRotation = ({ onClose }) => {
             <button className="btn1" onClick={onClose}>
               Cancel
             </button>
-            <button className="btn2" onClick={handleStartCycle}>
-              Confirm & Start
-            </button>
+            <button className="btn2">Confirm & Start</button>
           </div>
         </Inner_wrap>
         <FaRegTimesCircle

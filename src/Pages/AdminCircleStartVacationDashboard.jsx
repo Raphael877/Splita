@@ -37,25 +37,33 @@ const AdminCircleStartVacationDashboard = () => {
   const [groupDetails, setGroupDetails] = useState([]);
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
+  const [payoutType, setPayoutType] = useState(null); // 'automatic' or 'manual'
+
   const [loading, setLoading] = useState(false);
-  const handleStartCycle = async () => {
+  const handleAutomaticRotation = async () => {
     try {
-      const res = await axios.post(
+      // 1️⃣ Randomize payout order
+      await axios.post(
         `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success(res?.data?.data?.message);
-      console.log(res);
-      navigate("/admindashboard");
+
+      toast.success("Automatic rotation set successfully!");
+
+      const res = await axios.get(`${BaseUrl}/groups/${groupId}/payout_order`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const schedule = res?.data?.data?.payoutSchedule || [];
+
+      setNextMember({
+        current: schedule[0] || null,
+        next: schedule[1] || null,
+      });
     } catch (error) {
-      console.error("Error starting cycle:", error.response || error);
-      toast.error(error.response?.data?.message);
+      console.error("Error in automatic rotation:", error);
+      toast.error("Failed to set automatic rotation.");
     }
   };
 
@@ -152,39 +160,6 @@ const AdminCircleStartVacationDashboard = () => {
     } catch (error) {
       console.error("Error fetching next payout member:", error);
       toast.error("Failed to fetch next payout member");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const confirmPayout = async () => {
-    try {
-      setLoading(true);
-
-      const payload = {
-        payoutOrder: [
-          {
-            userId: nextMember?.userId,
-            position: nextMember?.position,
-          },
-        ],
-      };
-
-      const res = await axios.put(
-        `${BaseUrl}/groups/${groupId}/payout-order`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(groupId);
-      toast.success("Payout confirmed successfully");
-      setCurrentModal("payoutSuccessful");
-    } catch (error) {
-      console.error("Error confirming payout:", error);
-      toast.error(error.response?.data?.message || "Failed to confirm payout");
     } finally {
       setLoading(false);
     }
@@ -461,10 +436,14 @@ const AdminCircleStartVacationDashboard = () => {
         <SelectPayout
           onClose={() => setCurrentModal(null)}
           onAutomaticRotation={() => {
-            handleStartCycle();
-            // toast.info("Automatic rotation selected!");
+            setPayoutType("automatic");
+            handleAutomaticRotation();
+            setCurrentModal(null);
           }}
-          onManualSelection={() => setCurrentModal("manualPayout")}
+          onManualSelection={() => {
+            setPayoutType("manual");
+            setCurrentModal("manualPayout");
+          }}
         />
       )}
 

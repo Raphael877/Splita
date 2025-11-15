@@ -249,7 +249,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <TiTick />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
+                      <p style={{}}>
                         You contributed 10,000 to Women in Tech Ajo
                       </p>
                       <p style={{ color: "#939393" }}>2 hours ago</p>
@@ -260,9 +260,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <BsCash />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
-                        Chisom received payout last week
-                      </p>
+                      <p style={{}}>Chisom received payout last week</p>
                       <p style={{ color: "#939393" }}>1 week ago</p>
                     </div>
                   </div>
@@ -271,9 +269,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <MdOutlinePersonAddAlt />
                     </div>
                     <div className="right">
-                      <p style={{  }}>
-                        New members joined vacation circle
-                      </p>
+                      <p style={{}}>New members joined vacation circle</p>
                       <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
@@ -282,9 +278,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <CiTrophy />
                     </div>
                     <div className="right">
-                      <p style={{ }}>
-                        Cycle 3 completed for Hackathon circle
-                      </p>
+                      <p style={{}}>Cycle 3 completed for Hackathon circle</p>
                       <p style={{ color: "#939393" }}>6 days ago</p>
                     </div>
                   </div>
