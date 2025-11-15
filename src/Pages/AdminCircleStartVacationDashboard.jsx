@@ -539,6 +539,8 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
 
       @media (max-width: 768px) {
         height: 50%;
+        flex-direction: column;
+        width: 100%;
       }
     }
 
@@ -561,7 +563,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 11rem;
+        width: 100%;
       }
     }
 
@@ -584,7 +586,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 11rem;
+        width: 100%;
       }
     }
     .right {

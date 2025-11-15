@@ -182,7 +182,6 @@ const Profile = () => {
     border: "none",
     outline: "none",
     background: "transparent",
-    textAlign: "right",
   };
 
   return (
@@ -457,9 +456,9 @@ const Profile_wrapper = styled.div`
 
     .top {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
       padding-inline: 1rem;
+      gap: 0.5rem;
 
       p {
         font-size: 1rem;

@@ -322,6 +322,7 @@ const Wrapper = styled.div`
         justify-content: center;
         align-items: center;
         margin-top: 2rem;
+        width: 100%;
       }
     }
 
@@ -344,7 +345,7 @@ const Wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 22rem;
+        width: 100%;
       }
     }
 
@@ -367,7 +368,7 @@ const Wrapper = styled.div`
       }
 
       @media (max-width: 768px) {
-        width: 22rem;
+        width: 100%;
       }
     }
 
