@@ -21,10 +21,9 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
-import UserDashDetails from "../Components/UserDashDetails.jsx";
 
-const storedToken = localStorage.getItem(import.meta.env.VITE_USERTOKEN);
-const token = storedToken ? JSON.parse(storedToken) : null;
+const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
+// const token = storedToken ? JSON.parse(storedToken) : null;
 
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
@@ -38,7 +37,35 @@ const AdminCircleStartVacationDashboard = () => {
   const [groupDetails, setGroupDetails] = useState([]);
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
+  const [payoutType, setPayoutType] = useState(null); // 'automatic' or 'manual'
+
   const [loading, setLoading] = useState(false);
+  const handleAutomaticRotation = async () => {
+    try {
+      // 1️⃣ Randomize payout order
+      await axios.post(
+        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      toast.success("Automatic rotation set successfully!");
+
+      const res = await axios.get(`${BaseUrl}/groups/${groupId}/payout_order`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const schedule = res?.data?.data?.payoutSchedule || [];
+
+      setNextMember({
+        current: schedule[0] || null,
+        next: schedule[1] || null,
+      });
+    } catch (error) {
+      console.error("Error in automatic rotation:", error);
+      toast.error("Failed to set automatic rotation.");
+    }
+  };
 
   const handleCreate = async () => {
     try {
@@ -133,39 +160,6 @@ const AdminCircleStartVacationDashboard = () => {
     } catch (error) {
       console.error("Error fetching next payout member:", error);
       toast.error("Failed to fetch next payout member");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const confirmPayout = async () => {
-    try {
-      setLoading(true);
-
-      const payload = {
-        payoutOrder: [
-          {
-            userId: nextMember?.userId,
-            position: nextMember?.position,
-          },
-        ],
-      };
-
-      const res = await axios.put(
-        `${BaseUrl}/groups/${groupId}/payout-order`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(groupId);
-      toast.success("Payout confirmed successfully");
-      setCurrentModal("payoutSuccessful");
-    } catch (error) {
-      console.error("Error confirming payout:", error);
-      toast.error(error.response?.data?.message || "Failed to confirm payout");
     } finally {
       setLoading(false);
     }
@@ -286,7 +280,7 @@ const AdminCircleStartVacationDashboard = () => {
               </p>
             </div>
           </div>
-          {group?.status !== "active" ? (
+          {group?.status !== "active" || group?.status === "completed" ? (
             <div className="btn">
               <button className="btn1" onClick={handleCreate}>
                 Copy Invite Link
@@ -442,9 +436,14 @@ const AdminCircleStartVacationDashboard = () => {
         <SelectPayout
           onClose={() => setCurrentModal(null)}
           onAutomaticRotation={() => {
-            toast.info("Automatic rotation selected!");
+            setPayoutType("automatic");
+            handleAutomaticRotation();
+            setCurrentModal(null);
           }}
-          onManualSelection={() => setCurrentModal("manualPayout")}
+          onManualSelection={() => {
+            setPayoutType("manual");
+            setCurrentModal("manualPayout");
+          }}
         />
       )}
 

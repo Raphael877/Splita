@@ -93,7 +93,6 @@ import { useOutletContext } from "react-router-dom";
 const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
-  
 
   // Safe context handling
   const { members = [], contributionAmount = 0 } = useOutletContext() || {};
@@ -145,13 +144,11 @@ const WomenMembers = () => {
                     </p>
                   </div>
 
-
                   <div className="status">
                     <div className="inner_status">
-                    <p>Completed</p>
+                      <p>Completed</p>
                     </div>
                   </div>
-
 
                   <div className="order">
                     <p>{`${index + 1}${["st", "nd", "rd"][index] || "th"}`}</p>
@@ -310,7 +307,7 @@ const Table = styled.div`
           display: flex;
           justify-content: flex-start;
 
-          .inner_status{
+          .inner_status {
             padding-block: 0.5rem;
             padding-inline: 0.8rem;
             background-color: #d6ecd1;
