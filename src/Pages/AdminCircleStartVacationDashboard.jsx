@@ -37,19 +37,24 @@ const AdminCircleStartVacationDashboard = () => {
   const [groupDetails, setGroupDetails] = useState([]);
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
-  const [payoutType, setPayoutType] = useState(null); // 'automatic' or 'manual'
+  const [payoutType, setPayoutType] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const handleAutomaticRotation = async () => {
     try {
-      // 1️⃣ Randomize payout order
       await axios.post(
         `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      toast.success("Automatic rotation set successfully!");
+      await axios.post(
+        `${BaseUrl}/groups/${groupId}/start_cycle`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      toast.success(res?.data?.data?.message);
 
       const res = await axios.get(`${BaseUrl}/groups/${groupId}/payout_order`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -62,8 +67,8 @@ const AdminCircleStartVacationDashboard = () => {
         next: schedule[1] || null,
       });
     } catch (error) {
-      console.error("Error in automatic rotation:", error);
-      toast.error("Failed to set automatic rotation.");
+      console.error("Error in starting cycle:", error);
+      toast.error("Failed to start cycle.");
     }
   };
 
