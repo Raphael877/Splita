@@ -208,7 +208,7 @@ const MyGroupDetail_wrapper = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 19rem;
+        height: 20rem;
       }
 
       .wrapper {
@@ -350,6 +350,10 @@ const MyGroupDetail_wrapper = styled.div`
           &:hover {
             background-color: #c29ee2;
             transition: all 500ms ease-in-out;
+          }
+
+          @media (max-width: 768px) {
+            min-height: 2rem;
           }
         }
       }

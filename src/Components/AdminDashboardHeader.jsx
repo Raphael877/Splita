@@ -101,7 +101,12 @@ const AdminDashboardHeader = () => {
                       objectFit: "cover",
                     }}
                   />
-                  <p>{userData.fullName || "Admin User"}</p>
+                  <div className="ad">
+                    <p>{userData.fullName || "Admin User"}</p>
+                    <div className="admin">
+                      <small>Admin</small>
+                    </div>
+                  </div>
                 </div>
 
                 <MdOutlineCancel
@@ -306,22 +311,15 @@ const HeaderWrapper = styled.div`
         justify-content: center;
         align-items: center;
         background-color: #fef5d0;
-        color: #ba970b;
+        color: #facc15;
         padding-block: 0.2rem;
         padding-inline: 0.8rem;
         border-radius: 1rem;
-        font-size: 1.3rem;
-      }
+        font-size: 1.1rem;
+        font-weight: 500;
 
-      @media (max-width: 768px) {
-        justify-content: flex-end;
-
-        p {
-          display: none;
-        }
-
-        .admin {
-          padding-inline: 0.6rem;
+        @media (max-width: 768px) {
+          /* display: none; */
         }
       }
     }
@@ -332,7 +330,7 @@ const HeaderWrapper = styled.div`
       right: 0;
       background-color: white;
       width: 20rem;
-      height: 10rem;
+      height: 11rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -340,7 +338,7 @@ const HeaderWrapper = styled.div`
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
       @media (max-width: 768px) {
-        height: 18rem;
+        height: 19rem;
       }
 
       .dropdown_wrap {
@@ -360,6 +358,25 @@ const HeaderWrapper = styled.div`
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;
+          }
+
+          .ad {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+
+            .admin {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #fef5d0;
+              color: #facc15;
+              padding-block: 0.2rem;
+              padding-inline: 0.6rem;
+              border-radius: 1rem;
+              font-size: 1rem;
+              font-weight: 400;
+            }
           }
         }
 

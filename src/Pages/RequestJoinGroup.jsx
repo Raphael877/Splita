@@ -297,10 +297,18 @@ const Block = styled.div`
                 height: 15vh;
               }
 
-              .name,
-              .num,
-              .date {
+              .name{
                 width: 25%;
+              }
+
+              .date {
+                width: 20%;
+              }
+
+              .num{
+                width: 30%;
+                flex-wrap: wrap;
+                display: flex;
               }
 
               .btn {

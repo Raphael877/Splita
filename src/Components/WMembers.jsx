@@ -145,9 +145,10 @@ const WomenMembers = () => {
                   </div>
 
                   <div className="status">
-                    <div className="inner_status">
+                    {/* <div className="inner_status">
                       <p>Completed</p>
-                    </div>
+                    </div> */}
+                    -
                   </div>
 
                   <div className="order">

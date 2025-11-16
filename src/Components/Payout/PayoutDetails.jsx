@@ -77,6 +77,10 @@ const Payout_wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  @media (max-width: 768px) {
+    width: 85%;
+  }
 `;
 
 const Inner_wrap = styled.div`
