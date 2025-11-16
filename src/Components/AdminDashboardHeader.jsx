@@ -364,8 +364,10 @@ const HeaderWrapper = styled.div`
             display: flex;
             flex-direction: column;
             gap: 0.2rem;
+            width: 100%;
 
             .admin {
+              width: max-content;
               display: flex;
               justify-content: center;
               align-items: center;
