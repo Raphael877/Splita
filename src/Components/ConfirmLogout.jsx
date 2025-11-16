@@ -61,6 +61,14 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  transform: translateY(100vh); 
+  animation: slideIn 1s forwards; 
+
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
+  }
 
   @media (max-width: 768px) {
     width: 85%;
