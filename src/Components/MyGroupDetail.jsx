@@ -269,12 +269,12 @@ const MyGroupDetail_wrapper = styled.div`
 
         .progress_parent1 {
           width: 100%;
-          height: 3%;
+          min-height: 3%;
           border-radius: 1rem;
           background-color: #dddcdc;
 
           .progress_child1 {
-            height: 100%;
+            min-height: 100%;
             border-radius: 1rem;
             width: 40%;
             background-color: #3b82f6;
