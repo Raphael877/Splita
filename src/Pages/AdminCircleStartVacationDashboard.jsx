@@ -37,33 +37,46 @@ const AdminCircleStartVacationDashboard = () => {
   const [groupDetails, setGroupDetails] = useState([]);
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
-  const [payoutType, setPayoutType] = useState(null); // 'automatic' or 'manual'
+  const [payoutType, setPayoutType] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const handleAutomaticRotation = async () => {
     try {
-      // 1️⃣ Randomize payout order
       await axios.post(
         `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      toast.success("Automatic rotation set successfully!");
+      const startRes = await axios.post(
+        `${BaseUrl}/groups/${groupId}/start_cycle`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-      const res = await axios.get(`${BaseUrl}/groups/${groupId}/payout_order`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      toast.success(startRes?.data?.data?.message || "Cycle started");
 
-      const schedule = res?.data?.data?.payoutSchedule || [];
+      const payoutRes = await axios.get(
+        `${BaseUrl}/groups/${groupId}/payout_order`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const schedule = payoutRes?.data?.data?.payoutSchedule || [];
 
       setNextMember({
         current: schedule[0] || null,
         next: schedule[1] || null,
       });
+
+      const infoRes = await axios.get(
+        `${BaseUrl}/groups/${groupId}/payout_info`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setCycleId(infoRes?.data?.data?.cycleId);
     } catch (error) {
-      console.error("Error in automatic rotation:", error);
-      toast.error("Failed to set automatic rotation.");
+      console.error("Error in starting cycle:", error);
+      toast.error(error?.response?.data?.message || "Failed to start cycle");
     }
   };
 
@@ -171,7 +184,7 @@ const AdminCircleStartVacationDashboard = () => {
 
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
-        { groupId: id },
+        { groupId: id, cycleId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -265,7 +278,7 @@ const AdminCircleStartVacationDashboard = () => {
         <div className="groupname">
           <h1>{groupDetails?.group?.groupName}</h1>
         </div>
-        {/* <UserDashDetails  payoutInfo={payoutData}/> */}
+
         <div className="round">
           <div className="left">
             <p>
