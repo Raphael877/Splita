@@ -422,7 +422,7 @@ const Hello = styled.div`
       }
 
       @media (max-width: 768px) {
-        min-height: 2.8rem;
+        min-height: 2.5rem;
         width: 100%;
       }
     }
@@ -445,7 +445,7 @@ const Hello = styled.div`
       }
 
       @media (max-width: 768px) {
-        min-height: 2.8rem;
+        min-height: 2.5rem;
         width: 100%;
       }
     }
