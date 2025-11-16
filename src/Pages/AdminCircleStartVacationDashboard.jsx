@@ -48,27 +48,35 @@ const AdminCircleStartVacationDashboard = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      await axios.post(
+      const startRes = await axios.post(
         `${BaseUrl}/groups/${groupId}/start_cycle`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      toast.success(res?.data?.data?.message);
+      toast.success(startRes?.data?.data?.message || "Cycle started");
 
-      const res = await axios.get(`${BaseUrl}/groups/${groupId}/payout_order`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const payoutRes = await axios.get(
+        `${BaseUrl}/groups/${groupId}/payout_order`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-      const schedule = res?.data?.data?.payoutSchedule || [];
+      const schedule = payoutRes?.data?.data?.payoutSchedule || [];
 
       setNextMember({
         current: schedule[0] || null,
         next: schedule[1] || null,
       });
+
+      const infoRes = await axios.get(
+        `${BaseUrl}/groups/${groupId}/payout_info`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setCycleId(infoRes?.data?.data?.cycleId);
     } catch (error) {
       console.error("Error in starting cycle:", error);
-      toast.error("Failed to start cycle.");
+      toast.error(error?.response?.data?.message || "Failed to start cycle");
     }
   };
 
@@ -176,7 +184,7 @@ const AdminCircleStartVacationDashboard = () => {
 
       const initRes = await axios.post(
         `${BaseUrl}/Payments/initialize-contribution`,
-        { groupId: id },
+        { groupId: id, cycleId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -270,7 +278,7 @@ const AdminCircleStartVacationDashboard = () => {
         <div className="groupname">
           <h1>{groupDetails?.group?.groupName}</h1>
         </div>
-        {/* <UserDashDetails  payoutInfo={payoutData}/> */}
+
         <div className="round">
           <div className="left">
             <p>

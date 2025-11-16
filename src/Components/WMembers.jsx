@@ -95,7 +95,11 @@ const WomenMembers = () => {
   const [selectedMember, setSelectedMember] = useState(null);
 
   // Safe context handling
-  const { members = [], contributionAmount = 0 } = useOutletContext() || {};
+  const {
+    members = [],
+    contributions = [],
+    contributionAmount = 0,
+  } = useOutletContext() || {};
 
   const handleDeleteClick = (member) => {
     setSelectedMember(member);
@@ -104,6 +108,11 @@ const WomenMembers = () => {
 
   if (!members.length)
     return <p style={{ textAlign: "center" }}>Loading members...</p>;
+
+  // Helper function to find contribution for a member
+  const getContribution = (memberId) => {
+    return contributions.find((c) => c.userId === memberId) || {};
+  };
 
   return (
     <AdminMemberDashboard_content>
@@ -133,31 +142,42 @@ const WomenMembers = () => {
                 </div>
               </div>
 
-              {members.map((member, index) => (
-                <div className="all_data" key={member.id || index}>
-                  <div className="member">
-                    <p>{member.name}</p>
-                  </div>
-                  <div className="contribution">
-                    <p style={{ display: "flex", alignItems: "center" }}>
-                      <TbCurrencyNaira /> {contributionAmount}
-                    </p>
-                  </div>
+              {members.map((member, index) => {
+                const contribution = getContribution(member.id);
+                const status = contribution.status || "pending";
+                const latePayment = contribution.isLate
+                  ? contribution.penaltyFee
+                  : 0;
+                const amount = contribution.amount || contributionAmount;
 
-                  <div className="status">
-                    <div className="inner_status">
-                      <p>Completed</p>
+                return (
+                  <div className="all_data" key={member.id}>
+                    <div className="member">
+                      <p>{member.name}</p>
+                    </div>
+                    <div className="contribution">
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        <TbCurrencyNaira /> {amount}
+                      </p>
+                    </div>
+
+                    <div className="status">
+                      <div className="inner_status">
+                        <p>{status}</p>
+                      </div>
+                    </div>
+
+                    <div className="order">
+                      <p>{`${index + 1}${
+                        ["st", "nd", "rd"][index] || "th"
+                      }`}</p>
+                    </div>
+                    <div className="late_payment">
+                      <p>{latePayment}</p>
                     </div>
                   </div>
-
-                  <div className="order">
-                    <p>{`${index + 1}${["st", "nd", "rd"][index] || "th"}`}</p>
-                  </div>
-                  <div className="late_payment">
-                    <p>0</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </Table>
@@ -174,7 +194,6 @@ const WomenMembers = () => {
 };
 
 export default WomenMembers;
-
 const AdminMemberDashboard_content = styled.div`
   width: 100%;
   height: auto;
