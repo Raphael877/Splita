@@ -6,6 +6,7 @@ import ProfileUpload from "./ProfileUpload";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Profile = () => {
 
   const [editableField, setEditableField] = useState(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -51,7 +53,7 @@ const Profile = () => {
 
         const userData = userRes.data.data;
         const payoutAccount = payoutRes.data.data[0] || {};
-        console.log(payoutAccount);
+
         setFormData({
           fullName: userData.name || "",
           email: userData.email || "",
@@ -113,6 +115,7 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       const userForm = new FormData();
       userForm.append("name", formData.fullName);
@@ -129,7 +132,6 @@ const Profile = () => {
         },
       });
 
-      // Correct payout account update
       const payoutAccountId = formData.payoutAccountId;
 
       if (payoutAccountId) {
@@ -172,9 +174,11 @@ const Profile = () => {
       }));
 
       setEditableField(null);
+      toast.success("Profile Updated Successfully");
     } catch (err) {
       console.error("Failed to update profile:", err);
-      alert("Failed to update profile.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -303,8 +307,15 @@ const Profile = () => {
           <button className="btn1" onClick={handleCancel}>
             Cancel
           </button>
-          <button className="btn2" onClick={handleSave}>
-            Save changes
+          <button className="btn2" onClick={handleSave} disabled={loading}>
+            {loading ? (
+              <div className="btn-spinner">
+                <div className="spinner"></div>
+                <span>Saving...</span>
+              </div>
+            ) : (
+              "Save changes"
+            )}
           </button>
         </div>
       </Profile_wrapper>
@@ -337,52 +348,6 @@ const Profile_content = styled.div`
   position: relative;
   overflow: hidden;
 
-  .circle_top_left,
-  .circle_top_right,
-  .circle_mid_left,
-  .circle_down_right {
-    position: absolute;
-    border-radius: 50%;
-  }
-
-  .circle_top_left {
-    background-color: #c6bdc8;
-    width: 20rem;
-    height: 20rem;
-    top: -28%;
-    left: -17%;
-  }
-  .circle_top_right {
-    background-color: #b4a6b7;
-    width: 3rem;
-    height: 3rem;
-    top: 10%;
-    right: 0.5%;
-  }
-  .circle_mid_left {
-    background-color: #f5dcc6;
-    width: 3rem;
-    height: 3rem;
-    top: 60%;
-    left: 0.5%;
-  }
-  .circle_down_right {
-    background-color: #f4e2d1;
-    width: 20rem;
-    height: 20rem;
-    bottom: -28%;
-    right: -17%;
-  }
-
-  @media (max-width: 768px) {
-    .circle_down_right,
-    .circle_mid_left,
-    .circle_top_left,
-    .circle_top_right {
-      display: none;
-    }
-  }
-
   .back {
     display: flex;
     align-items: center;
@@ -391,10 +356,6 @@ const Profile_content = styled.div`
     top: 8%;
     left: 7%;
     cursor: pointer;
-
-    @media (max-width: 768px) {
-      top: 5%;
-    }
 
     p {
       @media (max-width: 768px) {
@@ -426,13 +387,6 @@ const Profile_wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    .profile_img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
 
     .edit_cont {
       width: 2rem;
@@ -482,14 +436,9 @@ const Profile_wrapper = styled.div`
       height: 2.5rem;
       border-radius: 0.5rem;
       border: none;
-      outline: none;
       background-color: #b8b8b8;
       color: white;
       cursor: pointer;
-      &:hover {
-        background-color: #dfcece;
-        transition: all 350ms ease-in-out;
-      }
     }
 
     .btn2 {
@@ -497,13 +446,38 @@ const Profile_wrapper = styled.div`
       height: 2.5rem;
       border-radius: 0.5rem;
       border: none;
-      outline: none;
       background-color: #7b2cbf;
       color: white;
       cursor: pointer;
-      &:hover {
-        background-color: #9551d0;
-        transition: all 350ms ease-in-out;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .spinner {
+      border: 2px solid #fff;
+      border-top: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
       }
     }
   }
