@@ -27,29 +27,41 @@ const GroupCreated = () => {
   const id = localStorage.getItem("createdGroupId");
   const handleCreate = async () => {
     try {
-      const res = await axios.get(
-        ` ${BaseUrl}/groups/generate_invite/${id}`,
+      const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": `"application/json"`,
-          },
-        }
-      );
       const inviteLink = res.data.inviteLink;
+
+      // Save to localStorage
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
-      await navigator.clipboard.writeText(inviteLink);
-      toast.success("Invite Link copied successfully");
+
+      // Try to copy using clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(inviteLink);
+        toast.success("Invite Link copied successfully!");
+      } else {
+        // Fallback for older browsers / insecure context
+        const input = document.createElement("input");
+        input.value = inviteLink;
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        toast.success("Invite Link copied successfully! (fallback)");
+      }
     } catch (error) {
-      console.log("error", error);
-      console.log("id:", id);
-    } finally {
+      console.error("Error copying invite link:", error);
     }
   };
+
   return (
     <Content>
       <AdminDashboardHeader />
