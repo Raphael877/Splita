@@ -366,7 +366,6 @@ const Hello = styled.div`
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
-    min-height: 40vh;
   }
 
   .left {

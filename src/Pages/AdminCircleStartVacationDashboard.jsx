@@ -288,7 +288,7 @@ const AdminCircleStartVacationDashboard = () => {
               </span>
             </p>
             <div className="ongoing">
-              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
+              <p style={{ fontSize: "0.8rem" }}>
                 {group?.status}
               </p>
             </div>
@@ -522,7 +522,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       align-items: center;
 
       @media (max-width: 768px) {
-        width: 45%;
+        width: 100%;
         height: 30%;
       }
 
