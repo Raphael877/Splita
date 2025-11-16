@@ -352,7 +352,7 @@ const Profile_content = styled.div`
     align-items: center;
     position: absolute;
     gap: 0.5rem;
-    top: 8%;
+    top: 4%;
     left: 7%;
     cursor: pointer;
 

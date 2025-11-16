@@ -230,7 +230,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      fontSize: "20px",
+                      fontSize: "18px",
                     }}
                   >
                     Loading groups...
@@ -269,7 +269,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <MdOutlinePersonAddAlt />
                     </div>
                     <div className="right">
-                      <p style={{}}>New members joined vacation circle</p>
+                      <p style={{}}>New members joined vacation cycle</p>
                       <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
@@ -278,7 +278,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <CiTrophy />
                     </div>
                     <div className="right">
-                      <p style={{}}>Cycle 3 completed for Hackathon circle</p>
+                      <p style={{}}>Cycle 3 completed for Hackathon cycle</p>
                       <p style={{ color: "#939393" }}>6 days ago</p>
                     </div>
                   </div>
@@ -835,10 +835,10 @@ const My_groups = styled.div`
           outline: none;
           border-radius: 0.5rem;
           color: white;
-          background-color: #a772d4;
+          background-color: #7b2cbf;
           cursor: pointer;
           &:hover {
-            background-color: #c29ee2;
+            background-color: #571f88;
             transition: all 500ms ease-in-out;
           }
         }

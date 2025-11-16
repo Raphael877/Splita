@@ -190,7 +190,7 @@ const MyGroupDetail_wrapper = styled.div`
 
   .main_top_group {
     width: 100%;
-    height: 90%;
+    min-height: 90%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -198,7 +198,7 @@ const MyGroupDetail_wrapper = styled.div`
 
     .group {
       width: 30%;
-      height: 19rem;
+      min-height: 19rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -208,7 +208,7 @@ const MyGroupDetail_wrapper = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 20rem;
+        min-height: 19rem;
       }
 
       .wrapper {
@@ -345,15 +345,15 @@ const MyGroupDetail_wrapper = styled.div`
           outline: none;
           border-radius: 0.5rem;
           color: white;
-          background-color: #a772d4;
+          background-color: #7b2cbf;
           cursor: pointer;
           &:hover {
-            background-color: #c29ee2;
+            background-color: #571f88;
             transition: all 500ms ease-in-out;
           }
 
           @media (max-width: 768px) {
-            min-height: 2rem;
+            min-height: 28px;
           }
         }
       }

@@ -231,7 +231,7 @@ const Table = styled.div`
   margin-block: 1.5rem;
 
   @media (max-width: 768px) {
-    width: 250vw;
+    width: 300vw;
   }
 
   .table_wrap {

@@ -554,53 +554,54 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         flex-direction: column;
         width: 100%;
       }
-    }
 
-    .btn1 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.7rem;
-      border-radius: 0.5rem;
-      border: none;
-      outline: none;
-      color: white;
-      background-color: #7b2cbf;
-      width: 12rem;
-      height: 2.5rem;
-      cursor: pointer;
-      &:hover {
-        background-color: #b088d3;
-        transition: all 350ms ease-in-out;
-      }
-
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-    }
-
-    .btn2 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.7rem;
-      color: #ff7900;
-      border: 1.5px solid #ff7900;
-      border-radius: 0.5rem;
-      background-color: transparent;
-      width: 12rem;
-      height: 2.5rem;
-      cursor: pointer;
-      &:hover {
-        background-color: #ff7900;
+      .btn1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.7rem;
+        border-radius: 0.5rem;
+        border: none;
+        outline: none;
         color: white;
-        transition: all 350ms ease-in-out;
+        background-color: #7b2cbf;
+        width: 12rem;
+        height: 2.5rem;
+        cursor: pointer;
+        &:hover {
+          background-color: #571f88;
+          transition: all 350ms ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
 
-      @media (max-width: 768px) {
-        width: 100%;
+      .btn2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.7rem;
+        color: #ff7900;
+        border: 1.5px solid #ff7900;
+        border-radius: 0.5rem;
+        background-color: transparent;
+        width: 12rem;
+        height: 2.5rem;
+        cursor: pointer;
+        &:hover {
+          background-color: #ff7900;
+          color: white;
+          transition: all 350ms ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
     }
+
     .right {
       width: 35%;
       height: 70%;
@@ -628,13 +629,13 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         background-color: #7b2cbf;
         color: white;
         &:hover {
-          background-color: #9472b2;
+          background-color: #571f88;
           transition: all 350ms ease-in-out;
         }
 
         @media (max-width: 768px) {
           width: 100%;
-          height: 50%;
+          height: 38px;
         }
       }
 
@@ -658,7 +659,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
 
         @media (max-width: 768px) {
           width: 100%;
-          height: 50%;
+          height: 38px;
         }
       }
     }

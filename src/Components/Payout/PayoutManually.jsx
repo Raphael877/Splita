@@ -294,13 +294,17 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
-  height: 90%;
+  min-height: 50%;
+  /* height: auto; */
+  padding-block: 2rem;
   background-color: white;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   position: relative;
+  overflow-x: scroll;
+  scrollbar-width: none;
 
   @media (max-width: 768px) {
     width: 85%;
@@ -315,6 +319,7 @@ const Inner = styled.div`
   align-items: center;
   gap: 1rem;
   text-align: center;
+  padding-top: 2rem;
 
   .cont {
     width: 80%;
