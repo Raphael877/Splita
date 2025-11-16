@@ -885,6 +885,7 @@ const Recent = styled.div`
 
       @media (max-width: 768px) {
         gap: 1rem;
+        width: 98%;
       }
 
       .one {
@@ -904,6 +905,10 @@ const Recent = styled.div`
           justify-content: center;
           align-items: center;
           font-size: 1.5rem;
+
+          @media (max-width: 768px) {
+            height: 2.3rem;
+          }
         }
 
         .right {
@@ -922,6 +927,10 @@ const Recent = styled.div`
           align-items: center;
           font-size: 1.5rem;
           background-color: #ffe4cc;
+
+          @media (max-width: 768px) {
+            height: 2.3rem;
+          }
         }
 
         .right {
@@ -941,6 +950,10 @@ const Recent = styled.div`
           font-size: 1.5rem;
           background-color: #d8e6fd;
           color: #3b82f6;
+
+          @media (max-width: 768px) {
+            height: 2.3rem;
+          }
         }
 
         .right {
@@ -959,6 +972,10 @@ const Recent = styled.div`
           justify-content: center;
           align-items: center;
           font-size: 1.5rem;
+
+          @media (max-width: 768px) {
+            height: 2.3rem;
+          }
         }
 
         .right {
