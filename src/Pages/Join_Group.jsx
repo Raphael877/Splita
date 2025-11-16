@@ -9,35 +9,43 @@ import AddPayoutBankJoin from "../Components/CreategroupModal/AddPayoutBankJoin"
 
 const Join_Group = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [inviteLink, setInviteLink] = useState("");
   const { groupid, invite } = useParams();
+  const [loading, setLoading] = useState(false);
   const [addBankModal, setAddBankModal] = useState(false);
   const [groupDetail, setGroupDetail] = useState({});
-  const [token] = useState(
-    JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN))
+  const [user, setUser] = useState(null);
+
+  const token = JSON.parse(
+    localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
 
-  const handleBank = () => {
-    setAddBankModal(true);
-  };
-
-  // console.log(groupid, invite);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-  // console.log(token);
 
-  const groupInfo = async () => {
+  // ✅ Fetch user profile (to check payout account)
+  const getUser = async () => {
     try {
-      const res = await axios.get(BaseUrl + `/groups/${groupid}`, {
+      const res = await axios.get(`${BaseUrl}/users/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       });
-      setGroupDetail(res?.data);
-      // console.log(res?.data);
+      setUser(res.data.data);
     } catch (err) {
-      console.error(err);
+      console.log(err);
+    }
+  };
+
+  // ✅ Fetch group info
+  const groupInfo = async () => {
+    try {
+      const res = await axios.get(`${BaseUrl}/groups/${groupid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setGroupDetail(res.data.data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -47,21 +55,16 @@ const Join_Group = () => {
         "join_group_info",
         JSON.stringify({ groupid, invite })
       );
-
       navigate("/signinjoin");
       return;
     }
+
+    getUser();
     groupInfo();
   }, []);
 
-  console.log(token, "token");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const token = JSON.parse(
-    //   localStorage.getItem(import.meta.env.VITE_USERTOKEN)
-    // );
 
     if (!token) {
       toast.error("Please log in to join a group.");
@@ -69,49 +72,28 @@ const Join_Group = () => {
       return;
     }
 
-    let actualGroupId = groupid;
-    let actualInviteCode = invite;
-
-    if (inviteLink && (!actualGroupId || !actualInviteCode)) {
-      try {
-        const parts = inviteLink.split("/");
-        actualGroupId = parts.at(-2);
-        actualInviteCode = parts.at(-1);
-      } catch {
-        toast.error("Invalid invite link format.");
-        return;
-      }
-    }
-
-    if (!actualGroupId || !actualInviteCode) {
-      toast.error("Invalid or missing invite link.");
-      return;
-    }
-
-    console.log(" Joining group with:", {
-      groupid: actualGroupId,
-      invite: actualInviteCode,
-      url: `${BaseUrl}/groups/join/${actualGroupId}/${actualInviteCode}`,
-    });
-
     setLoading(true);
 
     try {
       const res = await axios.post(
-        `${BaseUrl}/groups/join/${actualGroupId}/${actualInviteCode}`,
+        `${BaseUrl}/groups/join/${groupid}/${invite}`,
         {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
       );
 
       toast.success(res?.data?.message || "Joined group successfully!");
-      handleBank();
+
+      // 🔥 CHECK PAYOUT ACCOUNT STATUS
+      if (!user?.payoutAccount || user?.payoutAccount?.length === 0) {
+        setAddBankModal(true); // user has no payout account
+      } else {
+        navigate("/userdashboard"); // user already has payout account
+      }
     } catch (error) {
-      console.log("ERR", error);
       toast.error(error.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
@@ -122,11 +104,6 @@ const Join_Group = () => {
     <Content>
       <ToastContainer />
 
-      <div className="circle_top_left"></div>
-      <div className="circle_top_right"></div>
-      <div className="circle_mid_left"></div>
-      <div className="circle_down_right"></div>
-
       <div className="brand_name">
         <img
           src={Splita_logo}
@@ -136,37 +113,22 @@ const Join_Group = () => {
         />
       </div>
 
-      <div
-        className="back"
-        onClick={() => navigate(-1)}
-        style={{ cursor: "pointer" }}
-      >
+      <div className="back" onClick={() => navigate(-1)}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
       </div>
 
       <Wrapper>
-        <h1 style={{ paddingBottom: "1rem" }}>
-          Join {groupDetail?.group?.groupName}
-        </h1>
-        <br />
-        <p>by:{groupDetail?.group?.admin?.name}</p>
+        <h1>Join {groupDetail?.groupName || "Group"}</h1>
+        <p>by: {groupDetail?.admin?.name}</p>
 
         <form onSubmit={handleSubmit}>
-          {/* <div className="input_div">
-            <input
-              type="text"
-              placeholder="Paste your invite link here"
-              value={inviteLink}
-              onChange={(e) => setInviteLink(e.target.value)}
-            />
-          </div> */}
-
           <button type="submit" disabled={loading}>
             {loading ? "Joining..." : "Join Group"}
           </button>
         </form>
       </Wrapper>
+
       {addBankModal && (
         <AddPayoutBankJoin onClose={() => setAddBankModal(false)} />
       )}
