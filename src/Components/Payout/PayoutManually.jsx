@@ -305,6 +305,14 @@ const Wrapper = styled.div`
   position: relative;
   overflow-x: scroll;
   scrollbar-width: none;
+  transform: translateY(100vh); 
+  animation: slideIn 1s forwards; 
+
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
+  }
 
   @media (max-width: 768px) {
     width: 85%;

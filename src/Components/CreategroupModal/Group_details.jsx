@@ -72,6 +72,14 @@ const Group_details_wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: translateY(100vh); 
+  animation: slideIn 1s forwards; 
+
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
+  }
 
   @media (max-width: 768px) {
     width: 85%;
