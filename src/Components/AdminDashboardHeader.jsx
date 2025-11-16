@@ -313,9 +313,9 @@ const HeaderWrapper = styled.div`
         background-color: #fef5d0;
         color: #facc15;
         padding-block: 0.2rem;
-        padding-inline: 0.8rem;
+        padding-inline: 0.6rem;
         border-radius: 1rem;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 500;
 
         @media (max-width: 768px) {

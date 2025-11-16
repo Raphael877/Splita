@@ -511,8 +511,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
       align-items: start;
       flex-direction: column;
       width: 90%;
-      /* gap: 0.5rem; */
-      height: 25vh;
+      height: 30vh;
     }
 
     .left {
@@ -542,7 +541,8 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         border-radius: 0.8rem;
         padding-block: 0.3rem;
         padding-inline: 1rem;
-        background-color: #d2def1;
+        background-color: #fef5d0;
+        color: #facc15;
       }
     }
     .btn {
