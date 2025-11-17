@@ -85,20 +85,32 @@ const AdminCircleStartVacationDashboard = () => {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": `"application/json"`,
+          "Content-Type": "application/json",
         },
       });
+
       const inviteLink = res.data.inviteLink;
+
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
-      await navigator.clipboard.writeText(inviteLink);
-      toast.success("Invite Link copied successfully");
+
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(inviteLink);
+        toast.success("Invite Link copied successfully!");
+      } else {
+        const input = document.createElement("input");
+        input.value = inviteLink;
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        toast.success("Invite Link copied successfully! (fallback)");
+      }
     } catch (error) {
-      console.log("error", error);
-      console.log("id:", id);
-    } finally {
+      console.error("Error copying invite link:", error);
     }
   };
 
