@@ -62,7 +62,7 @@ const UserDashDetails = ({ payoutInfo }) => {
             </button>
             <button
               className="hello_btn2"
-              onClick={() => navigate("/join_group")}
+              onClick={() => navigate("/AccessRestricted")}
             >
               Join Group
             </button>

@@ -46,7 +46,7 @@ const Start_group = () => {
   const handleCreate = async () => {
     try {
       const res = await axios.get(
-        ` ${BaseUrl}/groups/generate-invite/${id}`,
+        ` ${BaseUrl}/groups/generate_invite/${id}`,
 
         {
           headers: {
