@@ -41,6 +41,7 @@ import Members from "./Components/Members.jsx";
 import Contribution from "./Components/Contribution.jsx";
 import Cont from "./Components/Cont.jsx";
 import VerifyContribution from "./Components/VerifyContributionPage.jsx";
+import AccessRestricted from "./Components/CreategroupModal/AccessRestricted.jsx";
 const App = () => {
   return (
     <HashRouter>
@@ -102,6 +103,7 @@ const App = () => {
         </Route>
         <Route path="/join_group/:groupid?/:invite?" element={<Join_Group />} />
         <Route path="/contribution/verify" element={<VerifyContribution />} />
+        <Route path="/AccessRestricted" element={<AccessRestricted />}></Route>
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </HashRouter>
