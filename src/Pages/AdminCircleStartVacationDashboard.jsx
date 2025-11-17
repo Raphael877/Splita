@@ -289,7 +289,7 @@ const AdminCircleStartVacationDashboard = () => {
             </p>
             <div className="ongoing">
               <p style={{ fontSize: "0.8rem" }}>
-                {group?.status}
+                {group?.status} 
               </p>
             </div>
           </div>
@@ -525,6 +525,7 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         width: 100%;
         justify-content: flex-start;
         height: 30%;
+        gap: 1rem;
       }
 
       p {
@@ -544,6 +545,10 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         padding-inline: 1rem;
         background-color: #fef5d0;
         color: #facc15;
+
+        p{
+          color: #facc15;
+        }
       }
     }
     .btn {

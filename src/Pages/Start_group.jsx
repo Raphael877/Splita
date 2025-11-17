@@ -390,6 +390,8 @@ const Wrapper = styled.div`
       @media (max-width: 768px) {
         width: 45%;
         height: 30%;
+        justify-content: flex-start;
+        
       }
 
       p {

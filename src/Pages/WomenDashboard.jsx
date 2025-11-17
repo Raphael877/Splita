@@ -153,7 +153,7 @@ const WomenDashboard = () => {
               </span>
             </p>
             <div className="ongoing">
-              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>
+              <p style={{ fontSize: "0.8rem" }}>
                 {groupDetails?.group?.status || "Active"}
               </p>
             </div>
@@ -310,7 +310,11 @@ const AdminDashboard_wrapper = styled.div`
         border-radius: 0.8rem;
         padding-block: 0.3rem;
         padding-inline: 1rem;
-        background-color: #d2def1;
+        background-color: #fef5d0;
+
+        p{
+          color: #facc15;
+        }
       }
     }
 
