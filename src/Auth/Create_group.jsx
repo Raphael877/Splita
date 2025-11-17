@@ -10,6 +10,7 @@ import { BsCash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Group_details from "../Components/CreategroupModal/Group_details";
 import Add_payout_bank from "../Components/CreategroupModal/Add_payout_bank";
+import UserDashboardHeader from "../Components/UserDashboardHeader";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -123,7 +124,7 @@ const Create_group = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
 
-      <div className="brand_name">
+      {/* <div className="brand_name">
         <img
           src={Splita_logo}
           alt="Splita Logo"
@@ -138,7 +139,8 @@ const Create_group = () => {
       >
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
-      </div>
+      </div> */}
+      <UserDashboardHeader />
 
       <Create_group_wrapper>
         <h1 style={{ paddingBottom: "1rem" }}>Create group</h1>
@@ -361,6 +363,7 @@ const Create_group_content = styled.div`
     height: 20rem;
     top: -20%;
     left: -17%;
+    display: none;
   }
   .circle_top_right {
     position: absolute;
@@ -370,6 +373,7 @@ const Create_group_content = styled.div`
     height: 3rem;
     top: 10%;
     right: 0.5%;
+    display: none;
   }
   .circle_mid_left {
     position: absolute;
@@ -379,6 +383,7 @@ const Create_group_content = styled.div`
     height: 3rem;
     top: 45%;
     left: 0.5%;
+    display: none;
   }
   .circle_down_right {
     position: absolute;
@@ -388,6 +393,7 @@ const Create_group_content = styled.div`
     height: 20rem;
     bottom: -20%;
     right: -17%;
+    display: none;
   }
 
   @media (max-width: 768px) {
@@ -437,7 +443,7 @@ const Create_group_content = styled.div`
 const Create_group_wrapper = styled.div`
   width: 50%;
   height: 100%;
-  padding-top: 6rem;
+  padding-top: 9rem;
   z-index: 1;
   display: flex;
   justify-content: center;

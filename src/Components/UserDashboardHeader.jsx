@@ -177,6 +177,7 @@ const UserDashboardHeader_content = styled.div`
   background-color: white;
   position: fixed;
   top: 0;
+  z-index: 9999;
   /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 
   @media (max-width: 768px) {

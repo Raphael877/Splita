@@ -1,11 +1,13 @@
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserDashboardHeader from "../UserDashboardHeader";
 
 const AccessRestricted = () => {
   const navigate = useNavigate();
   return (
     <Payout_content>
+      <UserDashboardHeader />
       <Payout_wrapper>
         <Inner_wrap>
           <h3 style={{ color: "#df2a44" }}>Access Restricted</h3>
@@ -24,7 +26,7 @@ const AccessRestricted = () => {
 export default AccessRestricted;
 
 const Payout_content = styled.div`
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #f8f5f0;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -59,6 +61,7 @@ const Inner_wrap = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 2rem;
 
   .btn {
     border: none;
