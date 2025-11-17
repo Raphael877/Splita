@@ -145,7 +145,7 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #efefef;
+  background-color: #f8f5f0;
   position: relative;
   overflow: hidden;
 

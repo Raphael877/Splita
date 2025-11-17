@@ -319,7 +319,7 @@ const HeaderWrapper = styled.div`
         font-weight: 500;
 
         @media (max-width: 768px) {
-          /* display: none; */
+          display: none;
         }
       }
     }

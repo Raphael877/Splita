@@ -75,6 +75,7 @@ const GroupCreated = () => {
             <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
             <p>back home</p>
           </div>
+          <Own>
 
           <Created>
             <div className="inner">
@@ -99,7 +100,9 @@ const GroupCreated = () => {
                 </button>
               </div>
             </div>
+            
           </Created>
+          </Own>
         </Inner_main>
       </Main>
       <UserDashboardFooter />
@@ -117,10 +120,6 @@ const Content = styled.div`
   flex-direction: column;
   background-color: #f8f5f0;
   align-items: center;
-
-  @media (max-width: 768px) {
-    background-color: transparent;
-  }
 `;
 
 const Main = styled.div`
@@ -144,26 +143,44 @@ const Inner_main = styled.div`
   }
 `;
 
-const Created = styled.div`
+const Own = styled.div`
   width: 100%;
-  height: 85vh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Created = styled.div`
+  width: 85%;
+  height: 90%;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   .inner {
-    width: 55%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 1.5rem;
+    gap: 1rem;
 
     @media (max-width: 768px) {
       width: 90%;
       gap: 0.5rem;
+    }
+
+    h2{
+      @media (max-width: 768px) {
+        font-size: 1.3rem;
+      }
     }
 
     .party_icon {
