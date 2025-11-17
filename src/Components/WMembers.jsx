@@ -94,7 +94,6 @@ const WomenMembers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
 
-  // Safe context handling
   const {
     members = [],
     contributions = [],
@@ -105,11 +104,10 @@ const WomenMembers = () => {
     setSelectedMember(member);
     setShowModal(true);
   };
-
+  console.log(members);
   if (!members.length)
     return <p style={{ textAlign: "center" }}>Loading members...</p>;
 
-  // Helper function to find contribution for a member
   const getContribution = (memberId) => {
     return contributions.find((c) => c.userId === memberId) || {};
   };
@@ -153,7 +151,7 @@ const WomenMembers = () => {
                 return (
                   <div className="all_data" key={member.id}>
                     <div className="member">
-                      <p>{member.name}</p>
+                      <p>{member?.name}</p>
                     </div>
                     <div className="contribution">
                       <p style={{ display: "flex", alignItems: "center" }}>

@@ -69,7 +69,6 @@ const UserDashDetails = ({ payoutInfo }) => {
           </div>
         </Hello>
 
-        {/* Summary Cards */}
         <Details>
           <div className="inner_details">
             <div className="card1">
@@ -130,7 +129,6 @@ const UserDashDetails = ({ payoutInfo }) => {
           </div>
         </Details>
 
-        {/* Groups List */}
         <Main_bottom>
           <Left>
             <My_groups>
