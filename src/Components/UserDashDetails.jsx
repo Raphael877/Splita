@@ -250,7 +250,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                     <div className="right">
                       <p style={{}}>
-                        You contributed 10,000 to Women in Tech Ajo
+                        Chidera contributed 10,000 to Women in Tech Ajo
                       </p>
                       <p style={{ color: "#939393" }}>2 hours ago</p>
                     </div>

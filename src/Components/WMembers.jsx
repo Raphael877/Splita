@@ -318,11 +318,11 @@ const Table = styled.div`
           justify-content: flex-start;
           padding-left: 4rem;
           align-items: center;
-          width: 25%;
+          width: 20%;
         }
 
         .status {
-          width: 10%;
+          width: 15%;
           display: flex;
           justify-content: flex-start;
 

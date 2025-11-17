@@ -148,7 +148,15 @@ const Start_group = () => {
               Round <span>0/0</span>
             </p>
             <div className="ongoing">
-              <p style={{ color: "#3b82f6", fontSize: "0.8rem" }}>pending</p>
+              <p
+                style={{
+                  color: "#facc15",
+                  backgroundColor: " #fef5d0",
+                  fontSize: "0.8rem",
+                }}
+              >
+                pending
+              </p>
             </div>
           </div>
           <div className="btn">
@@ -396,10 +404,12 @@ const Wrapper = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 0.8rem;
-        padding-block: 0.3rem;
-        padding-inline: 1rem;
-        background-color: #d2def1;
+
+        p {
+          padding-block: 0.2rem;
+          padding-inline: 0.8rem;
+          border-radius: 0.8rem;
+        }
       }
     }
 
