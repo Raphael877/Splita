@@ -400,8 +400,8 @@ const AdminCircleStartVacationDashboard = () => {
           <Outlet
             context={{
               members: groupDetails.group.members,
-              contributions: groupDetails.group.contributions,
-              contributionAmount: groupDetails.group.contributionAmount,
+              contributions: groupDetails?.group?.contributions,
+              contributionAmount: groupDetails?.group?.contributionAmount,
               groupDetails: groupDetails,
             }}
           />
