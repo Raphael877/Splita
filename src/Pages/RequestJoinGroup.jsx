@@ -60,8 +60,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
                 <div className="table_wrap">
                   <div className="header">
                     <h3>Name</h3>
-                    <h3 style={{width: "30%"}}>Email</h3>
-                    <h3 style={{width: "20%"}}>Date</h3>
+                    <h3 style={{ width: "30%" }}>Email</h3>
+                    <h3 style={{ width: "20%" }}>Date</h3>
                     <h3>Action</h3>
                   </div>
                   <div className="body">
@@ -271,7 +271,7 @@ const Block = styled.div`
                 height: 15vh;
               }
 
-              .name{
+              .name {
                 width: 25%;
               }
 
@@ -279,7 +279,7 @@ const Block = styled.div`
                 width: 20%;
               }
 
-              .num{
+              .num {
                 width: 30%;
                 flex-wrap: wrap;
                 display: flex;
