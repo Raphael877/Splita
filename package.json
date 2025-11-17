@@ -20,7 +20,8 @@
     "react-toastify": "^11.0.5",
     "slick-carousel": "^1.8.1",
     "spinner": "^0.3.4",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "use-clipboard-copy": "^0.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

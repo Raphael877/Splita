@@ -18,6 +18,7 @@ import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
+import { useClipboard } from "use-clipboard-copy";
 import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
@@ -28,6 +29,7 @@ const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const [group, setGroup] = useState("");
+  const clipboard = useClipboard();
   const [payoutInfo, setPayoutInfo] = useState("");
   const { groupId } = useParams();
   const [cycleId, setCycleId] = useState("");
@@ -96,21 +98,12 @@ const AdminCircleStartVacationDashboard = () => {
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(inviteLink);
-        toast.success("Invite Link copied successfully!");
-      } else {
-        const input = document.createElement("input");
-        input.value = inviteLink;
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        toast.success("Invite Link copied successfully! (fallback)");
-      }
+      clipboard.copy(inviteLink);
+
+      toast.success("Invite Link copied successfully!");
     } catch (error) {
       console.error("Error copying invite link:", error);
+      toast.error("Failed to copy invite link");
     }
   };
 
