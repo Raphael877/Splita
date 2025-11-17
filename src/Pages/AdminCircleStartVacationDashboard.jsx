@@ -133,7 +133,7 @@ const AdminCircleStartVacationDashboard = () => {
     };
 
     if (groupId) fetchGroup();
-  }, [groupId, token]); // 👈 add dependencies here
+  }, [groupId, token]);
 
   const handleCreatePayout = async () => {
     try {
@@ -153,7 +153,7 @@ const AdminCircleStartVacationDashboard = () => {
 
       setTimeout(() => handleModalFlow("payout"), 800);
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to create payout");
+      toast.error(error?.response?.data?.message);
     }
   };
 
