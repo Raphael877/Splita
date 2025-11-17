@@ -119,8 +119,8 @@ const Join_Group = () => {
       </div>
 
       <Wrapper>
-        <h1>Join {groupDetail.groupName}</h1>
-        <p>by: {groupDetail.admin.name}</p>
+        <h1>Join {groupDetail?.group?.groupName}</h1>
+        <p>by: {groupDetail?.group?.admin?.name}</p>
 
         <form onSubmit={handleSubmit}>
           <button type="submit" disabled={loading}>
