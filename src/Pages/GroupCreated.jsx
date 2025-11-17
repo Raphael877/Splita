@@ -36,18 +36,16 @@ const GroupCreated = () => {
 
       const inviteLink = res.data.inviteLink;
 
-      // Save to localStorage
+      
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      // Try to copy using clipboard API
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(inviteLink);
         toast.success("Invite Link copied successfully!");
       } else {
-        // Fallback for older browsers / insecure context
         const input = document.createElement("input");
         input.value = inviteLink;
         document.body.appendChild(input);

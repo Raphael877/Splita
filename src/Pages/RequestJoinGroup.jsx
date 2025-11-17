@@ -65,7 +65,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
   useEffect(() => {
     fetchRequests();
 
-    const interval = setInterval(fetchRequests, 3000);
+    const interval = setInterval(fetchRequests, 10000);
 
     return () => clearInterval(interval);
   }, []);
