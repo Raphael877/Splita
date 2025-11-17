@@ -6,11 +6,24 @@ import { useNavigate } from "react-router-dom";
 const ApproveMember = ({ onClose, group }) => {
   const navigate = useNavigate();
 
-  const handleApprove = () => {
-    onClose();
-    setTimeout(() => {
-      navigate(`/requestapproved/${group.id}`);
-    }, 200);
+  const handleRequestAction = async (userId, action) => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/join_request/${userId}`,
+        { action },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      toast.success(res?.data?.message || `Request ${action}ed successfully`);
+      fetchRequests();
+    } catch (error) {
+      console.error(`Error performing ${action}:`, error.response || error);
+      toast.error(
+        error.response?.data?.message || `Failed to ${action} request`
+      );
+    }
   };
 
   return (
@@ -26,7 +39,12 @@ const ApproveMember = ({ onClose, group }) => {
             <button className="btn1" onClick={onClose}>
               Cancel
             </button>
-            <button className="btn2" onClick={handleApprove}>
+            <button
+              className="btn2"
+              onClick={(group) =>
+                handleRequestAction(req.user.id, "approve", group)
+              }
+            >
               Approve
             </button>
           </div>
