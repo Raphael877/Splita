@@ -14,7 +14,8 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("userData"));
+    const storedUser = JSON.parse(localStorage.getItem("userid"));
+
     if (storedUser) {
       setUser(storedUser);
     }
