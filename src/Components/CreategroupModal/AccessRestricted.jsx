@@ -14,7 +14,7 @@ const AccessRestricted = () => {
           <p>
             You need a valid invitation link to access the  group
           </p>
-          <button className="btn" onClick={() => navigate("/userdashboard")}>
+          <button className="btn" onClick={() => navigate(-1)}>
             Return to Home page
           </button>
         </Inner_wrap>
