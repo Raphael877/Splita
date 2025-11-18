@@ -173,7 +173,7 @@ const MyContribution = () => {
         },
       });
 
-      console.log("Fetched groups:", res.data);
+      // console.log("Fetched groups:", res.data);
       setGroups(res.data?.data || []);
     } catch (error) {
       console.log("❌ Error fetching groups:", error);
@@ -194,7 +194,7 @@ const MyContribution = () => {
         }
       );
 
-      console.log("✅ Contribution history:", res.data);
+      // console.log("✅ Contribution history:", res.data);
       setContributionData(res.data.data);
       setSelectedGroup(groupId);
     } catch (err) {
@@ -315,10 +315,10 @@ const MyGroupDetail_wrapper = styled.div`
     width: 85%;
 
     @media (max-width: 768px) {
-        margin-left: 2rem;
-      }
+      margin-left: 2rem;
+    }
 
-    span{
+    span {
       @media (max-width: 768px) {
         display: none;
       }
@@ -354,8 +354,8 @@ const Table = styled.div`
   margin-block: 3rem;
 
   @media (max-width: 768px) {
-      width: 250vw;
-    }
+    width: 250vw;
+  }
 
   .table_wrap {
     display: flex;
@@ -390,8 +390,8 @@ const Table = styled.div`
         justify-content: space-between;
         align-items: center;
 
-        .header{
-          .member{
+        .header {
+          .member {
             @media (max-width: 768px) {
               width: 30%;
             }
