@@ -85,11 +85,10 @@ const Join_Group = () => {
 
       toast.success(res?.data?.message || "Joined group successfully!");
 
-      // 🔥 CHECK PAYOUT ACCOUNT STATUS
       if (!user?.payoutAccount || user?.payoutAccount?.length === 0) {
-        setAddBankModal(true); // user has no payout account
+        setAddBankModal(true);
       } else {
-        navigate("/userdashboard"); // user already has payout account
+        navigate("/userdashboard");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong!");

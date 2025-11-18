@@ -105,7 +105,7 @@ const SignUp = () => {
         navigate("/verifyemail");
       }, 1500);
     } catch (err) {
-      toast.error(err?.message);
+      toast.error(err?.response?.data?.message);
     } finally {
       setloading(false);
     }
