@@ -19,6 +19,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const [group, setGroup] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const groupName = location.state?.group?.groupName || "Not Available";
 
@@ -35,38 +36,15 @@ const RequestJoinGroup = ({ groupDetails }) => {
       setRequests(res?.data?.requests || []);
       setGroup(res?.data?.group || null);
     } catch (error) {
-      console.error("Error fetching requests", error);
-      toast.error("Failed to fetch requests");
+      toast.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleRequestAction = async (userId, action) => {
-    try {
-      const res = await axios.post(
-        `${BaseUrl}/groups/${groupId}/join_request/${userId}`,
-        { action },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      toast.success(res?.data?.message || `Request ${action}ed successfully`);
-      fetchRequests();
-    } catch (error) {
-      console.error(`Error performing ${action}:`, error.response || error);
-      toast.error(
-        error.response?.data?.message || `Failed to ${action} request`
-      );
-    }
-  };
-
   useEffect(() => {
     fetchRequests();
-
-    const interval = setInterval(fetchRequests, 10000);
-
+    const interval = setInterval(fetchRequests, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -82,8 +60,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
                 <div className="table_wrap">
                   <div className="header">
                     <h3>Name</h3>
-                    <h3 style={{width: "30%"}}>Email</h3>
-                    <h3 style={{width: "20%"}}>Date</h3>
+                    <h3 style={{ width: "30%" }}>Email</h3>
+                    <h3 style={{ width: "20%" }}>Date</h3>
                     <h3>Action</h3>
                   </div>
                   <div className="body">
@@ -102,25 +80,19 @@ const RequestJoinGroup = ({ groupDetails }) => {
                           <div className="btn">
                             <button
                               className="btn1"
-                              onClick={(group) =>
-                                handleRequestAction(
-                                  req.user.id,
-                                  "approve",
-                                  group
-                                )
-                              }
+                              onClick={() => {
+                                setSelectedRequest(req);
+                                setShowApproveModal(true);
+                              }}
                             >
                               Approve
                             </button>
                             <button
                               className="btn2"
-                              onClick={(group) =>
-                                handleRequestAction(
-                                  req.user.id,
-                                  "reject",
-                                  group
-                                )
-                              }
+                              onClick={() => {
+                                setSelectedRequest(req);
+                                setShowDeclineModal(true);
+                              }}
                             >
                               Decline
                             </button>
@@ -136,16 +108,20 @@ const RequestJoinGroup = ({ groupDetails }) => {
         </Block>
       </AdminDashboard_wrapper>
 
-      {showApproveModal && (
+      {showApproveModal && selectedRequest && (
         <ApproveMember
           onClose={() => setShowApproveModal(false)}
           group={group}
+          request={selectedRequest}
+          refreshRequests={fetchRequests} // ✅ pass fetchRequests
         />
       )}
-      {showDeclineModal && (
+      {showDeclineModal && selectedRequest && (
         <DeclineMember
           onClose={() => setShowDeclineModal(false)}
           group={group}
+          request={selectedRequest}
+          refreshRequests={fetchRequests} // ✅ pass fetchRequests
         />
       )}
     </AdminDashboard_content>
@@ -297,7 +273,7 @@ const Block = styled.div`
                 height: 15vh;
               }
 
-              .name{
+              .name {
                 width: 25%;
               }
 
@@ -305,7 +281,7 @@ const Block = styled.div`
                 width: 20%;
               }
 
-              .num{
+              .num {
                 width: 30%;
                 flex-wrap: wrap;
                 display: flex;

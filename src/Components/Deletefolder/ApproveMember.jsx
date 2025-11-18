@@ -1,16 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const ApproveMember = ({ onClose, group }) => {
-  const navigate = useNavigate();
+const ApproveMember = ({ onClose, group, request, refreshRequests }) => {
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const token = JSON.parse(localStorage.getItem("user_token"));
+  const groupId = localStorage.getItem("selectedGroupId");
 
-  const handleApprove = () => {
-    onClose();
-    setTimeout(() => {
-      navigate(`/requestapproved/${group.id}`);
-    }, 200);
+  const handleRequestAction = async (userId, action) => {
+    try {
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/join_request/${userId}`,
+        { action },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      toast.success(res?.data?.message || `Request ${action}ed successfully`);
+      refreshRequests(); // Notify parent to reload requests
+      onClose(); // Close modal
+    } catch (error) {
+      console.error(`Error performing ${action}:`, error.response || error);
+      toast.error(
+        error.response?.data?.message || `Failed to ${action} request`
+      );
+    }
   };
 
   return (
@@ -19,14 +36,17 @@ const ApproveMember = ({ onClose, group }) => {
         <Inner_wrap>
           <h3>Approve Member</h3>
           <p>
-            Are you sure you want to approve this
-            <br /> member?
+            Are you sure you want to approve{" "}
+            <strong>{request.user.name}</strong>?
           </p>
           <div className="btn">
             <button className="btn1" onClick={onClose}>
               Cancel
             </button>
-            <button className="btn2" onClick={handleApprove}>
+            <button
+              className="btn2"
+              onClick={() => handleRequestAction(request.user.id, "approve")}
+            >
               Approve
             </button>
           </div>
@@ -51,7 +71,7 @@ const Payout_content = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;

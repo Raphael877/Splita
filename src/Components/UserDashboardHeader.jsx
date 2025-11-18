@@ -6,13 +6,13 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
-import { IoMdMenu } from "react-icons/io";
 
 const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(null);
-
+  const userId = JSON.parse(localStorage.getItem("userid"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
@@ -23,14 +23,6 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const userData = (() => {
-    try {
-      return JSON.parse(localStorage.getItem("userData")) || {};
-    } catch {
-      return {};
-    }
-  })();
-
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const closeDropdown = () => setShowDropdown(false);
 
@@ -40,7 +32,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         <img
           src={Splita_logo}
           className="brand_logo"
-          onClick={() => navigate("/userdashboard")}
+          onClick={() => navigate("/")}
         />
         <ul>
           <li
@@ -71,7 +63,9 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
               <img
-                src={user?.profilePicture ? user.profilePicture : Avatar}
+                src={
+                  userId?.profilePicture || userData?.profilePicture || Avatar
+                }
                 alt="User Profile"
                 style={{
                   width: "40px",
@@ -82,8 +76,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               />
             </div>
             <p>{userData.fullName || "User"}</p>
-            <IoIosArrowDown className="arrow" />
-            <IoMdMenu className="menu" />
+            <IoIosArrowDown />
           </div>
 
           {showDropdown && (
@@ -91,7 +84,11 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               <div className="dropdown_wrap">
                 <div className="top">
                   <img
-                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    src={
+                      userId?.profilePicture ||
+                      userData?.profilePicture ||
+                      Avatar
+                    }
                     alt="User Profile"
                     style={{
                       width: "40px",
@@ -100,7 +97,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                       objectFit: "cover",
                     }}
                   />
-                  <p>{userData.fullName || "User"}</p>
+                  <p>{userId.name || userData?.fullName}</p>
                 </div>
                 <MdOutlineCancel
                   style={{
@@ -113,13 +110,13 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                   }}
                   onClick={closeDropdown}
                 />
-                <p className="nav" onClick={() => navigate("/userdashboard")}>
+                <p className="nav" onClick={() => navigate("/useremptystate")}>
                   Home
                 </p>
-                <p className="nav" onClick={() => navigate("/mygroupdetail")}>
-                  My groups
+                <p className="nav" onClick={() => navigate("/groups")}>
+                  Groups
                 </p>
-                <p className="nav" onClick={() => navigate("/mycontribution")}>
+                <p className="nav" onClick={() => navigate("/contributions")}>
                   Contributions
                 </p>
                 <p

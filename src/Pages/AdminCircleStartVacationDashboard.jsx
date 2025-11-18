@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AdminDashboardHeader from "../Components/AdminDashboardHeader.jsx";
 import UserDashboardFooter from "../Components/UserDashboardFooter.jsx";
@@ -10,57 +10,124 @@ import { BsCash } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
-import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams, Outlet } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import Payout from "../Components/Payout/Payout.jsx";
 import PayoutSuccessful from "../Components/Payout/PayoutSuccessful.jsx";
 import PayoutDetails from "../Components/Payout/PayoutDetails.jsx";
 import ConfirmPayout from "../Components/Payout/ConfirmPayout.jsx";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
 import SelectPayout from "../Components/CreategroupModal/SelectPayout.jsx";
 import PayoutManually from "../Components/Payout/PayoutManually.jsx";
 
 const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_USERTOKEN));
-// const token = storedToken ? JSON.parse(storedToken) : null;
-
 const BaseUrl = import.meta.env.VITE_BaseUrl;
-const AdminCircleStartVacationDashboard = () => {
-  const [group, setGroup] = useState("");
-  const [payoutInfo, setPayoutInfo] = useState("");
-  const { groupId } = useParams();
-  const [cycleId, setCycleId] = useState("");
-  const navigate = useNavigate();
 
+const AdminCircleStartVacationDashboard = () => {
+  const { groupId } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const [group, setGroup] = useState("");
   const [groupDetails, setGroupDetails] = useState([]);
+  const [payoutInfo, setPayoutInfo] = useState("");
+  const [cycleId, setCycleId] = useState("");
   const [currentModal, setCurrentModal] = useState(null);
   const [nextMember, setNextMember] = useState(null);
   const [payoutType, setPayoutType] = useState(null);
 
-  const [loading, setLoading] = useState(false);
+  const [loadingInvite, setLoadingInvite] = useState(false);
+  const [loadingStartCycle, setLoadingStartCycle] = useState(false);
+  const [loadingPayout, setLoadingPayout] = useState(false);
+  const [loadingContribute, setLoadingContribute] = useState(false);
+
+  const id = groupId;
+
+  useEffect(() => {
+    const fetchGroup = async () => {
+      try {
+        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setGroupDetails(res.data);
+        setGroup(res.data.group);
+        localStorage.setItem("selectedGroupId", groupId);
+
+        const payoutRes = await axios.get(
+          `${BaseUrl}/groups/${groupId}/payout_info`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setPayoutInfo(payoutRes.data.data);
+        setCycleId(payoutRes.data.data.cycleId);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (groupId) fetchGroup();
+  }, [groupId]);
+
+  const handleCreate = async () => {
+    try {
+      const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const inviteLink = res.data.inviteLink;
+
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteLink })
+      );
+
+      try {
+        await navigator.clipboard.writeText(inviteLink);
+        toast.success("Invite Link copied successfully!");
+      } catch {
+        const input = document.createElement("input");
+        input.value = inviteLink;
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        toast.success("Invite Link copied successfully!");
+      }
+    } catch (error) {
+      toast.error("Error copying invite link");
+    } finally {
+      setLoadingInvite(false);
+    }
+  };
+
   const handleAutomaticRotation = async () => {
+    setLoadingStartCycle(true);
     try {
       await axios.post(
-        `${BaseUrl}/groups/${groupId}/randomize_payout_order`,
+        ` ${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       const startRes = await axios.post(
         `${BaseUrl}/groups/${groupId}/start_cycle`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       toast.success(startRes?.data?.data?.message || "Cycle started");
 
       const payoutRes = await axios.get(
         `${BaseUrl}/groups/${groupId}/payout_order`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
-
       const schedule = payoutRes?.data?.data?.payoutSchedule || [];
 
       setNextMember({
@@ -70,165 +137,75 @@ const AdminCircleStartVacationDashboard = () => {
 
       const infoRes = await axios.get(
         `${BaseUrl}/groups/${groupId}/payout_info`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       setCycleId(infoRes?.data?.data?.cycleId);
     } catch (error) {
-      console.error("Error in starting cycle:", error);
       toast.error(error?.response?.data?.message || "Failed to start cycle");
+    } finally {
+      setLoadingStartCycle(false);
     }
   };
-
-  const handleCreate = async () => {
-    try {
-      const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      const inviteLink = res.data.inviteLink;
-
-      localStorage.setItem(
-        "latestInvite",
-        JSON.stringify({ groupId: id, inviteLink })
-      );
-
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(inviteLink);
-        toast.success("Invite Link copied successfully!");
-      } else {
-        const input = document.createElement("input");
-        input.value = inviteLink;
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        toast.success("Invite Link copied successfully! (fallback)");
-      }
-    } catch (error) {
-      console.error("Error copying invite link:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchGroup = async () => {
-      try {
-        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-        setGroupDetails(res.data);
-        setGroup(res?.data?.group);
-        localStorage.setItem("selectedGroupId", groupId);
-
-        const response = await axios.get(
-          `${BaseUrl}/groups/${groupId}/payout_info`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setPayoutInfo(response?.data?.data);
-        setCycleId(response?.data?.data?.cycleId);
-        console.log("Payout info:", response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching group:", error);
-      }
-    };
-
-    if (groupId) fetchGroup();
-  }, [groupId, token]);
 
   const handleCreatePayout = async () => {
+    setLoadingPayout(true);
     try {
-      const res = await axios.post(
-        `${BaseUrl}/payouts/create`,
+      await axios.post(
+        ` ${BaseUrl}/payouts/create`,
         { groupId, cycleId },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(res);
       toast.success("Payout created successfully!");
-      localStorage.setItem("payoutId");
-
       setTimeout(() => handleModalFlow("payout"), 800);
     } catch (error) {
       toast.error(error?.response?.data?.message);
-    }
-  };
-
-  const id = groupId;
-  const fetchNextPayoutMember = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${BaseUrl}/groups/${id}/payout_order`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(groupId);
-      setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
-      setCurrentModal("payoutDetails");
-      console.log("res", res);
-    } catch (error) {
-      console.error("Error fetching next payout member:", error);
-      toast.error("Failed to fetch next payout member");
     } finally {
-      setLoading(false);
+      setLoadingPayout(false);
     }
   };
 
   const handleContribute = async () => {
+    setLoadingContribute(true);
     try {
-      setLoading(true);
-
       const initRes = await axios.post(
-        `${BaseUrl}/Payments/initialize-contribution`,
+        `        ${BaseUrl}/Payments/initialize-contribution`,
         { groupId: id, cycleId },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: { Authorization: ` Bearer ${token}` },
         }
       );
-
-      console.log("Initialize response:", initRes.data);
-
       const { authorizationUrl } = initRes?.data?.data || {};
-
       toast.success("Redirecting to payment gateway...");
-
       window.location.href = authorizationUrl;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
-      setLoading(false);
+      setLoadingContribute(false);
     }
   };
 
-  const groupName =
-    (location?.state && location.state.groupName) ||
-    (typeof window !== "undefined"
-      ? localStorage.getItem("createdGroupName")
-      : null) ||
-    "Not Available";
-
-  // ✅ Fixed this function
   const handleModalFlow = (modalName) => {
     setCurrentModal(modalName);
+  };
+
+  const fetchNextPayoutMember = async () => {
+    setLoadingPayout(true);
+    try {
+      const res = await axios.get(`${BaseUrl}/groups/${id}/payout_order`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setNextMember(res.data?.data?.payoutSchedule?.[0] || null);
+      setCurrentModal("payoutDetails");
+    } catch (error) {
+      toast.error("Failed to fetch next payout member");
+    } finally {
+      setLoadingPayout(false);
+    }
   };
 
   const Array = [
@@ -307,6 +284,7 @@ const AdminCircleStartVacationDashboard = () => {
       <ToastContainer />
       <AdminCircleStartVacationDashboard_wrapper>
         <AdminDashboardHeader />
+
         <div className="groupname">
           <h1>{groupDetails?.group?.groupName}</h1>
         </div>
@@ -326,32 +304,50 @@ const AdminCircleStartVacationDashboard = () => {
               </p>
             </div>
           </div>
+
           {group?.status !== "active" || group?.status === "completed" ? (
             <div className="btn">
-              <button className="btn1" onClick={handleCreate}>
-                Copy Invite Link
+              <button
+                className="btn1"
+                onClick={handleCreate}
+                disabled={loadingInvite}
+              >
+                {loadingInvite ? "Loading..." : "Copy Invite Link"}
               </button>
               <button
                 className="btn2"
-                onClick={() => handleModalFlow("selectPayout")}
+                onClick={() => {
+                  handleModalFlow("selectPayout");
+                  setLoadingStartCycle(true);
+                }}
+                disabled={loadingStartCycle}
               >
                 <FiSend />
-                Start Cycle
+                {loadingStartCycle ? "Loading..." : "Start Cycle"}
               </button>
             </div>
           ) : (
             <div className="right">
-              <button className="btn1" onClick={handleCreatePayout}>
+              <button
+                className="btn1"
+                onClick={handleCreatePayout}
+                disabled={loadingPayout}
+              >
                 <FiSend style={{ fontSize: "1rem" }} />
-                <p>Trigger Payout</p>
+                <p>{loadingPayout ? "Loading..." : "Trigger Payout"}</p>
               </button>
-              <button onClick={handleContribute} className="btn2">
+              <button
+                onClick={handleContribute}
+                className="btn2"
+                disabled={loadingContribute}
+              >
                 <TbCurrencyNaira style={{ fontSize: "1rem" }} />
-                {loading ? "loading...." : <p>Make Contribution</p>}
+                <p>{loadingContribute ? "Loading..." : "Make Contribution"}</p>
               </button>
             </div>
           )}
         </div>
+
         <div
           className="back"
           style={{ cursor: "pointer" }}
@@ -396,7 +392,7 @@ const AdminCircleStartVacationDashboard = () => {
               <div
                 className={`mem ${
                   location.pathname.endsWith(
-                    `/admincirclestartvacationdashboard/${groupId}`
+                    ` /admincirclestartvacationdashboard/${groupId}`
                   )
                     ? "active"
                     : ""

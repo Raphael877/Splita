@@ -1,6 +1,10 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+}
+
+.Toastify__toast-container {
+  z-index: 99999 !important;
 }
