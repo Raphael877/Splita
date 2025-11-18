@@ -37,6 +37,19 @@ const UserDashDetails = ({ payoutInfo }) => {
 
   if (!groups) return <p>Loading groups...</p>;
 
+   const getStatusStyles = (status) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+      case "active":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" }; // Default
+    }
+  };
+
   return (
     <UserDashDetails_content>
       <UserDashDetails_wrapper>
@@ -103,7 +116,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   </div>
                   <div className="right">
                     <p>
-                      <strong>Oct 3rd,25</strong>
+                      <strong>Dec 3rd,25</strong>
                     </p>
                   </div>
                 </div>
@@ -155,7 +168,8 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <p>
                             <strong>{group.groupName}</strong>
                           </p>
-                          <div className="in_prog">
+                          <div className="in_prog" 
+                        style={getStatusStyles(group.status)}>
                             <p>{group?.status}</p>
                           </div>
                         </div>
@@ -750,15 +764,11 @@ const My_groups = styled.div`
           align-items: center;
 
           .in_prog {
-            padding-block: 0.2rem;
             padding-inline: 1rem;
-            background-color: #ffe4cc;
             border-radius: 0.8rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ec7000;
-            font-weight: 600;
           }
         }
 

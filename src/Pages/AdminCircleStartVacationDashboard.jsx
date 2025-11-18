@@ -282,6 +282,26 @@ const AdminCircleStartVacationDashboard = () => {
     },
   ];
 
+ const getStatusStyles = (status) => {
+  if (!status) {
+    return { backgroundColor: "#F6F6F6", color: "#000000" };
+  }
+
+  const s = String(status).toLowerCase().trim();
+
+  switch (s) {
+    case "pending":
+      return { backgroundColor: "#Fef5d0", color: "#Facc15" };
+    case "active":
+      return { backgroundColor: "#D6ECD1", color: "#34A218" };
+    case "completed":
+      return { backgroundColor: "#D6ECD1", color: "#34A218" };
+    default:
+      return { backgroundColor: "#F6F6F6", color: "#000000" };
+  }
+};
+
+
   return (
     <AdminCircleStartVacationDashboard_content>
       <ToastContainer />
@@ -299,8 +319,9 @@ const AdminCircleStartVacationDashboard = () => {
                 {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
               </span>
             </p>
-            <div className="ongoing">
-              <p style={{ fontSize: "0.8rem" }}>
+            <div className="ongoing" 
+                        style={getStatusStyles(group.status)}>
+              <p style={{ fontSize: "0.8rem", color: "inherit" }}>
                 {group?.status} 
               </p>
             </div>
@@ -555,12 +576,6 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         border-radius: 0.8rem;
         padding-block: 0.3rem;
         padding-inline: 1rem;
-        background-color: #fef5d0;
-        color: #facc15;
-
-        p{
-          color: #facc15;
-        }
       }
     }
     .btn {

@@ -145,7 +145,7 @@ const Inner_main = styled.div`
 
 const Own = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,7 +154,6 @@ const Own = styled.div`
 const Created = styled.div`
   width: 85%;
   height: 90%;
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
