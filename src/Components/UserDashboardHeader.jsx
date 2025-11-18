@@ -11,7 +11,8 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(null);
-
+  const userId = JSON.parse(localStorage.getItem("userid"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
@@ -21,14 +22,6 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const userData = (() => {
-    try {
-      return JSON.parse(localStorage.getItem("userData")) || {};
-    } catch {
-      return {};
-    }
-  })();
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const closeDropdown = () => setShowDropdown(false);
@@ -70,7 +63,9 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
               <img
-                src={user?.profilePicture ? user.profilePicture : Avatar}
+                src={
+                  userId?.profilePicture || userData?.profilePicture || Avatar
+                }
                 alt="User Profile"
                 style={{
                   width: "40px",
@@ -89,7 +84,11 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               <div className="dropdown_wrap">
                 <div className="top">
                   <img
-                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    src={
+                      userId?.profilePicture ||
+                      userData?.profilePicture ||
+                      Avatar
+                    }
                     alt="User Profile"
                     style={{
                       width: "40px",
@@ -98,7 +97,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                       objectFit: "cover",
                     }}
                   />
-                  <p>{userData.fullName || "User"}</p>
+                  <p>{userId.name || userData?.fullName}</p>
                 </div>
                 <MdOutlineCancel
                   style={{
