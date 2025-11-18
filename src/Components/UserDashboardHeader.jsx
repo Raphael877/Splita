@@ -6,7 +6,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
-import { IoMdMenu } from "react-icons/io";
 
 const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
@@ -14,8 +13,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("userid"));
-
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
       setUser(storedUser);
     }
@@ -41,7 +39,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         <img
           src={Splita_logo}
           className="brand_logo"
-          onClick={() => navigate("/userdashboard")}
+          onClick={() => navigate("/")}
         />
         <ul>
           <li
@@ -83,8 +81,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               />
             </div>
             <p>{userData.fullName || "User"}</p>
-            <IoIosArrowDown className="arrow" />
-            <IoMdMenu className="menu" />
+            <IoIosArrowDown />
           </div>
 
           {showDropdown && (
@@ -114,13 +111,13 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                   }}
                   onClick={closeDropdown}
                 />
-                <p className="nav" onClick={() => navigate("/userdashboard")}>
+                <p className="nav" onClick={() => navigate("/useremptystate")}>
                   Home
                 </p>
-                <p className="nav" onClick={() => navigate("/mygroupdetail")}>
-                  My groups
+                <p className="nav" onClick={() => navigate("/groups")}>
+                  Groups
                 </p>
-                <p className="nav" onClick={() => navigate("/mycontribution")}>
+                <p className="nav" onClick={() => navigate("/contributions")}>
                   Contributions
                 </p>
                 <p

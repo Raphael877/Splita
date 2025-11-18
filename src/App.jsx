@@ -105,7 +105,7 @@ const App = () => {
         <Route path="/contribution/verify" element={<VerifyContribution />} />
         <Route path="/AccessRestricted" element={<AccessRestricted />}></Route>
       </Routes>
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-right" />
     </HashRouter>
   );
 };

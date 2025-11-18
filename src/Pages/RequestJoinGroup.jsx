@@ -19,7 +19,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const [group, setGroup] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
-  const [selectedRequest, setSelectedRequest] = useState(null); // NEW: track selected request
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const groupName = location.state?.group?.groupName || "Not Available";
 
@@ -44,7 +44,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
 
   useEffect(() => {
     fetchRequests();
-    const interval = setInterval(fetchRequests, 10000);
+    const interval = setInterval(fetchRequests, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -113,6 +113,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
           onClose={() => setShowApproveModal(false)}
           group={group}
           request={selectedRequest}
+          refreshRequests={fetchRequests} // ✅ pass fetchRequests
         />
       )}
       {showDeclineModal && selectedRequest && (
@@ -120,6 +121,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
           onClose={() => setShowDeclineModal(false)}
           group={group}
           request={selectedRequest}
+          refreshRequests={fetchRequests} // ✅ pass fetchRequests
         />
       )}
     </AdminDashboard_content>
