@@ -11,8 +11,6 @@ const UserEmptyHello = () => {
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("userid"));
 
-  console.log(userId);
-
   return (
     <UserEmptyHello_content>
       <UserEmptyHello_wrapper>
