@@ -19,21 +19,15 @@ const AboutSplita = () => {
             lineHeight: "23px",
           }}
         >
-          Splita is redefining the traditional Ajo experience, making group
-          savings simple, transparent, and stress-free.
+          We’ve modernized the traditional Ajo system with automation and
+          transparency, so your group never has to deal with confusion, late
+          payments, or missed turns again.
           <br />
-          We help trusted friends, families, and communities save together
-          effortlessly, with automated cycles.
-          <br /> Our goal is to build a smarter, more reliable way to manage
-          group contributions, powered by trust, technology, and transparency.
-          No more confusion, missed turns, or chasing payments.
+          Everything runs smoothly; contributions are automatic, updates are
+          instant, payments are secure, and everyone can see what’s happening.
+          Every member stays accountable, including the group admin.
           <br />
-          Our automated cycles keep every contribution organized and on time.
-          Everything is digital, secure, and easy to track in real time.We’re
-          building a smarter way to manage group contributions. One that’s
-          powered by trust, shaped by technology, and built for accountability.
-          At Splita, we believe saving together should feel seamless and fair,
-          Because when everyone wins, the group grows stronger.
+          Splita makes communal saving feel simple, fair, and stress-free.
         </p>
       </section>
       <section className="right">
@@ -73,7 +67,7 @@ const AboutSplitaStyled = styled.div`
       width: 100%;
     }
 
-    p{
+    p {
       width: 100%;
       @media (max-width: 768px) {
         width: 85%;
