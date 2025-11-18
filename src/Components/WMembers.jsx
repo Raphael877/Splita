@@ -112,6 +112,19 @@ const WomenMembers = () => {
     return contributions.find((c) => c.userId === memberId) || {};
   };
 
+  const getStatusStyles = (status) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+      case "active":
+        return { backgroundColor: "#D8E6FD", color: "#3B82F6" }; // Blue
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" }; // Default
+    }
+  };
+
   return (
     <AdminMemberDashboard_content>
       <AdminMemberDashboard_wrapper>
@@ -160,7 +173,10 @@ const WomenMembers = () => {
                     </div>
 
                     <div className="status">
-                      <div className="inner_status">
+                      <div
+                        className="inner_status"
+                        style={getStatusStyles(status)}
+                      >
                         <p>{status}</p>
                       </div>
                     </div>
@@ -325,10 +341,8 @@ const Table = styled.div`
           justify-content: flex-start;
 
           .inner_status {
-            padding-block: 0.5rem;
+            padding-block: 0.2rem;
             padding-inline: 0.8rem;
-            background-color: #d6ecd1;
-            color: #34a218;
             border-radius: 2rem;
           }
         }

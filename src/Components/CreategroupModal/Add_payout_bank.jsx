@@ -5,13 +5,14 @@ import { PiBank } from "react-icons/pi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const Add_payout_bank = ({ onSave, onClose }) => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     bankName: "",
     accountNumber: "",
@@ -89,7 +90,6 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   };
 
   const handleSave = () => {
-    // 🔹 Final validation before saving
     if (!selectedBank) {
       setErrors((prev) => ({ ...prev, bankName: "Please select a bank" }));
       return;
@@ -122,7 +122,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const handlePayout = async () => {
-    // Validate before sending request
+    setLoading(true);
     if (!selectedBank || !/^\d{10}$/.test(formData.accountNumber)) {
       handleSave(); // reuse validation logic
       return;
@@ -139,16 +139,19 @@ const Add_payout_bank = ({ onSave, onClose }) => {
           },
         }
       );
-      console.log("Response:", res.data);
+      console.log("toast", res?.data?.message);
+      toast.success(res?.data?.message);
     } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
+      toast.error(error?.response?.data?.message || error?.message);
     } finally {
+      setLoading(false);
       handleSave();
     }
   };
 
   return (
     <Add_payout_bank_content>
+      <ToastContainer />
       <Add_payout_bank_wrapper>
         <Inner_wrap>
           <Header>
@@ -237,7 +240,7 @@ const Add_payout_bank = ({ onSave, onClose }) => {
             </div>
 
             <button type="button" onClick={handlePayout}>
-              Save Bank
+              {loading ? "loading..." : " Save Bank"}
             </button>
           </form>
         </Inner_wrap>
@@ -247,7 +250,6 @@ const Add_payout_bank = ({ onSave, onClose }) => {
 };
 
 export default Add_payout_bank;
-
 
 const Add_payout_bank_content = styled.div`
   position: fixed;

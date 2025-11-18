@@ -6,12 +6,14 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdLogout, MdOutlineCancel } from "react-icons/md";
 import ConfirmLogout from "../Components/ConfirmLogout";
+import { IoMdMenu } from "react-icons/io";
 
 const UserDashboardHeader = ({ onMyGroupClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(null);
-
+  const userId = JSON.parse(localStorage.getItem("userid"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
@@ -22,14 +24,6 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const userData = (() => {
-    try {
-      return JSON.parse(localStorage.getItem("userData")) || {};
-    } catch {
-      return {};
-    }
-  })();
-
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const closeDropdown = () => setShowDropdown(false);
 
@@ -39,11 +33,11 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
         <img
           src={Splita_logo}
           className="brand_logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/userdashboard")}
         />
         <ul>
           <li
-            className={location.pathname === "/dashboard" ? "active" : ""}
+            className={location.pathname === "/userdashboard" ? "active" : ""}
             onClick={() => navigate("/userdashboard")}
           >
             Home
@@ -70,7 +64,9 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
               <img
-                src={user?.profilePicture ? user.profilePicture : Avatar}
+                src={
+                  userId?.profilePicture || userData?.profilePicture || Avatar
+                }
                 alt="User Profile"
                 style={{
                   width: "40px",
@@ -81,7 +77,11 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               />
             </div>
             <p>{userData.fullName || "User"}</p>
-            <IoIosArrowDown />
+            <IoIosArrowDown className="arrow" />
+            {/* <div className="admin">
+              <small>Admin</small>
+            </div> */}
+            <IoMdMenu className="menu" />
           </div>
 
           {showDropdown && (
@@ -89,7 +89,11 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
               <div className="dropdown_wrap">
                 <div className="top">
                   <img
-                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    src={
+                      userId?.profilePicture ||
+                      userData?.profilePicture ||
+                      Avatar
+                    }
                     alt="User Profile"
                     style={{
                       width: "40px",
@@ -98,8 +102,14 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                       objectFit: "cover",
                     }}
                   />
-                  <p>{userData.fullName || "User"}</p>
+                  <div className="ad">
+                  <p>{userId.name || userData?.fullName}</p>
                 </div>
+                {/* <div className="admin">
+                      <small>Admin</small>
+                    </div> */}
+                  </div>
+                
                 <MdOutlineCancel
                   style={{
                     fontWeight: "bold",
@@ -111,13 +121,13 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                   }}
                   onClick={closeDropdown}
                 />
-                <p className="nav" onClick={() => navigate("/useremptystate")}>
+                <p className="nav" onClick={() => navigate("/userdashboard")}>
                   Home
                 </p>
-                <p className="nav" onClick={() => navigate("/groups")}>
+                <p className="nav" onClick={() => navigate("/mygroupdetail")}>
                   Groups
                 </p>
-                <p className="nav" onClick={() => navigate("/contributions")}>
+                <p className="nav" onClick={() => navigate("/mycontribution")}>
                   Contributions
                 </p>
                 <p
@@ -196,8 +206,8 @@ const UserDashboardHeader_wrapper = styled.div`
   }
 
   .brand_logo {
-    width: 12%;
-    height: 55%;
+    width: 10%;
+    height: 50%;
     cursor: pointer;
 
     @media (max-width: 768px) {
@@ -258,6 +268,23 @@ const UserDashboardHeader_wrapper = styled.div`
       }
     }
 
+    .admin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fef5d0;
+        color: #facc15;
+        padding-block: 0.2rem;
+        padding-inline: 0.6rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
     .dropdown {
       position: absolute;
       top: 100%;
@@ -314,7 +341,29 @@ const UserDashboardHeader_wrapper = styled.div`
             height: 2.5rem;
             border-radius: 50%;
           }
+
+          .ad {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            width: 100%;
+
+            .admin {
+              width: max-content;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #fef5d0;
+              color: #facc15;
+              padding-block: 0.2rem;
+              padding-inline: 0.6rem;
+              border-radius: 1rem;
+              font-size: 1rem;
+              font-weight: 400;
+            }
+          }
         }
+
 
         .log {
           display: flex;

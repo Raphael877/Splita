@@ -10,6 +10,7 @@ const UserEmptyHello = () => {
   const [user, setuser] = useState("");
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("userid"));
+
   console.log(userId);
 
   return (

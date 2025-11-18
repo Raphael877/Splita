@@ -56,9 +56,9 @@ const AdminCircleStartVacationDashboard = () => {
         localStorage.setItem("selectedGroupId", groupId);
 
         const payoutRes = await axios.get(
-          ` ${BaseUrl}/groups/${groupId}/payout_info`,
+          `${BaseUrl}/groups/${groupId}/payout_info`,
           {
-            headers: { Authorization: ` Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
         setPayoutInfo(payoutRes.data.data);
@@ -71,7 +71,7 @@ const AdminCircleStartVacationDashboard = () => {
     if (groupId) fetchGroup();
   }, [groupId]);
 
-  const copy = async () => {
+  const handleCreate = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
@@ -95,38 +95,6 @@ const AdminCircleStartVacationDashboard = () => {
       toast.error("Failed to copy invite link");
     }
   };
-  // const handleCreate = async () => {
-  //   setLoadingInvite(true);
-  //   try {
-  //     const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const inviteLink = res.data.inviteLink;
-
-  //     localStorage.setItem(
-  //       "latestInvite",
-  //       JSON.stringify({ groupId: id, inviteLink })
-  //     );
-
-  //     try {
-  //       await navigator.clipboard.writeText(inviteLink);
-  //       toast.success("Invite Link copied successfully!");
-  //     } catch {
-  //       const input = document.createElement("input");
-  //       input.value = inviteLink;
-  //       document.body.appendChild(input);
-  //       input.focus();
-  //       input.select();
-  //       document.execCommand("copy");
-  //       document.body.removeChild(input);
-  //       toast.success("Invite Link copied successfully!");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Error copying invite link");
-  //   } finally {
-  //     setLoadingInvite(false);
-  //   }
-  // };
 
   const handleAutomaticRotation = async () => {
     setLoadingStartCycle(true);
@@ -135,7 +103,7 @@ const AdminCircleStartVacationDashboard = () => {
         ` ${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
         {
-          headers: { Authorization: `Bearer ${token} ` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -152,7 +120,7 @@ const AdminCircleStartVacationDashboard = () => {
       const payoutRes = await axios.get(
         `${BaseUrl}/groups/${groupId}/payout_order`,
         {
-          headers: { Authorization: Bearer`${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const schedule = payoutRes?.data?.data?.payoutSchedule || [];
@@ -163,7 +131,7 @@ const AdminCircleStartVacationDashboard = () => {
       });
 
       const infoRes = await axios.get(
-        ` ${BaseUrl}/groups/${groupId}/payout_info`,
+        `${BaseUrl}/groups/${groupId}/payout_info`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -286,6 +254,25 @@ const AdminCircleStartVacationDashboard = () => {
     },
   ];
 
+  const getStatusStyles = (status) => {
+    if (!status) {
+      return { backgroundColor: "#F6F6F6", color: "#000000" };
+    }
+
+    const s = String(status).toLowerCase().trim();
+
+    switch (s) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };
+      case "active":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" };
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" };
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" };
+    }
+  };
+
   return (
     <AdminCircleStartVacationDashboard_content>
       <ToastContainer />
@@ -304,14 +291,20 @@ const AdminCircleStartVacationDashboard = () => {
                 {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
               </span>
             </p>
-            <div className="ongoing">
-              <p style={{ fontSize: "0.8rem" }}>{group?.status}</p>
+            <div className="ongoing" style={getStatusStyles(group.status)}>
+              <p style={{ fontSize: "0.8rem", color: "inherit" }}>
+                {group?.status}
+              </p>
             </div>
           </div>
 
           {group?.status !== "active" || group?.status === "completed" ? (
             <div className="btn">
-              <button className="btn1" onClick={copy} disabled={loadingInvite}>
+              <button
+                className="btn1"
+                onClick={handleCreate}
+                disabled={loadingInvite}
+              >
                 {loadingInvite ? "Loading..." : "Copy Invite Link"}
               </button>
               <button
@@ -391,9 +384,8 @@ const AdminCircleStartVacationDashboard = () => {
             <div className="inner_wrap">
               <div
                 className={`mem ${
-                  location.pathname.endsWith(
-                    ` /admincirclestartvacationdashboard/${groupId}`
-                  )
+                  location.pathname ===
+                  `/admincirclestartvacationdashboard/${groupId}`
                     ? "active"
                     : ""
                 }`}
@@ -572,12 +564,6 @@ const AdminCircleStartVacationDashboard_wrapper = styled.div`
         border-radius: 0.8rem;
         padding-block: 0.3rem;
         padding-inline: 1rem;
-        background-color: #fef5d0;
-        color: #facc15;
-
-        p {
-          color: #facc15;
-        }
       }
     }
     .btn {

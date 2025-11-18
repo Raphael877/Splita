@@ -13,23 +13,16 @@ const AdminDashboardHeader = () => {
   const location = useLocation();
   const [user, setUser] = useState(null);
 
+  const userId = JSON.parse(localStorage.getItem("userid"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
       setUser(storedUser);
     }
   }, []);
-
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const userData = (() => {
-    try {
-      return JSON.parse(localStorage.getItem("userData")) || {};
-    } catch {
-      return {};
-    }
-  })();
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const closeDropdown = () => setShowDropdown(false);
@@ -69,7 +62,9 @@ const AdminDashboardHeader = () => {
           <div className="profile" onClick={toggleDropdown}>
             <div className="dp">
               <img
-                src={user?.profilePicture ? user.profilePicture : Avatar}
+                src={
+                  userId?.profilePicture || userData?.profilePicture || Avatar
+                }
                 alt="User Profile"
                 style={{
                   width: "40px",
@@ -79,7 +74,7 @@ const AdminDashboardHeader = () => {
                 }}
               />
             </div>
-            <p>{userData.fullName || "Admin User"}</p>
+            <p>{userId?.name || userData?.fullName}</p>
             <IoIosArrowDown className="arrow" />
             <div className="admin">
               <small>Admin</small>
@@ -92,7 +87,11 @@ const AdminDashboardHeader = () => {
               <div className="dropdown_wrap">
                 <div className="top">
                   <img
-                    src={user?.profilePicture ? user.profilePicture : Avatar}
+                    src={
+                      userId?.profilePicture ||
+                      userData?.profilePicture ||
+                      Avatar
+                    }
                     alt="User Profile"
                     style={{
                       width: "40px",
@@ -102,7 +101,7 @@ const AdminDashboardHeader = () => {
                     }}
                   />
                   <div className="ad">
-                    <p>{userData.fullName || "Admin User"}</p>
+                    <p>{userId.name || userData?.fullName}</p>
                     <div className="admin">
                       <small>Admin</small>
                     </div>
@@ -208,8 +207,8 @@ const HeaderWrapper = styled.div`
   }
 
   .brand_logo {
-    width: 12%;
-    height: 55%;
+    width: 10%;
+    height: 50%;
     cursor: pointer;
 
     @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AdminDashboardHeader from "../Components/AdminDashboardHeader";
 import UserDashboardFooter from "../Components/UserDashboardFooter";
@@ -12,7 +12,7 @@ import axios from "axios";
 const GroupCreated = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [loading, setLoading] = useState(false);
   const groupName =
     (location?.state && location.state.groupName) ||
     (typeof window !== "undefined"
@@ -26,6 +26,7 @@ const GroupCreated = () => {
 
   const id = localStorage.getItem("createdGroupId");
   const handleCreate = async () => {
+    setLoading(true);
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
@@ -36,7 +37,6 @@ const GroupCreated = () => {
 
       const inviteLink = res.data.inviteLink;
 
-      
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
@@ -57,6 +57,8 @@ const GroupCreated = () => {
       }
     } catch (error) {
       console.error("Error copying invite link:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,32 +78,32 @@ const GroupCreated = () => {
             <p>back home</p>
           </div>
           <Own>
-
-          <Created>
-            <div className="inner">
-              <GiPartyPopper className="party_icon" />
-              <h2>Your group has been created successfully!</h2>
-              <p>Invite trusted members to join and start your saving cycle</p>
-              <p style={{ color: "#777777", marginBlock: "1.5rem" }}>
-                Be sure to invite only trusted people to your group, such as
-                friends or family. Splita does not take responsibility for
-                payment delays or defaults by any member. As an admin, you're in
-                charge of who joins your group.
-              </p>
-              <div className="btn">
-                <button className="btn1" onClick={handleCreate}>
-                  Copy Invite Link
-                </button>
-                <button
-                  className="btn2"
-                  onClick={() => navigate("/start_group")}
-                >
-                  View Members
-                </button>
+            <Created>
+              <div className="inner">
+                <GiPartyPopper className="party_icon" />
+                <h2>Your group has been created successfully!</h2>
+                <p>
+                  Invite trusted members to join and start your saving cycle
+                </p>
+                <p style={{ color: "#777777", marginBlock: "1.5rem" }}>
+                  Be sure to invite only trusted people to your group, such as
+                  friends or family. Splita does not take responsibility for
+                  payment delays or defaults by any member. As an admin, you're
+                  in charge of who joins your group.
+                </p>
+                <div className="btn">
+                  <button className="btn1" onClick={handleCreate}>
+                    {loading ? "loading..." : " Copy Invite Link"}
+                  </button>
+                  <button
+                    className="btn2"
+                    onClick={() => navigate("/start_group")}
+                  >
+                    View Members
+                  </button>
+                </div>
               </div>
-            </div>
-            
-          </Created>
+            </Created>
           </Own>
         </Inner_main>
       </Main>
@@ -145,16 +147,15 @@ const Inner_main = styled.div`
 
 const Own = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Created = styled.div`
   width: 85%;
   height: 90%;
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +178,7 @@ const Created = styled.div`
       gap: 0.5rem;
     }
 
-    h2{
+    h2 {
       @media (max-width: 768px) {
         font-size: 1.3rem;
       }

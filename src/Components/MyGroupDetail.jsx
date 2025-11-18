@@ -39,6 +39,19 @@ const MyGroupDetail = () => {
     handleDetails();
   }, []);
 
+  const getStatusStyles = (status) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+      case "active":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" }; // Default
+    }
+  };
+
   return (
     <MyGroupDetail_content>
       <MyGroupDetail_wrapper>
@@ -64,10 +77,11 @@ const MyGroupDetail = () => {
                     <p>
                       <strong>{group.groupName}</strong>
                     </p>
-                    <div className="in_prog1">
-                      <p>
-                        <small>{group.status || "In progress"}</small>
-                      </p>
+                    <div
+                      className="status_badge"
+                      style={getStatusStyles(group.status || "")}
+                    >
+                      <small>{group.status || "In progress"}</small>
                     </div>
                   </div>
 
@@ -224,16 +238,13 @@ const MyGroupDetail_wrapper = styled.div`
           justify-content: space-between;
           align-items: center;
 
-          .in_prog1 {
+          .status_badge {
             padding-block: 0.2rem;
             padding-inline: 1rem;
-            background-color: #d6ecd1;
             border-radius: 0.8rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #34a218;
-            font-weight: 600;
           }
 
           .in_prog2 {
