@@ -54,9 +54,9 @@ const AdminCircleStartVacationDashboard = () => {
         localStorage.setItem("selectedGroupId", groupId);
 
         const payoutRes = await axios.get(
-          ` ${BaseUrl}/groups/${groupId}/payout_info`,
+          `${BaseUrl}/groups/${groupId}/payout_info`,
           {
-            headers: { Authorization: ` Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
         setPayoutInfo(payoutRes.data.data);
@@ -69,50 +69,37 @@ const AdminCircleStartVacationDashboard = () => {
     if (groupId) fetchGroup();
   }, [groupId]);
 
-  const copy = async () => {
+  const handleCreate = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const inviteLink = res.data.inviteLink;
-      navigator.clipboard.writeText(inviteLink);
-      toast.success("invite link copied successfully");
-    } catch (err) {
-      console.log(err);
+
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteLink })
+      );
+
+      try {
+        await navigator.clipboard.writeText(inviteLink);
+        toast.success("Invite Link copied successfully!");
+      } catch {
+        const input = document.createElement("input");
+        input.value = inviteLink;
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        toast.success("Invite Link copied successfully!");
+      }
+    } catch (error) {
+      toast.error("Error copying invite link");
+    } finally {
+      setLoadingInvite(false);
     }
   };
-  // const handleCreate = async () => {
-  //   setLoadingInvite(true);
-  //   try {
-  //     const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const inviteLink = res.data.inviteLink;
-
-  //     localStorage.setItem(
-  //       "latestInvite",
-  //       JSON.stringify({ groupId: id, inviteLink })
-  //     );
-
-  //     try {
-  //       await navigator.clipboard.writeText(inviteLink);
-  //       toast.success("Invite Link copied successfully!");
-  //     } catch {
-  //       const input = document.createElement("input");
-  //       input.value = inviteLink;
-  //       document.body.appendChild(input);
-  //       input.focus();
-  //       input.select();
-  //       document.execCommand("copy");
-  //       document.body.removeChild(input);
-  //       toast.success("Invite Link copied successfully!");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Error copying invite link");
-  //   } finally {
-  //     setLoadingInvite(false);
-  //   }
-  // };
 
   const handleAutomaticRotation = async () => {
     setLoadingStartCycle(true);
@@ -121,7 +108,7 @@ const AdminCircleStartVacationDashboard = () => {
         ` ${BaseUrl}/groups/${groupId}/randomize_payout_order`,
         {},
         {
-          headers: { Authorization: `Bearer ${token} ` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -138,7 +125,7 @@ const AdminCircleStartVacationDashboard = () => {
       const payoutRes = await axios.get(
         `${BaseUrl}/groups/${groupId}/payout_order`,
         {
-          headers: { Authorization: Bearer`${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const schedule = payoutRes?.data?.data?.payoutSchedule || [];
@@ -149,7 +136,7 @@ const AdminCircleStartVacationDashboard = () => {
       });
 
       const infoRes = await axios.get(
-        ` ${BaseUrl}/groups/${groupId}/payout_info`,
+        `${BaseUrl}/groups/${groupId}/payout_info`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -297,7 +284,11 @@ const AdminCircleStartVacationDashboard = () => {
 
           {group?.status !== "active" || group?.status === "completed" ? (
             <div className="btn">
-              <button className="btn1" onClick={copy} disabled={loadingInvite}>
+              <button
+                className="btn1"
+                onClick={handleCreate}
+                disabled={loadingInvite}
+              >
                 {loadingInvite ? "Loading..." : "Copy Invite Link"}
               </button>
               <button

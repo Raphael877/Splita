@@ -6,12 +6,12 @@ import ProfileUpload from "./ProfileUpload";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Profile = () => {
   const navigate = useNavigate();
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-
+  const userId = JSON.parse(localStorage.getItem("userid"));
   const storedUser = JSON.parse(localStorage.getItem("userData")) || {};
   const storedBank = JSON.parse(localStorage.getItem("bankData")) || {};
 
@@ -28,7 +28,7 @@ const Profile = () => {
 
   const [editableField, setEditableField] = useState(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -190,6 +190,7 @@ const Profile = () => {
 
   return (
     <Profile_content>
+      <ToastContainer />
       <div className="back" onClick={() => navigate(-1)}>
         <IoIosArrowRoundBack style={{ fontSize: "2rem" }} />
         <p>back home</p>
@@ -227,7 +228,7 @@ const Profile = () => {
               />
             ) : (
               <p onClick={() => handleFieldClick("fullName")}>
-                {formData.fullName}
+                {userId?.name || formData?.fullName}
               </p>
             )}
           </div>
@@ -238,7 +239,7 @@ const Profile = () => {
         <div className="first">
           <div className="top">
             <p>Email</p>
-            <p className="dim-text">{formData.email}</p>
+            <p className="dim-text">{userId?.email || formData.email}</p>
           </div>
           <hr />
         </div>
@@ -249,7 +250,7 @@ const Profile = () => {
             <p>Phone Number</p>
             {editableField === "phone" ? (
               <input
-                value={formData.phone}
+                value={userId?.phone || formData.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
                 autoFocus
                 style={inputStyle}
