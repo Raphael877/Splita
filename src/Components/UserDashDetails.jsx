@@ -40,13 +40,13 @@ const UserDashDetails = ({ payoutInfo }) => {
    const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+        return { backgroundColor: "#Fef5d0", color: "#Facc15", fontSize: "0.8rem"};// Orange
       case "active":
-        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+        return { backgroundColor: "#D6ECD1", color: "#34A218", fontSize: "0.8rem" }; // Green
       case "completed":
-        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+        return { backgroundColor: "#D6ECD1", color: "#34A218" , fontSize: "0.8rem"}; // Green
       default:
-        return { backgroundColor: "#F6F6F6", color: "#000000" }; // Default
+        return { backgroundColor: "#F6F6F6", color: "#000000", fontSize: "0.8rem" }; // Default
     }
   };
 
@@ -764,6 +764,7 @@ const My_groups = styled.div`
 
           .in_prog {
             padding-inline: 1rem;
+            padding-block: 0.1rem;
             border-radius: 0.8rem;
             display: flex;
             justify-content: center;
