@@ -69,42 +69,50 @@ const AdminCircleStartVacationDashboard = () => {
     if (groupId) fetchGroup();
   }, [groupId]);
 
-  const copy = () => {
-    navigator.clipboard.writeText("text");
-    toast.success("copied successfully");
-  };
-  const handleCreate = async () => {
-    setLoadingInvite(true);
+  const copy = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const inviteLink = res.data.inviteLink;
-
-      localStorage.setItem(
-        "latestInvite",
-        JSON.stringify({ groupId: id, inviteLink })
-      );
-
-      try {
-        await navigator.clipboard.writeText(inviteLink);
-        toast.success("Invite Link copied successfully!");
-      } catch {
-        const input = document.createElement("input");
-        input.value = inviteLink;
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        toast.success("Invite Link copied successfully!");
-      }
-    } catch (error) {
-      toast.error("Error copying invite link");
-    } finally {
-      setLoadingInvite(false);
+      navigator.clipboard.writeText(inviteLink);
+      toast.success("copied successfully");
+    } catch (err) {
+      console.log(err);
     }
   };
+  // const handleCreate = async () => {
+  //   setLoadingInvite(true);
+  //   try {
+  //     const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const inviteLink = res.data.inviteLink;
+
+  //     localStorage.setItem(
+  //       "latestInvite",
+  //       JSON.stringify({ groupId: id, inviteLink })
+  //     );
+
+  //     try {
+  //       await navigator.clipboard.writeText(inviteLink);
+  //       toast.success("Invite Link copied successfully!");
+  //     } catch {
+  //       const input = document.createElement("input");
+  //       input.value = inviteLink;
+  //       document.body.appendChild(input);
+  //       input.focus();
+  //       input.select();
+  //       document.execCommand("copy");
+  //       document.body.removeChild(input);
+  //       toast.success("Invite Link copied successfully!");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Error copying invite link");
+  //   } finally {
+  //     setLoadingInvite(false);
+  //   }
+  // };
 
   const handleAutomaticRotation = async () => {
     setLoadingStartCycle(true);
