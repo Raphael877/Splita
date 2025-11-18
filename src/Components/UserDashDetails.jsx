@@ -40,7 +40,6 @@ const UserDashDetails = ({ payoutInfo }) => {
   return (
     <UserDashDetails_content>
       <UserDashDetails_wrapper>
-        {/* Welcome Section */}
         <Hello>
           <div className="left">
             <h1>Welcome Back,</h1>
@@ -78,7 +77,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                 </div>
                 <p>Completed cycles</p>
                 <p style={{ fontWeight: "bold" }}>
-                  {payoutInfo?.data?.contributions?.total ?? 0}
+                  {payoutInfo?.data?.contributions?.total || 0}
                 </p>
               </div>
             </div>
