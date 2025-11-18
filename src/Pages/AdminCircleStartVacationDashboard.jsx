@@ -12,6 +12,7 @@ import { MdOutlineEventNote } from "react-icons/md";
 import { PiCoinsLight } from "react-icons/pi";
 import { useLocation, useNavigate, useParams, Outlet } from "react-router-dom";
 import axios from "axios";
+import { useClipboard } from "use-clipboard-copy";
 import { toast, ToastContainer } from "react-toastify";
 import Payout from "../Components/Payout/Payout.jsx";
 import PayoutSuccessful from "../Components/Payout/PayoutSuccessful.jsx";
@@ -26,6 +27,7 @@ const BaseUrl = import.meta.env.VITE_BaseUrl;
 const AdminCircleStartVacationDashboard = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
+  const clipboard = useClipboard();
   const location = useLocation();
 
   const [group, setGroup] = useState("");
@@ -72,13 +74,25 @@ const AdminCircleStartVacationDashboard = () => {
   const copy = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
+
       const inviteLink = res.data.inviteLink;
-      navigator.clipboard.writeText(inviteLink);
-      toast.success("invite link copied successfully");
-    } catch (err) {
-      console.log(err);
+
+      localStorage.setItem(
+        "latestInvite",
+        JSON.stringify({ groupId: id, inviteLink })
+      );
+
+      clipboard.copy(inviteLink);
+
+      toast.success("Invite Link copied successfully!");
+    } catch (error) {
+      console.error("Error copying invite link:", error);
+      toast.error("Failed to copy invite link");
     }
   };
   // const handleCreate = async () => {
