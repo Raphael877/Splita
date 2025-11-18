@@ -114,7 +114,6 @@ const SignIn = () => {
 
     SetLoading(true);
     try {
-      // ❌ Remove token from login headers (you don’t have it yet)
       const res = await axios.post(`${BaseUrl}/users/login`, formData, {
         headers: {
           "Content-Type": "application/json",
@@ -130,8 +129,6 @@ const SignIn = () => {
         JSON.stringify(token)
       );
       localStorage.setItem(import.meta.env.VITE_USERID, JSON.stringify(user));
-
-      console.log("the token", token);
 
       try {
         const groupRes = await axios.get(`${BaseUrl}/groups/all`, {
