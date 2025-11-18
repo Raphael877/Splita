@@ -97,8 +97,8 @@ const Profile = () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   const handleCancel = () => {
-    const storedUser = JSON.parse(localStorage.getItem("userData")) || {};
-    const storedBank = JSON.parse(localStorage.getItem("bankData")) || {};
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
+    const storedBank = JSON.parse(localStorage.getItem("bankData"));
 
     setFormData({
       fullName: storedUser.fullName || "User",
