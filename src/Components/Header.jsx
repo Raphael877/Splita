@@ -106,13 +106,13 @@ const Header_wrapper = styled.div`
   }
 
   .brand_logo {
-    width: 12%;
-    height: 65%;
+    width: 10%;
+    height: 55%;
     cursor: pointer;
 
     @media (max-width: 768px) {
       width: 30%;
-      height: 50%;
+      height: 40%;
     }
   }
 

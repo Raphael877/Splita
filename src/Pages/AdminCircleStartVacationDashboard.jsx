@@ -259,25 +259,24 @@ const AdminCircleStartVacationDashboard = () => {
     },
   ];
 
- const getStatusStyles = (status) => {
-  if (!status) {
-    return { backgroundColor: "#F6F6F6", color: "#000000" };
-  }
-
-  const s = String(status).toLowerCase().trim();
-
-  switch (s) {
-    case "pending":
-      return { backgroundColor: "#Fef5d0", color: "#Facc15" };
-    case "active":
-      return { backgroundColor: "#D6ECD1", color: "#34A218" };
-    case "completed":
-      return { backgroundColor: "#D6ECD1", color: "#34A218" };
-    default:
+  const getStatusStyles = (status) => {
+    if (!status) {
       return { backgroundColor: "#F6F6F6", color: "#000000" };
-  }
-};
+    }
 
+    const s = String(status).toLowerCase().trim();
+
+    switch (s) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };
+      case "active":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" };
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" };
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" };
+    }
+  };
 
   return (
     <AdminCircleStartVacationDashboard_content>
@@ -297,10 +296,9 @@ const AdminCircleStartVacationDashboard = () => {
                 {payoutInfo?.currentRound} / {payoutInfo?.totalRounds}
               </span>
             </p>
-            <div className="ongoing" 
-                        style={getStatusStyles(group.status)}>
+            <div className="ongoing" style={getStatusStyles(group.status)}>
               <p style={{ fontSize: "0.8rem", color: "inherit" }}>
-                {group?.status} 
+                {group?.status}
               </p>
             </div>
           </div>
@@ -391,9 +389,8 @@ const AdminCircleStartVacationDashboard = () => {
             <div className="inner_wrap">
               <div
                 className={`mem ${
-                  location.pathname.endsWith(
-                    ` /admincirclestartvacationdashboard/${groupId}`
-                  )
+                  location.pathname ===
+                  `/admincirclestartvacationdashboard/${groupId}`
                     ? "active"
                     : ""
                 }`}
