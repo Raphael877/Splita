@@ -76,7 +76,7 @@ const AdminCircleStartVacationDashboard = () => {
       });
       const inviteLink = res.data.inviteLink;
       navigator.clipboard.writeText(inviteLink);
-      toast.success("copied successfully");
+      toast.success("invite link copied successfully");
     } catch (err) {
       console.log(err);
     }
