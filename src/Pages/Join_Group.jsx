@@ -21,7 +21,6 @@ const Join_Group = () => {
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  // ✅ Fetch user profile (to check payout account)
   const getUser = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/users/profile`, {
@@ -35,7 +34,6 @@ const Join_Group = () => {
     }
   };
 
-  // ✅ Fetch group info
   const groupInfo = async () => {
     try {
       const res = await axios.get(`${BaseUrl}/groups/${groupid}`, {
@@ -43,7 +41,7 @@ const Join_Group = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setGroupDetail(res.data.data);
+      setGroupDetail(res.data);
     } catch (err) {
       console.log(err);
     }
