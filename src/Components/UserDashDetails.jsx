@@ -17,6 +17,7 @@ const UserDashDetails = ({ payoutInfo }) => {
   );
   const userId = JSON.parse(localStorage.getItem("userid"));
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+  console.log(payoutInfo);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -37,16 +38,32 @@ const UserDashDetails = ({ payoutInfo }) => {
 
   if (!groups) return <p>Loading groups...</p>;
 
-   const getStatusStyles = (status) => {
+  const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return { backgroundColor: "#Fef5d0", color: "#Facc15", fontSize: "0.8rem"};// Orange
+        return {
+          backgroundColor: "#Fef5d0",
+          color: "#Facc15",
+          fontSize: "0.8rem",
+        };
       case "active":
-        return { backgroundColor: "#D6ECD1", color: "#34A218", fontSize: "0.8rem" }; // Green
+        return {
+          backgroundColor: "#D6ECD1",
+          color: "#34A218",
+          fontSize: "0.8rem",
+        };
       case "completed":
-        return { backgroundColor: "#D6ECD1", color: "#34A218" , fontSize: "0.8rem"}; // Green
+        return {
+          backgroundColor: "#D6ECD1",
+          color: "#34A218",
+          fontSize: "0.8rem",
+        };
       default:
-        return { backgroundColor: "#F6F6F6", color: "#000000", fontSize: "0.8rem" }; // Default
+        return {
+          backgroundColor: "#F6F6F6",
+          color: "#000000",
+          fontSize: "0.8rem",
+        };
     }
   };
 
@@ -59,7 +76,7 @@ const UserDashDetails = ({ payoutInfo }) => {
             <h2>{userId?.name} 👋🏽</h2>
             <p style={{ color: "#240046" }}>
               You have {groups?.length ?? 0} active groups and{" "}
-              {payoutInfo?.data?.hasActiveCycle
+              {payoutInfo?.hasActiveCycle
                 ? "1 payout coming up this week"
                 : "no payouts this week"}
               .
@@ -88,9 +105,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                 <div className="icon_cont">
                   <CiTrophy />
                 </div>
-                <p>Completed cycles</p>
+                <p>Completed groups</p>
                 <p style={{ fontWeight: "bold" }}>
-                  {payoutInfo?.data?.contributions?.total || 0}
+                  {payoutInfo?.contributions?.total || 0}
                 </p>
               </div>
             </div>
@@ -167,8 +184,10 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <p>
                             <strong>{group.groupName}</strong>
                           </p>
-                          <div className="in_prog" 
-                        style={getStatusStyles(group.status)}>
+                          <div
+                            className="in_prog"
+                            style={getStatusStyles(group.status)}
+                          >
                             <p>{group?.status}</p>
                           </div>
                         </div>
@@ -176,8 +195,8 @@ const UserDashDetails = ({ payoutInfo }) => {
                         <div className="p_cont">
                           <p>{group?.status}</p>
                           <p>
-                            {payoutInfo?.data?.currentRound ?? 0} /{" "}
-                            {payoutInfo?.data?.totalRounds ?? 0}
+                            {group?.activeCycle?.currentRound} /{" "}
+                            {group?.activeCycle?.totalRounds} Payouts
                           </p>
                         </div>
 
@@ -195,17 +214,13 @@ const UserDashDetails = ({ payoutInfo }) => {
                           <p>Total Pot</p>
                           <p>
                             <TbCurrencyNaira />
-
-                            {payoutInfo?.data?.pot?.totalCollected || 0.0}
+                            {group?.pot?.totalCollected}
                           </p>
                         </div>
 
                         <div className="last_date">
-                          <p>Last contribution</p>
-                          <p>
-                            {payoutInfo?.data?.contributions?.received ?? 0} /{" "}
-                            {payoutInfo?.data?.contributions?.total ?? 0}
-                          </p>
+                          <p>Payout Frequency</p>
+                          <p>{group?.payoutFrequency}</p>
                         </div>
 
                         <div className="cycle_round">
@@ -261,9 +276,11 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                     <div className="right">
                       <p style={{}}>
-                        Chidera contributed 10,000 to Women in Tech Ajo
+                        Remember to check your next contribution date
                       </p>
-                      <p style={{ color: "#939393" }}>2 hours ago</p>
+                      <p style={{ color: "#939393" }}>
+                        You can join multiple Ajos at once.
+                      </p>
                     </div>
                   </div>
                   <div className="one">
@@ -271,8 +288,14 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <BsCash />
                     </div>
                     <div className="right">
-                      <p style={{}}>Chisom received payout last week</p>
-                      <p style={{ color: "#939393" }}>1 week ago</p>
+                      <p style={{}}>
+                        Manual and automatic rotations can operate
+                        simultaneously
+                      </p>
+                      <p style={{ color: "#939393" }}>
+                        You can choose either method depending on what works
+                        best for your group in each cycle.
+                      </p>
                     </div>
                   </div>
                   <div className="one">
@@ -280,7 +303,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <MdOutlinePersonAddAlt />
                     </div>
                     <div className="right">
-                      <p style={{}}>New members joined vacation cycle</p>
+                      <p style={{}}>
+                        Make your contribution early to avoid penalty fees
+                      </p>
                       <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
@@ -289,8 +314,11 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <CiTrophy />
                     </div>
                     <div className="right">
-                      <p style={{}}>Cycle 3 completed for Hackathon cycle</p>
-                      <p style={{ color: "#939393" }}>6 days ago</p>
+                      <p style={{}}>New members are joining groups every day</p>
+                      <p style={{ color: "#939393" }}>
+                        Invite trusted friends to join your group and keep
+                        cycles running smoothly
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -317,18 +345,18 @@ const UserDashDetails = ({ payoutInfo }) => {
                     <div className="progress-circle">
                       <div className="circle1">
                         <div className="inner-circle">
-                          <span>{group.progressPercentage ?? "0%"}</span>
+                          <span>{group?.activeCycle?.progress}%</span>
                         </div>
                       </div>
                     </div>
                     <div className="info">
                       <div className="row">
-                        <p>Next contribution Date</p>
-                        <p>{group.nextContributionDate ?? "N/A"}</p>
+                        <p>Total Members</p>
+                        <p>{group.totalMembers}</p>
                       </div>
                       <div className="row">
-                        <p>Yet to Pay</p>
-                        <p>{group.yetToPay ?? "N/A"} members</p>
+                        <p>Contribution Frequency</p>
+                        <p>{group.contributionFrequency}</p>
                       </div>
                     </div>
                   </div>

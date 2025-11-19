@@ -57,7 +57,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
             className={location.pathname === "/mycontribution" ? "active" : ""}
             onClick={() => navigate("/mycontribution")}
           >
-            Contributions
+            My Contributions
           </li>
         </ul>
         <div className="right">

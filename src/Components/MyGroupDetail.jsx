@@ -88,10 +88,7 @@ const MyGroupDetail = () => {
                   <div className="p_cont">
                     <p>Progress</p>
                     <p>
-                      {group.progress ||
-                        `${group.payoutsCompleted || 0}/${
-                          group.totalPayouts || 0
-                        } Payouts`}
+                      {group?.currentRound}/{group?.totalRounds}
                     </p>
                   </div>
 
