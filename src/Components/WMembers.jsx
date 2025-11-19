@@ -115,7 +115,7 @@ const WomenMembers = () => {
   const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" }; // Orange
       case "active":
         return { backgroundColor: "#D8E6FD", color: "#3B82F6" }; // Blue
       case "completed":

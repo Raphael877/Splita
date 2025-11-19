@@ -76,7 +76,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                 }}
               />
             </div>
-            <p>{userData.fullName || "User"}</p>
+            <p>{userData?.fullName}</p>
             <IoIosArrowDown className="arrow" />
             {/* <div className="admin">
               <small>Admin</small>
@@ -103,13 +103,13 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                     }}
                   />
                   <div className="ad">
-                  <p>{userId.name || userData?.fullName}</p>
-                </div>
-                {/* <div className="admin">
+                    <p>{userId.name || userData?.fullName}</p>
+                  </div>
+                  {/* <div className="admin">
                       <small>Admin</small>
                     </div> */}
-                  </div>
-                
+                </div>
+
                 <MdOutlineCancel
                   style={{
                     fontWeight: "bold",
@@ -269,21 +269,21 @@ const UserDashboardHeader_wrapper = styled.div`
     }
 
     .admin {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fef5d0;
-        color: #facc15;
-        padding-block: 0.2rem;
-        padding-inline: 0.6rem;
-        border-radius: 1rem;
-        font-size: 1rem;
-        font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fef5d0;
+      color: #facc15;
+      padding-block: 0.2rem;
+      padding-inline: 0.6rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
 
-        @media (max-width: 768px) {
-          display: none;
-        }
+      @media (max-width: 768px) {
+        display: none;
       }
+    }
 
     .dropdown {
       position: absolute;
@@ -363,7 +363,6 @@ const UserDashboardHeader_wrapper = styled.div`
             }
           }
         }
-
 
         .log {
           display: flex;
