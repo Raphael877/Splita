@@ -319,7 +319,7 @@ const AdminCircleStartVacationDashboard = () => {
             <div className="btn">
               <button
                 className="btn1"
-                onClick={handleCreateandCopy}
+                onClick={handleCreateAndCopy}
                 disabled={loadingInvite}
               >
                 {loadingInvite ? "Loading..." : "Copy Invite Link"}

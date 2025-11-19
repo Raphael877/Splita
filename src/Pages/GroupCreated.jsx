@@ -25,9 +25,9 @@ const GroupCreated = () => {
   );
 
   const id = localStorage.getItem("createdGroupId");
-  const handleCreate = async () => {
-    setLoading(true);
+  const handleCreateAndCopy = async () => {
     try {
+      // 1️⃣ Generate the invite link
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -37,28 +37,33 @@ const GroupCreated = () => {
 
       const inviteLink = res.data.inviteLink;
 
+      const textarea = document.createElement("textarea");
+      textarea.value = inviteLink;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, inviteLink.length);
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(inviteLink);
+        } catch {}
+      }
+
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(inviteLink);
-        toast.success("Invite Link copied successfully!");
-      } else {
-        const input = document.createElement("input");
-        input.value = inviteLink;
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-        toast.success("Invite Link copied successfully! (fallback)");
-      }
+      toast.success("Invite Link copied to clipboard!");
     } catch (error) {
-      console.error("Error copying invite link:", error);
-    } finally {
-      setLoading(false);
+      console.error("Error generating/copying invite link:", error);
+      // toast.error("Failed to generate invite link");
     }
   };
 
@@ -92,7 +97,7 @@ const GroupCreated = () => {
                   in charge of who joins your group.
                 </p>
                 <div className="btn">
-                  <button className="btn1" onClick={handleCreate}>
+                  <button className="btn1" onClick={handleCreateAndCopy}>
                     {loading ? "loading..." : " Copy Invite Link"}
                   </button>
                   <button
