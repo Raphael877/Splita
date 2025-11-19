@@ -88,7 +88,7 @@ const MyGroupDetail = () => {
                   <div className="p_cont">
                     <p>Progress</p>
                     <p>
-                      {group?.currentRound}/{group?.totalRounds}
+                      {group?.data?.currentRound}/{group?.data?.totalRounds}
                     </p>
                   </div>
 
@@ -119,8 +119,8 @@ const MyGroupDetail = () => {
                   </div>
 
                   <div className="last_date">
-                    <p>Last contribution</p>
-                    <p>{group.lastContributionDate || "N/A"}</p>
+                    <p>Payout Frequency</p>
+                    <p>{group?.payoutFrequency}</p>
                   </div>
 
                   <div className="cycle_round">
