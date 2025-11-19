@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const ApproveMember = ({ onClose, group, request, refreshRequests }) => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const token = JSON.parse(localStorage.getItem("user_token"));
-  const groupId = localStorage.getItem("selectedGroupId");
+  const { groupId } = useParams();
 
   const handleRequestAction = async (userId, action) => {
     try {

@@ -1,31 +1,68 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const DeclineMember = ({ onClose }) => {
-  const handleDecline = () => {
-    toast.error("Request Denied");
+const DeclineMember = ({ onClose, group, request, refreshRequests }) => {
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const { groupId } = useParams();
+  const [loading, setLoading] = useState(false);
+  const token = JSON.parse(localStorage.getItem("user_token"));
+  const handleDecline = async (userId, action) => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${BaseUrl}/groups/${groupId}/join_request/${userId}`,
+        {
+          action,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-    setTimeout(() => {
+      toast.success("Member declined successfully!");
+      refreshRequests();
       onClose();
-    }, 400);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Payout_content>
+      <ToastContainer />
       <Payout_wrapper>
         <Inner_wrap>
           <h3>Decline Member</h3>
-          <p>Are you sure you want to decline this<br /> member?</p>
-          <div className='btn'>
-            <button className='btn1' onClick={onClose}>Cancel</button>
-            <button className='btn2' onClick={handleDecline}>Decline</button>
+          <p>
+            Are you sure you want to decline this
+            <br /> member?
+          </p>
+          <div className="btn">
+            <button className="btn1" onClick={onClose}>
+              Cancel
+            </button>
+            <button
+              className="btn2"
+              onClick={() => handleDecline(request.user.id, "reject")}
+            >
+              {loading ? "Declining..." : "Decline"}
+            </button>
           </div>
         </Inner_wrap>
 
         <FaRegTimesCircle
-          style={{ cursor: 'pointer', position: 'absolute', top: '10%', right: '6%' }}
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            top: "10%",
+            right: "6%",
+          }}
           onClick={onClose}
         />
       </Payout_wrapper>
