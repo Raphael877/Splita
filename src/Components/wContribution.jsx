@@ -4,7 +4,10 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { useOutletContext } from "react-router-dom";
 
 const WomenContribution = () => {
-  const { contributions = [], groupDetails = [] } = useOutletContext() || {};
+  const context = useOutletContext() || {};
+
+  const contributions = context.contributions || [];
+  const members = context.members || [];
 
   const formatDate = (date) =>
     date
@@ -41,47 +44,34 @@ const WomenContribution = () => {
               </div>
 
               {contributions.length > 0 ? (
-                contributions.map((item, index) => {
-                  const member = groupDetails?.group?.members?.find(
-                    (m) => m.id === item.userId
-                  );
+                contributions.map((item) => {
+                  const member = members.find((m) => m.id === item.userId);
 
                   return (
-                    <div className="all_data" key={item.id || index}>
+                    <div className="all_data" key={item.id}>
                       <div className="cycle">
                         <p>{member?.name}</p>
                       </div>
+
                       <div className="amount">
-                        <p style={{display: 'flex', alignItems: "center"}}>
-                          <TbCurrencyNaira style={{fontSize: "1.2rem"}}/>
-                          {item.amount
-                            ? Number(item.amount).toLocaleString()
-                            : "0"}
+                        <p>
+                          <TbCurrencyNaira />
+                          {item.amount}
                         </p>
                       </div>
+
                       <div className="date">
                         <p>{formatDate(item.contributionDate)}</p>
                       </div>
+
                       <div className="status">
-                        <div
-                          className="status_wrap"
-                          style={{
-                            backgroundColor:
-                              item.status === "paid" ? "#d6ecd1" : "#ffe4cc",
-                            color:
-                              item.status === "paid" ? "#34a218" : "#ff7900",
-                          }}
-                        >
-                          {item.status || "Unpaid"}
-                        </div>
+                        <div className="status_wrap">{item.status}</div>
                       </div>
                     </div>
                   );
                 })
               ) : (
-                <div style={{ textAlign: "center", padding: "20px" }}>
-                  <p>No contributions yet.</p>
-                </div>
+                <p>No contributions yet</p>
               )}
             </div>
           </div>
@@ -130,8 +120,8 @@ const Table = styled.div`
   margin-block: 1.5rem;
 
   @media (max-width: 768px) {
-      width: 300vw;
-    }
+    width: 300vw;
+  }
 
   .table_wrap {
     display: flex;
@@ -166,8 +156,8 @@ const Table = styled.div`
         justify-content: space-between;
         align-items: center;
 
-        .header{
-          .member{
+        .header {
+          .member {
             @media (max-width: 768px) {
               width: 30%;
             }

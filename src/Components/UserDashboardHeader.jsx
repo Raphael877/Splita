@@ -76,7 +76,7 @@ const UserDashboardHeader = ({ onMyGroupClick }) => {
                 }}
               />
             </div>
-            <p>{userId?.name || userData.fullName || "User"}</p>
+            <p>{userData?.fullName}</p>
             <IoIosArrowDown className="arrow" />
             {/* <div className="admin">
               <small>Admin</small>

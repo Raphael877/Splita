@@ -42,7 +42,7 @@ const MyGroupDetail = () => {
   const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return { backgroundColor: "#Fef5d0", color: "#Facc15" };// Orange
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" }; // Orange
       case "active":
         return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
       case "completed":
@@ -67,7 +67,7 @@ const MyGroupDetail = () => {
         <div className="main_top_group">
           {groups.length === 0 ? (
             <p style={{ textAlign: "center", marginTop: "50px" }}>
-              Groups Loading.......
+              Loading Groups.......
             </p>
           ) : (
             groups.map((group) => (
@@ -165,7 +165,7 @@ export default MyGroupDetail;
 
 const MyGroupDetail_content = styled.div`
   width: 100%;
-  height: auto;
+  height: max-content;
   display: flex;
   justify-content: center;
   align-items: center;
