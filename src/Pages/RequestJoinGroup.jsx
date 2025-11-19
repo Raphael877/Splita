@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ApproveMember from "../Components/Deletefolder/ApproveMember.jsx";
 import DeclineMember from "../Components/Deletefolder/DeclineMember.jsx";
 import axios from "axios";
@@ -11,8 +11,9 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const token = JSON.parse(localStorage.getItem("user_token"));
-  const groupId = localStorage.getItem("selectedGroupId");
-
+  // const groupId = localStorage.getItem("selectedGroupId");
+  // const groupId = localStorage.getItem("selectedGroupId");
+  const { groupId } = useParams();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +21,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
-
+  const [idInfo, setIdInfo] = useState({ memberId: "", groupId: groupId });
+  console.log(idInfo);
   const groupName = location.state?.group?.groupName || "Not Available";
 
   const fetchRequests = async () => {
@@ -83,6 +85,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
                               onClick={() => {
                                 setSelectedRequest(req);
                                 setShowApproveModal(true);
+                                setIdInfo((p) => ({ ...p, memberId: req.id }));
                               }}
                             >
                               Approve
@@ -92,6 +95,7 @@ const RequestJoinGroup = ({ groupDetails }) => {
                               onClick={() => {
                                 setSelectedRequest(req);
                                 setShowDeclineModal(true);
+                                setIdInfo((p) => ({ ...p, memberId: req.id }));
                               }}
                             >
                               Decline
@@ -113,7 +117,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
           onClose={() => setShowApproveModal(false)}
           group={group}
           request={selectedRequest}
-          refreshRequests={fetchRequests} // ✅ pass fetchRequests
+          refreshRequests={fetchRequests}
+          idInfo={idInfo}
         />
       )}
       {showDeclineModal && selectedRequest && (
@@ -121,7 +126,8 @@ const RequestJoinGroup = ({ groupDetails }) => {
           onClose={() => setShowDeclineModal(false)}
           group={group}
           request={selectedRequest}
-          refreshRequests={fetchRequests} // ✅ pass fetchRequests
+          refreshRequests={fetchRequests}
+          idInfo={idInfo}
         />
       )}
     </AdminDashboard_content>
