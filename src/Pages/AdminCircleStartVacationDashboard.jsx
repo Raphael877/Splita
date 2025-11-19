@@ -70,35 +70,9 @@ const AdminCircleStartVacationDashboard = () => {
 
     if (groupId) fetchGroup();
   }, [groupId]);
-  // async function copyToClipboard(text) {
-  //   try {
-  //     if (navigator.clipboard && window.isSecureContext) {
-  //       await navigator.clipboard.writeText(text);
-  //       return true;
-  //     }
 
-  //     const textarea = document.createElement("textarea");
-  //     textarea.value = text;
-
-  //     textarea.style.position = "fixed";
-  //     textarea.style.left = "-99999px";
-  //     textarea.style.top = "0";
-
-  //     document.body.appendChild(textarea);
-  //     textarea.focus();
-  //     textarea.select();
-
-  //     const success = document.execCommand("copy");
-  //     document.body.removeChild(textarea);
-
-  //     return success;
-  //   } catch (err) {
-  //     console.error("Copy failed", err);
-  //     return false;
-  //   }
   // }
   async function copyToClipboard(text) {
-    // modern API first
     if (navigator.clipboard && window.isSecureContext) {
       try {
         await navigator.clipboard.writeText(text);
@@ -108,7 +82,6 @@ const AdminCircleStartVacationDashboard = () => {
       }
     }
 
-    // iOS-compatible fallback
     const textarea = document.createElement("textarea");
     textarea.value = text;
     textarea.style.position = "absolute";
@@ -135,14 +108,15 @@ const AdminCircleStartVacationDashboard = () => {
       });
 
       const inviteLink = res.data.inviteLink;
+      copyToClipboard(inviteLink);
 
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      clipboard.copy(inviteLink);
-      copyToClipboard(inviteLink);
+      // clipboard.copy(inviteLink);
+
       toast.success("Invite Link copied successfully!");
     } catch (error) {
       console.error("Error copying invite link:", error);
@@ -209,8 +183,8 @@ const AdminCircleStartVacationDashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      // setTimeout(() => handleModalFlow("payout"), 800);
       toast.success("Payout created successfully!");
-      setTimeout(() => handleModalFlow("payout"), 800);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -508,7 +482,6 @@ const AdminCircleStartVacationDashboard = () => {
           loading={loading}
           nextMember={nextMember}
           onClose={() => setCurrentModal(null)}
-          onConfirm={() => handleModalFlow("payoutSuccessful")}
         />
       )}
 

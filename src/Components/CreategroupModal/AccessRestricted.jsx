@@ -10,10 +10,10 @@ const AccessRestricted = () => {
       <UserDashboardHeader />
       <Payout_wrapper>
         <Inner_wrap>
-          <h3 style={{ color: "#df2a44" }}>Access Restricted</h3>
-          <p>
-            You need a valid invitation link to access the  group
-          </p>
+          <h3 style={{ color: "#df2a44", fontSize: "24px" }}>
+            Access Restricted
+          </h3>
+          <p>You need a valid invitation link to access the group</p>
           <button className="btn" onClick={() => navigate(-1)}>
             Return to Home page
           </button>
@@ -56,7 +56,7 @@ const Inner_wrap = styled.div`
   height: 80%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -64,10 +64,12 @@ const Inner_wrap = styled.div`
 
   .btn {
     border: none;
+    // padding: 2rem;
     outline: none;
     color: white;
     height: 2.5rem;
-    width: 70%;
+    margin-top: 3rem;
+    max-width: 100%;
     border-radius: 0.5rem;
     cursor: pointer;
     background-color: #7b2cbf;
