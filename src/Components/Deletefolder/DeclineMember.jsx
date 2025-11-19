@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
