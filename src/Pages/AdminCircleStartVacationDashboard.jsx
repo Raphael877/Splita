@@ -71,49 +71,9 @@ const AdminCircleStartVacationDashboard = () => {
     if (groupId) fetchGroup();
   }, [groupId]);
 
-  // }
-  async function copyToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      try {
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch (err) {
-        console.warn("Clipboard API failed:", err);
-      }
-    }
-
+  const handleCreateAndCopy = async () => {
     try {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.top = "0";
-      textarea.style.left = "-9999px";
-
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-
-      const success = document.execCommand("copy");
-      document.body.removeChild(textarea);
-      return success;
-    } catch (err) {
-      console.error("Fallback copy failed:", err);
-      return false;
-    }
-  }
-
-  button.addEventListener("click", async () => {
-    const ok = await copyToClipboard("your-text-here");
-    if (ok) {
-      alert("Copied!");
-    } else {
-      alert("Failed to copy.");
-    }
-  });
-
-  const handleCreate = async () => {
-    try {
+      // 1️⃣ Generate the invite link
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -122,19 +82,34 @@ const AdminCircleStartVacationDashboard = () => {
       });
 
       const inviteLink = res.data.inviteLink;
-      copyToClipboard(inviteLink);
+
+      const textarea = document.createElement("textarea");
+      textarea.value = inviteLink;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, inviteLink.length);
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(inviteLink);
+        } catch {}
+      }
 
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      // clipboard.copy(inviteLink);
-
-      toast.success("Invite Link copied successfully!");
+      toast.success("Invite Link copied to clipboard!");
     } catch (error) {
-      console.error("Error copying invite link:", error);
-      toast.error("Failed to copy invite link");
+      console.error("Error generating/copying invite link:", error);
+      // toast.error("Failed to generate invite link");
     }
   };
 
@@ -344,7 +319,7 @@ const AdminCircleStartVacationDashboard = () => {
             <div className="btn">
               <button
                 className="btn1"
-                onClick={handleCreate}
+                onClick={handleCreateandCopy}
                 disabled={loadingInvite}
               >
                 {loadingInvite ? "Loading..." : "Copy Invite Link"}
