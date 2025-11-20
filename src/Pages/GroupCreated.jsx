@@ -30,44 +30,100 @@ const GroupCreated = () => {
   );
 
   const id = localStorage.getItem("createdGroupId");
-
-  // ✅ Updated handleCreateAndCopy function
-  const handleCreateAndCopy = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      const inviteLink = res.data.inviteLink;
-
-      // Show input field and set value
-      setInviteValue(inviteLink);
-      setInviteInputShown(true);
-
-      // Try auto-copy silently
+  useEffect(() => {
+    const fetchGroupAndLink = async () => {
       try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(inviteLink);
+        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setGroupDetails(res.data);
+        setGroup(res.data.group);
+        localStorage.setItem("selectedGroupId", groupId);
+
+        const payoutRes = await axios.get(
+          `${BaseUrl}/groups/${groupId}/payout_info`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setPayoutInfo(payoutRes.data.data);
+        setCycleId(payoutRes.data.data.cycleId);
+
+        const inviteRes = await axios.get(
+          `${BaseUrl}/groups/generate_invite/${groupId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (inviteRes.data && inviteRes.data.inviteLink) {
+          setFetchedInviteLink(inviteRes.data.inviteLink);
         }
-      } catch {}
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoadingInvite(false);
+      }
+    };
 
-      // Store in localStorage
-      localStorage.setItem(
-        "latestInvite",
-        JSON.stringify({ groupId: id, inviteLink })
-      );
+    if (groupId) fetchGroupAndLink();
+  }, [groupId]);
 
-      toast.success("Invite link ready!");
-    } catch (error) {
-      console.error("Error generating/copying invite link:", error);
-      // no toast error, optional
-    } finally {
-      setLoading(false);
+  const handleCopyInstant = () => {
+    const textToCopy = fetchedInviteLink;
+
+    if (!textToCopy) {
+      toast.error("Invite link not ready yet. Please refresh.");
+      return;
     }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          toast.success("Invite Link copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Async copy failed, trying fallback", err);
+          fallbackCopy(textToCopy);
+        });
+    } else {
+      fallbackCopy(textToCopy);
+    }
+  };
+
+  const fallbackCopy = (text) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    textarea.contentEditable = true;
+    textarea.readOnly = false;
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+
+    textarea.setSelectionRange(0, 99999);
+
+    try {
+      const successful = document.execCommand("copy");
+      if (successful) {
+        toast.success("Invite Link copied to clipboard!");
+      } else {
+        toast.error("Unable to copy link automatically.");
+      }
+    } catch (err) {
+      console.error("Fallback copy failed", err);
+      toast.error("Failed to copy link.");
+    }
+
+    document.body.removeChild(textarea);
   };
 
   return (
@@ -100,7 +156,7 @@ const GroupCreated = () => {
                   in charge of who joins your group.
                 </p>
                 <div className="btn">
-                  <button className="btn1" onClick={handleCreateAndCopy}>
+                  <button className="btn1" onClick={fetchGroupAndLink}>
                     {loading ? "loading..." : " Copy Invite Link"}
                   </button>
 
