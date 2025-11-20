@@ -33,22 +33,6 @@ const GroupCreated = () => {
   useEffect(() => {
     const fetchGroupAndLink = async () => {
       try {
-        const res = await axios.get(`${BaseUrl}/groups/${groupId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setGroupDetails(res.data);
-        setGroup(res.data.group);
-        localStorage.setItem("selectedGroupId", groupId);
-
-        const payoutRes = await axios.get(
-          `${BaseUrl}/groups/${groupId}/payout_info`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setPayoutInfo(payoutRes.data.data);
-        setCycleId(payoutRes.data.data.cycleId);
-
         const inviteRes = await axios.get(
           `${BaseUrl}/groups/generate_invite/${groupId}`,
           {
@@ -156,7 +140,7 @@ const GroupCreated = () => {
                   in charge of who joins your group.
                 </p>
                 <div className="btn">
-                  <button className="btn1" onClick={fetchGroupAndLink}>
+                  <button className="btn1" onClick={handleCopyInstant}>
                     {loading ? "loading..." : " Copy Invite Link"}
                   </button>
 
