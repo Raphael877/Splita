@@ -8,7 +8,7 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { BsCash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
 
 const UserDashDetails = ({ payoutInfo }) => {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const UserDashDetails = ({ payoutInfo }) => {
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(textToCopy);
-        toast.success("Link copied successfully!"); 
+        toast.success("Link copied successfully!");
       } else {
         throw new Error("Clipboard API unavailable");
       }
@@ -58,15 +58,15 @@ const UserDashDetails = ({ payoutInfo }) => {
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
-      textArea.setSelectionRange(0, 99999); 
+      textArea.setSelectionRange(0, 99999);
 
       try {
         const successful = document.execCommand("copy");
         if (successful) {
-           toast.success("Link copied successfully!"); 
+          toast.success("Link copied successfully!");
         } else {
-           toast.error("Unable to copy link.");
-         }
+          toast.error("Unable to copy link.");
+        }
       } catch (err) {
         console.error("Fallback copy failed", err);
         toast.error("Failed to copy link");
@@ -80,19 +80,35 @@ const UserDashDetails = ({ payoutInfo }) => {
   const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return { backgroundColor: "#Fef5d0", color: "#Facc15", fontSize: "0.8rem" };
+        return {
+          backgroundColor: "#Fef5d0",
+          color: "#Facc15",
+          fontSize: "0.8rem",
+        };
       case "active":
-        return { backgroundColor: "#D6ECD1", color: "#34A218", fontSize: "0.8rem" };
+        return {
+          backgroundColor: "#D6ECD1",
+          color: "#34A218",
+          fontSize: "0.8rem",
+        };
       case "completed":
-        return { backgroundColor: "#D6ECD1", color: "#34A218", fontSize: "0.8rem" };
+        return {
+          backgroundColor: "#D6ECD1",
+          color: "#34A218",
+          fontSize: "0.8rem",
+        };
       default:
-        return { backgroundColor: "#F6F6F6", color: "#000000", fontSize: "0.8rem" };
+        return {
+          backgroundColor: "#F6F6F6",
+          color: "#000000",
+          fontSize: "0.8rem",
+        };
     }
   };
 
   return (
     <UserDashDetails_content>
-      <ToastContainer /> 
+      <ToastContainer />
       <UserDashDetails_wrapper>
         <Hello>
           <div className="left">
@@ -113,7 +129,7 @@ const UserDashDetails = ({ payoutInfo }) => {
             >
               + Create New Group
             </button>
-            
+
             {/* ✅ FIXED: Changed from Copy Link to Join Group navigation */}
             <button
               className="hello_btn2"
@@ -128,24 +144,34 @@ const UserDashDetails = ({ payoutInfo }) => {
           <div className="inner_details">
             <div className="card1">
               <div className="card_wrapper">
-                <div className="icon_cont"><CiTrophy /></div>
+                <div className="icon_cont">
+                  <CiTrophy />
+                </div>
                 <p>Completed groups</p>
-                <p style={{ fontWeight: "bold" }}>{payoutInfo?.contributions?.total || 0}</p>
+                <p style={{ fontWeight: "bold" }}>
+                  {payoutInfo?.contributions?.total || 0}
+                </p>
               </div>
             </div>
 
             <div className="card2">
               <div className="card_wrapper">
-                <div className="icon_cont"><TiGroupOutline /></div>
+                <div className="icon_cont">
+                  <TiGroupOutline />
+                </div>
                 <p>Active groups</p>
-                <p style={{ fontWeight: "bold" }}>{groups?.length ?? 0} groups</p>
+                <p style={{ fontWeight: "bold" }}>
+                  {groups?.length ?? 0} groups
+                </p>
               </div>
             </div>
 
             <div className="card3">
               <div className="card_wrapper">
                 <div className="first">
-                  <div className="icon_cont"><MdEventNote /></div>
+                  <div className="icon_cont">
+                    <MdEventNote />
+                  </div>
                   <div className="right">
                     <p>
                       <strong>Dec 3rd, 25</strong>
@@ -160,7 +186,9 @@ const UserDashDetails = ({ payoutInfo }) => {
             <div className="card4">
               <div className="card_wrapper">
                 <div className="first">
-                  <div className="icon_cont"><CiBellOn /></div>
+                  <div className="icon_cont">
+                    <CiBellOn />
+                  </div>
                   <div className="right">
                     <p>2</p>
                   </div>
@@ -177,7 +205,14 @@ const UserDashDetails = ({ payoutInfo }) => {
             <My_groups>
               <div className="top">
                 <h1>My groups</h1>
-                <p onClick={() => navigate("/mygroupdetail")} style={{ color: "#7b2cbf", fontWeight: "bolder", cursor: "pointer" }}>
+                <p
+                  onClick={() => navigate("/mygroupdetail")}
+                  style={{
+                    color: "#7b2cbf",
+                    fontWeight: "bolder",
+                    cursor: "pointer",
+                  }}
+                >
                   <small>View all</small>
                 </p>
               </div>
@@ -188,24 +223,41 @@ const UserDashDetails = ({ payoutInfo }) => {
                     <div className="group" key={index}>
                       <div className="wrapper">
                         <div className="women">
-                          <p><strong>{group.groupName}</strong></p>
-                          <div className="in_prog" style={getStatusStyles(group.status)}>
+                          <p>
+                            <strong>{group.groupName}</strong>
+                          </p>
+                          <div
+                            className="in_prog"
+                            style={getStatusStyles(group.status)}
+                          >
                             <p>{group?.status}</p>
                           </div>
                         </div>
 
                         <div className="p_cont">
                           <p>{group?.status}</p>
-                          <p>{group?.activeCycle?.currentRound} / {group?.activeCycle?.totalRounds} Payouts</p>
+                          <p>
+                            {group?.activeCycle?.currentRound} /{" "}
+                            {group?.activeCycle?.totalRounds} Payouts
+                          </p>
                         </div>
 
-                        <div className="progress_parent1" style={{ marginBottom: "1rem" }}>
+                        <div
+                          className="progress_parent1"
+                          style={{ marginBottom: "1rem" }}
+                        >
                           <div className="progress_child1"></div>
                         </div>
 
-                        <div className="total_naira" style={{ display: "flex", alignItems: "center" }}>
+                        <div
+                          className="total_naira"
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
                           <p>Total Pot</p>
-                          <p><TbCurrencyNaira />{group?.pot?.totalCollected}</p>
+                          <p>
+                            <TbCurrencyNaira />
+                            {group?.pot?.totalCollected}
+                          </p>
                         </div>
 
                         <div className="last_date">
@@ -226,7 +278,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                         <button
                           onClick={() => {
                             if (group.myRole === "admin") {
-                              navigate(`/admincirclestartvacationdashboard/${group.id}`);
+                              navigate(
+                                `/admincirclestartvacationdashboard/${group.id}`
+                              );
                             } else if (group.myRole === "member") {
                               navigate(`/womendashboard/${group.id}`);
                             } else {
@@ -240,7 +294,13 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                   ))
                 ) : (
-                  <p style={{ display: "flex", justifyContent: "center", fontSize: "18px" }}>
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontSize: "18px",
+                    }}
+                  >
                     Loading groups...
                   </p>
                 )}
@@ -252,7 +312,9 @@ const UserDashDetails = ({ payoutInfo }) => {
               <div className="recent_updates">
                 <div className="recent_update_wrapper">
                   <div className="one">
-                    <div className="left1"><TiTick /></div>
+                    <div className="left1">
+                      <TiTick />
+                    </div>
                     <div className="right">
                       <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
@@ -261,7 +323,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                   </div>
                   <div className="one">
-                    <div className="left2"><BsCash /></div>
+                    <div className="left3">
+                      <MdOutlinePersonAddAlt />
+                    </div>
                     <div className="right">
                       <p style={{}}>Did you know?</p>
                       <p style={{ color: "#939393" }}>
@@ -270,7 +334,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                   </div>
                   <div className="one">
-                    <div className="left3"><MdOutlinePersonAddAlt /></div>
+                    <div className="left4">
+                      <CiTrophy />
+                    </div>
                     <div className="right">
                       <p style={{}}>Insight</p>
                       <p style={{ color: "#939393" }}>
@@ -279,7 +345,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                     </div>
                   </div>
                   <div className="one">
-                    <div className="left4"><CiTrophy /></div>
+                    <div className="left4">
+                      <CiTrophy />
+                    </div>
                     <div className="right">
                       <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
@@ -1131,7 +1199,7 @@ const Right = styled.div`
 // import { BsCash } from "react-icons/bs";
 // import { useNavigate } from "react-router-dom";
 // import { toast, ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css"; 
+// import "react-toastify/dist/ReactToastify.css";
 
 // const UserDashDetails = ({ payoutInfo }) => {
 //   const navigate = useNavigate();
@@ -1168,7 +1236,7 @@ const Right = styled.div`
 //     try {
 //       if (navigator.clipboard && window.isSecureContext) {
 //         await navigator.clipboard.writeText(textToCopy);
-//         toast.success("Link copied successfully!"); 
+//         toast.success("Link copied successfully!");
 //       } else {
 //         throw new Error("Clipboard API unavailable");
 //       }
@@ -1181,12 +1249,12 @@ const Right = styled.div`
 //       document.body.appendChild(textArea);
 //       textArea.focus();
 //       textArea.select();
-//       textArea.setSelectionRange(0, 99999); 
+//       textArea.setSelectionRange(0, 99999);
 
 //       try {
 //         const successful = document.execCommand("copy");
 //         if (successful) {
-//            toast.success("Link copied successfully!"); 
+//            toast.success("Link copied successfully!");
 //         } else {
 //            toast.error("Unable to copy link.");
 //          }
@@ -1215,7 +1283,7 @@ const Right = styled.div`
 
 //   return (
 //     <UserDashDetails_content>
-//       <ToastContainer /> 
+//       <ToastContainer />
 //       <UserDashDetails_wrapper>
 //         <Hello>
 //           <div className="left">
@@ -1236,7 +1304,7 @@ const Right = styled.div`
 //             >
 //               + Create New Group
 //             </button>
-            
+
 //             <button
 //               className="hello_btn2"
 //               onClick={() => navigate("/AccessRestricted")}
