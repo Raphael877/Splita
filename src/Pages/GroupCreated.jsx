@@ -29,7 +29,7 @@ const GroupCreated = () => {
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
   );
 
-  const id = localStorage.getItem("createdGroupId");
+  const groupId = localStorage.getItem("createdGroupId");
   useEffect(() => {
     const fetchGroupAndLink = async () => {
       try {
