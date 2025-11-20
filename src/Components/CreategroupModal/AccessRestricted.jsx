@@ -64,11 +64,11 @@ const Inner_wrap = styled.div`
 
   .btn {
     border: none;
-    // padding: 2rem;
+    padding: 1rem;
     outline: none;
     color: white;
-    height: 2.5rem;
-    margin-top: 3rem;
+    /* height: 2.5rem; */
+    margin-top: 0.5rem;
     max-width: 100%;
     border-radius: 0.5rem;
     cursor: pointer;
