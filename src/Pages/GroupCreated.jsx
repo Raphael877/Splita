@@ -15,8 +15,10 @@ const GroupCreated = () => {
   const [loading, setLoading] = useState(false);
 
   // ✅ New states for invite link input
-  const [inviteInputShown, setInviteInputShown] = useState(false);
-  const [inviteValue, setInviteValue] = useState("");
+  const [inviteInputShown] = useState(false);
+  const [fetchedInviteLink, setFetchedInviteLink] = useState("");
+
+  const [inviteValue] = useState("");
 
   const groupName =
     (location?.state && location.state.groupName) ||
