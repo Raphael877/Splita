@@ -110,7 +110,7 @@ const SignUpJoin = () => {
           err?.response?.data?.error ||
           "Registration failed. Please try again."
       );
-      console.error(err);
+      // console.error(err);
     } finally {
       setloading(false);
     }

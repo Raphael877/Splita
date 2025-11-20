@@ -150,11 +150,11 @@ const SignIn = () => {
           navigate("/dashboard");
         }
       } catch (error) {
-        console.error("Error checking groups:", error);
+        // console.error("Error checking groups:", error);
         navigate("/dashboard");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error(err?.response?.data?.message);
     } finally {
       SetLoading(false);

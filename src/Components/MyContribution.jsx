@@ -176,7 +176,7 @@ const MyContribution = () => {
       // console.log("Fetched groups:", res.data);
       setGroups(res.data?.data || []);
     } catch (error) {
-      console.log("❌ Error fetching groups:", error);
+      // console.log("❌ Error fetching groups:", error);
     }
   };
 

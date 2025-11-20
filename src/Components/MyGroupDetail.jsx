@@ -9,7 +9,7 @@ import axios from "axios";
 
 const MyGroupDetail = () => {
   const { groupId } = useParams();
-  console.log("Group ID:", groupId);
+  // console.log("Group ID:", groupId);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
   const token = JSON.parse(
     localStorage.getItem(import.meta.env.VITE_USERTOKEN)
@@ -88,7 +88,8 @@ const MyGroupDetail = () => {
                   <div className="p_cont">
                     <p>Progress</p>
                     <p>
-                      {group?.data?.currentRound}/{group?.data?.totalRounds}
+                      {group?.activeCycle?.currentRound} /{" "}
+                      {group?.activeCycle?.totalRounds} Payouts
                     </p>
                   </div>
 

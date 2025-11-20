@@ -147,7 +147,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                 <div className="first">
                   <div className="icon_cont"><MdEventNote /></div>
                   <div className="right">
-                    <p><strong>Dec 3rd,25</strong></p>
+                    <p>
+                      <strong>Dec 3rd, 25</strong>
+                    </p>
                   </div>
                 </div>
                 <p>Next Payouts</p>
@@ -252,7 +254,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   <div className="one">
                     <div className="left1"><TiTick /></div>
                     <div className="right">
-                      <p>Splita Tips</p>
+                      <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
                         Remember to check your next contribution date
                       </p>
@@ -261,7 +263,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   <div className="one">
                     <div className="left2"><BsCash /></div>
                     <div className="right">
-                      <p>Did you know?</p>
+                      <p style={{}}>Did you know?</p>
                       <p style={{ color: "#939393" }}>
                         You can join multiple Ajos at once.
                       </p>
@@ -270,7 +272,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   <div className="one">
                     <div className="left3"><MdOutlinePersonAddAlt /></div>
                     <div className="right">
-                      <p>Insight</p>
+                      <p style={{}}>Insight</p>
                       <p style={{ color: "#939393" }}>
                         Several users completed payouts recently.
                       </p>
@@ -279,7 +281,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                   <div className="one">
                     <div className="left4"><CiTrophy /></div>
                     <div className="right">
-                      <p>Splita Tips</p>
+                      <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
                         Invite trusted friends to join your group and keep
                         cycles running smoothly
