@@ -72,7 +72,7 @@ const VerifyEmail = () => {
       setOtp(["", "", "", "", "", ""]);
       navigate("/dashboard");
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error(error?.response?.data?.message || "Verification failed");
     } finally {
       setLoading(false);
@@ -97,7 +97,7 @@ const VerifyEmail = () => {
       toast.success(res?.data?.message || "OTP resent successfully!");
       setTimer(15);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error(error?.response?.data?.message || "Failed to resend OTP");
     } finally {
       setResending(false);

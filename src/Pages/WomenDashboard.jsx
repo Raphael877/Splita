@@ -70,7 +70,7 @@ const WomenDashboard = () => {
       toast.success("Redirecting to payment gateway...");
       window.location.href = authorizationUrl;
     } catch (error) {
-      console.error("Error contributing:", error);
+      // console.error("Error contributing:", error);
       toast.error(
         error?.response?.data?.message ||
           "Failed to process contribution. Please try again."
@@ -135,24 +135,23 @@ const WomenDashboard = () => {
   ];
 
   const getStatusStyles = (status) => {
-  if (!status) {
-    return { backgroundColor: "#F6F6F6", color: "#000000" };
-  }
-
-  const s = String(status).toLowerCase().trim();
-
-  switch (s) {
-    case "pending":
-      return { backgroundColor: "#Fef5d0", color: "#Facc15" };
-    case "active":
-      return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
-    case "completed":
-      return { backgroundColor: "#D6ECD1", color: "#34A218" };
-    default:
+    if (!status) {
       return { backgroundColor: "#F6F6F6", color: "#000000" };
-  }
-};
+    }
 
+    const s = String(status).toLowerCase().trim();
+
+    switch (s) {
+      case "pending":
+        return { backgroundColor: "#Fef5d0", color: "#Facc15" };
+      case "active":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" }; // Green
+      case "completed":
+        return { backgroundColor: "#D6ECD1", color: "#34A218" };
+      default:
+        return { backgroundColor: "#F6F6F6", color: "#000000" };
+    }
+  };
 
   return (
     <AdminDashboard_content>
@@ -172,9 +171,11 @@ const WomenDashboard = () => {
                 {payoutInfo?.currentRound || 1} / {payoutInfo?.totalRounds || 1}
               </span>
             </p>
-            <div className="ongoing" style={getStatusStyles(groupDetails?.group?.status)}
->
-              <p style={{ fontSize: "0.8rem", color: "inherit"}}>
+            <div
+              className="ongoing"
+              style={getStatusStyles(groupDetails?.group?.status)}
+            >
+              <p style={{ fontSize: "0.8rem", color: "inherit" }}>
                 {groupDetails?.group?.status || "Active"}
               </p>
             </div>

@@ -132,12 +132,12 @@ const UserDashDetails = ({ payoutInfo }) => {
                   </div>
                   <div className="right">
                     <p>
-                      <strong>Dec 3rd,25</strong>
+                      <strong>Dec 3rd, 25</strong>
                     </p>
                   </div>
                 </div>
                 <p>Next Payouts</p>
-                <p style={{ fontWeight: "bold" }}>Payout Info</p>
+                <p style={{ fontWeight: "bold" }}>Payout Date</p>
               </div>
             </div>
 
@@ -267,7 +267,7 @@ const UserDashDetails = ({ payoutInfo }) => {
 
             {/* Recent Updates */}
             <Recent>
-              <h1>Recent Updates</h1>
+              <h1>Tips and Updates</h1>
               <div className="recent_updates">
                 <div className="recent_update_wrapper">
                   <div className="one">
@@ -275,11 +275,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <TiTick />
                     </div>
                     <div className="right">
-                      <p style={{}}>
-                        Remember to check your next contribution date
-                      </p>
+                      <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
-                        You can join multiple Ajos at once.
+                        Remember to check your next contribution date
                       </p>
                     </div>
                   </div>
@@ -288,13 +286,9 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <BsCash />
                     </div>
                     <div className="right">
-                      <p style={{}}>
-                        Manual and automatic rotations can operate
-                        simultaneously
-                      </p>
+                      <p style={{}}>Did you know?</p>
                       <p style={{ color: "#939393" }}>
-                        You can choose either method depending on what works
-                        best for your group in each cycle.
+                        You can join multiple Ajos at once.
                       </p>
                     </div>
                   </div>
@@ -303,10 +297,10 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <MdOutlinePersonAddAlt />
                     </div>
                     <div className="right">
-                      <p style={{}}>
-                        Make your contribution early to avoid penalty fees
+                      <p style={{}}>Insight</p>
+                      <p style={{ color: "#939393" }}>
+                        Several users completed payouts recently.
                       </p>
-                      <p style={{ color: "#939393" }}>3 days ago</p>
                     </div>
                   </div>
                   <div className="one">
@@ -314,7 +308,7 @@ const UserDashDetails = ({ payoutInfo }) => {
                       <CiTrophy />
                     </div>
                     <div className="right">
-                      <p style={{}}>New members are joining groups every day</p>
+                      <p style={{}}>Splita Tips</p>
                       <p style={{ color: "#939393" }}>
                         Invite trusted friends to join your group and keep
                         cycles running smoothly
@@ -884,7 +878,7 @@ const My_groups = styled.div`
 
 const Recent = styled.div`
   width: 100%;
-  height: 50%;
+  height: 65vh;
   display: flex;
   flex-direction: column;
   gap: 2rem;

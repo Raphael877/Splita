@@ -75,7 +75,7 @@ const VerifyEmailJoin = () => {
       setOtp(["", "", "", "", "", ""]);
       navigate(`/join_group/${joinInfo.groupid}/${joinInfo.invite}`);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error(error?.response?.data?.message || "Verification failed");
     } finally {
       setLoading(false);
@@ -100,7 +100,7 @@ const VerifyEmailJoin = () => {
       toast.success(res?.data?.message || "OTP resent successfully!");
       setTimer(15);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error(error?.response?.data?.message || "Failed to resend OTP");
     } finally {
       setResending(false);

@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       navigate("/forgotcheckemail");
       toast.success(res?.data?.message);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error(error?.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -54,7 +54,11 @@ const ForgotPassword = () => {
       <div className="circle_mid_left"></div>
       <div className="circle_down_right"></div>
       <div className="brand_name">
-        <img src={Splita_logo} alt="Splita logo"  onClick={() => navigate('/')}/>
+        <img
+          src={Splita_logo}
+          alt="Splita logo"
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <ForgotPassword_wrapper>
@@ -117,7 +121,6 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
 
 const ForgotPassword_content = styled.div`
   width: 100%;
@@ -218,8 +221,8 @@ const ForgotPassword_wrapper = styled.div`
   z-index: 1;
 
   @media (max-width: 768px) {
-      width: 95%;
-    }
+    width: 95%;
+  }
 
   form {
     width: 100%;

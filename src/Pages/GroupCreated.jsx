@@ -4,7 +4,7 @@ import AdminDashboardHeader from "../Components/AdminDashboardHeader";
 import UserDashboardFooter from "../Components/UserDashboardFooter";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { GiPartyPopper } from "react-icons/gi";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -13,6 +13,11 @@ const GroupCreated = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+
+  // ✅ New states for invite link input
+  const [inviteInputShown, setInviteInputShown] = useState(false);
+  const [inviteValue, setInviteValue] = useState("");
+
   const groupName =
     (location?.state && location.state.groupName) ||
     (typeof window !== "undefined"
@@ -25,9 +30,11 @@ const GroupCreated = () => {
   );
 
   const id = localStorage.getItem("createdGroupId");
+
+  // ✅ Updated handleCreateAndCopy function
   const handleCreateAndCopy = async () => {
+    setLoading(true);
     try {
-      // 1️⃣ Generate the invite link
       const res = await axios.get(`${BaseUrl}/groups/generate_invite/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -37,33 +44,29 @@ const GroupCreated = () => {
 
       const inviteLink = res.data.inviteLink;
 
-      const textarea = document.createElement("textarea");
-      textarea.value = inviteLink;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
+      // Show input field and set value
+      setInviteValue(inviteLink);
+      setInviteInputShown(true);
 
-      document.body.appendChild(textarea);
-      textarea.select();
-      textarea.setSelectionRange(0, inviteLink.length);
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-
-      if (navigator.clipboard && window.isSecureContext) {
-        try {
+      // Try auto-copy silently
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(inviteLink);
-        } catch {}
-      }
+        }
+      } catch {}
 
+      // Store in localStorage
       localStorage.setItem(
         "latestInvite",
         JSON.stringify({ groupId: id, inviteLink })
       );
 
-      toast.success("Invite Link copied to clipboard!");
+      toast.success("Invite link ready!");
     } catch (error) {
       console.error("Error generating/copying invite link:", error);
-      // toast.error("Failed to generate invite link");
+      // no toast error, optional
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,7 +76,7 @@ const GroupCreated = () => {
       <Main>
         <Inner_main>
           <h1>{groupName}</h1>
-          <p style={{ color: "#666666" }}>Created on Aug 21, 2025</p>
+          <p style={{ color: "#666666" }}>Created on Nov 20, 2025</p>
           <div
             className="back"
             onClick={() => navigate("/userdashboard")}
@@ -100,6 +103,23 @@ const GroupCreated = () => {
                   <button className="btn1" onClick={handleCreateAndCopy}>
                     {loading ? "loading..." : " Copy Invite Link"}
                   </button>
+
+                  {/* ✅ Input field appears after clicking button */}
+                  {inviteInputShown && (
+                    <input
+                      value={inviteValue}
+                      readOnly
+                      style={{
+                        marginTop: "10px",
+                        padding: "10px",
+                        borderRadius: "6px",
+                        border: "1px solid #ccc",
+                        width: "100%",
+                      }}
+                      onFocus={(e) => e.target.select()}
+                    />
+                  )}
+
                   <button
                     className="btn2"
                     onClick={() => navigate("/start_group")}

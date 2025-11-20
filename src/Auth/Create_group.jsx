@@ -98,13 +98,13 @@ const Create_group = () => {
       });
       const groupId = res?.data?.group?.id;
       localStorage.setItem("createdGroupId", groupId);
-      console.log(groupId);
-      console.log(res);
+      // console.log(groupId);
+      // console.log(res);
       toast.success(res?.data?.message);
       handleSubmit();
     } catch (error) {
       toast.error(error?.res?.data?.message);
-      console.log(error);
+      // console.log(error);
       if (error?.response?.status === 403) {
         toast.error("session expired ");
         setTimeout(() => {
